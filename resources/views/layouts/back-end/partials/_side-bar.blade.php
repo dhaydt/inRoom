@@ -69,7 +69,7 @@
                             href="{{route('admin.dashboard.index')}}">
                                 <i class="tio-home-vs-1-outlined nav-icon"></i>
                                 <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
-                                    {{\App\CPU\translate('Dashboard')}}
+                                    {{\App\CPU\translate('Dashboards')}}
                                 </span>
                             </a>
                         </li>
