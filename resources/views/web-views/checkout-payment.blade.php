@@ -156,6 +156,19 @@
                                     <div class="modal-body mb-4">
                                         <div class="row">
                                             <div class="section-payment w-100">
+                                                <a href="javascript:" onclick="payment('direct')" class="row mb-3">
+                                                    <div class="col-9">
+                                                        <span class="bank">
+                                                            Bayar langsung
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="col-3 bank-logo d-flex justify-content-end align-items-center">
+                                                        {{-- <img src="{{ asset('assets/front-end/img/bni.png') }}"
+                                                            style="height: 16px;" alt="BNI"> --}}
+                                                        <i class="fa fa-chevron-right"></i>
+                                                    </div>
+                                                </a>
                                                 <div class="title-payment mb-3">
                                                     <span>
                                                         Transfer

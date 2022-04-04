@@ -65,6 +65,7 @@ class XenditPaymentController extends Controller
     public function invoice(Request $request)
     {
         // dd($request);
+
         $customer = auth('customer')->user();
         $order_id = $request['order_id'];
         $order = Order::find($order_id);
@@ -74,6 +75,28 @@ class XenditPaymentController extends Controller
         $tran = OrderManager::gen_unique_id();
         $duration = '60';
         // dd($duration);
+
+        if ($request->type == 'direct') {
+            $order->order_status = 'directPay';
+            $order->payment_status = 'unpaid';
+            $order->transaction_ref = session('transaction_ref');
+            $order->save();
+            $room = Detail_room::find($order->roomDetail_id);
+
+            if (isset($room)) {
+                $month = strtotime($order->mulai);
+                $room->user_id = $order->customer_id;
+                $room->mulai = $order->mulai;
+                $room->habis = date('Y-m-d', strtotime('+'.$order->durasi.'month', $month));
+                $room->save();
+            }
+            CartManager::cart_clean();
+            if (auth('customer')->check()) {
+                Toastr::success('Silahkan lakukan pembayaran langsung.');
+
+                return view('web-views.payment-direct');
+            }
+        }
 
         session()->put('transaction_ref', $tran);
         Xendit::setApiKey(config('xendit.apikey'));

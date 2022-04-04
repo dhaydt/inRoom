@@ -141,6 +141,9 @@
                             @if ($order->order_status == 'canceled')
                             <span class="status text-danger">Booking dibatalkan</span>
                             @endif
+                            @if ($order->order_status == 'directPay')
+                            <span class="status text-info">Bayar langsung</span>
+                            @endif
                             @if ($order->order_status == 'failed')
                             <span class="status text-danger">Kadaluarsa</span>
                             @endif

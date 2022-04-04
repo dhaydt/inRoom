@@ -100,6 +100,10 @@
                             <span class="badge badge-soft-success ml-2 ml-sm-3 text-capitalize">
                               <span class="legend-indicator bg-success"></span>Terbayar
                             </span>
+                        @elseif($order['order_status']=='directPay')
+                            <span class="badge badge-soft-info ml-2 ml-sm-3 text-capitalize">
+                              <span class="legend-indicator bg-info"></span>Bayar langsung
+                            </span>
                         @else
                             <span class="badge badge-soft-danger ml-2 ml-sm-3 text-capitalize">
                               <span class="legend-indicator bg-danger"></span>{{str_replace('_',' ',$order['order_status'])}}
@@ -124,7 +128,7 @@
                                 <i class="tio-print mr-1"></i> {{\App\CPU\translate('Print')}} {{\App\CPU\translate('invoice')}}
                             </a>
                         </div>
-                        @if ($order->order_status == 'pending')
+                        @if ($order->order_status == 'directPay')
                         <div class="col-md-6 mt-2 text-right">
                             <a class="text-body mr-3 btn btn-outline-secondary"
                             href='javascript:' data-toggle="modal" data-target="#upload">
@@ -150,7 +154,7 @@
                                             <div class="col-md-6">
                                                 <input type="hidden" name="id" value="{{ $order->id }}">
                                                 <input type="hidden" name="order_status" value="delivered">
-                                                <select id="roomsd" class="custom-select custom-select-lg mb-3" name="no_kamar">
+                                                {{-- <select id="roomsd" class="custom-select custom-select-lg mb-3" name="no_kamar">
                                                     <option value="">Pilih nomor kamar</option>
                                                     <option value="id{{ $rooms[0]->room_id }}">Pilih ditempat</option>
                                                     @foreach ($rooms as $r)
@@ -158,7 +162,7 @@
                                                     <option value="{{ $r->id }}">{{ $r->name }}</option>
                                                     @endif
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
                                                 <label for="name">{{ \App\CPU\translate('Pilih bukti transfer')}}</label>
                                                 <br>
                                                 <div class="custom-file" style="text-align: left">
@@ -402,8 +406,12 @@
                         </span>
                         @elseif($order['order_status']=='failed')
                             <span class="badge badge-danger ml-sm-3 text-capitalize" style="font-size: 14px;">
-                            <span class="legend-indicator bg-info"></span>
+                            <span class="legend-indicator bg-danger"></span>
                             {{ \App\CPU\translate('gagal') }}
+                            </span>
+                        @elseif($order['order_status']=='directPay')
+                            <span class="badge badge-info ml-sm-3 text-capitalize" style="font-size: 14px;">
+                            {{ \App\CPU\translate('Bayar_langsung') }}
                             </span>
                         @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
                             <span class="badge badge-soft-success text-capitalize" style="font-size: 14px;">
@@ -522,7 +530,6 @@
                                 <input type="hidden" name="order_status" value="processing">
                                 <select id="rooms" class="custom-select custom-select-lg mb-3" name="no_kamar">
                                     <option selected>Pilih nomor kamar</option>
-                                    <option value="id{{ $rooms[0]->room_id }}">Pilih ditempat</option>
                                     @foreach ($rooms as $r)
                                     @if ($r->available == 1)
                                     <option value="{{ $r->id }}">{{ $r->name }}</option>

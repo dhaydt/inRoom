@@ -178,7 +178,11 @@
                             {{-- <td class="text-center" scope="row">{{$rooms->firstitem()+ $k}}</td> --}}
                             <td class="text-center" scope="row">{{$no++}}</td>
                             <td class="text-center">{{ $p->name }}</td>
-                            <td class="text-center">{{ $p->customer->f_name }} {{ $p->customer->l_name }}</td>
+                            <td class="text-center">@if ($p->customer)
+                                {{ $p->customer->f_name }} {{ $p->customer->l_name }}
+                                @else
+                                <span class="badge badge-info badge-sm">Kosong</span>
+                            @endif</td>
                             <td class="text-center">
                                 <label class="switch">
                                     <input type="checkbox" class="status" id="{{$p['id']}}" {{$p->available ==
