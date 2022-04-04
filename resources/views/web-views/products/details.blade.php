@@ -5,7 +5,7 @@
 @push('css_or_js')
     <meta name="description" content="{{$product->slug}}">
     <meta name="keywords" content="@foreach(explode(' ',$product['name']) as $keyword) {{$keyword.' , '}} @endforeach">
-    <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
+    {{-- <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script> --}}
     @if($product->added_by=='seller')
         <meta name="author" content="{{ $product->seller->shop?$product->seller->shop->name:$product->seller->f_name}}">
     @elseif($product->added_by=='admin')

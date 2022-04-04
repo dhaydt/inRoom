@@ -767,8 +767,10 @@
 </a>
 
 <!-- Vendor scrits: js libraries and plugins-->
-{{--<script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery.slim.min.js"></script>--}}
-{{-- <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script> --}}
+@if (Request::segment(1) !== 'products')
+{{-- <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery.slim.min.js"></script> --}}
+<script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
+@endif
 <script src="{{asset('public/assets/front-end')}}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script
 src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
