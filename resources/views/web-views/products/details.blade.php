@@ -779,6 +779,7 @@
                                 <i class="fa fa-star bg-c-icon" style="font-size: 20px"></i>
                                 <span class="kost-review__overview-rating">5.0 (1 review)</span>
                             </div>
+                            {{ dd($product->reviews) }}
                             <div class="kost-review-fac-rating">
                                 <div class="col-12 text-center pt-sm-3 pt-md-0">
                                     <div class="d-flex align-items-center mb-2">
@@ -876,12 +877,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="kost-review__users-feedback"><div class="users-feedback-container users-feedback-container--card"><div class="users-feedback"><div class="users-feedback__section"><div class="user-feedback__header"><img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('assets/front-end/img/user.png') }}" lazy="error"> <div class="user-feedback__profile">
-                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 ">Agita Essa Putri</p>
-                    <p class="bg-c-text bg-c-text--label-2 ">1 bulan yang lalu</p>
-                </div>
-                <div class="p-2 user-feedback__rating bg-c-label bg-c-label--rainbow bg-c-label--rainbow-white"
-                ><i class="user-feedback__rating-star bg-c-icon bg-c-icon--sm fa fa-star">
+                            <div class="kost-review__users-feedback">
+                                <div class="users-feedback-container users-feedback-container--card">
+                                    <div class="users-feedback">
+                                        <div class="users-feedback__section">
+                                            <div class="user-feedback__header">
+                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('assets/front-end/img/user.png') }}" lazy="error">
+                                                <div class="user-feedback__profile">
+                                                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 ">Agita Essa Putri</p>
+                                                    <p class="bg-c-text bg-c-text--label-2 ">1 bulan yang lalu</p>
+                                                </div>
+                                                <div class="p-2 user-feedback__rating bg-c-label bg-c-label--rainbow bg-c-label--rainbow-white">
+                                                    <i class="user-feedback__rating-star bg-c-icon bg-c-icon--sm fa fa-star">
                     <title>star-glyph</title> <use href="#basic-star-glyph"></use></i> <p class="bg-c-text bg-c-text--body-1 ">5.0</p></div></div> <div class="user-feedback__body"><div data-v-2fd2a78f=""><p class="user-feedback__content-text bg-c-text bg-c-text--body-4 ">Cukup nyaman dan sesuai harga, pelayanan sangat bagus..</p></div> <div data-v-8bbcb614="" class="owner-feedback"><span data-v-8bbcb614="" class="owner-feedback__title">Balasan dari Pemilik kos</span> <span data-v-8bbcb614="" class="owner-feedback__date">1 bulan yang lalu</span> <p data-v-8bbcb614="" class="owner-feedback__description">
             Hi kak, terimakasih banyak atas ulasan dan bintangnya, senang mendengar kakak nyaman singgah di sini :)
 

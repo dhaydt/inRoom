@@ -16,6 +16,7 @@
 <meta property="twitter:description" content="{!! substr($web_config['about']->value,0,100) !!}">
 
 <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css" />
+<script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
 <style>
     #navbarCollapse > ul.navbar-nav.mega-nav.pr-2.pl-2.mr-2.d-none.d-xl-block > li > a {
         pointer-events: none;
