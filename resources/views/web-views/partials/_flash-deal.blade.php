@@ -32,7 +32,8 @@
     .flash_deal_product {
         cursor: pointer;
         border-radius: 10px;
-        min-height: 347px;
+        min-height: 370px;
+        /* max-height: 353px; */
         overflow:hidden;
         text-align: center;
     }
