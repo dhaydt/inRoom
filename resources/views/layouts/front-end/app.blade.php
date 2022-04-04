@@ -1107,6 +1107,9 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
                 type: "POST",
                 url: '{{ route('cart.variant_price') }}',
                 data: $('#add-to-cart-form').serializeArray(),
+                beforeSend: function () {
+                    $('#loading').show();
+                },
                 success: function (data) {
                     console.log(data)
                     $('#add-to-cart-form #chosen_price_div').removeClass('d-none');
@@ -1119,7 +1122,10 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
                     $('#cart-total .cart_value').html(data.price);
                     $('#available-quantity').html(data.quantity);
                     $('.cart-qty-field').attr('max', data.quantity);
-                }
+                },
+                complete: function () {
+                    $('#loading').hide();
+                },
             });
         }
     }

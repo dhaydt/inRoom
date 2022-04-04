@@ -1434,11 +1434,6 @@
 
         cartQuantityInitialize();
 
-        // getVariantPrice();
-        // $('#add-to-cart-form input.val').on('change', function () {
-        //     getVariantPrice();
-        // });
-
         function showInstaImage(link) {
             $("#attachment-view").attr("src", link);
             $('#show-modal-view').modal('toggle')

@@ -35,7 +35,7 @@
             {{-- <span>{{\App\CPU\translate('empty_cart')}}</span> --}}
         @endif
         <div class="d-flex justify-content-between" id="cart-price">
-            <span class="cart_title">{{\App\CPU\translate('Harga_sewa_perbulan')}}</span>
+            <span class="cart_title">{{\App\CPU\translate('Harga_sewa')}}</span>
             <span class="cart_value">
                 {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
             </span>

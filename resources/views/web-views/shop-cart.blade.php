@@ -13,6 +13,7 @@
     <meta property="twitter:url" content="{{env('APP_URL')}}">
     <meta property="twitter:description" content="{!! substr($web_config['about']->value,0,100) !!}">
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/shop-cart.css"/>
+    <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
 @endpush
 
 @section('content')

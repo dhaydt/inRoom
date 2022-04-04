@@ -41,20 +41,33 @@
         </div>
         <div class="d-flex justify-content-between mt-4">
             <span class="cart_title">{{\App\CPU\translate('biaya_sewa_kos')}}</span>
+            <span id="priceKos" class="d-none"> {{\App\CPU\Helpers::currency_converter($sub_total)}}</span>
             <span class="cart_value">
-                {{\App\CPU\Helpers::currency_converter($sub_total)}}
+                <span class="cart_value">
+                    Rp.
+                </span>
+                <span class="cart_value" id="kosPrice"></span>
             </span>
         </div>
         <div class="d-flex justify-content-between mt-4">
             <span class="cart_title">{{\App\CPU\translate('biaya_layanan_Inroom')}} (tax)</span>
+            <span id="priceTax" class="d-none"> {{\App\CPU\Helpers::currency_converter($total_tax)}}</span>
             <span class="cart_value">
-                {{\App\CPU\Helpers::currency_converter($total_tax)}}
+                <span class="cart_value">
+                    Rp.
+                </span>
+                <span class="cart_value" id="taxPrice"></span>
             </span>
         </div>
         <div class="d-flex justify-content-between mt-4">
             <span class="cart_title">{{\App\CPU\translate('potongan_harga')}}</span>
+            <span id="priceDis" class="d-none"> {{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}</span>
             <span class="cart_value">
-                - {{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}
+                <span class="cart_value">
+                - Rp.
+                </span>
+                <span class="cart_value" id="disPrice">
+                </span>
             </span>
         </div>
         @if(session()->has('coupon_discount'))

@@ -432,8 +432,17 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
 
     $(document).ready(function(){
         var pure = $('#priceTotal').text();
+        var kos = $('#priceKos').text();
+        var dis = $('#priceDis').text();
+        var tax = $('#priceTax').text();
         var rmrp = pure.replace(/[Rp.]/g, '');
+        var koss = kos.replace(/[Rp.]/g, '');
+        var diss = dis.replace(/[Rp.]/g, '');
+        var taxx = tax.replace(/[Rp.]/g, '');
         $('#totalPrice').text(rmrp)
+        $('#kosPrice').text(koss)
+        $('#disPrice').text(diss)
+        $('#taxPrice').text(taxx)
         console.log(rmrp)
         jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up" id="up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
         jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up" id="up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.penghuni input');
@@ -459,9 +468,18 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             $('#anchor').val(anc);
             var price = $("#priceTotal").text()
             var rp = price.replace(/[^\d\.]/g, '')
+            var kosRp = kos.replace(/[^\d\.]/g, '')
+            var disRp = dis.replace(/[^\d\.]/g, '')
+            var taxRp = tax.replace(/[^\d\.]/g, '')
+            var taxNew = parseFloat(taxRp.replace(/[\.]/g, '')) * anc
+            var disNew = parseFloat(disRp.replace(/[\.]/g, '')) * anc
+            var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
             var val = parseFloat(rp.replace(/[\.]/g, '')) * anc
             var newPrice = number(val)
             $('#totalPrice').text(newPrice)
+            $('#kosPrice').text(kosNew)
+            $('#disPrice').text(disNew)
+            $('#taxPrice').text(taxNew)
 
             spinner.find("input").trigger("change");
         });
@@ -478,10 +496,19 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var anc = parseFloat(anc) - 1;
             $('#anchor').val(anc);
             var price = $("#priceTotal").text()
+            var disRp = dis.replace(/[^\d\.]/g, '')
+            var disNew = parseFloat(disRp.replace(/[\.]/g, '')) * anc
             var rp = price.replace(/[^\d\.]/g, '')
             const val = parseFloat(rp.replace(/[\.]/g, '')) * anc
+            var kosRp = kos.replace(/[^\d\.]/g, '')
+            var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
+            var taxRp = tax.replace(/[^\d\.]/g, '')
+            var taxNew = parseFloat(taxRp.replace(/[\.]/g, '')) * anc
             var newPrice = number(val)
             $('#totalPrice').text(newPrice)
+            $('#kosPrice').text(kosNew)
+            $('#disPrice').text(disNew)
+            $('#taxPrice').text(taxNew)
             spinner.find("input").trigger("change");
         });
         });
