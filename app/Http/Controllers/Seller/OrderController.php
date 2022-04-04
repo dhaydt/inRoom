@@ -42,11 +42,11 @@ class OrderController extends Controller
 
     public function manual_upload(Request $request)
     {
-        if ($request->no_kamar == null) {
-            Toastr::warning('Mohon pilih no kamar yang akan ditempati!');
+        // if ($request->no_kamar == null) {
+        //     Toastr::warning('Mohon pilih no kamar yang akan ditempati!');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
         // dd($request);
         if ($request->file('image') != null) {
             $order = Order::find($request->id);
@@ -80,9 +80,9 @@ class OrderController extends Controller
             $order->order_status = $status;
             $order->payment_status = 'paid';
             $order->roomDetail_id = $rom;
-            $uid = $order->customer_id;
+            // $uid = $order->customer_id;
             // dd($rom);
-            OrderManager::updateRoom($kamar, 0, $uid);
+            // OrderManager::updateRoom($kamar, 0, $uid);
             $order->save();
 
             Toastr::success('Bukti transfer berhasil di upload');
