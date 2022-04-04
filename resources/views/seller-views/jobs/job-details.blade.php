@@ -249,50 +249,50 @@
                             <i class="fa fa-graduation-cap" style="font-size: 30px; color: #000;" class="mb-3"></i>
                             <h5 style="capitalize">Kompetensi kandidat:</h5>
                             <div class="row ml-1 my-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Pendidikan terakhir :</span>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-12 col-md-6 text-right">
                                     <span class="text-uppercase" style="font-weight: 700;">
                                         {{ $order->pendidikan }}
                                     </span>
                                 </div>
                             </div>
                             <div class="row ml-1 mb-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Keahlian :</span>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-12 col-md-6 text-right">
                                     <span class="capitalize" style="font-weight: 700;">
                                         {{ $order->keahlian }}
                                     </span>
                                 </div>
                             </div>
                             <div class="row ml-1 mb-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Pengalaman kerja :</span>
                                 </div>
-                                <div class="col-6 text-right">
-                                    <span class="capitalize" style="font-weight: 5Psi00;">
+                                <div class="col-12 col-md-6 text-right">
+                                    <span class="" style="">
                                         {{ $order->experience }}
                                     </span>
                                 </div>
                             </div>
                             <div class="row ml-1 mb-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Penghasilan terakhir :</span>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-12 col-md-6 text-right">
                                     <span class="capitalize" style="font-weight: 700;">
                                         {{\App\CPU\Helpers::currency_converter($order->penghasilan)}}
                                     </span>
                                 </div>
                             </div>
                             <div class="row ml-1 mb-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Gaji yang diharapkan :</span>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-12 col-md-6 text-right">
                                     <span class="capitalize" style="font-size: 18px;font-weight: 700;">
                                         {{\App\CPU\Helpers::currency_converter($order->gaji)}}
                                     </span>
@@ -300,10 +300,10 @@
                             </div>
                             @if ($order->cv)
                             <div class="row ml-1 mb-2">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <span>Curriculum vitae :</span>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-12 col-md-6 text-right">
                                     <a class="capitalize" href="{{ asset('storage/cv'.'/'.$order->cv) }}" target="_blank" style="font-weight: 500;">
                                         <i class="fa fa-eye"></i> Lihat
                                     </a>
@@ -321,7 +321,7 @@
                                     <span>Nama :</span>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <span class="text-uppercase" style="font-weight: 700;">
+                                    <span class="capitalize" style="font-weight: 700;">
                                         {{ $order->name }}
                                     </span>
                                 </div>
@@ -341,7 +341,7 @@
                                     <span>Email :</span>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <span class="capitalize" style="font-weight: 700;">
+                                    <span class="" style="font-weight: 400;">
                                         {{ $order->email }}
                                     </span>
                                 </div>

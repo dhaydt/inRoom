@@ -231,7 +231,7 @@
                             </a>
                         </li>
 
-                        <li class="navbar-vertical-aside-has-menu {{Request::is('seller/jobs*')?'active':''}}">
+                        <li class="navbar-vertical-aside-has-menu {{Request::is('seller/jobs/list*')?'active':''}}">
                             <a class="js-navbar-vertical-aside-menu-link nav-link"
                                href="{{route('seller.jobs.list')}}">
                                <i class="fa fa-bullhorn nav-icon"></i>

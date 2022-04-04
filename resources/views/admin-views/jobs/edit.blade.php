@@ -198,12 +198,12 @@
                                             for="name">{{\App\CPU\translate('Gaji')}}</label>
                                         <input type="number" name="gaji" class="form-control" value="{{ $product->gaji }}" required>
                                     </div>
-                                    <div class="form-check">
+                                    {{-- <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" name="hide" type="checkbox">
                                             Jangan tampilkan gaji pada kandidat
                                         </label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
