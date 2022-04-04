@@ -380,13 +380,13 @@
                     <div class="row">
                         @if ($order->seller_is != 'admin')
                             @if($order->order_status == 'pending' || $order->order_status == 'delivered')
-                            <div class="col-12 d-flex justify-content-end" id="contact-seller">
+                            <div class="col-md-12 d-flex justify-content-end" id="contact-seller">
                                 {{-- <button class="btn btn-outline-success">
                                     Chat pemilik
                                 </button> --}}
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#staticBackdrop">
+                                <button type="button" class="btn btn-outline-success mr-2" data-toggle="modal" data-target="#staticBackdrop">
                                     Chat pemilik
-                                  </button>
+                                </button>
                             </div>
                             @php($seller = $order->details[0]->product->kost->seller_id)
                             @php($kost = $order->details[0]->product->kost->id)
@@ -432,6 +432,61 @@
                         @else
                             @if($order->order_status == 'pending' || $order->order_status == 'delivered')
                             <div class="col-12 d-flex justify-content-end">
+                                @if ($order->order_status != 'pending')
+                                <a href="javascript:" class="btn btn-outline-info mr-2" data-toggle="modal"
+                                        data-target="#review-{{$order->details[0]->product_id}}">{{\App\CPU\translate('review')}}
+                                </a>
+                                @php($detail = $order->details[0])
+                                @php($product=json_decode($detail->product_details,true))
+                                <div class="modal fade rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                                    id="review-{{$order->details[0]->product_id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                    {{$product['name']}}
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{route('review.store')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">{{\App\CPU\translate('rating')}}</label>
+                                                        <select class="form-control" name="rating">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">{{\App\CPU\translate('comment')}}</label>
+                                                        <input name="product_id" value="{{$detail->product_id}}" hidden>
+                                                        <textarea class="form-control" name="comment"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">{{\App\CPU\translate('attachment')}}</label>
+                                                        <div class="row coba"></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{\App\CPU\translate('close')}}</button>
+                                                    <button type="submit" class="btn btn-primary">{{\App\CPU\translate('submit')}}</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                                 <a href="{{ route('contacts') }}" target="_blank" class="btn btn-outline-success text-success">
                                     Chat Admin InRoom
                                 </a>
