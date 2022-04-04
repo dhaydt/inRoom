@@ -779,7 +779,7 @@
                                 <i class="fa fa-star bg-c-icon" style="font-size: 20px"></i>
                                 <span class="kost-review__overview-rating">5.0 (1 review)</span>
                             </div>
-                            {{ dd($product->reviews) }}
+                            {{-- {{ dd($product->reviews) }} --}}
                             <div class="kost-review-fac-rating">
                                 <div class="col-12 text-center pt-sm-3 pt-md-0">
                                     <div class="d-flex align-items-center mb-2">
