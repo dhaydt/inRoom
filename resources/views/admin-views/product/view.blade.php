@@ -164,6 +164,7 @@
                         <tr>
                             <th class="text-center">{{\App\CPU\translate('No')}}</th>
                             <th class="text-center">{{\App\CPU\translate('Name_Room')}}</th>
+                            <th style="width: 5px" class="text-center">{{\App\CPU\translate('Occupant')}}</th>
                             <th class="text-center">{{\App\CPU\translate('Available')}}
                                 {{\App\CPU\translate('status')}}</th>
                             <th style="width: 5px" class="text-center">{{\App\CPU\translate('Action')}}</th>
@@ -177,6 +178,7 @@
                             {{-- <td class="text-center" scope="row">{{$rooms->firstitem()+ $k}}</td> --}}
                             <td class="text-center" scope="row">{{$no++}}</td>
                             <td class="text-center">{{ $p->name }}</td>
+                            <td class="text-center">{{ $p->customer->f_name }} {{ $p->customer->l_name }}</td>
                             <td class="text-center">
                                 <label class="switch">
                                     <input type="checkbox" class="status" id="{{$p['id']}}" {{$p->available ==
@@ -353,7 +355,7 @@
                                 <div class="card-body">
                                     <img style="width: 100%"
                                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                        src="{{asset(" storage/product/$photo")}}" alt="Product image">
+                                        src="{{asset("storage/product/$photo")}}" alt="Product image">
 
                                 </div>
                             </div>
