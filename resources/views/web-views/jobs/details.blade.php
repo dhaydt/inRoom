@@ -71,8 +71,34 @@
     .booking-card__info-price{
         background-color: #e6e6e6;
     }
+    @media(max-width: 500px){
+        .company_name {
+            font-size: 20px;
+        }
+        .address-cv {
+            font-size: 12px;
+        }
+        .job-title h1 {
+            font-size: 22px;
+        }
+        label.status-employe {
+            font-size: 12px;
+        }
+        .study {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .booking-card__info-price-amount {
+            font-size: 20px;
+        }
+        textarea.form-control, input.form-control{
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
 </style>
 @section('content')
+    <div class="mobile-margin d-block d-md-none"></div>
         <div class="row header-container w-100">
             <div class="header-shadow">
                 <div class="container">

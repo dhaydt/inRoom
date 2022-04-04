@@ -79,6 +79,15 @@
     font-weight: 500;
     color: #23c005;
 }
+@media (max-width: 500px){
+    .img-box-search {
+        height: 48px !important;
+        width: 70px !important;
+    }
+    .card-body.inline_product_search {
+        width: 100%;
+    }
+}
 @media(max-width: 600px){
     .ell p {
         -webkit-line-clamp: 2;
