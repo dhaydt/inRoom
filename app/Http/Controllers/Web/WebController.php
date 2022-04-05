@@ -562,13 +562,14 @@ class WebController extends Controller
                 }
             }
             session()->put('search_name', $request['data_from'].' '.$cit);
+            session()->put('collage', 0);
             $query = $porduct_data->whereIn('id', $product_ids);
         }
 
-        if ($request['data-from'] == 'collage') {
-            $city = $request['collage_id'];
+        if ($request['data_from'] == 'collage') {
+            $city = $request['id'];
             $collage = Kampus::where('id', $city)->first()->name;
-
+            // dd($collage);
             $details = Product::with('kost')->whereHas('kost', function ($q) use ($city) {
                 $q->where('ptn_id', '=', $city);
             })->get();
@@ -577,16 +578,11 @@ class WebController extends Controller
             foreach ($details as $detail) {
                 array_push($product_ids, $detail['id']);
             }
-            // $kota = ['KOTA ', 'KABUPATEN'];
-            // $rpl = ['', 'Kab.'];
-
-            // $cit = str_replace($kota, $rpl, $city_name);
             session()->put('search_name', $collage);
-            // dd($details);
             $query = $porduct_data->whereIn('id', $product_ids);
         }
 
-        if ($request['data-from'] == 'city-filter') {
+        if ($request['data_from'] == 'city-filter') {
             $city = City::where('id', $request['city_id'])->first();
             $city_name = $city->name;
             $details = Product::with('kost')->whereHas('kost', function ($q) use ($city_name) {
@@ -601,7 +597,7 @@ class WebController extends Controller
 
             $cit = str_replace($kota, $rpl, $city_name);
             session()->put('search_name', $cit);
-            // dd($details);
+            session()->put('collage', 0);
             $query = $porduct_data->whereIn('id', $product_ids);
         }
 
@@ -621,14 +617,17 @@ class WebController extends Controller
                 session()->put('cat_name', $nama_category->name);
             }
             $query = $porduct_data->whereIn('id', $product_ids);
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'brand') {
             $query = $porduct_data->where('brand_id', $request['id']);
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'latest') {
             $query = $porduct_data->orderBy('id', 'DESC');
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'top-rated') {
@@ -640,6 +639,7 @@ class WebController extends Controller
                 array_push($product_ids, $review['product_id']);
             }
             $query = $porduct_data->whereIn('id', $product_ids);
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'best-selling') {
@@ -653,6 +653,7 @@ class WebController extends Controller
                 array_push($product_ids, $detail['product_id']);
             }
             $query = $porduct_data->whereIn('id', $product_ids);
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'most-favorite') {
@@ -666,6 +667,7 @@ class WebController extends Controller
                 array_push($product_ids, $detail['product_id']);
             }
             $query = $porduct_data->whereIn('id', $product_ids);
+            session()->put('collage', 0);
         }
 
         if ($request['data_from'] == 'featured') {
@@ -675,8 +677,7 @@ class WebController extends Controller
         if ($request['data_from'] == 'search') {
             $key = $request['name'];
             $query = $porduct_data->whereHas('kost', function ($q) use ($key) {
-                $q->where('name', 'like', "%{$key}%")
-                ->orWhere('city', 'like', "%{$key}%");
+                $q->where('name', 'like', "%{$key}%");
             });
             $products = $query->get();
             $data = [
@@ -688,7 +689,7 @@ class WebController extends Controller
                 'min_price' => $request['min_price'],
                 'max_price' => $request['max_price'],
             ];
-
+            session()->put('collage', 0);
             if ($request->ajax()) {
                 return response()->json([
                     'view' => view('web-views.products._ajax-products', compact('products'))->render(),
@@ -734,9 +735,11 @@ class WebController extends Controller
         if ($request['data_from'] == 'category') {
             $name = Category::find((int) $request['id'])->name;
             session()->put('search_name', $name);
+            session()->put('collage', 0);
         }
         if ($request['data_from'] == 'brand') {
             $data['brand_name'] = Brand::find((int) $request['id'])->name;
+            session()->put('collage', 0);
         }
 
         $cities = Product::with('kost')->get()->pluck('kost.city', 'kost.city');
@@ -783,7 +786,7 @@ class WebController extends Controller
             $query = $porduct_data->whereIn('id', $product_ids);
         }
 
-        if ($request['data-from'] == 'collage') {
+        if ($request['data_from'] == 'collage') {
             $city = $request['collage_id'];
             $collage = Kampus::where('id', $city)->first()->name;
 
@@ -804,7 +807,7 @@ class WebController extends Controller
             $query = $porduct_data->whereIn('id', $product_ids);
         }
 
-        if ($request['data-from'] == 'city-filter') {
+        if ($request['data_from'] == 'city-filter') {
             $city = City::where('id', $request['city_id'])->first();
             $city_name = $city->name;
             $details = Product::with('kost')->whereHas('kost', function ($q) use ($city_name) {

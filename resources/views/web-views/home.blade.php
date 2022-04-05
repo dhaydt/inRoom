@@ -481,7 +481,7 @@
             @foreach($city as $c)
             <div class="badge label-city capitalize">
                 <form id="form-{{ $c['id'] }}" action="{{route('products')}}" type="submit" class="d-flex w-100">
-                    <input type="hidden" name="data-from" value="city-filter" >
+                    <input type="hidden" name="data_from" value="city-filter" >
                     <input type="hidden" name="page" value="1" >
                     <input type="hidden" name="city_id" value="{{ $c['id'] }}">
                     <input type="submit" class="submit-city" value="{{ $c['name'] }}" />
@@ -773,7 +773,7 @@
                 @foreach($ptn as $p)
                 <div class="col-md-3 col-6 mb-2">
                     <div class="card px-2 p-2 py-md-4 kampus-card">
-                        <a href="{{ route('products', ['data-from' => 'collage', 'collage_id' => $p->id ]) }}" class="row no-gutters">
+                        <a href="{{ route('products', ['id' => $p->id, 'data_from' => 'collage','page'=>1]) }}" class="row no-gutters">
                           <div class="col-md-4 pr-2 col-4 d-flex justify-content-center align-items-center">
                               <div class="img-frame">
                                   <img onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
