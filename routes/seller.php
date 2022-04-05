@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Seller', 'prefix' => 'seller', 'as' => 'seller.'],
             Route::post('del-room/{id}', 'ProductController@del_room')->name('del-room');
             Route::get('remove-image', 'ProductController@remove_image')->name('remove-image');
             Route::get('add-new', 'ProductController@add_new')->name('add-new');
+            Route::post('change-room', 'ProductController@change_room')->name('change-room');
             Route::post('add-new', 'ProductController@store');
             Route::post('status-update', 'ProductController@status_update')->name('status-update');
             Route::post('room-update', 'ProductController@room_update')->name('room-update');

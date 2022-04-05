@@ -130,7 +130,7 @@
                                 <i class="tio-print"></i> {{\App\CPU\translate('Print invoice')}}
                             </a>
                         </div>
-                        @if ($order->order_status == 'pending')
+                        @if ($order->order_status == 'pending' || $order->order_status == 'directPay')
                         <div class="col-md-6 mt-2 text-right">
                             <a class="text-body mr-3 btn btn-outline-secondary"
                             href='javascript:' data-toggle="modal" data-target="#upload">
@@ -138,8 +138,8 @@
                             </a>
                         </div>
                         @endif
-                         <!-- Modal -->
-                         <div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal -->
+                        <div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -475,7 +475,7 @@
                 <div class="card-footer d-flex justify-content-center">
                     <div class="row w-100">
                         {{-- {{ dd($order) }} --}}
-                        @php($room = $order->room[0]->id)
+                        {{-- @php($room = $order->room[0]->id) --}}
                         <div class="col-md-12">
                             <a onclick="cancel('canceled')" class="btn btn-danger w-100">
                                 {{ \App\CPU\Translate('Batalkan') }}

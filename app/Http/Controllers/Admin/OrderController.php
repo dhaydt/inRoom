@@ -121,7 +121,7 @@ class OrderController extends Controller
             } catch (\Exception $e) {
             }
 
-            $kamar = $request->no_kamar;
+            $kamar = $order->roomDetail_id;
             if (strpos($kamar, 'id') !== false) {
                 $rom = 'ditempat';
             } else {

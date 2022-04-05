@@ -479,7 +479,7 @@
                             {{ \App\CPU\Translate('Kamar_habis') }}
                             @else
                             {{ \App\CPU\Translate('Terima') }}
-                        @endif
+                            @endif
                             </a>
                             {{-- <a onclick="order_status('processing')" class="btn btn-success w-100">
                                 {{ \App\CPU\Translate('Terima') }}
@@ -530,6 +530,7 @@
                                 <input type="hidden" name="order_status" value="processing">
                                 <select id="rooms" class="custom-select custom-select-lg mb-3" name="no_kamar">
                                     <option selected>Pilih nomor kamar</option>
+                                    <option value="id{{ $rooms[0]->room_id }}">Pilih ditempat</option>
                                     @foreach ($rooms as $r)
                                     @if ($r->available == 1)
                                     <option value="{{ $r->id }}">{{ $r->name }}</option>

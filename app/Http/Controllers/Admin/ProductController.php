@@ -15,6 +15,8 @@ use App\Model\DealOfTheDay;
 use App\Model\Detail_room;
 use App\Model\Fasilitas;
 use App\Model\FlashDealProduct;
+use App\Model\Order;
+use App\Model\OrderDetail;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Translation;
@@ -104,13 +106,43 @@ class ProductController extends BaseController
         return redirect()->route('admin.product.list', ['seller', 'status' => 2]);
     }
 
+    public function change_room(Request $request)
+    {
+        // dd($request);
+        $order = Order::where('id', $request['order_id'])->first();
+        $room = Detail_room::where('id', $request['room_id'])->first();
+        if ($room->available == 0) {
+            $room->user_id = $request['user_id'];
+            $room->save();
+        } else {
+            $room->user_id = $request['user_id'];
+            $room->available = 0;
+            $room->save();
+
+            Helpers::room_check($room->id);
+        }
+
+        $order->roomDetail_id = $request['room_id'];
+        $order->save();
+        Toastr::success('Pengguna kamar berhasil disimpan');
+
+        return redirect()->back();
+    }
+
     public function view($id)
     {
         $product = Product::with(['reviews'])->where(['id' => $id])->first();
         $reviews = Review::where(['product_id' => $id])->paginate(Helpers::pagination_limit());
         $rooms = Detail_room::where('room_id', $product->room_id)->get();
+        $order = OrderDetail::with('order')->where('product_id', $id)->whereHas('order', function ($q) {
+            $q->where('order_status', 'delivered');
+        })->orderBy('created_at', 'DESC')->get();
+        $tempat = OrderDetail::with('order')->where('product_id', $id)->whereHas('order', function ($q) {
+            $q->where('order_status', 'delivered')->where('roomDetail_id', 'ditempat');
+        })->orderBy('created_at', 'DESC')->get();
+        // dd($tempat);
 
-        return view('admin-views.product.view', compact('product', 'reviews', 'rooms'));
+        return view('admin-views.product.view', compact('product', 'reviews', 'rooms', 'order', 'tempat'));
     }
 
     public function store(Request $request)

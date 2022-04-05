@@ -125,8 +125,10 @@
                                 <td class="text-center">{{ $p->name }}</td>
                                 <td class="text-center">@if ($p->customer)
                                     {{ $p->customer->f_name }} {{ $p->customer->l_name }}
+                                    @elseif ($p->user_id == 'booked')
+                                        <span class="badge badge-info">Pilih ditempat</span>
                                     @else
-                                    <span class="badge badge-info badge-sm">Kosong</span>
+                                        <span class="badge badge-warning badge-sm">Kosong</span>
                                 @endif</td>
                                 <td class="text-center">
                                     <label class="switch">
@@ -158,6 +160,147 @@
                 </div>
             </div>
         </div>
+
+        @if ($tempat != '[]')
+    <div class="card mt-3">
+        <div class="card-header">
+            <div class="flex-start">
+                <h5>{{ \App\CPU\translate('Pending')}} {{ \App\CPU\translate('Occupant')}}</h5>
+            </div>
+        </div>
+        <div class="card-body" style="padding: 0">
+            <div class="table-responsive">
+                <table id="datatable" style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};"
+                    class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                    style="width: 100%">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">{{\App\CPU\translate('No')}}</th>
+                            <th class="text-center">{{\App\CPU\translate('Name')}}</th>
+                            <th style="width: 5px" class="text-center">{{\App\CPU\translate('Room_name')}}</th>
+                            {{-- <th class="text-center">{{\App\CPU\translate('Berakhir')}}</th> --}}
+                            {{-- <th style="width: 5px" class="text-center">{{\App\CPU\translate('Action')}}</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php($no = 1)
+
+                        @foreach($tempat as $p)
+                        @php($users = json_decode($p['data_penyewa']))
+                        <tr>
+                            {{-- @php($room = App\CPU\Helpers::getRoom($o['order']['roomDetail_id'])) --}}
+                            {{-- <td class="text-center" scope="row">{{$rooms->firstitem()+ $k}}</td> --}}
+                            <td class="text-center" scope="row">{{$no++}}</td>
+                            <td class="text-center">{{ $users->f_name }} {{ $users->l_name }}</td>
+                            <td class="text-center"><a href="javascript:" class="badge badge-primary" data-toggle="modal" data-target="#selecRoom{{ $p['id'] }}">Pilih kamar</a>
+
+                                <div class="modal fade" id="selecRoom{{ $p['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Pilih kamar untuk {{ $users->f_name }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('admin.product.change-room') }}" method="post">
+                                        <div class="modal-body">
+                                            @csrf
+                                            <input type="hidden" name="order_id" value="{{ $p['order']['id'] }}">
+                                            <input type="hidden" name="user_id" value="{{ $users->id }}">
+                                            <div class="form-group">
+                                                <select name="room_id" class="form-control">
+                                                    <option value="">-- Pilih kamar --</option>
+                                                    @foreach ($rooms as $r)
+                                                        @if($r['available'] == 1 || $r['user_id'] == 'booked')
+                                                        <option value="{{ $r->id }}">{{ $r->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            <td class="text-center">
+                                {{-- <a class="btn btn-danger btn-sm" href="javascript:"
+                                    onclick="form_alert('product-{{$p['id']}}','{{\App\CPU\translate("Ingin menghapus kamar ini?")}} ?')">
+                                    <i class="tio-add-to-trash"></i> {{\App\CPU\translate('Delete')}}
+                                </a>
+                                <form action="{{route('admin.product.del-room',[$p['id']])}}" method="post"
+                                    id="product-{{$p['id']}}">
+                                    @csrf
+                                </form> --}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <div class="flex-start">
+                <h5>{{ \App\CPU\translate('Occupant')}} {{ \App\CPU\translate('Details')}}</h5>
+            </div>
+        </div>
+        <div class="card-body" style="padding: 0">
+            <div class="table-responsive">
+                <table id="datatable" style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};"
+                    class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                    style="width: 100%">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">{{\App\CPU\translate('No')}}</th>
+                            <th class="text-center">{{\App\CPU\translate('Name')}}</th>
+                            <th style="width: 5px" class="text-center">{{\App\CPU\translate('Room_name')}}</th>
+                            {{-- <th class="text-center">{{\App\CPU\translate('Berakhir')}}</th> --}}
+                            {{-- <th style="width: 5px" class="text-center">{{\App\CPU\translate('Action')}}</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php($no = 1)
+
+                        @foreach($order as $o)
+                        @php($user = json_decode($o['data_penyewa']))
+                        @if ($o['order']['roomDetail_id'] !== 'ditempat')
+                        @php($room = App\CPU\Helpers::getRoom($o['order']['roomDetail_id']))
+                        <tr>
+                            <td class="text-center" scope="row">{{$no++}}</td>
+                            <td class="text-center">{{ $user->f_name }} {{ $user->l_name }}</td>
+                            <td class="text-center">{{ $room->name }}
+                            <td class="text-center">
+                                {{-- <a class="btn btn-danger btn-sm" href="javascript:"
+                                    onclick="form_alert('product-{{$p['id']}}','{{\App\CPU\translate("Ingin menghapus kamar ini?")}} ?')">
+                                    <i class="tio-add-to-trash"></i> {{\App\CPU\translate('Delete')}}
+                                </a>
+                                <form action="{{route('admin.product.del-room',[$p['id']])}}" method="post"
+                                    id="product-{{$p['id']}}">
+                                    @csrf
+                                </form> --}}
+                            </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                @if(count($rooms)==0)
+                    <div class="text-center p-4">
+                        <img class="mb-3" src="{{asset('public/assets/back-end')}}/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">
+                        <p class="mb-0">{{\App\CPU\translate('No_rooms_yet')}}</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
 
         <!-- Card -->
         <div class="card mb-3 mb-lg-5">

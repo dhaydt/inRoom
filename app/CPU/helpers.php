@@ -37,6 +37,7 @@ class Helpers
                 array_push($current, 1);
             }
         }
+        // dd($rooms);
         $product->total = count($rooms);
         $product->current_stock = count($current);
         $product->save();
@@ -53,6 +54,13 @@ class Helpers
         }
 
         return $x;
+    }
+
+    public static function getRoom($id)
+    {
+        $room = Detail_room::where('id', $id)->first();
+
+        return $room;
     }
 
     public static function dateChange($date)

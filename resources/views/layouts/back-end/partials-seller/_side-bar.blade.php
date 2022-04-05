@@ -104,6 +104,15 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li class="nav-item {{Request::is('seller/orders/list/directPay')?'active':''}}">
+                                    <a class="nav-link " href="{{route('seller.orders.list',['directPay'])}}" title="">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">{{\App\CPU\translate('direct_pay')}}</span>
+                                        <span class="badge badge-soft-warning badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
+                                            {{ \App\Model\Order::where(['seller_is'=>'seller'])->where(['seller_id'=>$sellerId])->where(['order_status'=>'directPay'])->count()}}
+                                        </span>
+                                    </a>
+                                </li>
                                 <li class="nav-item {{Request::is('seller/orders/list/confirmed')?'active':''}}">
                                     <a class="nav-link " href="{{route('seller.orders.list',['confirmed'])}}" title="">
                                         <span class="tio-circle nav-indicator-icon"></span>

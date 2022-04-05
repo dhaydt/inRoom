@@ -14,6 +14,8 @@ use App\Model\DealOfTheDay;
 use App\Model\Detail_room;
 use App\Model\Fasilitas;
 use App\Model\FlashDealProduct;
+use App\Model\Order;
+use App\Model\OrderDetail;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Translation;
@@ -43,6 +45,29 @@ class ProductController extends Controller
         $fas = Fasilitas::where('tipe', 'kamar')->get();
 
         return view('seller-views.product.add-new', compact('fas', 'kost'));
+    }
+
+    public function change_room(Request $request)
+    {
+        // dd($request);
+        $order = Order::where('id', $request['order_id'])->first();
+        $room = Detail_room::where('id', $request['room_id'])->first();
+        if ($room->available == 0) {
+            $room->user_id = $request['user_id'];
+            $room->save();
+        } else {
+            $room->user_id = $request['user_id'];
+            $room->available = 0;
+            $room->save();
+
+            Helpers::room_check($room->id);
+        }
+
+        $order->roomDetail_id = $request['room_id'];
+        $order->save();
+        Toastr::success('Pengguna kamar berhasil disimpan');
+
+        return redirect()->back();
     }
 
     public function add_room(Request $request)
@@ -570,8 +595,14 @@ class ProductController extends Controller
         $product = Product::with(['reviews'])->where(['id' => $id])->first();
         $reviews = Review::where(['product_id' => $id])->paginate(Helpers::pagination_limit());
         $rooms = Detail_room::where('room_id', $product->room_id)->get();
+        $order = OrderDetail::with('order')->where('product_id', $id)->whereHas('order', function ($q) {
+            $q->where('order_status', 'delivered');
+        })->orderBy('created_at', 'DESC')->get();
+        $tempat = OrderDetail::with('order')->where('product_id', $id)->whereHas('order', function ($q) {
+            $q->where('order_status', 'delivered')->where('roomDetail_id', 'ditempat');
+        })->orderBy('created_at', 'DESC')->get();
 
-        return view('seller-views.product.view', compact('rooms', 'product', 'reviews'));
+        return view('seller-views.product.view', compact('rooms', 'product', 'reviews', 'order', 'tempat'));
     }
 
     public function remove_image(Request $request)

@@ -114,6 +114,17 @@
                                         </span>
                                         </a>
                                     </li>
+                                    <li class="nav-item {{Request::is('admin/orders/list/directPay')?'active':''}}">
+                                        <a class="nav-link " href="{{route('admin.orders.list',['directPay'])}}" title="">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">
+                                            {{\App\CPU\translate('Direct_pay')}}
+                                            <span class="badge badge-soft-warning badge-pill ml-1">
+                                                {{\App\Model\Order::where(['order_status'=>'directPay'])->count()}}
+                                            </span>
+                                        </span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item {{Request::is('admin/orders/list/confirmed')?'active':''}}">
                                         <a class="nav-link " href="{{route('admin.orders.list',['confirmed'])}}"
                                            title="">
