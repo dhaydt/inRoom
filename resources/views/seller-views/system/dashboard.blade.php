@@ -198,7 +198,7 @@
                                       <span class="h6 mb-0">
                                           <i class="legend-indicator bg-success"
                                              style="background-color: #B6C867!important;"></i>
-                                         {{\App\CPU\translate('Your Earnings')}} : {{\App\CPU\BackEndHelper::usd_to_currency(array_sum($seller_data))." ".\App\CPU\BackEndHelper::currency_symbol()}}
+                                         {{\App\CPU\translate('Your Earnings')}} : {{\App\CPU\BackEndHelper::currency_symbol()." ".\App\CPU\BackEndHelper::usd_to_currency(array_sum($seller_data))}}
                                     </span>
                                 </div>
                             </div>
@@ -207,7 +207,7 @@
                                       <span class="h6 mb-0">
                                           <i class="legend-indicator bg-danger"
                                              style="background-color: #01937C!important;"></i>
-                                        {{\App\CPU\translate('Commission Given')}} : {{\App\CPU\BackEndHelper::usd_to_currency(array_sum($commission_data))." ".\App\CPU\BackEndHelper::currency_symbol()}}
+                                        {{\App\CPU\translate('Commission Given')}} : {{\App\CPU\BackEndHelper::currency_symbol()." ".\App\CPU\BackEndHelper::usd_to_currency(array_sum($commission_data))}}
                                     </span>
                                 </div>
                             </div>

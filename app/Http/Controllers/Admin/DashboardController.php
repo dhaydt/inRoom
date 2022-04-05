@@ -74,11 +74,11 @@ class DashboardController extends Controller
         $to = Carbon::now()->endOfYear()->format('Y-m-d');
 
         $inhouse_data = [];
-        $inhouse_earning = OrderTransaction::where([
+        $inhouse_earning = Order::where([
             'seller_is' => 'admin',
-            'status' => 'disburse',
+            'order_status' => 'delivered',
         ])->select(
-            DB::raw('IFNULL(sum(seller_amount),0) as sums'),
+            DB::raw('IFNULL(sum(order_amount),0) as sums'),
             DB::raw('YEAR(created_at) year, MONTH(created_at) month')
         )->whereBetween('created_at', [$from, $to])->groupby('year', 'month')->get()->toArray();
         for ($inc = 1; $inc <= 12; ++$inc) {
@@ -91,11 +91,11 @@ class DashboardController extends Controller
         }
 
         $seller_data = [];
-        $seller_earnings = OrderTransaction::where([
+        $seller_earnings = Order::where([
             'seller_is' => 'seller',
-            'status' => 'disburse',
+            'order_status' => 'delivered',
         ])->select(
-            DB::raw('IFNULL(sum(seller_amount),0) as sums'),
+            DB::raw('IFNULL(sum(order_amount),0) as sums'),
             DB::raw('YEAR(created_at) year, MONTH(created_at) month')
         )->whereBetween('created_at', [$from, $to])->groupby('year', 'month')->get()->toArray();
         for ($inc = 1; $inc <= 12; ++$inc) {
