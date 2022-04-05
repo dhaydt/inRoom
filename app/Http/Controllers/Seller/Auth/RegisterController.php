@@ -14,9 +14,7 @@ class RegisterController extends Controller
 {
     public function create()
     {
-        $country = DB::table('country')->get();
-
-        return view('seller-views.auth.register', compact('country'));
+        return view('seller-views.auth.register');
     }
 
     public function store(Request $request)
