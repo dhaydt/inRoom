@@ -1226,6 +1226,7 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
                     $('#loading').show();
                 },
                 success: function (data) {
+                    console.log('data', data.result)
                     $('.search-result-box').empty().html(data.result)
                 },
                 complete: function () {

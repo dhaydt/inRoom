@@ -105,7 +105,9 @@ class ProductManager
     {
         $key = $name;
         $paginator = Product::active()->with(['rating'])->whereHas('kost', function ($q) use ($key) {
-            $q->where('name', 'like', "%{$key}%");
+            $q->where('name', 'like', "%{$key}%")
+            ->orWhere('city', 'like', "%{$key}%")
+            ->orWhere('province', 'like', "%{$key}%");
         })->paginate($limit, ['*'], 'page', $offset);
 
         return [
