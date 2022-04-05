@@ -278,7 +278,7 @@
                             <h5>{{$seller->shop->province}}</h5>
                         </div>
                     </div>
-                    <div class="flex-start">
+                    {{-- <div class="flex-start">
                         <div>
                             <h5>{{\App\CPU\translate('country')}} : </h5>
                         </div>
@@ -291,7 +291,7 @@
                         <div class="">
                             <h5>{{$c_name[0]->country_name}}</h5>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
