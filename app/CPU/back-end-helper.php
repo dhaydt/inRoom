@@ -48,7 +48,7 @@ class BackEndHelper
         $value = floatval($amount);
         // }
 
-        return number_format($value);
+        return floatval($value);
     }
 
     public static function currency_symbol()
