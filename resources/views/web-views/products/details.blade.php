@@ -879,21 +879,28 @@
                                 </div>
                             </div>
                             <div class="kost-review__users-feedback">
+                                @foreach ($product->reviews as $r)
+                                {{-- {{ dd($r) }} --}}
+                                @php($user = $r->user)
                                 <div class="users-feedback-container users-feedback-container--card">
                                     <div class="users-feedback">
                                         <div class="users-feedback__section">
                                             <div class="user-feedback__header">
-                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('assets/front-end/img/user.png') }}" lazy="error">
+                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('storage/profile'.'/'.$user->image) }}" lazy="error">
                                                 <div class="user-feedback__profile">
-                                                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 ">Agita Essa Putri</p>
-                                                    <p class="bg-c-text bg-c-text--label-2 ">1 bulan yang lalu</p>
+                                                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 capitalize">{{ $user->f_name }} {{ $user->l_name }}</p>
+                                                    <p class="bg-c-text bg-c-text--label-2 ">{{ $r->created_at }}</p>
                                                 </div>
                                                 <div class="p-2 user-feedback__rating bg-c-label bg-c-label--rainbow bg-c-label--rainbow-white">
                                                     <i class="user-feedback__rating-star bg-c-icon bg-c-icon--sm fa fa-star">
-                    <title>star-glyph</title> <use href="#basic-star-glyph"></use></i> <p class="bg-c-text bg-c-text--body-1 ">5.0</p></div></div> <div class="user-feedback__body"><div data-v-2fd2a78f=""><p class="user-feedback__content-text bg-c-text bg-c-text--body-4 ">Cukup nyaman dan sesuai harga, pelayanan sangat bagus..</p></div> <div data-v-8bbcb614="" class="owner-feedback"><span data-v-8bbcb614="" class="owner-feedback__title">Balasan dari Pemilik kos</span> <span data-v-8bbcb614="" class="owner-feedback__date">1 bulan yang lalu</span> <p data-v-8bbcb614="" class="owner-feedback__description">
+                    <title>star-glyph</title> <use href="#basic-star-glyph"></use></i> <p class="bg-c-text bg-c-text--body-1 ">{{ $r->rating }}</p></div></div> <div class="user-feedback__body"><div data-v-2fd2a78f=""><p class="user-feedback__content-text bg-c-text bg-c-text--body-4 ">{{ $r->comment }}</p></div>
+                     {{-- <div data-v-8bbcb614="" class="owner-feedback"><span data-v-8bbcb614="" class="owner-feedback__title">Balasan dari Pemilik kos</span> <span data-v-8bbcb614="" class="owner-feedback__date">1 bulan yang lalu</span> <p data-v-8bbcb614="" class="owner-feedback__description">
             Hi kak, terimakasih banyak atas ulasan dan bintangnya, senang mendengar kakak nyaman singgah di sini :)
 
-        </p></div></div></div></div></div></div> <!--fragment#127eff51545#head--><div role="dialog" class="modal fade" fragment="127eff51545" id="modalAllReview"><div role="document" class="modal-dialog"><div class="modal-content"><div class="kost-review-modal-header"><span class="kost-review-modal-header__close"><svg role="img" class="bg-c-icon bg-c-icon--md"><title>close</title> <use href="#basic-close"></use></svg></span></div> <div class="kost-review-modal-content"><div class="kost-review-modal-content__header"><svg role="img" class="bg-c-icon bg-c-icon--md"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg> <span class="kost-review-modal-content__title">5.0 (1 review)</span></div> <div class="kost-review-fac-rating"><div class="kost-review-fac-rating__column"><div class="kost-review-fac-rating__item"><span class="kost-review-fac-rating__title">
+        </p></div> --}}
+    </div></div></div></div>
+                                @endforeach
+</div> <!--fragment#127eff51545#head--><div role="dialog" class="modal fade" fragment="127eff51545" id="modalAllReview"><div role="document" class="modal-dialog"><div class="modal-content"><div class="kost-review-modal-header"><span class="kost-review-modal-header__close"><svg role="img" class="bg-c-icon bg-c-icon--md"><title>close</title> <use href="#basic-close"></use></svg></span></div> <div class="kost-review-modal-content"><div class="kost-review-modal-content__header"><svg role="img" class="bg-c-icon bg-c-icon--md"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg> <span class="kost-review-modal-content__title">5.0 (1 review)</span></div> <div class="kost-review-fac-rating"><div class="kost-review-fac-rating__column"><div class="kost-review-fac-rating__item"><span class="kost-review-fac-rating__title">
                     Kebersihan
                 </span> <div class="kost-review-fac-rating__value"><div class="star-container"><span class="star fa fa-star" style="color: rgb(64, 64, 64); margin-left: 2px;"><svg role="img" class="bg-c-icon bg-c-icon--sm"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg></span><span class="star fa fa-star" style="color: rgb(64, 64, 64); margin-left: 2px;"><svg role="img" class="bg-c-icon bg-c-icon--sm"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg></span><span class="star fa fa-star" style="color: rgb(64, 64, 64); margin-left: 2px;"><svg role="img" class="bg-c-icon bg-c-icon--sm"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg></span><span class="star fa fa-star" style="color: rgb(64, 64, 64); margin-left: 2px;"><svg role="img" class="bg-c-icon bg-c-icon--sm"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg></span><span class="star fa fa-star" style="color: rgb(64, 64, 64); margin-left: 2px;"><svg role="img" class="bg-c-icon bg-c-icon--sm"><title>star-glyph</title> <use href="#basic-star-glyph"></use></svg></span></div> <span class="kost-review-fac-rating__value-text">5.0</span></div></div><div class="kost-review-fac-rating__item"><span class="kost-review-fac-rating__title">
                     Kenyamanan
