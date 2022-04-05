@@ -109,6 +109,7 @@
                             <tr>
                                 <th class="text-center">{{\App\CPU\translate('No')}}</th>
                                 <th class="text-center">{{\App\CPU\translate('Name_Room')}}</th>
+                                <th style="width: 5px" class="text-center">{{\App\CPU\translate('Occupant')}}</th>
                                 <th class="text-center">{{\App\CPU\translate('Available')}}
                                     {{\App\CPU\translate('status')}}</th>
                                 <th style="width: 5px" class="text-center">{{\App\CPU\translate('Action')}}</th>
@@ -122,6 +123,11 @@
                                 {{-- <td class="text-center" scope="row">{{$rooms->firstitem()+ $k}}</td> --}}
                                 <td class="text-center" scope="row">{{$no++}}</td>
                                 <td class="text-center">{{ $p->name }}</td>
+                                <td class="text-center">@if ($p->customer)
+                                    {{ $p->customer->f_name }} {{ $p->customer->l_name }}
+                                    @else
+                                    <span class="badge badge-info badge-sm">Kosong</span>
+                                @endif</td>
                                 <td class="text-center">
                                     <label class="switch">
                                         <input type="checkbox" class="status" id="{{$p['id']}}" {{$p->available ==
