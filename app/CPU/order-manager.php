@@ -264,7 +264,7 @@ class OrderManager
 
     public static function generate_order($data)
     {
-        // dd($data);
+        dd($data);
         $order_id = 100000 + Order::all()->count() + 1;
         if (Order::find($order_id)) {
             $order_id = Order::orderBy('id', 'DESC')->first()->id + 1;
@@ -301,9 +301,19 @@ class OrderManager
         $minute = 2880;
         $amount = $data['data']->anchor;
         if ($amount == null) {
-            $amount = (int) $data['anchor'];
+            $amount = (int) $data['request']->qty;
         }
-        // dd($amount);
+
+        $tambahan = $data['data']->catatan_tambahan;
+        if ($tambahan == null) {
+            $tambahan = $data['request']->catatan_tambahan;
+        }
+
+        $penyewa = $data['data']->penyewa;
+        if ($penyewa == null) {
+            $penyewa = $data['request']->penyewa;
+        }
+        // dd($tambahan);
 
         $or = [
             'id' => $order_id,
@@ -314,8 +324,8 @@ class OrderManager
             'mulai' => $seller_data->mulai,
             'durasi' => $data['data']->durasi,
             'ktp' => $user->ktp,
-            'jumlah_penyewa' => $data['data']->penyewa,
-            'catatan_tambahan' => $data['data']->catatan_tambahan,
+            'jumlah_penyewa' => $penyewa,
+            'catatan_tambahan' => $tambahan,
             'customer_type' => 'customer',
             'payment_status' => $data['payment_status'],
             'order_status' => $data['order_status'],
@@ -326,7 +336,7 @@ class OrderManager
             'discount_amount' => $discount,
             'discount_type' => $discount == 0 ? null : 'coupon_discount',
             'coupon_code' => $coupon_code,
-            'order_amount' => (CartManager::cart_grand_total($cart_group_id) - $discount) * $data['data']->anchor,
+            'order_amount' => (CartManager::cart_grand_total($cart_group_id) - $discount) * $amount,
             // 'shipping_address' => $address_id,
             // 'shipping_address_data' => ShippingAddress::find($address_id),
             // 'shipping_cost' => CartManager::get_shipping_cost($data['cart_group_id']),
