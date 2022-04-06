@@ -291,7 +291,7 @@ class OrderManager
 
         $id = auth('customer')->id();
         if (!isset($id)) {
-            $id = $data['data']->user()->id;
+            $id = $data['data']->customer_id;
         }
         // dd($id);
         $user = User::find($id);
@@ -299,7 +299,12 @@ class OrderManager
         $cart_group_id = $data['cart_group_id'];
         $seller_data = Cart::where(['cart_group_id' => $cart_group_id])->first();
         $minute = 2880;
-        // dd($seller_data);
+        $amount = $data['data']->anchor;
+        if ($amount == null) {
+            $amount = (int) $data['anchor'];
+        }
+        // dd($amount);
+
         $or = [
             'id' => $order_id,
             'verification_code' => rand(100000, 999999),
