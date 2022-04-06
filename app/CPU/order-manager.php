@@ -290,6 +290,10 @@ class OrderManager
         }
 
         $id = auth('customer')->id();
+        if (!isset($id)) {
+            $id = $data['data']->user()->id;
+        }
+        // dd($id);
         $user = User::find($id);
 
         $cart_group_id = $data['cart_group_id'];
@@ -332,6 +336,9 @@ class OrderManager
         foreach (CartManager::get_cart($data['cart_group_id']) as $c) {
             $product = Product::where(['id' => $c['product_id']])->first();
             $penyewa = Auth('customer')->user();
+            if (!isset($penyewa)) {
+                $penyewa = $user;
+            }
             $or_d = [
                 'order_id' => $order_id,
                 'product_id' => $c['product_id'],

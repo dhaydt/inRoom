@@ -30,7 +30,7 @@ class CartController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required',
-            'star_date' => 'required',
+            'start_date' => 'required',
         ], [
             'id.required' => translate('Room ID is required!'),
         ]);

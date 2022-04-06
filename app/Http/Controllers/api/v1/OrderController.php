@@ -38,7 +38,7 @@ class OrderController extends Controller
                 'transaction_ref' => '',
                 'order_group_id' => $unique_id,
                 'cart_group_id' => $group_id,
-                'request' => $request,
+                'data' => $request,
             ];
             $order_id = OrderManager::generate_order($data);
             array_push($order_ids, $order_id);
