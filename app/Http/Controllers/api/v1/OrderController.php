@@ -65,6 +65,7 @@ class OrderController extends Controller
                 'order_group_id' => $unique_id,
                 'cart_group_id' => $group_id,
                 'request' => $request,
+                'api' => $request,
                 'data' => $data,
             ];
             $order_id = OrderManager::generate_order($data);

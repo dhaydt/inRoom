@@ -288,31 +288,25 @@ class OrderManager
         if ($discount > 0) {
             $discount = round($discount / count(CartManager::get_cart_group_ids($req)), 2);
         }
-
-        $id = auth('customer')->id();
-        if (!isset($id)) {
+        if (!isset($data['api'])) {
+            $id = auth('customer')->id();
+            $amount = $data['data']->anchor;
+            $tambahan = $data['data']->catatan_tambahan;
+            $penyewa = $data['data']->penyewa;
+        } else {
             $id = $data['data']->customer_id;
+            $amount = (int) $data['request']->qty;
+            $tambahan = $data['request']->catatan_tambahan;
+            $penyewa = $data['request']->penyewa;
         }
+
         // dd($id);
         $user = User::find($id);
 
         $cart_group_id = $data['cart_group_id'];
         $seller_data = Cart::where(['cart_group_id' => $cart_group_id])->first();
         $minute = 2880;
-        $amount = $data['data']->anchor;
-        if ($amount == null) {
-            $amount = (int) $data['request']->qty;
-        }
 
-        $tambahan = $data['data']->catatan_tambahan;
-        if ($tambahan == null) {
-            $tambahan = $data['request']->catatan_tambahan;
-        }
-
-        $penyewa = $data['data']->penyewa;
-        if ($penyewa == null) {
-            $penyewa = $data['request']->penyewa;
-        }
         // dd($tambahan);
 
         $or = [
