@@ -63,6 +63,7 @@ class UserProfileController extends Controller
     public function user_update(Request $request)
     {
         // dd($request);
+        session()->put('keep_return_url', url()->previous());
         $request->validate([
             'kelamin' => 'required',
             'asal' => 'required',
@@ -139,9 +140,9 @@ class UserProfileController extends Controller
             User::where(['id' => auth('customer')->id()])->update($userDetails);
             Toastr::info(translate('updated_successfully'));
 
-            return redirect()->back();
+            return redirect(session('keep_return_url'));
         } else {
-            return redirect()->back();
+            return redirect(session('keep_return_url'));
         }
     }
 

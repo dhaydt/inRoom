@@ -350,7 +350,13 @@ class WebController extends Controller
                 }
             }
             // dd($order, $cart);
-            $user = auth('customer')->id();
+            $user = auth('customer')->user();
+            // dd($user);
+            if ($user->kelamin == null && $user->lahir == null || $user->status_pernikahan == null) {
+                Toastr::info('Mohon lengkapi data diri !');
+
+                return redirect()->route('user-account');
+            }
             // $address = ShippingAddress::where('customer_id', $user)->first();
 
             // dd($address);
