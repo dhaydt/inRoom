@@ -4,6 +4,16 @@
 
 @push('css_or_js')
     <style>
+        .select2-container .select2-selection--single{
+            height: 43px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            top: 9px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #697281 !important;
+            line-height: 40px !important;
+        }
         .headerTitle {
             font-size: 24px;
             font-weight: 600;
@@ -168,9 +178,6 @@
                                         <div class="form-group col-md-6">
                                             <label for="phone">{{\App\CPU\translate('phone_number')}}</label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">+62</span>
-                                                </div>
                                                 <input type="number" class="form-control" id="phone"
                                                     name="phone" aria-describedby="basic-addon1"
                                                     value="{{$customerDetail['phone']}}" required>
@@ -243,7 +250,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="asal">{{\App\CPU\translate('hometown')}} </label>
-                                            <select name="asal" class="form-control">
+                                            <select class="js-example-basic-single form-control" name="asal" id="asal">
                                                 <option value="">-- Pilih kota asal --</option>
                                                 @foreach ($city as $c)
                                                     <option value="{{ $c->id }}" {{ ($customerDetail['asal'] == $c->id) ? 'selected' : '' }}>{{ $c->name }}</option>
@@ -439,8 +446,10 @@
 @push('script')
     <script src="{{asset('public/assets/front-end')}}/vendor/nouislider/distribute/nouislider.min.js"></script>
     <script src="{{asset('public/assets/back-end/js/croppie.js')}}"></script>
+    <script src="{{ asset('public/assets/select2/js/select2.min.js')}}"></script>
     <script>
         $(document).ready(function(){
+            $('.js-example-basic-single').select2();
             var mhs = $('#mhs').is(":checked")
             var krywn = $('#krywn').is(":checked")
             var other = $('#other').is(":checked")
