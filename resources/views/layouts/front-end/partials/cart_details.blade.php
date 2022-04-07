@@ -494,6 +494,9 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             }
             spinner.find("input").val(newVal);
             var anc = parseFloat(anc) - 1;
+            if(anc < 1){
+                var anc = 1
+            }
             $('#anchor').val(anc);
             var price = $("#priceTotal").text()
             var disRp = dis.replace(/[^\d\.]/g, '')
