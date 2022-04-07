@@ -352,7 +352,7 @@ class WebController extends Controller
             // dd($order, $cart);
             $user = auth('customer')->user();
             // dd($user);
-            if ($user->kelamin == null && $user->lahir == null || $user->status_pernikahan == null) {
+            if ($user->kelamin == null || $user->lahir == null || $user->status_pernikahan == null) {
                 Toastr::info('Mohon lengkapi data diri !');
 
                 return redirect()->route('user-account');

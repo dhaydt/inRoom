@@ -23,6 +23,7 @@ class UserProfileController extends Controller
 {
     public function user_account(Request $request)
     {
+        session()->put('keep_return_url', url()->previous());
         if (auth('customer')->check()) {
             $customerDetail = User::where('id', auth('customer')->id())->first();
             $city = City::get();
@@ -63,7 +64,6 @@ class UserProfileController extends Controller
     public function user_update(Request $request)
     {
         // dd($request);
-        session()->put('keep_return_url', url()->previous());
         $request->validate([
             'kelamin' => 'required',
             'asal' => 'required',
