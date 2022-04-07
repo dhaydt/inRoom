@@ -23,7 +23,6 @@ class UserProfileController extends Controller
 {
     public function user_account(Request $request)
     {
-        session()->put('keep_return_url', url()->previous());
         if (auth('customer')->check()) {
             $customerDetail = User::where('id', auth('customer')->id())->first();
             $city = City::get();
@@ -63,7 +62,9 @@ class UserProfileController extends Controller
 
     public function user_update(Request $request)
     {
-        // dd($request);
+        if (!session()->get('keep_return_url')) {
+            session()->put('keep_return_url', url()->previous());
+        }
         $request->validate([
             'kelamin' => 'required',
             'asal' => 'required',
@@ -120,7 +121,7 @@ class UserProfileController extends Controller
             }
             $tempat = $request->other;
         }
-
+        // dd($request->phone);
         $userDetails = [
             'f_name' => $request->f_name,
             'l_name' => $request->l_name,
@@ -138,7 +139,7 @@ class UserProfileController extends Controller
         ];
         if (auth('customer')->check()) {
             User::where(['id' => auth('customer')->id()])->update($userDetails);
-            Toastr::info(translate('updated_successfully'));
+            Toastr::info(translate('Profil berhasil diupdate!'));
 
             return redirect(session('keep_return_url'));
         } else {

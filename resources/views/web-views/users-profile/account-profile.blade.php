@@ -10,6 +10,9 @@
         .select2-container--default .select2-selection--single .select2-selection__arrow{
             top: 9px !important;
         }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            padding-left: 16px !important;
+        }
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: #697281 !important;
             line-height: 40px !important;

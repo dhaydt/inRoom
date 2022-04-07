@@ -50,6 +50,7 @@ class WebController extends Controller
 
     public function home(Request $request)
     {
+        session()->forget('keep_return_url');
         CartManager::cart_clean();
         $home_categories = Category::where('home_status', true)->get();
         $home_categories->map(function ($data) {
@@ -332,6 +333,7 @@ class WebController extends Controller
 
     public function shop_cart()
     {
+        session()->put('keep_return_url', url()->previous());
         $cart = Cart::where('customer_id', auth('customer')->id())->orderby('id', 'DESC')->get();
         // dd($cart);
         // if (auth('customer')->check() && count($cart) > 0) {
