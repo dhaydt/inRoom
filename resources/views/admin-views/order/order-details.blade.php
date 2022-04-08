@@ -294,18 +294,20 @@
                                                 {{ $detail->kost->penghuni }}
                                             </span>
                                             @php($stock = $order->details[0]->product->current_stock)
-                                            @if ($stock <= 3 && $stock != 0)
-                                            <span>
-                                                {{\App\CPU\translate('Sisa')}} {{ $stock }} {{\App\CPU\translate('kamar')}}
-                                            </span>
-                                            @elseif ($stock == 0)
-                                            <span>
-                                                Kamar Habis
-                                            </span>
-                                            @else
-                                            <span>
-                                                Ada {{ $stock }} kamar
-                                            </span>
+                                            @if ($order->order_status != 'delivered')
+                                                @if ($stock <= 3 && $stock != 0)
+                                                <span>
+                                                    {{\App\CPU\translate('Sisa')}} {{ $stock }} {{\App\CPU\translate('kamar')}}
+                                                </span>
+                                                @elseif ($stock == 0)
+                                                <span>
+                                                    Kamar Habis
+                                                </span>
+                                                @else
+                                                <span>
+                                                    Ada {{ $stock }} kamar
+                                                </span>
+                                                @endif
                                             @endif
                                         </div>
                                         <span class="room-status w-100 d-block">
@@ -314,7 +316,9 @@
                                             @elseif ($order->roomDetail_id == 'ditempat')
                                                 Pilih kamar ditempat
                                             @else
-                                                Kamar  {{ $order->room[0]->name }}
+                                                @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
+                                                    Kamar  {{ $order->room[0]->name }}
+                                                @endif
                                             @endif
                                         </span>
                                         <span class="price">{{\App\CPU\Helpers::currency_converter($order->details[0]->price)}}  <span class="month">/Bulan</span></span>
@@ -465,6 +469,11 @@
                         </div>
                     </div>
                 <!-- End Body -->
+                @if ($order['struk'] != NULL && $order['order_status'] == 'delivered')
+                <a onclick="cancel('canceled')" class="btn btn-danger w-100">
+                    {{ \App\CPU\Translate('Batalkan') }}
+                </a>
+                @endif
                 @if ($order['order_status']=='pending' )
                 <div class="card-footer d-flex justify-content-center">
                     <div class="row w-100">
