@@ -246,7 +246,7 @@
                     <div class="row col-md-6 for-display mx-0">
 
                         <div class="d-flex flex-wrap float-right for-shoting-mobile">
-                            <form id="search-form" action="{{ route('products') }}" method="GET">
+                            <form id="search-form" action="{{ route('jobs') }}" method="GET">
                                 <input hidden name="data_from" value="{{$data['data_from']}}">
                                 <div class="form-inline flex-nowrap pb-3 for-mobile">
                                     <label
@@ -261,10 +261,10 @@
                                             value="low-high">{{\App\CPU\translate('low_high')}} {{\App\CPU\translate('Price')}} </option>
                                         <option
                                             value="high-low">{{\App\CPU\translate('hight_low')}} {{\App\CPU\translate('Price')}}</option>
-                                        <option
+                                        {{-- <option
                                             value="a-z">{{\App\CPU\translate('a_z')}} {{\App\CPU\translate('Order')}}</option>
                                         <option
-                                            value="z-a">{{\App\CPU\translate('z_a')}} {{\App\CPU\translate('Order')}}</option>
+                                            value="z-a">{{\App\CPU\translate('z_a')}} {{\App\CPU\translate('Order')}}</option> --}}
                                     </select>
                                 </div>
                             </form>
@@ -308,6 +308,7 @@
 @endsection
 
 @push('script')
+    <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
     <script>
         function openNav() {
             document.getElementById("mySidepanel").style.width = "50%";
@@ -319,11 +320,11 @@
 
         function filter(value) {
             $.get({
-                url: '{{url('/')}}/products',
+                url: '{{url('/')}}/jobs',
                 data: {
                     id: '{{$data['id']}}',
                     name: '{{$data['name']}}',
-                    data_from: '{{$data['data_from']}}',
+                    data_from: 'jobs',
                     min_price: '{{$data['min_price']}}',
                     max_price: '{{$data['max_price']}}',
                     sort_by: value

@@ -767,7 +767,7 @@
 </a>
 
 <!-- Vendor scrits: js libraries and plugins-->
-@if (Request::segment(1) !== 'products')
+@if (Request::segment(1) !== 'products' && Request::segment(1) !== 'jobs')
 {{-- <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery.slim.min.js"></script> --}}
 <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
 @endif

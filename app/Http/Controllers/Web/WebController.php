@@ -777,6 +777,34 @@ class WebController extends Controller
 
         $porduct_data = Jobs::active();
         $catId = $request['catId'];
+        if ($request['data_from'] == 'jobs') {
+            $query = new Jobs();
+            if ($request['sort_by'] == 'latest') {
+                $fetched = $query->latest();
+            } elseif ($request['sort_by'] == 'low-high') {
+                $fetched = $query->orderBy('gaji', 'ASC');
+            } elseif ($request['sort_by'] == 'high-low') {
+                $fetched = $query->orderBy('gaji', 'DESC');
+            }
+
+            $data = [
+                'id' => $request['id'],
+                'name' => $request['name'],
+                'data_from' => $request['data_from'],
+                'sort_by' => $request['sort_by'],
+                'page_no' => $request['page'],
+                'min_price' => $request['min_price'],
+                'max_price' => $request['max_price'],
+            ];
+
+            $products = $fetched->paginate(20)->appends($data);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'view' => view('web-views.jobs._ajax-products', compact('products'))->render(),
+                ], 200);
+            }
+        }
 
         if ($request['type'] == 'catHome') {
             $cit = City::where('id', $request['city'])->first()->name;
