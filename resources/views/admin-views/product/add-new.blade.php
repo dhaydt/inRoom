@@ -76,9 +76,9 @@
                                         @foreach ($fas as $f)
                                         <div class="col-6 mb-2">
                                             <div class="form-check" style="margin-left: 15px">
+                                                <label class="form-check-label capitalize" for="flexCheckDefault">
                                                 <input class="form-check-input" name="fasilitas[]" type="checkbox"
                                                     value="{{ $f->id }}" id="flexCheckDefault">
-                                                <label class="form-check-label capitalize" for="flexCheckDefault">
                                                     {{ $f->name }}
                                                 </label>
                                             </div>

@@ -782,6 +782,7 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
 <script src="{{asset('public/assets/front-end')}}/vendor/lightgallery.js/dist/js/lightgallery.min.js"></script>
 <script src="{{asset('public/assets/front-end')}}/vendor/lg-video.js/dist/lg-video.min.js"></script>
 {{--Toastr--}}
+
 <script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
 <!-- Main theme script-->
 <script src="{{asset('public/assets/front-end')}}/js/theme.min.js"></script>
