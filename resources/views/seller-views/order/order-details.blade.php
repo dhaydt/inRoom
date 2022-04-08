@@ -130,7 +130,7 @@
                                 <i class="tio-print"></i> {{\App\CPU\translate('Print invoice')}}
                             </a>
                         </div>
-                        @if ($order->order_status == 'pending' || $order->order_status == 'directPay')
+                        @if ($order->order_status == 'directPay')
                         <div class="col-md-6 mt-2 text-right">
                             <a class="text-body mr-3 btn btn-outline-secondary"
                             href='javascript:' data-toggle="modal" data-target="#upload">
