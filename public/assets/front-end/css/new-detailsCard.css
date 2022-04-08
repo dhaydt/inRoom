@@ -437,7 +437,7 @@ svg:not(:root) {
     margin-left: 0;
     max-height: 100% !important;
     background: white;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px;
     overflow: hidden;
 }
 

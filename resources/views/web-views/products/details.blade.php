@@ -43,7 +43,7 @@
     @endif
     <meta property="twitter:url" content="{{route('product',[$product->slug])}}">
 
-    <link rel="stylesheet" href="{{asset('public/assets/front-end/css/product-details.css')}}"/>
+    <link rel="stylesheet" href="{{asset('public/assets/front-end/css/products-details.css')}}"/>
     <style>
         .thumblist-frame .cz-thumblist:first-child a {
             border-radius: 0 10px 0 0;
