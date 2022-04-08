@@ -457,9 +457,9 @@
             </div>
           </div>
         </div>
-        <div id="flash-card" class="manual-nav nav-manual">
-            @include('web-views.partials._flash-deal')
-        </div>
+            <div id="flash-card" class="manual-nav nav-manual">
+                @include('web-views.partials._flash-deal')
+            </div>
       </div>
     </div>
   </div>

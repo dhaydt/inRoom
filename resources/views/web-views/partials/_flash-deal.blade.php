@@ -337,11 +337,12 @@
 
               </div>
             </div>
-            @endif
-            @endforeach
-            @else
+                @endif
+                @endforeach
+                @else
 
             @foreach($flash_deals->products as $key=>$deal)
+                {{-- {{ dd($deal->product) }} --}}
             @if( $deal->product)
             @if ($deal->product->kost['city'] == $filter)
                 @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
@@ -454,7 +455,11 @@
                   </div>
                 </div>
                 @endif
-                @endif
+                {{-- @else
+                <div class="text-center">
+                    <span class="badge badge-warning">Promo dilokasi ini tidak tersedia</span>
+                </div> --}}
+            @endif
 
 
             @endforeach

@@ -48,15 +48,14 @@
                 @endif)
             </span>
             <span class="cart_value text-success">
-                {{\App\CPU\Helpers::currency_converter(
-                    $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price)))}}
+                - {{\App\CPU\Helpers::currency_converter(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))}}
             </span>
         </div>
         <div class="d-flex justify-content-between" id="cart-tax">
             <span class="cart_title">{{\App\CPU\translate('tax')}}</span>
             <span class="cart_value">
                 @php($tax = $product->unit_price * $product->tax/100)
-                {{\App\CPU\Helpers::currency_converter($tax)}}
+                + {{\App\CPU\Helpers::currency_converter($tax)}}
             </span>
         </div>
         @if(session()->has('coupon_discount'))
