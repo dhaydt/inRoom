@@ -134,6 +134,13 @@
         .mega-nav1 .nav-link {
             color: #000 !important;
         }
+
+        .card-body.search-result-box ul li a{
+            font-size: 12px;
+        }
+        .card-body.search-result-box ul li{
+            padding: 5px;
+        }
     }
 </style>
 
@@ -244,7 +251,7 @@
             <div class="input-group-overlay p-2" style="text-align: {{Session::get('direction') === " rtl" ? 'right'
                 : 'left' }}">
                 <form action="{{route('products')}}" type="submit" class="search_form search-form-mobile">
-                    <input class="form-control appended-form-control search-bar-input" type="text" autocomplete="off"
+                    <input class="form-control appended-form-control search-bar-input-mobile" type="text" autocomplete="off"
                         placeholder="{{\App\CPU\translate('cari_kost_dimana')}} ?" name="name">
                     <button class="input-group-append-overlay search_button mobile-search-button" type="submit">
                         <span class="input-group-text">
