@@ -135,10 +135,10 @@
             color: #000 !important;
         }
 
-        .card-body.search-result-box ul li a{
+        .card-body.search-result-mobile ul li a{
             font-size: 12px;
         }
-        .card-body.search-result-box ul li{
+        .card-body.search-result-mobile ul li{
             padding: 5px;
         }
     }
