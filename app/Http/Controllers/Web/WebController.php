@@ -685,7 +685,9 @@ class WebController extends Controller
         if ($request['data_from'] == 'search') {
             $key = $request['name'];
             $query = $porduct_data->whereHas('kost', function ($q) use ($key) {
-                $q->where('name', 'like', "%{$key}%");
+                $q->where('name', 'like', "%{$key}%")
+                ->orWhere('city', 'like', "%{$key}%")
+                ->orWhere('province', 'like', "%{$key}%");
             });
             $products = $query->get();
             $data = [
