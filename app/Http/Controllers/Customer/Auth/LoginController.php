@@ -78,7 +78,9 @@ class LoginController extends Controller
             }
         }
 
-        $user = User::where($medium, 'like', "%{$user_id}%")->first();
+        if (isset($medium)) {
+            $user = User::where($medium, 'like', "%{$user_id}%")->first();
+        }
 
         if (isset($user) == false) {
             Toastr::error('Credentials do not match or account has been suspended.');
