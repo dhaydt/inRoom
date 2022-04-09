@@ -220,7 +220,7 @@
             @foreach($flash_deals->products as $key=>$deal)
             @if( $deal->product)
             @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
-            <div class="flash_deal_product rtl"
+            <div class="flash_deal_product rtl filtered"
               onclick="location.href='{{route('product',$deal->product->slug)}}'">
                 @if($deal->product->label)
                 <div class="d-flex justify-content-end for-dicount-div discount-hed">
@@ -340,120 +340,121 @@
                 @endif
                 @endforeach
                 @else
-
-            @foreach($flash_deals->products as $key=>$deal)
+                @foreach($flash_deals->products as $key=>$deal)
                 {{-- {{ dd($deal->product) }} --}}
-            @if( $deal->product)
-            @if ($deal->product->kost['city'] == $filter)
-                @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
-                <div class="flash_deal_product rtl"
-                  onclick="location.href='{{route('product',$deal->product->slug)}}'">
-                    @if($deal->product->label)
-                    <div class="d-flex justify-content-end for-dicount-div discount-hed">
-                        <span class="for-discoutn-value">
-                            {{ $deal->product->label }}
-                        </span>
+                @if( $deal->product)
+                @if ($deal->product->kost['city'] == $filter)
+                    @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
+                    <div class="flash_deal_product rtl filtered"
+                    onclick="location.href='{{route('product',$deal->product->slug)}}'">
+                        @if($deal->product->label)
+                        <div class="d-flex justify-content-end for-dicount-div discount-hed">
+                            <span class="for-discoutn-value">
+                                {{ $deal->product->label }}
+                            </span>
+                        </div>
+                        @else
+                        <div class="d-flex justify-content-end for-dicount-div-null">
+                            <span class="for-discoutn-value-null"></span>
+                        </div>
+                        @endif
+                    <div class="d-flex flex-column">
+
+                        <div class="d-flex align-items-center justify-content-center div-flash">
+                            <label class="label-kost flash-label text-white">{{ $deal->product->kost['name'] }}</label>
+                        <img class="w-100"
+                            src="{{\App\CPU\ProductManager::product_image_path('product')}}/{{json_decode($deal->product['images'])[0]}}"
+                            onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
+                        </div>
+
+                        <div class="card-body inline_product text-left px-3 pt-3 clickable" style="cursor: pointer;">
+                            <div class="rating-show d-flex">
+                                <div class="rc-overview__label bg-c-label capitalize">{{ $deal->product->kost->penghuni }}</div>
+                                @if ($deal->product->current_stock <= 3)
+                                <span class="stock-label text-danger bg-c-text--label-1">
+                                    {{\App\CPU\translate('Sisa')}} {{ $deal->product->current_stock }} {{\App\CPU\translate('kamar')}}
+                                </span>
+                                @endif
+                                <div class="room-card_overview">
+                                    <span class="d-inline-block font-size-sm text-body">
+                                            @for($inc=0;$inc<1;$inc++) @if($inc<$overallRating[0])
+                                            <i class="sr-star czi-star-filled active"></i>
+                                            <label class="badge-style rc-label bg-c-text--label-1"></label>{{$deal->product->reviews()->count()}}</label>
+                                            @endif
+                                            @endfor
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="kost-rc__info">
+                                    <div class="rc-info">
+                                        @php($city = strtolower($deal->product->kost['city']))
+                                        @php($district = strtolower($deal->product->kost['district']))
+                                        <span class="rc-info__name bg-c-text bg-c-text--body-4 capitalize">
+                                            {{ $deal->product->kost['name'] }}
+                                        </span>
+                                        <span class="rc-info__location bg-c-text bg-c-text--body-3 capitalize">
+                                            {{ $city }}
+                                        </span>
+                                        <span class="rc-info__address bg-c-text bg-c-text--body-3 capitalize">
+                                            {{ $deal->product->kost->note_address }}
+                                        </span>
+                                    </div>
+                            </div>
+                            <div class="kost-rc__facilities">
+                                @php($fas = json_decode($deal->product->fasilitas_id))
+                                <div class="rc-facilities">
+                                    <p>
+                                    @foreach ($fas as $f)
+                                        <span class="capitalize">{{ App\CPU\Helpers::fasilitas($f) }}</span>
+                                        <span class="rc-facilities_divider">·</span>
+                                        @endforeach
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="kost-rc__price">
+                                <div class="rc-price justify-content-end">
+                                    @if($deal->product->discount > 0)
+                                    <div class="rc-price__additional-data">
+                                        <div class="price-discount">
+                                                <span class="rc-price__discount-icon" aria-hidden="true">{{
+                                                    \App\CPU\translate('Hemat')}}</span>
+                                                <span class="rc-price__additional-discount bg-c-text bg-c-text--label-1 ">
+                                                    @if ($deal->product->discount_type == 'percent')
+                                                    {{round($deal->product->discount,2)}}%
+                                                    @elseif($deal->product->discount_type =='flat')
+                                                    {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
+                                                    @endif
+                                                </span>
+                                        </div>
+                                        <span class="rc-price__additional-discount-price bg-c-text bg-c-text--label-2 ">
+                                            @if($deal->product->discount > 0)
+                                                <strike style="font-size: 12px!important;color: grey!important;">
+                                                    {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}
+                                                </strike><br>
+                                            @endif
+                                        </span>
+                                    </div>
+                                    @endif
+                                    <div class="rc-price__section"><!----> <!---->
+                                        <div class="rc-price__real">
+                                            <span class="rc-price__text bg-c-text bg-c-text--body-1 ">
+                                                {{\App\CPU\Helpers::currency_converter(
+                                                    $deal->product->unit_price-(\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))
+                                                    )}}
+                                            </span>
+                                            <span class="rc-price__type bg-c-text bg-c-text--body-2">
+                                                / Bulan
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     </div>
                     @else
-                    <div class="d-flex justify-content-end for-dicount-div-null">
-                        <span class="for-discoutn-value-null"></span>
-                    </div>
-                    @endif
-                  <div class="d-flex flex-column">
-
-                    <div class="d-flex align-items-center justify-content-center div-flash">
-                        <label class="label-kost flash-label text-white">{{ $deal->product->kost['name'] }}</label>
-                      <img class="w-100"
-                        src="{{\App\CPU\ProductManager::product_image_path('product')}}/{{json_decode($deal->product['images'])[0]}}"
-                        onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
-                    </div>
-
-                    <div class="card-body inline_product text-left px-3 pt-3 clickable" style="cursor: pointer;">
-                        <div class="rating-show d-flex">
-                            <div class="rc-overview__label bg-c-label capitalize">{{ $deal->product->kost->penghuni }}</div>
-                            @if ($deal->product->current_stock <= 3)
-                            <span class="stock-label text-danger bg-c-text--label-1">
-                                {{\App\CPU\translate('Sisa')}} {{ $deal->product->current_stock }} {{\App\CPU\translate('kamar')}}
-                            </span>
-                            @endif
-                            <div class="room-card_overview">
-                                <span class="d-inline-block font-size-sm text-body">
-                                        @for($inc=0;$inc<1;$inc++) @if($inc<$overallRating[0])
-                                        <i class="sr-star czi-star-filled active"></i>
-                                        <label class="badge-style rc-label bg-c-text--label-1"></label>{{$deal->product->reviews()->count()}}</label>
-                                        @endif
-                                        @endfor
-                                </span>
-                            </div>
-                        </div>
-                        <div class="kost-rc__info">
-                                <div class="rc-info">
-                                    @php($city = strtolower($deal->product->kost['city']))
-                                    @php($district = strtolower($deal->product->kost['district']))
-                                    <span class="rc-info__name bg-c-text bg-c-text--body-4 capitalize">
-                                        {{ $deal->product->kost['name'] }}
-                                    </span>
-                                    <span class="rc-info__location bg-c-text bg-c-text--body-3 capitalize">
-                                        {{ $city }}
-                                    </span>
-                                    <span class="rc-info__address bg-c-text bg-c-text--body-3 capitalize">
-                                        {{ $deal->product->kost->note_address }}
-                                    </span>
-                                </div>
-                        </div>
-                        <div class="kost-rc__facilities">
-                            @php($fas = json_decode($deal->product->fasilitas_id))
-                            <div class="rc-facilities">
-                                <p>
-                                @foreach ($fas as $f)
-                                    <span class="capitalize">{{ App\CPU\Helpers::fasilitas($f) }}</span>
-                                    <span class="rc-facilities_divider">·</span>
-                                    @endforeach
-                                </p>
-                            </div>
-                        </div>
-                        <div class="kost-rc__price">
-                            <div class="rc-price justify-content-end">
-                                @if($deal->product->discount > 0)
-                                <div class="rc-price__additional-data">
-                                    <div class="price-discount">
-                                            <span class="rc-price__discount-icon" aria-hidden="true">{{
-                                                \App\CPU\translate('Hemat')}}</span>
-                                            <span class="rc-price__additional-discount bg-c-text bg-c-text--label-1 ">
-                                                @if ($deal->product->discount_type == 'percent')
-                                                {{round($deal->product->discount,2)}}%
-                                                @elseif($deal->product->discount_type =='flat')
-                                                {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
-                                                @endif
-                                            </span>
-                                    </div>
-                                    <span class="rc-price__additional-discount-price bg-c-text bg-c-text--label-2 ">
-                                        @if($deal->product->discount > 0)
-                                            <strike style="font-size: 12px!important;color: grey!important;">
-                                                {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}
-                                            </strike><br>
-                                        @endif
-                                    </span>
-                                </div>
-                                @endif
-                                <div class="rc-price__section"><!----> <!---->
-                                    <div class="rc-price__real">
-                                        <span class="rc-price__text bg-c-text bg-c-text--body-1 ">
-                                            {{\App\CPU\Helpers::currency_converter(
-                                                $deal->product->unit_price-(\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))
-                                                )}}
-                                        </span>
-                                        <span class="rc-price__type bg-c-text bg-c-text--body-2">
-                                            / Bulan
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                  </div>
-                </div>
+                    <div class="not_found">no</div>
                 @endif
                 {{-- @else
                 <div class="text-center">
@@ -464,7 +465,7 @@
 
             @endforeach
             @endif
-          </div>
+        </div>
 
 
     </div>
@@ -610,6 +611,16 @@
 @push('script')
 <script>
     $(document).ready(function(){
+        var not_found = $('.not_found').text();
+        var found = $('.filtered').length;
+        console.log('no_found', found)
+        if(found == 0){
+            if(not_found){
+                $('#flash-card').addClass('d-none')
+                // $('#not_found').removeClass('d-none')
+                $('#not_found').addClass('d-flex')
+            }
+        }
         var maxHeight = 0;
 
         $('.flash_deal_product').each(function(){

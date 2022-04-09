@@ -460,6 +460,13 @@
             <div id="flash-card" class="manual-nav nav-manual">
                 @include('web-views.partials._flash-deal')
             </div>
+            <div id="not_found" class="d-none text-center align-tems-center" style="height: 100px;">
+                <div class="col-12 h-100">
+                    <span class="badge badge-danger mt-auto">
+                        Mohon maaf, Promo Flash sale tidak ditemukan dilokasi ini..
+                    </span>
+                </div>
+            </div>
       </div>
     </div>
   </div>
