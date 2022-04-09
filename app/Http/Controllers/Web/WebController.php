@@ -246,6 +246,29 @@ class WebController extends Controller
         ]);
     }
 
+    public function searched_products_mobile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => 'Product name is required!',
+        ]);
+
+        $result = ProductManager::search_products($request['name']);
+        $products = $result['products'];
+
+        if ($products == null) {
+            $result = ProductManager::translated_product_search($request['name']);
+            $products = $result['products'];
+        }
+
+        // dd($result);
+
+        return response()->json([
+            'result' => view('web-views.partials._search-result_mobile', compact('products'))->render(),
+        ]);
+    }
+
     public function checkout_details(Request $request)
     {
         $cart_group_ids = CartManager::get_cart_group_ids();

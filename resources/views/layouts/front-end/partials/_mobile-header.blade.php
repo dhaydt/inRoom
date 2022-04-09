@@ -250,7 +250,7 @@
         <div class="bottom-nav">
             <div class="input-group-overlay p-2" style="text-align: {{Session::get('direction') === " rtl" ? 'right'
                 : 'left' }}">
-                <form action="{{route('products')}}" type="submit" class="search_form search-form-mobile">
+                <form action="{{route('products')}}" type="submit" class="search_form_mobile search-form-mobile">
                     <input class="form-control appended-form-control search-bar-input-mobile" type="text" autocomplete="off"
                         placeholder="{{\App\CPU\translate('cari_kost_dimana')}} ?" name="name">
                     <button class="input-group-append-overlay search_button mobile-search-button" type="submit">
@@ -262,7 +262,7 @@
                     <input name="page" value="1" hidden>
                     <diV class="card search-card"
                         style="position: absolute;background: white;z-index: 999;width: 100%;display: none">
-                        <div class="card-body search-result-box"
+                        <div class="card-body search-result-mobile"
                             style="overflow:scroll; height:400px;overflow-x: hidden"></div>
                     </diV>
                 </form>

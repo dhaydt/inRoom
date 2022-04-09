@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], funct
     Route::get('/', 'WebController@home')->name('home');
     Route::get('quick-view', 'WebController@quick_view')->name('quick-view');
     Route::get('searched-products', 'WebController@searched_products')->name('searched-products');
+    Route::get('searched-products_mobile', 'WebController@searched_products_mobile')->name('searched-products_mobile');
 
     Route::get('shortBy/{country}', 'ShortHomeController@shortBy')->name('shortBy');
 

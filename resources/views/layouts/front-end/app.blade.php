@@ -1242,9 +1242,10 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
     jQuery(".search-bar-input-mobile").keyup(function () {
         $(".search-card").css("display", "block");
         let name = $(".search-bar-input-mobile").val();
+        console.log('for', name)
         if (name.length > 0) {
             $.get({
-                url: '{{url('/')}}/searched-products',
+                url: '{{url('/')}}/searched-products_mobile',
                 dataType: 'json',
                 data: {
                     name: name
@@ -1253,14 +1254,14 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
                     $('#loading').show();
                 },
                 success: function (data) {
-                    $('.search-result-box').empty().html(data.result)
+                    $('.search-result-mobile').empty().html(data.result)
                 },
                 complete: function () {
                     $('#loading').hide();
                 },
             });
         } else {
-            $('.search-result-box').empty();
+            $('.search-result-mobile').empty();
         }
     });
 
