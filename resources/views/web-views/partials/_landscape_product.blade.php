@@ -69,7 +69,7 @@ label.label-vendor {
         </div>
 
         <div class="card-body d-flex flex-column justify-content-between inline_product_search text-left ml-3 p-0 clickable"
-            style="cursor: pointer;">
+            style="cursor: pointer; max-width: 65%;">
             <div class="rating-show d-flex">
                 <div class="rc-overview__label bg-c-label capitalize">{{ $product->kost->penghuni }}</div>
                         @if ($product->current_stock <= 3)
