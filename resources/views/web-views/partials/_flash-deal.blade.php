@@ -454,7 +454,7 @@
                     </div>
                     </div>
                     @else
-                    <div class="not_found">no</div>
+                    {{-- <div class="not_found d-none">no</div> --}}
                 @endif
                 {{-- @else
                 <div class="text-center">
@@ -611,15 +611,11 @@
 @push('script')
 <script>
     $(document).ready(function(){
-        var not_found = $('.not_found').text();
         var found = $('.filtered').length;
-        console.log('no_found', found)
         if(found == 0){
-            if(not_found){
                 $('#flash-card').addClass('d-none')
                 // $('#not_found').removeClass('d-none')
                 $('#not_found').addClass('d-flex')
-            }
         }
         var maxHeight = 0;
 

@@ -437,7 +437,7 @@
                                 class="{{Session::get('direction') === "rtl" ? 'ml-1' : 'mr-1'}}">{{\App\CPU\translate('Promo_di')}}</span></label>
                                 <form action="{{ route('home') }}" method="get">
                                     <input type="hidden" value="flash" name="sort">
-                                <select class="form-control custom-select capitalize" onchange="flashSubmit()" name="city" style="border: none;
+                                <select class="form-control custom-select capitalize" onchange="flashSubmit()" name="kota" style="border: none;
                                 background: transparent;
                                 color: red;
                                 padding: 5px;
@@ -447,7 +447,7 @@
                                 flex-wrap: nowrap;">
                                     <option class="text-dark" value="">Semua</option>
                                     @foreach ($city as $c)
-                                        <option class="text-dark capitalize" value="{{ $c['id'] }}"{{ request()->city == $c['id'] ? 'selected' : '' }}>{{ $c['name'] }}</option>
+                                        <option class="text-dark capitalize" value="{{ $c['id'] }}"{{ request()->kota == $c['id'] ? 'selected' : '' }}>{{ $c['name'] }}</option>
                                     @endforeach
                                 </select>
                                 </form>
