@@ -344,6 +344,11 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                             </div>
                             <hr class="border_section" style="margin: 50px 0 50px 0;">
                         </div>
+                        @if( $cart->count() > 0)
+                            <div class="d-block d-md-none" style="margin-top: -70px;">
+                                @include('web-views.partials._order-summary')
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -374,7 +379,9 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
     </section>
     <!-- Sidebar-->
     @if( $cart->count() > 0)
-    @include('web-views.partials._order-summary')
+    <div class="d-none d-md-block">
+        @include('web-views.partials._order-summary')
+    </div>
     @endif
 </div>
 <script>
