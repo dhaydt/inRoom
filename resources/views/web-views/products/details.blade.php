@@ -1383,21 +1383,46 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form id="add-to-cart">
+                <form id="add-to-cart-mobile">
                     @csrf
                     <input type="hidden" name="id" value="{{ $product->id }}">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Tanggal mulai</label>
-                        <input name="start_date" id="start_" type="date" placeholder="Tanggal mulai" class="start_date form-control">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Tanggal mulai</label>
+                            <input name="start_date" id="start_dated" type="date" placeholder="Tanggal mulai" class="start_date form-control">
+                        </div>
+                        @foreach (json_decode($product->choice_options) as $key => $choice)
+                                <div class="row flex-start mx-0">
+                                    <div
+                                        class="product-description-label mt-2 {{Session::get('direction') === "rtl" ? 'pl-2' : 'pr-2'}}">{{ $choice->title }}
+                                        :
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2 mx-1 flex-start"
+                                            style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
+                                            @foreach ($choice->options as $key => $option)
+                                                <div>
+                                                    <li class="for-mobile-capacity">
+                                                        <input class="var-mobile" type="radio"
+                                                            id="{{ $choice->name }}-{{ $option }}-mobile"
+                                                            name="{{ $choice->name }}" value="{{ $option }}"
+                                                            @if($key == 0) checked @endif >
+                                                        <label style="font-size: .6em"
+                                                            for="{{ $choice->name }}-{{ $option }}-mobile">{{ $option }}</label>
+                                                    </li>
+                                                </div>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endforeach
+                        <div class="order-summary mt-2 d-none">
+                            @include('web-views.products._mobile-summary')
+                        </div>
                     </div>
-                    <div class="order-summary mt-2 d-none">
-                        @include('web-views.products._order-summary')
-                    </div>
-                </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="buy_now('add-to-cart')">Booking</button>
+                <button type="button" id="buySekarang" class="btn btn-primary" onclick="buy_now('add-to-cart-mobile')" disabled>Booking</button>
                 </div>
                 </form>
             </div>
@@ -1437,6 +1462,11 @@
         $(".start_date").on('change', function(){
             $('.order-summary').removeClass('d-none');
             $('#ajukan').removeAttr('disabled')
+        })
+
+        $("#start_dated").on('change', function(){
+            $('.order-summary').removeClass('d-none');
+            $('#buySekarang').removeAttr('disabled')
         })
 
         cartQuantityInitialize();

@@ -61,6 +61,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+        // dd($request);
         $user = auth('customer')->user();
         if ($user == null) {
             return redirect()->route('customer.auth.login');
