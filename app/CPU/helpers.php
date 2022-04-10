@@ -611,6 +611,8 @@ class Helpers
             $data['variation'] = $variation;
         }
 
+        // dd($data);
+
         return $data;
     }
 
