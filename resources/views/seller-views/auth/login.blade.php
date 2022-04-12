@@ -18,6 +18,30 @@
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="{{asset('public/assets/back-end')}}/css/theme.minc619.css?v=1.0">
     <link rel="stylesheet" href="{{asset('public/assets/back-end')}}/css/toastr.css">
+    <link rel="stylesheet" media="screen"
+          href="{{asset('public/assets/front-end')}}/vendor/simplebar/dist/simplebar.min.css"/>
+    <link rel="stylesheet" media="screen"
+          href="{{asset('public/assets/front-end')}}/vendor/tiny-slider/dist/tiny-slider.css"/>
+    <link rel="stylesheet" media="screen"
+          href="{{asset('public/assets/front-end')}}/vendor/drift-zoom/dist/drift-basic.min.css"/>
+    <link rel="stylesheet" media="screen"
+          href="{{asset('public/assets/front-end')}}/vendor/lightgallery.js/dist/css/lightgallery.min.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="{{asset('public/assets/front-end')}}/css/theme.min.css">
+    <link rel="stylesheet" media="screen" href="{{asset('public/assets/front-end')}}/css/slick.css">
+    <link rel="stylesheet" media="screen" href="{{asset('public/assets/front-end')}}/css/font-awesome.min.css">
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/master.css"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Titillium+Web:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/front-end')}}/css/newProductsss.css"/>
+    <link rel="stylesheet" href="{{asset('assets/front-end')}}/css/new-detailsCard.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         .captcha .text-danger{
@@ -79,7 +103,28 @@
                                 <span class="divider text-muted mb-4">OR</span>--}}
                             </div>
 
-                            <!-- Form Group -->
+                            <div class="form-group">
+                                <label for="si-email">{{\App\CPU\translate('your_email')}}</label>
+                                <input class="form-control" type="text" name="email" id="si-email"
+                                       style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};" value="{{old('user_id')}}"
+                                       placeholder="email@address.com"
+                                       required>
+                                <div class="invalid-feedback">{{\App\CPU\translate('please_provide_valid_email_or_phone_number')}}.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="si-password">{{\App\CPU\translate('password')}}</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" name="password" type="password" id="si-password"
+                                           style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                                           required>
+                                    <label class="password-toggle-btn" style="right: 7px;">
+                                        <input class="custom-control-input" type="checkbox"><i
+                                            class="czi-eye password-toggle-indicator"></i><span
+                                            class="sr-only">{{\App\CPU\translate('Show')}} {{\App\CPU\translate('password')}} </span>
+                                    </label>
+                                </div>
+                            </div>
+                            {{-- <!-- Form Group -->
                             <div class="js-form-message form-group">
                                 <label class="input-label" for="signinSrEmail">{{\App\CPU\translate('your_email')}}</label>
 
@@ -119,7 +164,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- End Form Group -->
                             <!-- Checkbox -->
                             <div class="form-group">
@@ -177,6 +222,26 @@
 <!-- JS Front -->
 <script src="{{asset('public/assets/back-end')}}/js/theme.min.js"></script>
 <script src="{{asset('public/assets/back-end')}}/js/toastr.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script
+src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/simplebar/dist/simplebar.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+<script src="{{asset('public/assets/front-end')}}/vendor/drift-zoom/dist/Drift.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/lightgallery.js/dist/js/lightgallery.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/vendor/lg-video.js/dist/lg-video.min.js"></script>
+{{--Toastr--}}
+
+<script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
+<!-- Main theme script-->
+<script src="{{asset('public/assets/front-end')}}/js/theme.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/js/slick.min.js"></script>
+
+<script src="{{asset('public/assets/front-end')}}/js/sweet_alert.js"></script>
+{{--Toastr--}}
+<script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
 {!! Toastr::message() !!}
 
 @if ($errors->any())
