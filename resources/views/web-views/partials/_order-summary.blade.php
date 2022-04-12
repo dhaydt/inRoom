@@ -16,7 +16,7 @@
     }
 </style>
 
-<aside class="col-lg-4 pt-4 pt-lg-0">
+{{-- <aside class="col-lg-4 pt-4 pt-lg-0 d-none d-md-block"> --}}
     <div class="cart_total py-4">
         @php($sub_total=0)
         @php($total_tax=0)
@@ -103,32 +103,5 @@
                 <span class="cart_value" id="totalPrice"></span>
             </div>
         </div>
-
-        {{-- <div class="d-flex justify-content-center">
-            <span class="cart_total_value mt-2">
-                {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
-            </span>
-        </div> --}}
     </div>
-    {{-- <div class="container mt-2">
-        <div class="row p-0">
-            <div class="col-md-3 p-0 text-center mobile-padding">
-                <img style="height: 29px;" src="{{asset("public/assets/front-end/png/delivery.png")}}" alt="">
-                <div class="deal-title">3 {{\App\CPU\translate('days')}} <br><span>{{\App\CPU\translate('free_delivery')}}</span></div>
-            </div>
-
-            <div class="col-md-3 p-0 text-center">
-                <img style="height: 29px;" src="{{asset("public/assets/front-end/png/money.png")}}" alt="">
-                <div class="deal-title">{{\App\CPU\translate('money_back_guarantee')}}</div>
-            </div>
-            <div class="col-md-3 p-0 text-center">
-                <img style="height: 29px;" src="{{asset("public/assets/front-end/png/Genuine.png")}}" alt="">
-                <div class="deal-title">100% {{\App\CPU\translate('genuine')}}<br><span>{{\App\CPU\translate('product')}}</span></div>
-            </div>
-            <div class="col-md-3 p-0 text-center">
-                <img style="height: 29px;" src="{{asset("public/assets/front-end/png/Payment.png")}}" alt="">
-                <div class="deal-title">{{\App\CPU\translate('authentic_payment')}}</div>
-            </div>
-        </div>
-    </div> --}}
-</aside>
+{{-- </aside> --}}

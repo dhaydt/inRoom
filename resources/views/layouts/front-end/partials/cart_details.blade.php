@@ -252,7 +252,7 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                             </div>
                             <hr class="border_section" style="margin: 50px 0 50px 0;">
                         </div>
-                        <form id="booking_form" action="{{ route('checkout-complete') }}" method="post" enctype="multipart/form-data">
+                <form id="booking_form" action="{{ route('checkout-complete') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="col-12 px1">
                             <div class="penyewa">
@@ -286,9 +286,9 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <img style="width: 100%" height="auto"
-                                                             onerror="this.src='{{asset('assets/front-end/img/image-place-holder.png')}}'"
-                                                             src="{{asset("storage/ktp")}}/{{$photo}}"
-                                                             alt="ktp">
+                                                            onerror="this.src='{{asset('assets/front-end/img/image-place-holder.png')}}'"
+                                                            src="{{asset("storage/ktp")}}/{{$photo}}"
+                                                            alt="ktp">
                                                     </div>
                                                 </div>
                                             </div>
@@ -344,11 +344,15 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                             </div>
                             <hr class="border_section" style="margin: 50px 0 50px 0;">
                         </div>
-                        @if( $cart->count() > 0)
+                        {{-- <div class="d-block d-md-none" style="margin-top: 100px"></div> --}}
+                        {{-- @if( $cart->count() > 0)
+                        <aside class="col-lg-4 col-12 pt-4 pt-lg-0 d-block d-md-none">
                             <div class="d-block d-md-none" style="margin-top: -70px;">
                                 @include('web-views.partials._order-summary')
                             </div>
-                        @endif
+                        </aside>
+                        @endif --}}
+
                     </div>
                 </div>
             </div>
@@ -370,8 +374,6 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                 <button href="javascript:" type="submit"
                     class="w-100 btn btn-primary pull-{{Session::get('direction') === " rtl" ? 'left' : 'right' }}">
                     {{\App\CPU\translate('Ajukan_sewa')}}
-                    {{-- <i class="fa fa-{{Session::get('direction') === " rtl" ? 'backward' : 'forward' }} px-1"></i>
-                    --}}
                 </button>
             </div>
         </div>
@@ -379,9 +381,9 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
     </section>
     <!-- Sidebar-->
     @if( $cart->count() > 0)
-    <div class="d-none d-md-block">
+    <aside class="col-lg-4 pt-4 pt-lg-0">
         @include('web-views.partials._order-summary')
-    </div>
+    </aside>
     @endif
 </div>
 <script>
