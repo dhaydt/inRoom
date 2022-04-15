@@ -213,7 +213,6 @@
     }
 </style>
 <div class="row d-none d-md-flex" style="background-color: #f15151; padding: 15px;">
-    {{-- {{ dd($flash_deals) }} --}}
     <div class="col-md-12 col-6 d-flex align-items-center deal-product-col">
         <div class="owl-carousel owl-theme mt-2" id="flash-deal-slider">
             @if($filter == '')

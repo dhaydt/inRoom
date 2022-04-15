@@ -558,6 +558,72 @@ class Helpers
         return $path;
     }
 
+    public static function product_home_api_format($data)
+    {
+        $resp = [];
+        foreach ($data as $key => $d) {
+            $fas = $d->fasilitas_id;
+            $fas_kos = $d->kost->fasilitas_id;
+
+            if (isset($fas)) {
+                $fas = json_decode($fas);
+            }
+
+            if (isset($fas_kos)) {
+                $fas_kos = json_decode($fas_kos);
+            }
+
+            $item = [
+                    'id' => $d->id,
+                    'name' => $d->kost->name,
+                    'added_by' => $d->added_by,
+                    'kost_id' => $d->kost_id,
+                    'seller_id' => $d->user_id,
+                    'penghuni' => $d->kost->penghuni,
+                    'deskripsi' => $d->kost->deskripsi,
+                    'ptn_id' => $d->kost->ptn_id,
+                    'province' => $d->kost->province,
+                    'city' => $d->kost->city,
+                    'district' => $d->kost->district,
+                    'note_address' => $d->kost->note_address,
+                    'note' => $d->kost->note,
+                    'room_id' => $d->room_id,
+                    'type' => $d->type,
+                    'fasilitas_id' => $fas,
+                    'fasilitas_kos_id' => $fas_kos,
+                    'images' => $d->images,
+                    'kost_images' => json_decode($d->kost->images),
+                    'purchase_price' => $d->purchase_price,
+                    'size' => $d->size,
+                    'total' => $d->total,
+                    'current_stock' => $d->current_stock,
+                    'slug' => $d->slug,
+                    'category_ids' => $d->category_ids,
+                    'unit' => $d->unit,
+                    'unit_price' => $d->unit_price,
+                    'discount' => $d->discount,
+                    'tax' => $d->tax,
+                    'tax_type' => $d->tax_type,
+                    'discount_type' => $d->discount_type,
+                    'status' => $d->status,
+                    'published' => $d->published,
+                    'min-qty' => $d->min_qty,
+                    'attributes' => $d->attributes,
+                    'choice_options' => $d->choice_options,
+                    'variation' => $d->variation,
+                    'details' => $d->details,
+                    'featured_status' => $d->featured_status,
+                    'denied_note' => $d->denied_note,
+                    'reviews_count' => $d->reviews_count,
+                    'rating' => $d->rating,
+                    'reviews' => $d->reviews,
+                ];
+            array_push($resp, $item);
+        }
+
+        return $resp;
+    }
+
     public static function product_data_formatting($data, $multi_data = false)
     {
         $storage = [];
