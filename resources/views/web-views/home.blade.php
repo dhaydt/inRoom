@@ -1144,7 +1144,7 @@
   <script>
     $('#banner-slider-custom').owlCarousel({
             loop: true,
-            autoplay: false,
+            autoplay: true,
             margin: 15,
             nav: false,
             // navText: ["<i class='czi-arrow-left'></i>","<i class='czi-arrow-right'></i>"],
