@@ -143,6 +143,12 @@
     }
 
     @media (max-width: 600px) {
+        .owl-stage-outer .owl-stage .owl-item.active{
+            max-width: 295px;
+        }
+        .owl-stage-outer .owl-stage .owl-item img{
+            height: 125px;
+        }
         .selectLoc{
             font-size: 12px;
             color: {{ $web_config['primary_color'] }} !important;
@@ -251,6 +257,12 @@
     }
 
     @media (min-width: 768px) {
+        .owl-stage-outer .owl-stage .owl-item.active{
+            max-width: 870px;
+        }
+        .owl-stage-outer .owl-stage .owl-item img{
+            height: 291px;
+        }
         .nav-item.dropdown.ml-auto {
             margin-left: 0px !important;
         }
@@ -1132,7 +1144,7 @@
   <script>
     $('#banner-slider-custom').owlCarousel({
             loop: true,
-            autoplay: true,
+            autoplay: false,
             margin: 15,
             nav: false,
             // navText: ["<i class='czi-arrow-left'></i>","<i class='czi-arrow-right'></i>"],
@@ -1142,36 +1154,36 @@
             responsive: {
                 //X-Small
                 0: {
-                    items: 1.2
+                    items: 1
                 },
                 360: {
-                    items: 1.2
+                    items: 1
                 },
                 375: {
-                    items: 1.1
+                    items: 1
                 },
                 540: {
-                    items: 1.6
+                    items: 1
                 },
                 //Small
                 576: {
-                    items: 1.6
+                    items: 1
                 },
                 //Medium
                 768: {
-                    items: 1.6
+                    items: 1
                 },
                 //Large
                 992: {
-                    items: 1.6
+                    items: 1
                 },
                 //Extra large
                 1200: {
-                    items: 1.3
+                    items: 1
                 },
                 //Extra extra large
                 1400: {
-                    items: 2
+                    items: 1
                 }
             }
         })
