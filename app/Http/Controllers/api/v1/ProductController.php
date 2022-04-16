@@ -82,7 +82,7 @@ class ProductController extends Controller
             $product = Helpers::product_data_formatting($product, false);
         }
 
-        return response()->json($product, 200);
+        return response()->json(Helpers::single_product_api_format($product), 200);
     }
 
     public function get_best_sellings(Request $request)
