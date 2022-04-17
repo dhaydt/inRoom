@@ -98,6 +98,11 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('products/{deal_id}', 'FlashDealController@get_products');
     });
 
+    Route::group(['prefix' => 'ptn'], function () {
+        Route::get('/', 'KampusController@getKampus');
+        Route::get('/{ptn_id}', 'KampusController@get_products');
+    });
+
     Route::group(['prefix' => 'deals'], function () {
         Route::get('featured', 'DealController@get_featured_deal');
     });

@@ -558,6 +558,16 @@ class Helpers
         return $path;
     }
 
+    public static function get_products_ptn($ptn_id)
+    {
+        $data = Product::with('kost')->whereHas('kost', function ($q) use ($ptn_id) {
+            $q->where('ptn_id', $ptn_id);
+        })->get();
+
+        return $data;
+        // return Helpers::product_data_formatting(Product::where(['brand_id' => $brand_id])->get(), true);
+    }
+
     public static function single_product_api_format($d)
     {
         $fas = $d->fasilitas_id;
@@ -569,6 +579,18 @@ class Helpers
 
         if (isset($fas_kos)) {
             $fas_kos = json_decode($fas_kos);
+        }
+
+        $f_room = [];
+        foreach ($fas as $r) {
+            $itemss = Helpers::fasilitas($r);
+            array_push($f_room, $itemss);
+        }
+
+        $f_kos = [];
+        foreach ($fas_kos as $fk) {
+            $items = Helpers::fasilitas($fk);
+            array_push($f_kos, $items);
         }
 
         $item = [
@@ -587,8 +609,8 @@ class Helpers
                     'note' => $d->kost->note,
                     'room_id' => $d->room_id,
                     'type' => $d->type,
-                    'fasilitas_id' => $fas,
-                    'fasilitas_kos_id' => $fas_kos,
+                    'fasilitas_id' => $f_room,
+                    'fasilitas_kos_id' => $f_kos,
                     'images' => $d->images,
                     'kost_images' => json_decode($d->kost->images),
                     'purchase_price' => $d->purchase_price,
@@ -635,6 +657,18 @@ class Helpers
                 $fas_kos = json_decode($fas_kos);
             }
 
+            $f_room = [];
+            foreach ($fas as $r) {
+                $itemss = Helpers::fasilitas($r);
+                array_push($f_room, $itemss);
+            }
+
+            $f_kos = [];
+            foreach ($fas_kos as $fk) {
+                $items = Helpers::fasilitas($fk);
+                array_push($f_kos, $items);
+            }
+
             $item = [
                     'id' => $d->id,
                     'name' => $d->kost->name,
@@ -651,8 +685,8 @@ class Helpers
                     'note' => $d->kost->note,
                     'room_id' => $d->room_id,
                     'type' => $d->type,
-                    'fasilitas_id' => $fas,
-                    'fasilitas_kos_id' => $fas_kos,
+                    'fasilitas_id' => $f_room,
+                    'fasilitas_kos_id' => $f_kos,
                     'images' => $d->images,
                     'kost_images' => json_decode($d->kost->images),
                     'purchase_price' => $d->purchase_price,

@@ -34,4 +34,9 @@ class Kost extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'kost_id');
+    }
 }
