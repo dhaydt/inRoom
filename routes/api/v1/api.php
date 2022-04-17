@@ -53,8 +53,13 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     Route::get('country', 'AttributeController@country');
     Route::get('short-country', 'AttributeController@short_country');
+    Route::get('jobs', 'JobController@jobList');
 
     Route::get('faq', 'GeneralController@faq');
+
+    Route::group(['prefix' => 'loker'], function () {
+        Route::get('/{id}', 'JobController@lokerDetail');
+    });
 
     Route::group(['prefix' => 'products'], function () {
         Route::get('short_latest/{country}', 'ProductController@short_latest_products');
