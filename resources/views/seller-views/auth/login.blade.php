@@ -52,6 +52,9 @@
             font-weight: 400 !important;
             margin-top: 8px !important;
         }
+        .was-validated .form-control:valid, .form-control.is-valid{
+            background-image: none !important;
+        }
     </style>
 </head>
 
