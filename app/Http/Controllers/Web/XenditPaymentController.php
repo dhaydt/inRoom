@@ -73,7 +73,7 @@ class XenditPaymentController extends Controller
         // dd($type);
         $value = $order['order_amount'];
         $tran = OrderManager::gen_unique_id();
-        $duration = '60';
+        $duration = '10800';
         // dd($duration);
 
         if ($request->type == 'direct') {
