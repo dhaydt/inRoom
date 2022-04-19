@@ -56,7 +56,6 @@ class SMS_module
         if (isset($config) && $config['status'] == 1) {
             $userkey = $config['sid'];
             $passkey = $config['messaging_service_sid'];
-            dd($userkey);
             // $telepon = '+62'.(int) $receiver;
             $telepon = '+62'.(int) $receiver;
             $message = $config['otp_template'].$otp;
