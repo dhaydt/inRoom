@@ -115,7 +115,7 @@
                                        value="{{env('APP_MODE')!='demo'?$config['token']??"":''}}">
                             </div>
 
-                            <div class="form-group mb-2">
+                            <div class="form-group mb-2 d-none">
                                 <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('from')}}</label><br>
                                 <input type="hidden" class="form-control" name="from"
                                        value="{{env('APP_MODE')!='demo'?$config['from']??"":''}}">
