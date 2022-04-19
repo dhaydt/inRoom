@@ -122,7 +122,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9 sidebar_heading">
-                <h1 class="h3  mb-0 float-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} headerTitle">{{\App\CPU\translate('profile_Info')}}</h1>
+                <h1 class="h3  mb-0 float-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} headerTitle">{{\App\CPU\translate('Info_profil')}}</h1>
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
                                     <label for="files"
                                         style="cursor: pointer; color:{{$web_config['primary_color']}};"
                                         class="spandHeadO">
-                                        {{\App\CPU\translate('change_your_profile')}}
+                                        {{\App\CPU\translate('Ganti_avatar')}}
                                     </label>
                                     <span style="color: red;font-size: 10px">( * {{\App\CPU\translate('Image ratio should be')}} 1:1 )</span>
                                     <input id="files" name="image" style="visibility:hidden;" type="file">
@@ -159,15 +159,15 @@
 
 <!-- INFORMASI AKUN -->
                                 <div class="card-body {{Session::get('direction') === "rtl" ? 'mr-3' : 'ml-3'}}">
-                                    <h3 class="font-nameA">{{\App\CPU\translate('account_information')}} </h3>
+                                    <h3 class="font-nameA">{{\App\CPU\translate('informasi_akun')}} </h3>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="firstName">{{\App\CPU\translate('first_name')}} </label>
+                                            <label for="firstName">{{\App\CPU\translate('nama_depan')}} </label>
                                             <input type="text" class="form-control" id="f_name" name="f_name"
                                                 value="{{$customerDetail['f_name']}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="lastName"> {{\App\CPU\translate('last_name')}} </label>
+                                            <label for="lastName"> {{\App\CPU\translate('nama_belakang')}} </label>
                                             <input type="text" class="form-control" id="l_name" name="l_name"
                                                 value="{{$customerDetail['l_name']}}">
                                         </div>
@@ -179,7 +179,7 @@
                                                 value="{{$customerDetail['email']}}" disabled>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="phone">{{\App\CPU\translate('phone_number')}}</label>
+                                            <label for="phone">{{\App\CPU\translate('telepon')}}</label>
                                             <div class="input-group">
                                                 <input type="number" class="form-control" id="phone"
                                                     name="phone" aria-describedby="basic-addon1"
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="si-password">{{\App\CPU\translate('new_password')}}</label>
+                                            <label for="si-password">{{\App\CPU\translate('password_baru')}}</label>
                                             <div class="password-toggle">
                                                 <input class="form-control" autocomplete="off" name="new_password" type="password" id="new_password">
                                                 <label class="password-toggle-btn">
@@ -203,7 +203,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="newPass">{{\App\CPU\translate('confirm_password')}} </label>
+                                            <label for="newPass">{{\App\CPU\translate('konfirmasi_password')}} </label>
                                             <div class="password-toggle">
                                                 <input class="form-control" name="con_password" type="password" id="confirm_password">
                                                 <div>
@@ -219,10 +219,10 @@
                                         </div>
                                     </div>
 <!-- USER PROFILE -->
-                                    <h3 class="font-nameA mt-4">{{\App\CPU\translate('user_profile')}} </h3>
+                                    <h3 class="font-nameA mt-4">{{\App\CPU\translate('Info_user')}} </h3>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="firstName">{{\App\CPU\translate('gender')}} </label>
+                                            <label for="firstName">{{\App\CPU\translate('kelamin')}} </label>
                                             <div class="row pl-4">
                                                 <div class="col-4">
                                                     <div class="form-check user-account">
@@ -245,14 +245,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="lastName"> {{\App\CPU\translate('date_of_birth')}} </label>
+                                            <label for="lastName"> {{\App\CPU\translate('tanggal_lahir')}} </label>
                                             <input type="date" class="form-control" name="lahir"
                                                 value="{{$customerDetail['lahir']}}">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="asal">{{\App\CPU\translate('hometown')}} </label>
+                                            <label for="asal">{{\App\CPU\translate('Kota_asal')}} </label>
                                             <select class="js-example-basic-single form-control" name="asal" id="asal">
                                                 <option value="">-- Pilih kota asal --</option>
                                                 @foreach ($city as $c)
@@ -261,7 +261,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="phone">{{\App\CPU\translate('marital_status')}} </label>
+                                            <label for="phone">{{\App\CPU\translate('status_menikah')}} </label>
                                             <select name="pernikahan" class="form-control">
                                                 <option value="">-- Pilih status pernikahan --</option>
                                                 <option value="belum kawin" {{ ($customerDetail['status_pernikahan'] == 'belum kawin') ? 'selected' : '' }}>Belum kawin</option>
@@ -272,7 +272,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="si-password">{{\App\CPU\translate('last_education')}}</label>
+                                            <label for="si-password">{{\App\CPU\translate('pendidikan_terakhir')}}</label>
                                             <select name="pendidikan" class="form-control">
                                                 <option value="">-- Pilih pendidikan terakhir --</option>
                                                 <option value="SD/MI" {{ ($customerDetail['pendidikan'] == "SD/MI") ? 'selected' : '' }}>SD/ MI</option>
@@ -287,7 +287,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label for="newPass">{{\App\CPU\translate('emergency_phone_number')}} </label>
+                                            <label for="newPass">{{\App\CPU\translate('telepon_darurat')}} </label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon2">+62</span>
@@ -300,10 +300,10 @@
                                     </div>
 
 <!-- PROFESI -->
-                                    <h3 class="font-nameA mt-4">{{\App\CPU\translate('profession')}}</h3>
+                                    <h3 class="font-nameA mt-4">{{\App\CPU\translate('Pekerjaan')}}</h3>
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <label for="firstName">{{\App\CPU\translate('profession')}} </label>
+                                            <label for="firstName">{{\App\CPU\translate('pekerjaan')}} </label>
                                             <div class="row pl-4">
                                                 <div class="col-4">
                                                     <div class="form-check user-account">
@@ -337,7 +337,7 @@
                                                 value="{{$customerDetail['pekerjaan']}}" required> --}}
                                         </div>
                                         <div class="form-group col-md-12 d-none" id="univ">
-                                            <label for="lastName"> {{\App\CPU\translate('university_name')}} </label>
+                                            <label for="lastName"> {{\App\CPU\translate('nama_universitas')}} </label>
                                             <select name="univ" class="form-control">
                                                 <option value="">-- Pilih universitas --</option>
                                                 @foreach ($ptn as $p)
@@ -346,18 +346,18 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-12 d-none" id="office">
-                                            <label for="lastName"> {{\App\CPU\translate('office_name')}} </label>
+                                            <label for="lastName"> {{\App\CPU\translate('nama_kantor')}} </label>
                                             <input type="text" class="form-control" name="office"
                                                 value="{{$customerDetail['tempat_kerja']}}">
                                         </div>
                                         <div class="form-group col-md-12 d-none" id="desc">
-                                            <label for="lastName"> {{\App\CPU\translate('description')}} </label>
+                                            <label for="lastName"> {{\App\CPU\translate('deskripsi')}} </label>
                                             <input type="text" class="form-control" name="other"
                                                 value="{{$customerDetail['tempat_kerja']}}">
                                         </div>
                                     </div>
                                     <button type="submit"
-                                            class="btn btn-primary float-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">{{\App\CPU\translate('update')}} {{\App\CPU\translate('Informations')}}  </button>
+                                            class="btn btn-primary float-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">{{\App\CPU\translate('update')}} {{\App\CPU\translate('informasi')}}  </button>
                                 </div>
                             </div>
                         </form>

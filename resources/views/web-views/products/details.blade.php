@@ -398,7 +398,7 @@
                                     class="sharethis-inline-share-buttons">
                                         <div class="st-btn st-first st-remove-label" data-network="facebook" style="display: block;">
                                             <img alt="facebook sharing button" src="https://platform-cdn.sharethis.com/img/facebook.svg">
-                                            <span class="st-label">Share</span>
+                                            <span class="st-label">Bagikan</span>
                                       </div>
                                     </div>
                                 </div>
@@ -425,90 +425,13 @@
                         </div>
                     @endif
 
-                    <div class="mb-3">
-                        <strong>{{\App\CPU\translate('tax')}} : </strong>
-                        <strong id="set-tax-amount"></strong>
-                    </div>
-                        <div class="row no-gutters">
-                            <div class="col-2">
-                                <div class="product-description-label mt-2">{{\App\CPU\translate('Quantity')}}:</div>
-                            </div>
-                            <div class="col-10">
-                                <div class="product-quantity d-flex align-items-center">
-                                    <div
-                                        class="input-group input-group--style-2 {{Session::get('direction') === "rtl" ? 'pl-3' : 'pr-3'}}"
-                                        style="width: 160px;">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button"
-                                                    data-type="minus" data-field="quantity"
-                                                    disabled="disabled" style="padding: 10px">
-                                                -
-                                            </button>
-                                        </span>
-                                        <input type="text" name="quantity"
-                                               class="form-control input-number text-center cart-qty-field"
-                                               placeholder="1" value="1" min="1" max="100">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button" data-type="plus"
-                                                    data-field="quantity" style="padding: 10px">
-                                               +
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row flex-start no-gutters d-none mt-2" id="chosen_price_div">
-                            <div class="{{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">
-                                <div class="product-description-label">{{\App\CPU\translate('total_price')}}:</div>
-                            </div>
-                            <div>
-                                <div class="product-price for-total-price">
-                                    <strong id="chosen_price"></strong>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                @if($product['current_stock']<=0)
-                                    <h5 class="mt-3" style="color: red">{{\App\CPU\translate('out_of_stock')}}</h5>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-2">
-                            <button
-                                class="btn btn-secondary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
-                                onclick="buy_now()"
-                                type="button"
-                                style="width:37%; height: 45px">
-                                <span class="string-limit">{{\App\CPU\translate('buy_now')}}</span>
-                            </button>
-                            <button
-                                class="btn btn-primary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
-                                onclick="addToCart()"
-                                type="button"
-                                style="width:37%; height: 45px">
-                                <span class="string-limit">{{\App\CPU\translate('add_to_cart')}}</span>
-                            </button>
-                            <button type="button" onclick="addWishlist('{{$product['id']}}')"
-                                    class="btn btn-dark for-hover-bg"
-                                    style="">
-                                <i class="fa fa-heart-o {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}"
-                                   aria-hidden="true"></i>
-                                <span class="countWishlist-{{$product['id']}}">{{$countWishlist}}</span>
-                            </button>
-                        </div>
-                    </form> -->
-                    <hr class="my-4" style="padding-bottom: 10px">
-
                     <!-- fasilitas -->
                     <div class="container">
                         <div class="section-header">
                             <h5 class="fasilitas">{{ App\CPU\translate('Fasilitas') }}</h5>
                         </div>
                         <div class="card-header pb-1 section-head">
-                            <h6 class="mb-1">{{ App\CPU\translate('room_size') }}</h6>
+                            <h6 class="mb-1">{{ App\CPU\translate('ukuran_ruangan') }}</h6>
                         </div>
                         <div class="card-body pt-0 body-detail-product d-flex">
                             <img class="mr-3" src="{{ asset('assets/front-end/img/room.png') }}" alt="room" style="height: 23px">
@@ -518,7 +441,7 @@
                         </div>
 
                         <div class="card-header pb-1 section-head">
-                            <h6 class="mb-1">{{ App\CPU\translate('room_facility') }}</h6>
+                            <h6 class="mb-1">{{ App\CPU\translate('fasilitas_kamar') }}</h6>
                         </div>
                         <div class="card-body pt-0 body-detail-product">
                             @foreach (json_decode($product->fasilitas_id) as $f)
@@ -533,7 +456,7 @@
                         </div>
 
                         <div class="card-header pb-1 section-head">
-                            <h6 class="mb-1">{{ App\CPU\translate('general_facility') }}</h6>
+                            <h6 class="mb-1">{{ App\CPU\translate('fasilitas_umum') }}</h6>
                         </div>
                         <div class="card-body pt-0 body-detail-product">
                             @foreach (json_decode($product->kost->fasilitas_id) as $f)
@@ -592,7 +515,7 @@
                                                 <div class="review d-flex align-items-center">
                                                     <div class="">
                                                         <span
-                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Seller')}} {{\App\CPU\translate('Info')}} </span>
+                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Info')}} {{\App\CPU\translate('Pemilik')}} </span>
                                                         <span
                                                             class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
                                                     </div>
@@ -605,37 +528,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-md-6 p-md-0 pt-sm-3">
-                                    <div class="seller_contact">
-                                        <div
-                                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
-                                            <a href="{{ route('shopView',[$product->seller->id]) }}">
-                                                <button class="btn btn-secondary">
-                                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                                    {{\App\CPU\translate('Visit')}}
-                                                </button>
-                                            </a>
-                                        </div>
 
-                                        @if (auth('customer')->id() == '')
-                                            <div class="d-flex align-items-center">
-                                                <a href="{{route('customer.auth.login')}}">
-                                                    <button class="btn btn-primary">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                        {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        @else
-                                            <div class="d-flex align-items-center" id="contact-seller">
-                                                <button class="btn btn-primary">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
-                                                </button>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div> --}}
                             </div>
                             <div class="row msg-option" id="msg-option">
                                 <form action="">
@@ -683,37 +576,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="review d-flex align-items-center">
-                                            {{-- <div class="w-100 d-flex">
-                                                <div class="flag">
-                                                    <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
-                                                        src="{{asset('public/assets/front-end')}}/img/flags/id.png" alt="Eng"
-                                                        style="width: 20px">
-                                                </div>
-                                                <span
-                                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                                    rtl" ? 'ml-2' : 'mr-2' }}" style="line-height: 1.2;">Indonesia </span>
-                                                <span
-                                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                                    rtl" ? 'mr-2' : 'ml-2' }}"></span>
-                                            </div> --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6 p-md-0 pt-sm-3">
-                                    <div class="seller_contact">
-                                        <div
-                                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
-                                            <a href="{{ route('shopView',[0]) }}">
-                                                <button class="btn btn-secondary">
-                                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                                    {{\App\CPU\translate('Visit')}}
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     @endif
@@ -725,7 +592,7 @@
                     <div class="container mt-4">
                         <div class="section-header">
                             <h5>
-                                {{ App\CPU\translate('rule') }}
+                                {{ App\CPU\translate('aturan') }}
                             </h5>
                         </div>
                         <div class="card-body pt-1">
@@ -747,7 +614,7 @@
                     <div class="container">
                         <div class="section-header">
                             <h5 class="">
-                                {{ App\CPU\translate('note') }}
+                                {{ App\CPU\translate('Catatan') }}
                             </h5>
                         </div>
                         <div class="row pt-2 specification">
@@ -762,7 +629,7 @@
                     <div class="container">
                         <div class="section-header">
                             <h5 class="">
-                                {{ App\CPU\translate('additional_info') }}
+                                {{ App\CPU\translate('Info_tambahan') }}
                             </h5>
                         </div>
                         <div class="row pt-2 specification">
@@ -778,7 +645,7 @@
                         </div> <div class="kost-review__content">
                             <div class="kost-review__overview">
                                 <i class="fa fa-star bg-c-icon" style="font-size: 20px"></i>
-                                <span class="kost-review__overview-rating">5.0 (1 review)</span>
+                                <span class="kost-review__overview-rating">Ulasan</span>
                             </div>
                             {{-- {{ dd($product->reviews) }} --}}
                             <div class="kost-review-fac-rating">
@@ -1167,7 +1034,6 @@
                         </div>
                     </div> -->
                     <!-- end overview section -->
-
                 </div>
             </div>
 

@@ -78,7 +78,7 @@
             <!-- Filter by price-->
             <div class="sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
-                    <a class="{{Request::is('account-oder*') || Request::is('account-order-details*') ? 'active-menu' :''}}" href="{{route('account-oder') }} ">{{\App\CPU\translate('booking')}}</a>
+                    <a class="{{Request::is('account-oder*') || Request::is('account-order-details*') ? 'active-menu' :''}}" href="{{route('account-oder') }} ">{{\App\CPU\translate('pesanan')}}</a>
                 </h3>
                 <div class="divider-role"
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
@@ -90,7 +90,7 @@
             <!-- Filter by price-->
             <div class="sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
-                    <a class="{{Request::is('job-order*') ? 'active-menu' :''}}" href="{{route('apply.job-order') }} ">{{\App\CPU\translate('Job_vacancy')}}</a>
+                    <a class="{{Request::is('job-order*') ? 'active-menu' :''}}" href="{{route('apply.job-order') }} ">{{\App\CPU\translate('Lamaran')}}</a>
                 </h3>
                 <div class="divider-role"
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
@@ -101,7 +101,7 @@
             <!-- Filter by price-->
             <div class="sidebarL">
                 <h3 class="widget-title btnF " style="font-weight: 700;">
-                    <a class="{{Request::is('wishlists*') ? 'active-menu':''}}" href="{{route('wishlists')}}"> {{\App\CPU\translate('favorites')}}  </a></h3>
+                    <a class="{{Request::is('wishlists*') ? 'active-menu':''}}" href="{{route('wishlists')}}"> {{\App\CPU\translate('favorit')}}  </a></h3>
                 <div class="divider-role"
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
                 </div>
@@ -113,7 +113,7 @@
             <!-- Filter by price-->
             <div class="sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
-                    <a class="{{Request::is('chat*')?'active-menu':''}}" href="{{route('chat-with-seller')}}">{{\App\CPU\translate('chat_with_seller')}}</a>
+                    <a class="{{Request::is('chat*')?'active-menu':''}}" href="{{route('chat-with-seller')}}">{{\App\CPU\translate('chat_dengan_pemilik')}}</a>
                 </h3>
                 <div class="divider-role"
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
@@ -126,7 +126,7 @@
             <div class=" sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
                     <a class="{{Request::is('user-account*')?'active-menu':''}}" href="{{route('user-account')}}">
-                        {{\App\CPU\translate('profile_info')}}
+                        {{\App\CPU\translate('profil')}}
                     </a>
                 </h3>
                 <div class="divider-role"
@@ -150,14 +150,13 @@
             <div class=" sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
                     <a class="{{(Request::is('account-ticket*') || Request::is('support-ticket*'))?'active-menu':''}}"
-                       href="{{ route('account-tickets') }}">{{\App\CPU\translate('support_ticket')}}</a></h3>
+                       href="{{ route('account-tickets') }}">{{\App\CPU\translate('tiket')}}</a></h3>
                 <div class="divider-role"
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
                 </div>
             </div>
         </div>
-        <div class="pb-0">
-            <!-- Filter by price-->
+        {{-- <div class="pb-0">
             <div class=" sidebarL">
                 <h3 class="widget-title btnF" style="font-weight: 700;">
                     <a class="{{(Request::is('account-verify*') || Request::is('account-verify*'))?'active-menu':''}}"
@@ -166,7 +165,7 @@
                      style="border: 1px solid whitesmoke; margin-bottom: 14px;  margin-top: -6px;">
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{--<div class="pb-0" style="padding-top: 12px;">
             <!-- Filter by price-->
             <div class="sidebarL ">

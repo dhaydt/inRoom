@@ -250,15 +250,11 @@
 
   <div class="navbar-sticky bg-light mobile-head">
     <div class="navbar navbar-expand-md navbar-light">
-      <div class="container ">
-        <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="container ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
 
         <a class="navbar-brand d-none d-md-block {{Session::get('direction') === " rtl" ? 'ml-3' : 'mr-3' }}
           flex-shrink-0 tab-logo" href="{{route('home')}}" style="min-width: 7rem;">
@@ -273,7 +269,7 @@
           <div class="nav-list d-flex h-100">
               <div class="navbar-tool {{Session::get('direction') === " rtl" ? 'mr-3' : 'ml-3' }}">
                 <a class="nav-item-list" href="{{route('wishlists')}}">
-                  <span class="nav-item">{{ \App\CPU\translate('favorite')}}</span>
+                  <span class="nav-item">{{ \App\CPU\translate('favorit')}}</span>
                 </a>
               </div>
               <div class="navbar-tool {{Session::get('direction') === " rtl" ? 'mr-3' : 'ml-3' }}">
@@ -293,11 +289,11 @@
                     </a>
                     <i class="fa fa-caret-down"></i>
                     <div class="dropdown-menu" style="top:15px;" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('account-oder') }}">Booking</a>
-                        <a class="dropdown-item" href="{{ route('apply.job-order') }}">Applied</a>
-                        <a class="dropdown-item" href="{{ route('wishlists') }}">Favorite</a>
+                        <a class="dropdown-item" href="{{ route('account-oder') }}">Pemesanan</a>
+                        <a class="dropdown-item" href="{{ route('apply.job-order') }}">Lamaran</a>
+                        <a class="dropdown-item" href="{{ route('wishlists') }}">Favorit</a>
                         <a class="dropdown-item" href="{{ route('chat-with-seller') }}">Chat</a>
-                        <a class="dropdown-item" href="{{ route('user-account') }}">Profile</a>
+                        <a class="dropdown-item" href="{{ route('user-account') }}">Profil</a>
                       </div>
                   </div>
                 </div>
@@ -318,15 +314,15 @@
                 </div>
               </div>
               <div class="navbar-tool-text">
-                <small>Hello, {{auth('customer')->user()->f_name}}</small>
+                <small>Halo, {{auth('customer')->user()->f_name}}</small>
                 Dashboard
               </div>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="{{route('account-oder')}}"> {{ \App\CPU\translate('Booking')}} </a>
-              <a class="dropdown-item" href="{{route('user-account')}}"> {{ \App\CPU\translate('Profile')}}</a>
+              <a class="dropdown-item" href="{{route('account-oder')}}"> {{ \App\CPU\translate('Pesanan')}} </a>
+              <a class="dropdown-item" href="{{route('user-account')}}"> {{ \App\CPU\translate('Profil')}}</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('logout')}}</a>
+              <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('Keluar')}}</a>
             </div>
           </div>
           @else
