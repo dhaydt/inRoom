@@ -56,12 +56,14 @@ class SMS_module
         if (isset($config) && $config['status'] == 1) {
             $userkey = $config['sid'];
             $passkey = $config['messaging_service_sid'];
-            // $telepon = '+62'.(int) $receiver;
-            $telepon = '+62'.(int) $receiver;
+            $hp = (int) $receiver;
+            $telepon = '+62'.(int) $hp;
+            // dd($telepon);
             $message = $config['otp_template'].$otp;
             // $message = ['grosa' => str_split($otp)];
             $url = $config['token'];
-            // dd($url);
+            // $url = 'https://console.zenziva.net/wareguler/api/sendWA/';
+            // dd($telepon);
             // dd(json_encode($message));
             $curlHandle = curl_init();
             curl_setopt($curlHandle, CURLOPT_URL, $url);
@@ -74,8 +76,8 @@ class SMS_module
             curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
                 'userkey' => $userkey,
                 'passkey' => $passkey,
-                'nohp' => $telepon,
-                'pesan' => $message,
+                'to' => $telepon,
+                'message' => $message,
             ]);
             $results = json_decode(curl_exec($curlHandle), true);
             curl_close($curlHandle);
