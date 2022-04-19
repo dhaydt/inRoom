@@ -83,7 +83,7 @@
                             @csrf
 
                             <div class="form-group mb-2">
-                                <label class="control-label">{{\App\CPU\translate('twilio_sms')}}</label>
+                                <label class="control-label">{{\App\CPU\translate('Zenziva')}}</label>
                             </div>
                             <div class="form-group mb-2 mt-2">
                                 <input type="radio" name="status" value="1" {{isset($config) && $config['status']==1?'checked':''}}>
@@ -97,27 +97,27 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label class="text-capitalize"
-                                       style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('sid')}}</label><br>
+                                       style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('UserKey')}}</label><br>
                                 <input type="text" class="form-control" name="sid"
                                        value="{{env('APP_MODE')!='demo'?$config['sid']??"":''}}">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label class="text-capitalize"
-                                       style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('messaging_service_sid')}}</label><br>
+                                       style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('API_Key')}}</label><br>
                                 <input type="text" class="form-control" name="messaging_service_sid"
                                        value="{{env('APP_MODE')!='demo'?$config['messaging_service_sid']??"":''}}">
                             </div>
 
-                            <div class="form-group mb-2">
+                            <div class="form-group mb-2 d-none">
                                 <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('token')}}</label><br>
-                                <input type="text" class="form-control" name="token"
+                                <input type="hidden" class="form-control" name="token"
                                        value="{{env('APP_MODE')!='demo'?$config['token']??"":''}}">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('from')}}</label><br>
-                                <input type="text" class="form-control" name="from"
+                                <input type="hidden" class="form-control" name="from"
                                        value="{{env('APP_MODE')!='demo'?$config['from']??"":''}}">
                             </div>
 
