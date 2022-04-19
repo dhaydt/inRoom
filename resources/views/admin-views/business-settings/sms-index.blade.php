@@ -20,7 +20,7 @@
 
         <div class="row" style="padding-bottom: 20px">
 
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('releans_sms')}}</h5>
@@ -69,12 +69,12 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
-                        <h5 class="text-center">{{\App\CPU\translate('twilio_sms')}}</h5>
+                        <h5 class="text-center">{{\App\CPU\translate('Zenziva_sms')}}</h5>
                         <span class="badge badge-soft-info mb-3">NB : #OTP# will be replace with otp</span>
                         @php($config=\App\CPU\Helpers::get_business_settings('twilio_sms'))
                         <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['twilio_sms']):'javascript:'}}"
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('nexmo_sms')}}</h5>
@@ -189,9 +189,9 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-6 mt-4">
+            {{-- <div class="col-md-6 mt-4">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('2factor_sms')}}</h5>
@@ -229,9 +229,9 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-6 mt-4">
+            {{-- <div class="col-md-6 mt-4">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('msg91_sms')}}</h5>
@@ -274,7 +274,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

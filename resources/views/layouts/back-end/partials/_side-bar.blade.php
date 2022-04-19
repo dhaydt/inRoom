@@ -149,7 +149,7 @@
                                         </span>
                                         </a>
                                     </li>
-                                    <li class="nav-item {{Request::is('admin/orders/list/out_for_delivery')?'active':''}}">
+                                    {{-- <li class="nav-item {{Request::is('admin/orders/list/out_for_delivery')?'active':''}}">
                                         <a class="nav-link " href="{{route('admin.orders.list',['out_for_delivery'])}}"
                                            title="">
                                             <span class="tio-circle nav-indicator-icon"></span>
@@ -160,7 +160,7 @@
                                             </span>
                                         </span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item {{Request::is('admin/orders/list/delivered')?'active':''}}">
                                         <a class="nav-link " href="{{route('admin.orders.list',['delivered'])}}"
                                            title="">
@@ -258,18 +258,6 @@
                                             <span class="text-truncate">{{\App\CPU\translate('Rooms')}}</span>
                                         </a>
                                     </li>
-                                    {{-- <li class="nav-item {{Request::is('admin/product/bulk-import')?'active':''}}">
-                                        <a class="nav-link " href="{{route('admin.product.bulk-import')}}">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">{{\App\CPU\translate('bulk_import')}}</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item {{Request::is('admin/product/bulk-export')?'active':''}}">
-                                        <a class="nav-link " href="{{route('admin.product.bulk-export')}}">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">{{\App\CPU\translate('bulk_export')}}</span>
-                                        </a>
-                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/product/list/seller*') || Request::is('admin/property/list/seller*')?'active':''}}">
@@ -373,7 +361,7 @@
                                         class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">{{\App\CPU\translate('flash_deals')}}</span>
                                 </a>
                             </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/deal/day')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/deal/day')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.deal.day')}}">
                                     <i class="tio-crown-outlined nav-icon"></i>
@@ -381,8 +369,8 @@
                                         {{\App\CPU\translate('deal_of_the_day')}}
                                     </span>
                                 </a>
-                            </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/deal/feature')?'active':''}}">
+                            </li> --}}
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/deal/feature')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.deal.feature')}}">
                                     <i class="tio-flag-outlined nav-icon"></i>
@@ -390,7 +378,7 @@
                                         {{\App\CPU\translate('featured_deal')}}
                                     </span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
                     <!--marketing section ends here-->
 
@@ -408,7 +396,7 @@
                             </li>
 
                             {{-- seller withdraw --}}
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/stock/product-stock')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/stock/product-stock')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.stock.product-stock')}}">
                                     <i class="tio-fullscreen-1-1 nav-icon"></i>
@@ -416,7 +404,7 @@
                                  {{\App\CPU\translate('product')}} {{\App\CPU\translate('stock')}}
                                 </span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/reviews*')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.reviews.list')}}">
@@ -532,7 +520,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/payment-method')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/payment-method')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.business-settings.payment-method.index')}}">
                                     <i class="tio-money-vs nav-icon"></i>
@@ -540,7 +528,7 @@
                                         {{\App\CPU\translate('payment_method')}}
                                     </span>
                                 </a>
-                            </li>
+                            </li> --}}
 
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/sms-module')?'active':''}}">
                                 <a class="nav-link " href="{{route('admin.business-settings.sms-module')}}"
@@ -550,53 +538,13 @@
                                 </a>
                             </li>
 
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/shipping-method*')?'active':''}}">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle"
-                                   href="javascript:">
-                                    <i class="tio-car nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
-                                        {{\App\CPU\translate('shipping_method')}}
-                                    </span>
-                                </a>
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
-                                    style="display: {{Request::is('admin/business-settings/shipping-method*')?'block':'none'}}">
-                                    <li class="nav-item {{Request::is('admin/business-settings/shipping-method/by/admin')?'active':''}}">
-                                        <a class="nav-link"
-                                           href="{{route('admin.business-settings.shipping-method.by.admin')}}">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">
-                                              {{\App\CPU\translate('by_admin')}}
-                                            </span>
-                                        </a>
-                                    </li>
-                                    {{-- <li class="nav-item {{Request::is('admin/business-settings/shipping-method/by/seller')?'active':''}}">
-                                        <a class="nav-link"
-                                           href="{{route('admin.business-settings.shipping-method.by.seller')}}">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">
-                                               {{\App\CPU\translate('by_seller')}}
-                                            </span>
-                                        </a>
-                                    </li> --}}
-                                    <li class="nav-item {{Request::is('admin/business-settings/shipping-method/setting')?'active':''}}">
-                                        <a class="nav-link"
-                                           href="{{route('admin.business-settings.shipping-method.setting')}}">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">
-                                               {{\App\CPU\translate('Settings')}}
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/language*')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/language*')?'active':''}}">
                                 <a class="nav-link " href="{{route('admin.business-settings.language.index')}}"
                                    title="{{\App\CPU\translate('languages')}}">
                                     <i class="tio-book-opened nav-icon"></i>
                                     <span class="text-truncate">{{\App\CPU\translate('languages')}}</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
 {{--                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/language*')?'active':''}}">--}}
 {{--                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle"--}}
@@ -637,7 +585,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/currency/view')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/currency/view')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.currency.view')}}">
                                     <i class="tio-dollar-outlined nav-icon"></i>
@@ -645,7 +593,7 @@
                                         {{\App\CPU\translate('currencies')}}
                                     </span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
                     <!--business settings ends here-->
 

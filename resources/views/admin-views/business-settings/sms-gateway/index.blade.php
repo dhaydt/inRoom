@@ -23,7 +23,7 @@
                     <h5 class="text-center">{{\App\CPU\translate('NEXMO')}} {{\App\CPU\translate('SMS')}} </h5>
                     @php($config=\App\CPU\Helpers::get_business_settings('sms_nexmo'))
                     <form action="{{route('admin.business-settings.sms-gateway.update',['sms_nexmo'])}}"
-                          method="post">
+                        method="post">
                         @csrf
                         @if(isset($config))
                             <div class="form-group mb-2">
@@ -46,7 +46,7 @@
                             <div class="form-group mb-2">
                                 <label style="padding-left: 10px">{{\App\CPU\translate('api_secret')}}</label><br>
                                 <input type="text" class="form-control" name="nexmo_secret"
-                                       value="{{$config['nexmo_secret']}}">
+                                    value="{{$config['nexmo_secret']}}">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2">{{\App\CPU\translate('Save')}}</button>
                         @else
