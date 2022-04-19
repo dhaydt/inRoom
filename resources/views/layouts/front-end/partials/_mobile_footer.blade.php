@@ -20,7 +20,7 @@
             data-testid="icnFooterFeed">
             <div class="css-mw28ox"><img width="24" height="24"
                     src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/66eb4811.svg" alt="feed"
-                    class="css-mw28ox"></div>Booking
+                    class="css-mw28ox"></div>Pemesanan
         </a>
         @if(auth('customer')->check())
             <a class="css-11rf802" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
@@ -35,11 +35,11 @@
                 {{auth('customer')->user()->f_name}}
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{route('account-address')}}"> {{ \App\CPU\translate('my_address')}} </a>
-                <a class="dropdown-item" href="{{route('account-tickets')}}"> {{ \App\CPU\translate('my_tickets')}} </a>
-                <a class="dropdown-item" href="{{route('user-account')}}"> {{ \App\CPU\translate('my_profile')}}</a>
+                <a class="dropdown-item" href="{{route('account-address')}}"> {{ \App\CPU\translate('Alamat')}} </a>
+                <a class="dropdown-item" href="{{route('account-tickets')}}"> {{ \App\CPU\translate('Tiket')}} </a>
+                <a class="dropdown-item" href="{{route('user-account')}}"> {{ \App\CPU\translate('Profil')}}</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('logout')}}</a>
+                <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('Keluar')}}</a>
             </div>
         @else
             <a class="css-11rf802 profile-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

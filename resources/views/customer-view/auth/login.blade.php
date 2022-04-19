@@ -29,19 +29,19 @@
             <div class="col-md-6">
                 <div class="card border-0 box-shadow">
                     <div class="card-body">
-                        <h2 class="h4 mb-1">{{\App\CPU\translate('sing_in')}}</h2>
+                        <h2 class="h4 mb-1">{{\App\CPU\translate('Masuk')}}</h2>
                         <hr class="mt-2">
                         {{-- <h3 class="font-size-base pt-4 pb-2">{{\App\CPU\translate('or_using_form_below')}}</h3> --}}
                         <form class="needs-validation mt-2" autocomplete="off" action="{{route('customer.auth.login')}}"
                               method="post" id="sign-in-form">
                             @csrf
                             <div class="form-group">
-                                <label for="si-email">{{\App\CPU\translate('email_address')}} / {{\App\CPU\translate('phone')}}</label>
+                                <label for="si-email">{{\App\CPU\translate('alamat_email')}} / {{\App\CPU\translate('HP')}}</label>
                                 <input class="form-control" type="text" name="user_id" id="si-email"
                                        style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};" value="{{old('user_id')}}"
                                        placeholder="{{\App\CPU\translate('Enter_email_address_or_phone_number')}}"
                                        required>
-                                <div class="invalid-feedback">{{\App\CPU\translate('please_provide_valid_email_or_phone_number')}}.</div>
+                                <div class="invalid-feedback">{{\App\CPU\translate('tolong_masukan_email_atau_HP_anda')}}.</div>
                             </div>
                             <div class="form-group">
                                 <label for="si-password">{{\App\CPU\translate('password')}}</label>
@@ -52,7 +52,7 @@
                                     <label class="password-toggle-btn">
                                         <input class="custom-control-input" type="checkbox"><i
                                             class="czi-eye password-toggle-indicator"></i><span
-                                            class="sr-only">{{\App\CPU\translate('Show')}} {{\App\CPU\translate('password')}} </span>
+                                            class="sr-only">{{\App\CPU\translate('lihat')}} {{\App\CPU\translate('password')}} </span>
                                     </label>
                                 </div>
                             </div>
@@ -84,26 +84,26 @@
                                     <input type="checkbox" class="{{Session::get('direction') === "rtl" ? 'ml-1' : 'mr-1'}}"
                                            name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="" for="remember">{{\App\CPU\translate('remember_me')}}</label>
+                                    <label class="" for="remember">{{\App\CPU\translate('Ingatkan_saya')}}</label>
                                 </div>
                                 <a class="font-size-sm" href="{{route('customer.auth.recover-password')}}">
-                                    {{\App\CPU\translate('forgot_password')}}?
+                                    {{\App\CPU\translate('lupa_password')}}?
                                 </a>
                             </div>
                             <button class="btn btn-primary btn-block btn-shadow"
-                                    type="submit">{{\App\CPU\translate('sign_in')}}</button>
+                                    type="submit">{{\App\CPU\translate('Masuk')}}</button>
                         </form>
                     </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-12 flex-between row p-0" style="direction: {{ Session::get('direction') }}">
                                 <div class="mb-3 {{Session::get('direction') === "rtl" ? '' : 'ml-2'}}">
-                                    <h6>{{ \App\CPU\translate('no_account_Sign_up_now') }}</h6>
+                                    <h6 class="mt-auto">User baru? Daftar disini</h6>
                                 </div>
                                 <div class="mb-3 {{Session::get('direction') === "rtl" ? 'ml-2' : ''}}">
                                     <a class="btn btn-outline-primary"
                                        href="{{route('customer.auth.register')}}">
-                                        <i class="fa fa-user-circle"></i> {{\App\CPU\translate('sing_up')}}
+                                        <i class="fa fa-user-circle"></i> {{\App\CPU\translate('daftar')}}
                                     </a>
                                 </div>
                             </div>
