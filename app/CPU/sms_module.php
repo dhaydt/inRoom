@@ -60,7 +60,8 @@ class SMS_module
             $telepon = '+62'.(int) $receiver;
             $message = $config['otp_template'].$otp;
             // $message = ['grosa' => str_split($otp)];
-            $url = 'https://gsm.zenziva.net/api/sendWA/';
+            $url = $config['token'];
+            // dd($url);
             // dd(json_encode($message));
             $curlHandle = curl_init();
             curl_setopt($curlHandle, CURLOPT_URL, $url);

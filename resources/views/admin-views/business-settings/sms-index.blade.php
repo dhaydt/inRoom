@@ -109,9 +109,9 @@
                                        value="{{env('APP_MODE')!='demo'?$config['messaging_service_sid']??"":''}}">
                             </div>
 
-                            <div class="form-group mb-2 d-none">
-                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('token')}}</label><br>
-                                <input type="hidden" class="form-control" name="token"
+                            <div class="form-group mb-2">
+                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('API_Endpoint')}}</label><br>
+                                <input type="text" class="form-control" name="token"
                                        value="{{env('APP_MODE')!='demo'?$config['token']??"":''}}">
                             </div>
 
