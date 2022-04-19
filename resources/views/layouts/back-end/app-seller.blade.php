@@ -201,7 +201,7 @@
         <div class="col-12" style="width:85%;position: fixed;z-index: 9999;display: flex;align-items: center;justify-content: center;">
             <div id="loading" style="display: none">
                 <img width="200"
-                     src="{{asset('storage/app/public/company')}}/{{\App\CPU\Helpers::get_business_settings('loader_gif')}}"
+                     src="{{asset('storage/company')}}/{{\App\CPU\Helpers::get_business_settings('loader_gif')}}"
                      onerror="this.src='{{asset('public/assets/front-end/img/loader.gif')}}'">
             </div>
         </div>
