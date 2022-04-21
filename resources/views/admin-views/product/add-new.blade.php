@@ -223,15 +223,6 @@
                                             kosong.</span>
                                     </div>
                                 </div>
-
-                                {{-- <div class="col-md-6" id="quantiti">
-                                    <label class="input-label label-name mb-4"
-                                        for="name">{{\App\CPU\translate('Berapa_jumlah_kamar_tersedia')}} ?</label>
-                                    <input type="number" min="0" value="0" step="1" id="available" name="available"
-                                        value="" class="form-control" required>
-                                    <small id="avaiErr" class="text-danger d-none">Jumlah kamar tersedia tidak boleh
-                                        lebih dari total kamar.</small>
-                                </div> --}}
                             </div>
 
                             <div class="row pt-4">
@@ -264,7 +255,6 @@
                                             </button>
                                         </div>
                                         <div id="modal-room" class="modal-body">
-
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" onclick="removeRoom()"
@@ -276,10 +266,8 @@
                                 </div>
                             </div>
                             <div class="row pt-4">
-
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -297,6 +285,12 @@
                                         value="{{old('unit_price')}}" class="form-control" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="control-label">{{\App\CPU\translate('Deposit')}} <small> (opsional: Apabila ingin meminta uang jaminan kepada penyewa)</small></label>
+                                    <input type="number" min="0" value="0" step="1"
+                                        placeholder="{{\App\CPU\translate('Deposit')}}" name="deposit"
+                                        value="{{old('deposit')}}" class="form-control">
+                                </div>
+                                <div class="col-md-12 pt-4">
                                     <label for="attributes" style="padding-bottom: 3px">
                                         {{\App\CPU\translate('Paket')}} :
                                     </label>
@@ -310,7 +304,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="col-md-12 mt-2 mb-2">
                                     <div class="customer_choice_options" id="customer_choice_options"></div>
                                 </div>
@@ -340,7 +333,7 @@
                                 </div>
                             </div>
                             <div class="pt-4 col-12 sku_combination" id="sku_combination">
-                        </div>
+                            </div>
 
 
                     </div>

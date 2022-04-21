@@ -242,6 +242,12 @@
                                         value="{{\App\CPU\Convert::default($product->unit_price)}}" class="form-control" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="control-label">{{\App\CPU\translate('Deposit')}} <small> (opsional: Apabila ingin meminta uang jaminan kepada penyewa)</small></label>
+                                    <input type="number" min="0" step="1"
+                                        placeholder="{{\App\CPU\translate('Deposit')}}" name="deposit"
+                                        value="{{$request->deposit)}}" class="form-control">
+                                </div>
+                                <div class="col-md-12 pt-4">
                                     <label for="attributes">
                                         {{\App\CPU\translate('Attributes')}} :
                                     </label>

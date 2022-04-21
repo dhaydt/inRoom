@@ -60,6 +60,8 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+        ], [
+            'name.required' => 'Masukan kata kunci pencarian',
         ]);
 
         if ($validator->fails()) {

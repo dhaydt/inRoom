@@ -303,6 +303,7 @@ class ProductController extends BaseController
         $product->discount = $request->discount_type == 'flat' ? Convert::usd($request->discount) : $request->discount;
         $product->discount_type = $request->discount_type;
         $product->request_status = 1;
+        $product->deposit = $request->deposit;
         $product->attributes = json_encode($request->choice_attributes);
 
         $product->total = $request['total'];
@@ -605,6 +606,7 @@ class ProductController extends BaseController
         $product->tax_type = $request->tax_type;
         $product->discount = $request->discount_type == 'flat' ? BackEndHelper::currency_to_usd($request->discount) : $request->discount;
         $product->discount_type = $request->discount_type;
+        $product->deposit = $request->deposit;
 
         if ($request->ajax()) {
             return response()->json([], 200);

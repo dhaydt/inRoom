@@ -230,6 +230,7 @@ class ProductController extends Controller
         $product->type = $request->type;
         $product->kost_id = $request->kost_id;
         $product->slug = Str::slug($request->type, '-').'-'.Str::random(6);
+        $product->deposit = $request->deposit;
 
         $kost = Kost::where('id', $request->kost_id)->first();
 
@@ -496,6 +497,7 @@ class ProductController extends Controller
         $product->fasilitas_id = json_encode($request->fasilitas);
         $product->type = $request->type;
         $product->size = $request->size;
+        $product->deposit = $request->deposit;
         $product_images = json_decode($product->images);
 
         if ($request->file('images')) {
