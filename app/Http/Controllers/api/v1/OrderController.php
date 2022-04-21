@@ -31,7 +31,6 @@ class OrderController extends Controller
 
     public function place_order(Request $request)
     {
-        // dd($request->file('image'));
         $id = $request->user()->id;
         $user = User::find($id);
         $image = $request->file('ktp');
@@ -46,9 +45,9 @@ class OrderController extends Controller
         if ($user->ktp == null) {
             return response()->json(['error' => 'tolong upload ktp anda'], 500);
         }
-        $data = Cart::find($request['cart_id']);
+        $data = Cart::find($request->cart_id);
+        // dd($data);
         $check = Product::find($data->product_id);
-        // dd($check);
         if ($check->current_stock < 1) {
             CartManager::cart_clean($request);
 

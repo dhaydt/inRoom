@@ -1,6 +1,6 @@
 @extends('layouts.front-end.app')
 
-@section('title',\App\CPU\translate('My Address'))
+@section('title',\App\CPU\translate('Alamat_saya'))
 
 @push('css_or_js')
     <link rel="stylesheet" media="screen"
@@ -405,7 +405,7 @@
                                         <div><span class="font-nameA"> <strong>{{\App\CPU\translate('Country')}} :</strong> {{$c_name->country_name}}</span>
                                         </div>
 
-                    
+
                                     </div>
                                 {{-- </div> --}}
                             </div>

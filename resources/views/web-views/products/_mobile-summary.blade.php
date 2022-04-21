@@ -41,7 +41,7 @@
             </span>
         </div>
         <div class="d-flex justify-content-between mt-2" id="cart-discount">
-            <span class="cart_title">{{\App\CPU\translate('discount')}} (@if ($product->discount_type == 'percent')
+            <span class="cart_title">{{\App\CPU\translate('Diskon')}} (@if ($product->discount_type == 'percent')
                 {{round($product->discount,2)}}%
                 @elseif($product->discount_type =='flat')
                 {{\App\CPU\Helpers::currency_converter($product->discount)}}
@@ -60,7 +60,7 @@
         </div>
         @if(session()->has('coupon_discount'))
             <div class="d-flex justify-content-between">
-                <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
+                <span class="cart_title">{{\App\CPU\translate('kode_kupon')}}</span>
                 <span class="cart_value" id="coupon-discount-amount">
                     - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
                 </span>

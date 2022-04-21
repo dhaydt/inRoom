@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\CPU\CustomerManager;
 use App\CPU\Helpers;
 use App\CPU\ImageManager;
+use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
 use App\Model\OrderDetail;
@@ -14,12 +15,8 @@ use App\Model\SupportTicketConv;
 use App\Model\Wishlist;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
-use function App\CPU\translate;
 
 class CustomerController extends Controller
 {
@@ -54,6 +51,7 @@ class CustomerController extends Controller
                 ],
             ], 422);
         }
+
         return response()->json(['message' => 'Support ticket created successfully.'], 200);
     }
 
@@ -64,6 +62,7 @@ class CustomerController extends Controller
         $support->admin_id = 1;
         $support->customer_message = $request['message'];
         $support->save();
+
         return response()->json(['message' => 'Support ticket reply sent.'], 200);
     }
 
@@ -90,10 +89,11 @@ class CustomerController extends Controller
         $wishlist = Wishlist::where('customer_id', $request->user()->id)->where('product_id', $request->product_id)->first();
 
         if (empty($wishlist)) {
-            $wishlist = new Wishlist;
+            $wishlist = new Wishlist();
             $wishlist->customer_id = $request->user()->id;
             $wishlist->product_id = $request->product_id;
             $wishlist->save();
+
             return response()->json(['message' => translate('successfully added!')], 200);
         }
 
@@ -114,9 +114,10 @@ class CustomerController extends Controller
 
         if (!empty($wishlist)) {
             Wishlist::where(['customer_id' => $request->user()->id, 'product_id' => $request->product_id])->delete();
-            return response()->json(['message' => translate('successfully removed!')], 200);
 
+            return response()->json(['message' => translate('successfully removed!')], 200);
         }
+
         return response()->json(['message' => translate('No such data found!')], 404);
     }
 
@@ -157,6 +158,7 @@ class CustomerController extends Controller
             'updated_at' => now(),
         ];
         DB::table('shipping_addresses')->insert($address);
+
         return response()->json(['message' => translate('successfully added!')], 200);
     }
 
@@ -172,18 +174,22 @@ class CustomerController extends Controller
 
         if (DB::table('shipping_addresses')->where(['id' => $request['address_id'], 'customer_id' => $request->user()->id])->first()) {
             DB::table('shipping_addresses')->where(['id' => $request['address_id'], 'customer_id' => $request->user()->id])->delete();
+
             return response()->json(['message' => 'successfully removed!'], 200);
         }
+
         return response()->json(['message' => translate('No such data found!')], 404);
     }
 
     public function get_order_list(Request $request)
     {
         $orders = Order::where(['customer_id' => $request->user()->id])->get();
-        $orders->map(function ($data){
-            $data['shipping_address_data']=json_decode($data['shipping_address_data']);
+        $orders->map(function ($data) {
+            $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
+
             return $data;
         });
+
         return response()->json($orders, 200);
     }
 
@@ -198,24 +204,31 @@ class CustomerController extends Controller
         }
 
         $details = OrderDetail::where(['order_id' => $request['order_id']])->get();
-        $details->map(function ($query){
+        $details->map(function ($query) {
             $query['variation'] = json_decode($query['variation'], true);
             $query['product_details'] = Helpers::product_data_formatting(json_decode($query['product_details'], true));
+
             return $query;
         });
+
         return response()->json($details, 200);
     }
 
     public function update_profile(Request $request)
     {
+        // dd($request);
         $validator = Validator::make($request->all(), [
-            'f_name' => 'required',
-            'l_name' => 'required',
-            'phone' => 'required',
+            'kelamin' => 'required',
+            'asal' => 'required',
+            'tgl_lahir' => 'required',
         ], [
-            'f_name.required' => translate('First name is required!'),
-            'l_name.required' => translate('Last name is required!'),
+            'kelamin.required' => 'Mohon pilih jenis kelamin',
+            'asal.required' => 'Mohon pilih kota asal',
+            'tgl_lahir.required' => 'Mohon tanggal lahir diisi',
         ]);
+        if ($request->tgl_lahir == null) {
+            return response()->json(['errors' => 'Tanggal lahir mohon diisi'], 403);
+        }
 
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
@@ -227,6 +240,14 @@ class CustomerController extends Controller
             $imageName = $request->user()->image;
         }
 
+        $image = $request->file('ktp');
+
+        if ($image != null) {
+            $ktp = ImageManager::update('ktp/', $request->user()->ktp, 'png', $request->file('ktp'));
+        } else {
+            $ktp = $request->user()->image;
+        }
+
         if ($request['password'] != null && strlen($request['password']) > 5) {
             $pass = bcrypt($request['password']);
         } else {
@@ -234,10 +255,14 @@ class CustomerController extends Controller
         }
 
         $userDetails = [
-            'f_name' => $request->f_name,
-            'l_name' => $request->l_name,
-            'phone' => $request->phone,
+            'f_name' => $request->f_name ? $request->f_name : $request->user()->f_name,
+            'l_name' => $request->l_name ? $request->l_name : $request->user()->l_name,
+            'phone' => $request->phone ? $request->phone : $request->user()->phone,
+            'kelamin' => $request->kelamin,
+            'asal' => $request->asal,
+            'lahir' => $request->tgl_lahir,
             'image' => $imageName,
+            'ktp' => $ktp,
             'password' => $pass,
             'updated_at' => now(),
         ];

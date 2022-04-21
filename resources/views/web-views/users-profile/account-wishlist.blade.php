@@ -1,6 +1,6 @@
 @extends('layouts.front-end.app')
 
-@section('title',\App\CPU\translate('My Wishlists'))
+@section('title',\App\CPU\translate('Keinginan_saya'))
 
 @push('css_or_js')
     <style>
@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9 sidebar_heading">
-                <h1 class="h3  mb-0 float-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} headerTitle">{{\App\CPU\translate('Favorite')}}</h1>
+                <h1 class="h3  mb-0 float-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} headerTitle">{{\App\CPU\translate('Favorit')}}</h1>
             </div>
         </div>
     </div>

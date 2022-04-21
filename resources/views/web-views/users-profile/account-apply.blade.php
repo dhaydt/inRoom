@@ -1,5 +1,5 @@
 @extends('layouts.front-end.app')
-@section('title',\App\CPU\translate('My_booking_list'))
+@section('title',\App\CPU\translate('Lamaran_saya'))
 
 @push('css_or_js')
 <style>
@@ -122,7 +122,7 @@
     <div class="row">
             @include('web-views.partials._profile-aside')
         <section class="col-lg-9 mt-2 col-md-9 booking-col">
-            <h1 class="h3 float-left headerTitle w-100">{{\App\CPU\translate('booking')}}</h1>
+            <h1 class="h3 float-left headerTitle w-100">{{\App\CPU\translate('Lamaran')}}</h1>
             {{-- {{ dd($orders) }} --}}
             @foreach ($orders as $order)
             <div class="card w-100 mt-4">
