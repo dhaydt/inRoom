@@ -226,6 +226,7 @@ class CartManager
         // $cart['color'] = $request->has('color') ? $request['color'] : null;
         $cart['product_id'] = $product->id;
         $cart['choices'] = json_encode($choices);
+        $cart['deposit'] = $product->deposit;
 
         //chek if out of stock
         if ($product['current_stock'] < $request['quantity']) {

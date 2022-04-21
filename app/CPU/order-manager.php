@@ -308,7 +308,7 @@ class OrderManager
         $minute = 2880;
 
         // dd($tambahan);
-
+        $deposit = $seller_data['deposit'] ? $seller_data['deposit'] : 0;
         $or = [
             'id' => $order_id,
             'verification_code' => rand(100000, 999999),
@@ -330,7 +330,7 @@ class OrderManager
             'discount_amount' => $discount,
             'discount_type' => $discount == 0 ? null : 'coupon_discount',
             'coupon_code' => $coupon_code,
-            'order_amount' => (CartManager::cart_grand_total($cart_group_id) - $discount) * $amount,
+            'order_amount' => +((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit,
             // 'shipping_address' => $address_id,
             // 'shipping_address_data' => ShippingAddress::find($address_id),
             // 'shipping_cost' => CartManager::get_shipping_cost($data['cart_group_id']),

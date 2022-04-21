@@ -37,7 +37,7 @@ class CartController extends Controller
                 if (json_decode($product->variation)[$i]->type == $str) {
                     $tax = Helpers::tax_calculation(json_decode($product->variation)[$i]->price, $product['tax'], $product['tax_type']);
                     $discount = Helpers::get_product_discount($product, json_decode($product->variation)[$i]->price);
-                    $price = json_decode($product->variation)[$i]->price - $discount + $tax;
+                    $price = json_decode($product->variation)[$i]->price - $discount + $tax + $product->deposit;
                     $quantity = json_decode($product->variation)[$i]->qty;
                     $real = json_decode($product->variation)[$i]->price;
                 }
@@ -46,7 +46,7 @@ class CartController extends Controller
         } else {
             $tax = Helpers::tax_calculation($product->unit_price, $product['tax'], $product['tax_type']);
             $discount = Helpers::get_product_discount($product, $product->unit_price);
-            $price = $product->unit_price - $discount + $tax;
+            $price = $product->unit_price - $discount + $tax + $product->deposit;
             $quantity = $product->current_stock;
         }
 
@@ -61,7 +61,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        // dd($request);
         $user = auth('customer')->user();
         if ($user == null) {
             return redirect()->route('customer.auth.login');

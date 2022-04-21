@@ -5,13 +5,6 @@
 @push('css_or_js')
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/checkout-details.css"/>
     <style>
-        .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-            background: {{$web_config['primary_color']}};
-            border-radius: 6px;
-            color: white !important;
-            border-color: {{$web_config['primary_color']}};
-        }
-
         .nav-tabs .nav-link {
             background: {{$web_config['secondary_color']}};
             border: 1px solid{{$web_config['secondary_color']}};
@@ -20,6 +13,13 @@
             font-weight: 600 !important;
             font-size: 18px !important;
         }
+        .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+            background: {{$web_config['primary_color']}};
+            border-radius: 6px;
+            color: white !important;
+            border-color: {{$web_config['primary_color']}};
+        }
+
     </style>
 @endpush
 

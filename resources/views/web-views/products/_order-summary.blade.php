@@ -58,6 +58,12 @@
                 + {{\App\CPU\Helpers::currency_converter($tax)}}
             </span>
         </div>
+        <div class="d-flex justify-content-between" id="cart-deposit">
+            <span class="cart_title">{{\App\CPU\translate('Deposit')}} <small class="text-danger"> (dana akan dikembalikan saat kos berakhir)</small></span>
+            <span class="cart_value">
+                + {{\App\CPU\Helpers::currency_converter($product->deposit)}}
+            </span>
+        </div>
         @if(session()->has('coupon_discount'))
             <div class="d-flex justify-content-between">
                 <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
@@ -85,7 +91,7 @@
             <span class="cart_title">{{\App\CPU\translate('total')}}</span>
             <span class="cart_value">
                 {{\App\CPU\Helpers::currency_converter(
-                    $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))+ $tax)}}
+                    $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))+ $tax + $product->deposit)}}
             </span>
         </div>
 

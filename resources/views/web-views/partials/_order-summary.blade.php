@@ -20,6 +20,7 @@
     <div class="cart_total py-4">
         @php($sub_total=0)
         @php($total_tax=0)
+        @php($deposit=0)
         @php($total_discount_on_product=0)
         @php($cart=\App\CPU\CartManager::get_cart())
         @php(session(['cart_group_id' => $cart[0]['cart_group_id']]))
@@ -28,6 +29,7 @@
         @if($cart->count() > 0)
             @foreach($cart as $key => $cartItem)
                 @php($sub_total+=$cartItem['price'])
+                @php($deposit+=$cartItem['deposit'])
                 @php($total_tax+=$cartItem['tax']*$cartItem['quantity'])
                 @php($total_discount_on_product+=$cartItem['discount']*$cartItem['quantity'])
             @endforeach
@@ -57,6 +59,16 @@
                     Rp.
                 </span>
                 <span class="cart_value" id="taxPrice"></span>
+            </span>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <span class="cart_title">{{\App\CPU\translate('Deposit')}}</span>
+            <span id="priceDeposit" class="d-none"> {{\App\CPU\Helpers::currency_converter($deposit)}}</span>
+            <span class="cart_value">
+                <span class="cart_value">
+                    {{\App\CPU\Helpers::currency_converter($deposit)}}
+                </span>
+                <span class="cart_value" id="depositPrice"></span>
             </span>
         </div>
         <div class="d-flex justify-content-between mt-4">
@@ -95,7 +107,7 @@
         <hr class="my-4 mb-2" style="border: 1px dashed #e3e9ef">
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('total_pembayaran_pertama')}}</span>
-            <span id="priceTotal" class="d-none">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax-$coupon_dis-$total_discount_on_product)}}</span>
+            <span id="priceTotal" class="d-none">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax-$coupon_dis-$total_discount_on_product + $deposit)}}</span>
             <div class="d-flex">
                 <span class="cart_value">
                     Rp.

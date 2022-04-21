@@ -444,6 +444,7 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
         var kos = $('#priceKos').text();
         var dis = $('#priceDis').text();
         var tax = $('#priceTax').text();
+        var dep = $('#priceDeposit').text();
         var rmrp = pure.replace(/[Rp.]/g, '');
         var koss = kos.replace(/[Rp.]/g, '');
         var diss = dis.replace(/[Rp.]/g, '');
@@ -485,10 +486,13 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
             var val = parseFloat(rp.replace(/[\.]/g, '')) * anc
             var newPrice = number(val)
+            var newKos = number(kosNew)
+            var newDis = number(disNew);
+            var newTax = number(taxNew);
             $('#totalPrice').text(newPrice)
-            $('#kosPrice').text(kosNew)
-            $('#disPrice').text(disNew)
-            $('#taxPrice').text(taxNew)
+            $('#kosPrice').text(newKos)
+            $('#disPrice').text(newDis)
+            $('#taxPrice').text(newTax)
 
             spinner.find("input").trigger("change");
         });
@@ -517,10 +521,13 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var taxRp = tax.replace(/[^\d\.]/g, '')
             var taxNew = parseFloat(taxRp.replace(/[\.]/g, '')) * anc
             var newPrice = number(val)
+            var newKos = number(kosNew)
+            var newDis = number(disNew);
+            var newTax = number(taxNew);
             $('#totalPrice').text(newPrice)
-            $('#kosPrice').text(kosNew)
-            $('#disPrice').text(disNew)
-            $('#taxPrice').text(taxNew)
+            $('#kosPrice').text(newKos)
+            $('#disPrice').text(newDis)
+            $('#taxPrice').text(newTax)
             spinner.find("input").trigger("change");
         });
         });
