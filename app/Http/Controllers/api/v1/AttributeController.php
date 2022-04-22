@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Country;
 use App\Http\Controllers\Controller;
 use App\Model\Attribute;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Country;
+use Laravolt\Indonesia\Models\City;
 
 class AttributeController extends Controller
 {
     public function get_attributes()
     {
         $attributes = Attribute::all();
-        return response()->json($attributes,200);
+
+        return response()->json($attributes, 200);
     }
-    
+
+    public function city()
+    {
+        $city = City::get();
+
+        return response()->json($city);
+    }
+
     public function short_country()
     {
         $country = Country::with('product')->has('product')->get();
@@ -25,8 +33,8 @@ class AttributeController extends Controller
 
         return response()->json($count, 200);
     }
-    
-     public function country()
+
+    public function country()
     {
         $country = DB::table('country')->get();
         $count = $country->map(function ($country) {
