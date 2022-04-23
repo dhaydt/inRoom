@@ -67,6 +67,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         });
 
         Route::group(['prefix' => 'deal', 'as' => 'deal.', 'middleware' => ['module:marketing_section']], function () {
+            Route::get('poin', 'DealController@poin_index')->name('poin');
+            Route::post('poin-add', 'DealController@poinAdd')->name('poin-add');
+            Route::post('status-poin', 'DealController@poinStatus')->name('status-poin');
             Route::get('flash', 'DealController@flash_index')->name('flash');
             Route::post('flash', 'DealController@flash_submit');
 

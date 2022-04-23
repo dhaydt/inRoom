@@ -9,15 +9,76 @@ use App\Http\Controllers\Controller;
 use App\Model\DealOfTheDay;
 use App\Model\FlashDeal;
 use App\Model\FlashDealProduct;
+use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Translation;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class DealController extends Controller
 {
+    public function poin_index(Request $request)
+    {
+        $query_param = [];
+        $search = $request['search'];
+        // if ($request->has('search')) {
+        //     $key = explode(' ', $request['search']);
+        //     $flash_deal = Poin::where('deal_type', 'flash_deal')
+        //         ->where(function ($q) use ($key) {
+        //             foreach ($key as $value) {
+        //                 $q->Where('title', 'like', "%{$value}%");
+        //             }
+        //         });
+        //     $query_param = ['search' => $request['search']];
+        // } else {
+        //     $flash_deal = FlashDeal::where('deal_type', 'flash_deal');
+        // }
+        $poin = new Poin();
+        $poin = $poin->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+
+        return view('admin-views.poin_sale.index', compact('poin'));
+    }
+
+    public function poinAdd(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'transaction' => 'required',
+            'persen' => 'required',
+        ], [
+            'title.required' => 'Title poin is required',
+            'transaction.required' => 'Minimal transaction is required',
+            'persen.required' => 'Percent of cashback is required',
+        ]);
+
+        if ($validator->errors()->count() > 0) {
+            return response()->json(['errors' => Helpers::error_processor($validator)]);
+        }
+
+        $data = new Poin();
+        $data->title = $request->title;
+        $data->transaction = $request->transaction;
+        $data->persen = $request->persen;
+        $data->status = 0;
+        $data->save();
+
+        Toastr::success('Poin successfully added');
+
+        return redirect()->back();
+    }
+
+    public function poinStatus(Request $request)
+    {
+        Poin::where('id', $request->id)->first()->update(['status' => $request->status]);
+
+        return response()->json([
+            'success' => 1,
+        ], 200);
+    }
+
     public function flash_index(Request $request)
     {
         $query_param = [];
