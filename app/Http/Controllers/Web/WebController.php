@@ -23,6 +23,7 @@ use App\Model\Jobs;
 use App\Model\Kampus;
 use App\Model\Order;
 use App\Model\OrderDetail;
+use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
@@ -112,6 +113,10 @@ class WebController extends Controller
             ->orderBy('count', 'desc')
             ->take(4)
             ->get();
+
+        // cashback Poin
+        $poin = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
+
         //Top rated
         $topRated = Review::with('product')
             ->whereHas('product', function ($query) {
@@ -144,7 +149,7 @@ class WebController extends Controller
 
         $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('deal_of_the_days.status', 1)->first();
 
-        return view('web-views.home', compact('ptn', 'filter', 'flash_deals', 'article', 'city', 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands', 'deal_of_the_day', 'top_sellers', 'home_categories'));
+        return view('web-views.home', compact('ptn', 'poin', 'filter', 'flash_deals', 'article', 'city', 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands', 'deal_of_the_day', 'top_sellers', 'home_categories'));
     }
 
     public function flash_deals($id)

@@ -977,6 +977,7 @@ class ComposerStaticInit5c810ba0d19412d72c885b40a9decbf5
         'App\\Model\\SupportTicketConv' => __DIR__ . '/../..' . '/app/Model/SupportTicketConv.php',
         'App\\Model\\Transaction' => __DIR__ . '/../..' . '/app/Model/Transaction.php',
         'App\\Model\\Translation' => __DIR__ . '/../..' . '/app/Model/Translation.php',
+        'App\\Model\\UserPoin' => __DIR__ . '/../..' . '/app/Model/UserPoin.php',
         'App\\Model\\Wishlist' => __DIR__ . '/../..' . '/app/Model/Wishlist.php',
         'App\\Model\\WithdrawRequest' => __DIR__ . '/../..' . '/app/Model/WithdrawRequest.php',
         'App\\Models\\PaytabsInvoice' => __DIR__ . '/../..' . '/app/Models/PaytabsInvoice.php',

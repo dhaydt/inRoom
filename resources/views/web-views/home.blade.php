@@ -31,6 +31,18 @@
         color: {{ $web_config['primary_color'] }};
         right: -25px;
     }
+    .label-cashback {
+        position: absolute;
+        background-color: #dededea3;
+        padding: 2px 8px 2px 10px;
+        top: 0;
+        right: 0;
+        font-size:12px;
+        font-weight: 600;
+        color: {{ $web_config['primary_color'] }} !important;
+        letter-spacing: 1px;
+        border-radius: 0 10px 0 10px;
+    }
     .manual-nav.nav-manual .owl-carousel .owl-nav button {
         background-color: #cbcbcb;
         padding: 5px 11px !important;
@@ -632,66 +644,6 @@
     </div>
   </div>
 -->
-
-  @php($featured_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->where(['deal_type'=>'feature_deal'])->first())
-
-  @if(isset($featured_deals))
-  <section class="container">
-    <div class="row">
-      <div class="col-xl-12">
-        <div class="featured_deal">
-          <div class="row">
-            <div class="col-xl-3 col-md-4 rtl">
-              <div class="d-flex align-items-center justify-content-center featured_deal_left">
-                <h1 class="featured_deal_title">{{ \App\CPU\translate('featured_deal')}}</h1>
-              </div>
-            </div>
-            <div class="col-xl-9 col-md-8">
-              <div class="owl-carousel owl-theme" id="web-feature-deal-slider">
-                @foreach($featured_deals->products as $key=>$product)
-                @php($product=$product->product)
-                <div class="d-flex  align-items-center justify-content-center"
-                  style="height: 129px;border: 1px solid #c5bfbf54;border-radius: 5px; background: white">
-                  <div class="featured_deal_product d-flex align-items-center justify-content-between">
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="featured_product_pic mt-3" style=" text-align: center;">
-                          <a href="{{route('product',$product->slug)}}" class="image_center">
-                            <img
-                              src="{{\App\CPU\ProductManager::product_image_path('product')}}/{{json_decode($product['images'])[0]}}"
-                              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                              class="d-block w-100" alt="...">
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-8">
-                        <div class="featured_product_details">
-                          <h3 class="featured_product-title mt-2">
-                            <a class="ptr" href="{{route('product',$product->slug)}}">
-                              {{$product['name']}}
-                            </a>
-                          </h3>
-                          <div class="featured_product-price">
-                            <span class="text-accent ptp">
-                              {{\App\CPU\Helpers::currency_converter(
-                              $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))
-                              )}}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  @endif
 
 
 

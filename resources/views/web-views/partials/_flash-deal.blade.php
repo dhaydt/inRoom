@@ -13,6 +13,18 @@
         letter-spacing: 1px;
         border-radius: 10px 0 0 0;
     }
+    .label-cashback {
+        position: absolute;
+        background-color: #dededea3;
+        padding: 2px 8px 2px 10px;
+        top: 0;
+        right: 0;
+        font-size:12px;
+        font-weight: 600;
+        color: {{ $web_config['primary_color'] }} !important;
+        letter-spacing: 1px;
+        border-radius: 0 10px 0 10px;
+    }
     .discount-hed{
         margin-top: 0;
         right: 0;
@@ -332,10 +344,16 @@
                             </div>
                         </div>
                     </div>
+                    @php($poinCount = count($poin))
+                    @for ($i = 0; $i < $poinCount; $i++)
+                        @if ($poin[$i]->transaction <= $deal->product->unit_price)
+                            <label class="label-cashback capitalize">Cashback {{ $poin[$i]->persen }}%</label>
+                        @endif
+                    @endfor
                 </div>
 
-              </div>
             </div>
+        </div>
                 @endif
                 @endforeach
                 @else

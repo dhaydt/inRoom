@@ -239,6 +239,7 @@ return array(
     'App\\Model\\SupportTicketConv' => $baseDir . '/app/Model/SupportTicketConv.php',
     'App\\Model\\Transaction' => $baseDir . '/app/Model/Transaction.php',
     'App\\Model\\Translation' => $baseDir . '/app/Model/Translation.php',
+    'App\\Model\\UserPoin' => $baseDir . '/app/Model/UserPoin.php',
     'App\\Model\\Wishlist' => $baseDir . '/app/Model/Wishlist.php',
     'App\\Model\\WithdrawRequest' => $baseDir . '/app/Model/WithdrawRequest.php',
     'App\\Models\\PaytabsInvoice' => $baseDir . '/app/Models/PaytabsInvoice.php',

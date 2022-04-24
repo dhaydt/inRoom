@@ -37,6 +37,14 @@
         @if ($product->added_by == 'admin')
         <label class="label-vendor capitalize">inRoom</label>
         @endif
+        @if (isset($poin))
+        @php($poinCount = count($poin))
+        @for ($i = 0; $i < $poinCount; $i++)
+            @if ($poin[$i]->transaction <= $product->unit_price)
+                <label class="label-cashback capitalize">Cashback {{ $poin[$i]->persen }}%</label>
+            @endif
+        @endfor
+        @endif
 
         <div class="card-body d-flex flex-column justify-content-between single-product inline_product text-left px-3 pt-2 clickable"
             style="cursor: pointer;">
