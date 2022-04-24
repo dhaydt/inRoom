@@ -70,6 +70,29 @@ class DealController extends Controller
         return redirect()->back();
     }
 
+    public function poinUpdate(Request $request)
+    {
+        $poin = Poin::find($request->id);
+        $poin->title = $request->title;
+        $poin->transaction = $request->transaction;
+        $poin->persen = $request->persen;
+        $poin->save();
+
+        Toastr::success('Poin successfully updated!!');
+
+        return redirect()->back();
+    }
+
+    public function poinDelete($id)
+    {
+        $poin = Poin::find($id);
+        $poin->delete();
+
+        Toastr::success('Poin successfully deleted!!');
+
+        return redirect()->back();
+    }
+
     public function poinStatus(Request $request)
     {
         Poin::where('id', $request->id)->first()->update(['status' => $request->status]);

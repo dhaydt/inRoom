@@ -92,7 +92,7 @@
                                     <th scope="row">{{$poin->firstItem()+ $k}}</th>
                                     <td>{{$deal['title']}}</td>
                                     <td>{{$deal['transaction']}}</td>
-                                    <td>{{$deal['persen']}}</td>
+                                    <td>{{$deal['persen']}} %</td>
                                     <td>
                                         <label class="switch">
                                             <input type="checkbox" class="status"
@@ -101,12 +101,55 @@
                                         </label>
                                     </td>
                                     <td>
-                                        <a href="{{route('admin.deal.update',[$deal['id']])}}"
-                                           class="btn btn-primary btn-sm">
-                                            {{\App\CPU\translate('Edit')}}
+                                        <button data-toggle="modal" data-target="#edit{{ $deal->id }}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <a onclick="form_alert('poin-delete-{{$deal['id']}}','{{\App\CPU\translate("Want to delete this item")}} ?')"
+                                            class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
                                         </a>
+                                        <form action="{{route('admin.deal.poin-delete', [$deal['id']])}}"
+                                            method="get" id="poin-delete-{{$deal['id']}}">
+                                            @csrf
+                                        </form>
                                     </td>
                                 </tr>
+                                <!-- Modal -->
+                                <div class="modal fade" id="edit{{ $deal->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Poin Sale</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('admin.deal.poin-update') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{ $deal['id'] }}" name="id">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="" class="form-label">Title</label>
+                                                        <input type="text" name="title" class="form-control" value="{{ $deal['title'] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="" class="form-label required">Minimal Transaction</label>
+                                                        <input type="number" name="transaction" class="form-control" value="{{ $deal['transaction'] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="" class="form-label">Cut off <small class="text-danger">(In percent)</small></label>
+                                                        <input type="number" name="persen" class="form-control" value="{{ $deal['persen'] }}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                             </tbody>
                         </table>
