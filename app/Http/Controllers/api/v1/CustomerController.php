@@ -186,6 +186,7 @@ class CustomerController extends Controller
         $orders = Order::with('details')->where(['customer_id' => $request->user()->id])->get();
         $data = $orders->map(function ($data) {
             $product = json_decode($data['details'][0]->product_details);
+            $penyewa = json_decode($data['details'][0]->data_penyewa);
             $fasilitas_id = json_decode($product->fasilitas_id);
             $fasilitas = [];
             foreach ($fasilitas_id as $f) {
@@ -226,6 +227,8 @@ class CustomerController extends Controller
                 'product_district' => $product->kost->district,
                 'product_city' => $product->kost->city,
                 'product_province' => $product->kost->province,
+                'nama_penyewa' => $penyewa->f_name.' '.$penyewa->l_name,
+                'hp_penyewa' => $penyewa->phone,
             ];
 
             return $item;
