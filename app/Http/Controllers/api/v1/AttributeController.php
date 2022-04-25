@@ -25,7 +25,7 @@ class AttributeController extends Controller
         $city = [];
         foreach ($cities as $c => $key) {
             $id = City::where('name', $c)->first();
-            $str = ['kabupaten', 'kota '];
+            $str = ['kabupaten', 'kota'];
             $rpl = ['', ''];
             $low = strtolower($c);
             $cit = str_replace($str, $rpl, $low);
