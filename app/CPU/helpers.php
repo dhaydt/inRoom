@@ -12,6 +12,7 @@ use App\Model\Currency;
 use App\Model\Detail_room;
 use App\Model\Fasilitas;
 use App\Model\Order;
+use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Rule;
@@ -680,10 +681,20 @@ class Helpers
                 array_push($f_kos, $items);
             }
 
+            $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
+            $count = count($cashback);
+            $poin = 0;
+            for ($i = 0; $i < $count; ++$i) {
+                if ($cashback[$i]->transaction <= $d->unit_price) {
+                    $poin = $cashback[$i]->persen;
+                }
+            }
+
             $item = [
                     'id' => $d->id,
                     'name' => $d->kost->name,
                     'added_by' => $d->added_by,
+                    'cashback' => $poin.' %',
                     'kost_id' => $d->kost_id,
                     'seller_id' => $d->user_id,
                     'penghuni' => $d->kost->penghuni,
