@@ -247,11 +247,11 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-    public function short_home_categories($country)
+    public function short_home_categories($city)
     {
         $categories = Category::where('home_status', true)->get();
-        $categories->map(function ($data) use ($country) {
-            $data['products'] = Helpers::product_data_formatting(CategoryManager::short_products($data['id'], $country), true);
+        $categories->map(function ($data) use ($city) {
+            $data['products'] = Helpers::product_data_formatting(CategoryManager::short_products($data['id'], $city), true);
 
             return $data;
         });

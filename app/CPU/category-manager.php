@@ -26,8 +26,10 @@ class CategoryManager
         return Product::active()->whereJsonContains('category_ids', ['id' => (string) $category_id])->orderBy('created_at', 'DESC')->get();
     }
 
-    public static function short_products($category_id, $country)
+    public static function short_products($category_id, $city)
     {
-        return Product::active()->where('country', $country)->whereJsonContains('category_ids', ['id' => (string) $category_id])->get();
+        return Product::active()->with('kost')->whereHas('kost', function ($q) use ($city) {
+            $q->where('city', 'like', "%{$city}%");
+        })->whereJsonContains('category_ids', ['id' => (string) $category_id])->get();
     }
 }
