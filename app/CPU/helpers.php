@@ -26,6 +26,17 @@ use Laravolt\Indonesia\Models\Province;
 
 class Helpers
 {
+    public static function roomName($id)
+    {
+        $name = Detail_room::where('id', $id)->first();
+        $room = 'Kamar belum dikonfirmasi';
+        if (isset($name)) {
+            $room = $name->name;
+        }
+
+        return $room;
+    }
+
     public static function room_check($id)
     {
         // dd($id);

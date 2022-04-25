@@ -183,14 +183,55 @@ class CustomerController extends Controller
 
     public function get_order_list(Request $request)
     {
-        $orders = Order::where(['customer_id' => $request->user()->id])->get();
-        $orders->map(function ($data) {
-            $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
+        $orders = Order::with('details')->where(['customer_id' => $request->user()->id])->get();
+        $data = $orders->map(function ($data) {
+            $product = json_decode($data['details'][0]->product_details);
+            $fasilitas_id = json_decode($product->fasilitas_id);
+            $fasilitas = [];
+            foreach ($fasilitas_id as $f) {
+                $name = Helpers::fasilitas($f);
+                array_push($fasilitas, $name);
+            }
+            $item = [
+                'id' => $data['id'],
+                'customer_id' => $data['customer_id'],
+                'customer_type' => $data['customer_type'],
+                'payment_status' => $data['payment_status'],
+                'struk' => $data['struk'],
+                'alasan_user' => $data['alasan_user'],
+                'alasan_admin' => $data['alasan_admin'],
+                'order_status' => $data['order_status'],
+                'room_name' => Helpers::roomName($data['roomDetail_id']),
+                'mulai' => $data['mulai'],
+                'durasi' => $data['durasi'],
+                'catatan_tambahan' => $data['catatan_tambahan'],
+                'ktp' => $data['ktp'],
+                'jumlah_penyewa' => $data['jumlah_penyewa'],
+                'auto_cancel' => $data['auto_cancel'],
+                'transaction_ref' => $data['transaction_ref'],
+                'order_amount' => $data['order_amount'],
+                'created_at' => $data['created_at'],
+                'updated_at' => $data['updated_at'],
+                'discount_amount' => $data['discount_amount'],
+                'discount_type' => $data['discount_type'],
+                'coupon_code' => $data['coupon_code'],
+                'order_group_id' => $data['order_group_id'],
+                'verification_code' => $data['verification_code'],
+                'seller_id' => $data['seller_id'],
+                'seller_is' => $data['seller_is'],
+                'product_id' => $product->id,
+                'product_type' => $product->type,
+                'fasilitas_kamar' => $fasilitas,
+                'product_image' => json_decode($product->images)[0],
+                'product_district' => $product->kost->district,
+                'product_city' => $product->kost->city,
+                'product_province' => $product->kost->province,
+            ];
 
-            return $data;
+            return $item;
         });
 
-        return response()->json($orders, 200);
+        return response()->json($data, 200);
     }
 
     public function get_order_details(Request $request)
