@@ -7,6 +7,7 @@ use App\CPU\Helpers;
 use App\CPU\ImageManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
+use App\Model\Apply;
 use App\Model\Order;
 use App\Model\OrderDetail;
 use App\Model\ShippingAddress;
@@ -179,6 +180,13 @@ class CustomerController extends Controller
         }
 
         return response()->json(['message' => translate('No such data found!')], 404);
+    }
+
+    public function listLamaran(Request $request)
+    {
+        $apply = Apply::where(['customer_id' => $request->user()->id])->get();
+
+        return response()->json($apply, 200);
     }
 
     public function get_order_list(Request $request)
