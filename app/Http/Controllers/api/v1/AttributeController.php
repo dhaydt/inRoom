@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Country;
 use App\Http\Controllers\Controller;
 use App\Model\Attribute;
+use App\Model\Product;
 use Illuminate\Support\Facades\DB;
 use Laravolt\Indonesia\Models\City;
 
@@ -15,6 +16,28 @@ class AttributeController extends Controller
         $attributes = Attribute::all();
 
         return response()->json($attributes, 200);
+    }
+
+    public function availableCity()
+    {
+        // return response()->json(['city' => 'work']);
+        $cities = Product::with('kost')->get()->pluck('kost.city', 'kost.city');
+        $city = [];
+        foreach ($cities as $c => $key) {
+            $id = City::where('name', $c)->first();
+            $str = ['kabupaten', 'kota '];
+            $rpl = ['', ''];
+            $low = strtolower($c);
+            $cit = str_replace($str, $rpl, $low);
+
+            $data = [
+                 'id' => $id->id,
+                 'name' => $cit,
+             ];
+            array_push($city, $data);
+        }
+
+        return response()->json($city);
     }
 
     public function city()

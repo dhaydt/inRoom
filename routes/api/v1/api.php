@@ -52,7 +52,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::delete('remove', 'CartController@remove_from_cart');
     });
 
-    Route::get('country', 'AttributeController@country');
+    Route::get('getCity', 'AttributeController@availableCity');
     Route::get('short-country', 'AttributeController@short_country');
     Route::get('jobs', 'JobController@jobList');
 
@@ -68,7 +68,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('short_top-rated/{country}', 'ProductController@short_top_rated_products');
         Route::get('short_best-sellings/{country}', 'ProductController@short_best_sellings');
         Route::get('short_home-categories/{country}', 'ProductController@short_home_categories');
-        Route::get('short_flash-deal/{deal_id}/{country}', 'ProductController@short_flash_deal');
+        Route::get('short_flash-deal/{deal_id}/{city}', 'ProductController@short_flash_deal');
 
         Route::get('latest', 'ProductController@get_latest_products');
         Route::get('featured', 'ProductController@get_featured_products');
