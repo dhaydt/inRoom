@@ -16,9 +16,11 @@ class CartController extends Controller
     {
         $user = Helpers::get_customer($request);
         $cart = Cart::where(['customer_id' => $user->id])->get();
-        $cart->map(function ($data) {
+        $ktp = $request->user()->ktp;
+        $cart->map(function ($data) use ($ktp) {
             $data['choices'] = json_decode($data['choices']);
             $data['variations'] = json_decode($data['variations']);
+            $data['ktp'] = $ktp;
 
             return $data;
         });
