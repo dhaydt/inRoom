@@ -697,6 +697,7 @@ class Helpers
                     'kost_id' => $d->kost_id,
                     'seller_id' => $d->user_id,
                     'penghuni' => $d->kost->penghuni,
+                    'deposit' => $d->deposit,
                     'deskripsi' => $d->kost->deskripsi,
                     'ptn_id' => $d->kost->ptn_id,
                     'province' => $d->kost->province,
@@ -774,6 +775,7 @@ class Helpers
                     array_push($fasilitas, Helpers::fasilitas($fas));
                 }
                 $item['fasilitas_id'] = $fasilitas;
+                $item['deposit'] = $item['deposit'];
 
                 // $rules = []
 
