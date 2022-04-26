@@ -98,7 +98,7 @@ class ProductController extends Controller
 
     public function get_product($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('kost')->find($id);
         if (isset($product)) {
             $product = Helpers::product_data_formatting($product, false);
         }

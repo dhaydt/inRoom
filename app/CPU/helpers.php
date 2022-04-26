@@ -605,6 +605,13 @@ class Helpers
             array_push($f_kos, $items);
         }
 
+        $rules = [];
+        $rule = json_decode($d->kost->aturan_id);
+        foreach ($rule as $r) {
+            $item = Helpers::aturan($r);
+            array_push($rules, $item);
+        }
+
         $item = [
                     'id' => $d->id,
                     'name' => $d->kost->name,
@@ -613,6 +620,7 @@ class Helpers
                     'seller_id' => $d->user_id,
                     'penghuni' => $d->kost->penghuni,
                     'deskripsi' => $d->kost->deskripsi,
+                    'aturan' => $rules,
                     'ptn_id' => $d->kost->ptn_id,
                     'province' => $d->kost->province,
                     'city' => $d->kost->city,
@@ -776,6 +784,8 @@ class Helpers
                 }
                 $item['fasilitas_id'] = $fasilitas;
 
+                // $rules = []
+
                 array_push($storage, $item);
             }
             $data = $storage;
@@ -802,8 +812,6 @@ class Helpers
             }
             $data['variation'] = $variation;
         }
-
-        // dd($data);
 
         return $data;
     }
