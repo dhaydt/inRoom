@@ -664,23 +664,14 @@ class Helpers
 
     public static function product_home_api_format($data)
     {
+        // dd($data);
         $resp = [];
         foreach ($data as $key => $d) {
-            $fas = $d->fasilitas_id;
+            $f_room = $d->fasilitas_id;
             $fas_kos = $d->kost->fasilitas_id;
-
-            if (isset($fas)) {
-                $fas = json_decode($fas);
-            }
 
             if (isset($fas_kos)) {
                 $fas_kos = json_decode($fas_kos);
-            }
-
-            $f_room = [];
-            foreach ($fas as $r) {
-                $itemss = Helpers::fasilitas($r);
-                array_push($f_room, $itemss);
             }
 
             $f_kos = [];
