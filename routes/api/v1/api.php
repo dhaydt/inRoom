@@ -70,6 +70,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('short_home-categories/{city}', 'ProductController@short_home_categories');
         Route::get('short_flash-deal/{deal_id}/{city}', 'ProductController@short_flash_deal');
 
+        Route::get('/{city}', 'ProductController@productCity');
+
         Route::get('latest', 'ProductController@get_latest_products');
         Route::get('featured', 'ProductController@get_featured_products');
         Route::get('top-rated', 'ProductController@get_top_rated_products');

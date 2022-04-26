@@ -20,6 +20,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    public function productCity($city)
+    {
+        $id_p = Product::active()->with('kost')->whereHas('kost', function ($q) use ($city) {
+            $q->where('city', 'like', "%{$city}%");
+        })->pluck('id')->toArray();
+
+        if (count($id_p) > 0) {
+            return response()->json(Helpers::product_data_formatting(Product::with(['rating'])->whereIn('id', $id_p)->get(), true), 200);
+        }
+
+        return response()->json('tidak ada data ditemukan');
+    }
+
     public function short_flash_deal($deal_id, $city)
     {
         $p_ids = FlashDealProduct::with(['product'])
