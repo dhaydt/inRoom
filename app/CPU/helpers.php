@@ -750,7 +750,7 @@ class Helpers
                 $variation = [];
                 $item['category_ids'] = json_decode($item['category_ids']);
                 $item['images'] = json_decode($item['images']);
-                // $item['colors'] = Color::whereIn('code', json_decode($item['colors']))->get(['name', 'code']);
+
                 $attributes = [];
                 if (json_decode($item['attributes']) != null) {
                     foreach (json_decode($item['attributes']) as $attribute) {
@@ -768,6 +768,14 @@ class Helpers
                     ]);
                 }
                 $item['variation'] = $variation;
+
+                $fasilitas = [];
+                $item['fasilitas_id'] = json_decode($item['fasilitas_id']);
+                foreach ($item['fasilitas_id'] as $fas) {
+                    array_push($fasilitas, Helpers::fasilitas($fas));
+                }
+                $item['fasilitas_id'] = $fasilitas;
+
                 array_push($storage, $item);
             }
             $data = $storage;
