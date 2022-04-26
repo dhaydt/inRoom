@@ -320,7 +320,7 @@ class CustomerController extends Controller
             'pendidikan' => $request->pendidikan,
             'hp_darurat' => $request->hp_darurat,
             'pekerjaan' => $request->pekerjaan,
-            'kampus' => $request->kampus,
+            'kampus' => $request->universitas,
             'tempat_kerja' => $request->tempat_kerja,
             'updated_at' => now(),
         ];
