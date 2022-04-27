@@ -223,7 +223,15 @@ class CartManager
             }
         }
 
-        // $cart['color'] = $request->has('color') ? $request['color'] : null;
+        $poin = Helpers::getPoin();
+        foreach ($poin as $p) {
+            if ($p->transaction < $product->unit_price) {
+                $gotPoin = $p->persen;
+                $cart['poin'] = $gotPoin;
+                break;
+            }
+        }
+
         $cart['product_id'] = $product->id;
         $cart['choices'] = json_encode($choices);
         $cart['deposit'] = $product->deposit;

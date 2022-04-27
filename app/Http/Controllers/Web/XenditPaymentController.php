@@ -9,6 +9,7 @@ use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Detail_room;
 use App\Model\Order;
+use App\Model\UserPoin;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -152,7 +153,7 @@ class XenditPaymentController extends Controller
         // dd($type);
         // $order = Order::find($request->id);
 
-        $order = Order::find($id);
+        $order = Order::with('details')->find($id);
         // $order_ids = [];
         // foreach (CartManager::get_cart_group_ids() as $group_id) {
         //     $data = [
@@ -179,6 +180,14 @@ class XenditPaymentController extends Controller
             $room->habis = date('Y-m-d', strtotime('+'.$order->durasi.'month', $month));
             $room->save();
         }
+
+        $poin = new UserPoin();
+        $poin->user_id = $order->customer_id;
+        $poin->shop = $order->order_amount;
+        $poin->persen = $order->details[0]->poin;
+        $poin->poin = $order->order_amount * $order->details[0]->poin / 100;
+        $poin->used = 0;
+        $poin->save();
 
         CartManager::cart_clean();
         if (auth('customer')->check()) {

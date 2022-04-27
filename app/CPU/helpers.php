@@ -27,6 +27,13 @@ use Laravolt\Indonesia\Models\Province;
 
 class Helpers
 {
+    public static function getPoin()
+    {
+        $poin = Poin::where('status', 1)->orderBy('transaction', 'DESC')->get();
+
+        return $poin;
+    }
+
     public static function roomName($id)
     {
         $name = Detail_room::where('id', $id)->first();

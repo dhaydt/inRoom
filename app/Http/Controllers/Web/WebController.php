@@ -29,6 +29,7 @@ use App\Model\Review;
 use App\Model\Seller;
 use App\Model\ShippingAddress;
 use App\Model\Shop;
+use App\Model\UserPoin;
 use App\Model\Wishlist;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -547,12 +548,14 @@ class WebController extends Controller
             $relatedProducts = Product::with(['reviews'])->active()->where('category_ids', $product->category_ids)->where('id', '!=', $product->id)->limit(12)->get();
             $deal_of_the_day = DealOfTheDay::where('product_id', $product->id)->where('status', 1)->first();
             $img = json_decode($product->images);
+            $poin = Poin::where('status', 1)->orderBy('transaction', 'DESC')->get();
+            $userPoin = UserPoin::where('user_id', $auth)->get();
             $kos = json_decode(($product->kost->images));
             foreach ($kos as $key => $val) {
                 array_push($img, $val);
             }
 
-            return view('web-views.products.details', compact('product', 'img', 'countWishlist', 'countOrder', 'relatedProducts', 'deal_of_the_day'));
+            return view('web-views.products.details', compact('userPoin', 'poin', 'product', 'img', 'countWishlist', 'countOrder', 'relatedProducts', 'deal_of_the_day'));
         }
 
         Toastr::error(translate('not_found'));

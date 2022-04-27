@@ -1119,7 +1119,6 @@
                                     <strong id="chosen_price"></strong>
                                 </div>
                             </div>
-
                             <div class="col-12">
                                 @if($product['current_stock']<=0)
                                     <h5 class="mt-3" style="color: red">{{\App\CPU\translate('out_of_stock')}}</h5>
@@ -1127,6 +1126,18 @@
                             </div>
                         </div>
 
+                        @php($poinCount = count($poin))
+                        @for ($i = 0; $i < $poinCount; $i++)
+                            @if ($poin[$i]->transaction <= $product->unit_price)
+                                <div class="d-flex justify-content-between mt-2" id="cart-discount">
+                                    <span class="cart_title">{{\App\CPU\translate('Point_cashback')}}</span>
+                                    <span class="cart_value text-success">
+                                        {{ ($product->unit_price * $poin[$i]->persen / 100) }} <span class="text-dark">Poin</span>
+                                    </span>
+                                </div>
+                                @break
+                            @endif
+                        @endfor
                         <div class="booking-card__info-select mt-3">
                             <section class="booking-input-checkin booking-card__info-select-dat w-100">
                                 <div class="form-group">

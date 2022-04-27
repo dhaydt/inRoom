@@ -363,6 +363,7 @@ class OrderManager
                 'variation' => $c['variations'],
                 'delivery_status' => 'pending',
                 // 'shipping_method_id' => null,
+                'poin' => $seller_data['poin'],
                 'payment_status' => 'unpaid',
                 'created_at' => now(),
                 'updated_at' => now(),
