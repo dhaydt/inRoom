@@ -1141,6 +1141,10 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
         });
     }
 
+    function numberFormat(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     function usePoin(val){
         var switchVal = $('.switchPoin').val()
         if(switchVal == 'on'){
@@ -1156,7 +1160,7 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
             var poin = $('#cart-poin .cart_value').text().replace(/[^\d]/g, '')
             var total = $('#total-val').text().replace(/[^\d]/g, '')
             var result = total - poin
-            $('#total-val').text('Rp.' + Number(result))
+            $('#total-val').text('Rp.' + numberFormat(result))
         }
 
         if($('.switchPoin').val() == 'off'){
@@ -1166,7 +1170,7 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
             console.log('offPoin', poin)
             console.log('offTotal', total)
             var result = parseInt(total) + parseInt(poin)
-            $('#total-val').text('Rp.' + Number(result))
+            $('#total-val').text('Rp.' + numberFormat(result))
         }
         console.log('poin', $('#pakai').val())
 

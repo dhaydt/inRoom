@@ -88,7 +88,7 @@
                 <span id="pricePoins" class="d-none"> {{\App\CPU\Helpers::currency_converter(session()->get('poin'))}}</span>
                 <span class="cart_value">
                     <span class="cart_value">
-                    - Rp. {{ session()->get('poin') }}
+                    - {{\App\CPU\Helpers::currency_converter(session()->get('poin'))}}
                     </span>
                     <span class="cart_value" id="disPrice">
                     </span>

@@ -12,6 +12,7 @@ use App\Model\Kampus;
 use App\Model\Order;
 use App\Model\ShippingAddress;
 use App\Model\SupportTicket;
+use App\Model\UserPoin;
 use App\Model\Wishlist;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -27,8 +28,15 @@ class UserProfileController extends Controller
             $customerDetail = User::where('id', auth('customer')->id())->first();
             $city = City::get();
             $ptn = Kampus::get();
+            $poins = UserPoin::where('user_id', auth('customer')->id())->where('used', 0)->get();
+            $val = [];
+            foreach ($poins as $p) {
+                array_push($val, $p->poin);
+            }
 
-            return view('web-views.users-profile.account-profile', compact('customerDetail', 'city', 'ptn'));
+            $poin = array_sum($val);
+
+            return view('web-views.users-profile.account-profile', compact('poin', 'customerDetail', 'city', 'ptn'));
         } else {
             return redirect()->route('home');
         }

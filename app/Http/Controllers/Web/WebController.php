@@ -550,7 +550,7 @@ class WebController extends Controller
             $deal_of_the_day = DealOfTheDay::where('product_id', $product->id)->where('status', 1)->first();
             $img = json_decode($product->images);
             $poin = Poin::where('status', 1)->orderBy('transaction', 'DESC')->get();
-            $poinUser = UserPoin::where('user_id', $auth)->get();
+            $poinUser = UserPoin::where('user_id', $auth)->where('used', 0)->get();
             $userPoin = [];
             foreach ($poinUser as $po) {
                 $item = $po->poin;

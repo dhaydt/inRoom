@@ -4,6 +4,13 @@
 
 @push('css_or_js')
     <style>
+        .poin_value{
+            padding: 4px 9px;
+            background-color: #2ba90b;
+            font-weight: 800;
+            color: #fff;
+            border-radius: 15px;
+        }
         .select2-container .select2-selection--single{
             height: 43px !important;
         }
@@ -138,7 +145,7 @@
                     <div class="card-header">
                         <form class="mt-3" action="{{route('user-update')}}" method="post" autocomplete="off"
                             enctype="multipart/form-data">
-                            <div class="row photoHeader">
+                            <div class="row photoHeader d-flex">
                                 @csrf
                                 <img id="blah"
                                     style=" border-radius: 50px; margin-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 30px; width: 50px!important;height: 50px!important;"
@@ -146,7 +153,7 @@
                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                     src="{{asset('storage/profile')}}/{{$customerDetail['image']}}">
 
-                                <div class="col-md-10">
+                                <div class="col-md-6">
                                     <h5 class="font-name">{{$customerDetail->f_name. ' '.$customerDetail->l_name}}</h5>
                                     <label for="files"
                                         style="cursor: pointer; color:{{$web_config['primary_color']}};"
@@ -155,6 +162,11 @@
                                     </label>
                                     <span style="color: red;font-size: 10px">( * {{\App\CPU\translate('Image ratio should be')}} 1:1 )</span>
                                     <input id="files" name="image" style="visibility:hidden;" type="file">
+                                </div>
+                                <div class="col-md-4 w-100 text-right">
+                                    <span class="poin_value">
+                                        {{ $poin }} <span>Poin</span>
+                                    </span>
                                 </div>
 
 <!-- INFORMASI AKUN -->
