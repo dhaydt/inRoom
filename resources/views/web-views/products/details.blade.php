@@ -1261,6 +1261,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
+                @php($poinCount = count($poin))
+                @for ($i = 0; $i < $poinCount; $i++)
+                    @if ($poin[$i]->transaction <= $product->unit_price)
+                        <div class="container d-flex justify-content-between mt-2" id="cart-discount">
+                            <span class="cart_title">{{\App\CPU\translate('Point_cashback')}}</span>
+                            <span class="cart_value text-success">
+                                {{ ($product->unit_price * $poin[$i]->persen / 100) }} <span class="text-dark">Poin</span>
+                            </span>
+                        </div>
+                        @break
+                    @endif
+                @endfor
                 <form id="add-to-cart-mobile">
                     @csrf
                     <input type="hidden" id="gunakanPoin" name="usePoin">

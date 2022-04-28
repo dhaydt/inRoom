@@ -1172,8 +1172,35 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
             var result = parseInt(total) + parseInt(poin)
             $('#total-val').text('Rp.' + numberFormat(result))
         }
-        console.log('poin', $('#pakai').val())
+    }
 
+    function usePoinMobile(val){
+        var switchVal = $('.switchPoinMobile').val()
+        if(switchVal == 'on'){
+            $('.switchPoinMobile').val('off')
+
+        }
+        if(switchVal == 'off'){
+            $('.switchPoinMobile').val('on')
+        }
+
+        if($('.switchPoinMobile').val() == 'on'){
+            $('input[name="usePoin"]').val(1)
+            var poin = $('#cart-poin-mobile .cart_value').text().replace(/[^\d]/g, '')
+            var total = $('#total-val-mobile').text().replace(/[^\d]/g, '')
+            var result = total - poin
+            $('#total-val-mobile').text('Rp.' + numberFormat(result))
+        }
+
+        if($('.switchPoinMobile').val() == 'off'){
+            $('input[name="usePoin"]').val(0)
+            var poin = $('#cart-poin-mobile .cart_value').text().replace(/[^\d]/g, '')
+            var total = $('#total-val-mobile').text().replace(/[^\d]/g, '')
+            console.log('offPoin', poin)
+            console.log('offTotal', total)
+            var result = parseInt(total) + parseInt(poin)
+            $('#total-val-mobile').text('Rp.' + numberFormat(result))
+        }
     }
 
     $('#add-to-cart-form input.var').on('change', function () {

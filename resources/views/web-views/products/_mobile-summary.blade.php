@@ -67,23 +67,24 @@
             </div>
             @php($coupon_dis=session('coupon_discount'))
         @else
-            {{-- <div class="mt-2">
-                <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
-                    <div class="form-group">
-                        <input class="form-control input_code" type="text" name="code" placeholder="{{\App\CPU\translate('Coupon code')}}"
-                            required>
-                        <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
-                    </div>
-                    <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
-                    </button>
-                </form>
-            </div> --}}
             @php($coupon_dis=0)
+        @endif
+        @php($poinUser = session()->get('poin'))
+        @if ($poinUser != 0)
+        <div class="d-flex justify-content-between" id="cart-poin-mobile">
+            <span class="cart_title">
+                <div class="custom-control custom-switch" style="cursor: pointer;">
+                    <input type="checkbox" class="custom-control-input switchPoinMobile" value="off" onchange="usePoinMobile(this.value)" id="customSwitch2" style="cursor: pointer;">
+                    <label class="custom-control-label" for="customSwitch2" style="cursor: pointer;">Poin Cashback</label>
+                </div>
+            </span>
+            <span class="cart_value">{{\App\CPU\Helpers::currency_converter($poinUser)}}</span>
+        </div>
         @endif
         <hr class="mt-2 mb-2">
         <div class="d-flex justify-content-between" id="cart-total">
             <span class="cart_title">{{\App\CPU\translate('total')}}</span>
-            <span class="cart_value">
+            <span class="cart_value" id="total-val-mobile">
                 {{\App\CPU\Helpers::currency_converter(
                     $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))+ $tax)}}
             </span>
