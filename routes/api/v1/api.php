@@ -129,6 +129,12 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         Route::get('apply-list', 'CustomerController@listLamaran');
 
+        Route::group(['prefix' => 'xendit'], function () {
+            Route::post('/va/invoice', 'XenditController@invoice')->name('vaInvoice');
+            Route::get('/success/{id}', 'XenditController@success')->name('xenditSuccess');
+            Route::get('/expired/{id}', 'XenditController@expire')->name('xenditExpire');
+        });
+
         Route::group(['prefix' => 'address'], function () {
             Route::get('list', 'CustomerController@address_list');
             Route::post('add', 'CustomerController@add_new_address');
