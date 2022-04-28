@@ -1141,6 +1141,37 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
         });
     }
 
+    function usePoin(val){
+        var switchVal = $('.switchPoin').val()
+        if(switchVal == 'on'){
+            $('.switchPoin').val('off')
+
+        }
+        if(switchVal == 'off'){
+            $('.switchPoin').val('on')
+        }
+
+        if($('.switchPoin').val() == 'on'){
+            $('input[name="pakai"]').val(1)
+            var poin = $('#cart-poin .cart_value').text().replace(/[^\d]/g, '')
+            var total = $('#total-val').text().replace(/[^\d]/g, '')
+            var result = total - poin
+            $('#total-val').text('Rp.' + Number(result))
+        }
+
+        if($('.switchPoin').val() == 'off'){
+            $('input[name="pakai"]').val(0)
+            var poin = $('#cart-poin .cart_value').text().replace(/[^\d]/g, '')
+            var total = $('#total-val').text().replace(/[^\d]/g, '')
+            console.log('offPoin', poin)
+            console.log('offTotal', total)
+            var result = parseInt(total) + parseInt(poin)
+            $('#total-val').text('Rp.' + Number(result))
+        }
+        console.log('poin', $('#pakai').val())
+
+    }
+
     $('#add-to-cart-form input.var').on('change', function () {
         console.log('work')
         getVariantPrice();

@@ -1068,6 +1068,7 @@
                 <div class="booking-card --sticky mt-3">
                     <form id="add-to-cart-form">
                         @csrf
+                        <input type="hidden" id="pakai" name="pakai">
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <section class="booking-card__info">
                         <div class="booking-card__info-price">
@@ -1262,6 +1263,7 @@
                 </div>
                 <form id="add-to-cart-mobile">
                     @csrf
+                    <input type="hidden" id="gunakanPoin" name="usePoin">
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <div class="modal-body">
                         <div class="form-group">

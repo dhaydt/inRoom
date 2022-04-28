@@ -181,6 +181,14 @@ class XenditPaymentController extends Controller
             $room->save();
         }
 
+        if ($order->usePoin == 1) {
+            $poins = UserPoin::where('user_id', $order->customer_id)->where('used', 0)->get();
+            foreach ($poins as $p) {
+                $p->used = 1;
+                $p->save();
+            }
+        }
+
         $poin = new UserPoin();
         $poin->user_id = $order->customer_id;
         $poin->shop = $order->order_amount;
@@ -188,6 +196,8 @@ class XenditPaymentController extends Controller
         $poin->poin = $order->order_amount * $order->details[0]->poin / 100;
         $poin->used = 0;
         $poin->save();
+
+        session()->forget('poin');
 
         CartManager::cart_clean();
         if (auth('customer')->check()) {

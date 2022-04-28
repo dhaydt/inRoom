@@ -537,6 +537,7 @@ class WebController extends Controller
 
     public function product($slug)
     {
+        session()->forget('poin');
         $product = Product::active()->with(['reviews'])->where('slug', $slug)->first();
         $auth = auth('customer')->id();
         if ($auth) {
@@ -549,7 +550,14 @@ class WebController extends Controller
             $deal_of_the_day = DealOfTheDay::where('product_id', $product->id)->where('status', 1)->first();
             $img = json_decode($product->images);
             $poin = Poin::where('status', 1)->orderBy('transaction', 'DESC')->get();
-            $userPoin = UserPoin::where('user_id', $auth)->get();
+            $poinUser = UserPoin::where('user_id', $auth)->get();
+            $userPoin = [];
+            foreach ($poinUser as $po) {
+                $item = $po->poin;
+                array_push($userPoin, $item);
+            }
+
+            session()->put('poin', array_sum($userPoin));
             $kos = json_decode(($product->kost->images));
             foreach ($kos as $key => $val) {
                 array_push($img, $val);

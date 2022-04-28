@@ -5,7 +5,6 @@ namespace App\CPU;
 use App\Model\Admin;
 use App\Model\AdminWallet;
 use App\Model\Cart;
-use App\Model\CartShipping;
 use App\Model\Detail_room;
 use App\Model\Order;
 use App\Model\OrderDetail;
@@ -13,7 +12,6 @@ use App\Model\OrderTransaction;
 use App\Model\Product;
 use App\Model\Seller;
 use App\Model\SellerWallet;
-use App\Model\ShippingAddress;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -309,6 +307,10 @@ class OrderManager
 
         // dd($tambahan);
         $deposit = $seller_data['deposit'] ? $seller_data['deposit'] : 0;
+        $used = 0;
+        if ($seller_data['usePoin'] == 1) {
+            $used = session()->get('poin');
+        }
         $or = [
             'id' => $order_id,
             'verification_code' => rand(100000, 999999),
@@ -330,11 +332,8 @@ class OrderManager
             'discount_amount' => $discount,
             'discount_type' => $discount == 0 ? null : 'coupon_discount',
             'coupon_code' => $coupon_code,
-            'order_amount' => +((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit,
-            // 'shipping_address' => $address_id,
-            // 'shipping_address_data' => ShippingAddress::find($address_id),
-            // 'shipping_cost' => CartManager::get_shipping_cost($data['cart_group_id']),
-            // 'shipping_method_id' => CartShipping::where(['cart_group_id' => $cart_group_id])->first()->shipping_method_id,
+            'usePoin' => $seller_data['usePoin'],
+            'order_amount' => +((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used,
             'created_at' => now(),
             'updated_at' => now(),
         ];

@@ -82,6 +82,19 @@
                 </span>
             </span>
         </div>
+        @if ($cartItem['usePoin'] == 1)
+            <div class="d-flex justify-content-between mt-4">
+                <span class="cart_title">{{\App\CPU\translate('Diskon Poin')}}</span>
+                <span id="pricePoins" class="d-none"> {{\App\CPU\Helpers::currency_converter(session()->get('poin'))}}</span>
+                <span class="cart_value">
+                    <span class="cart_value">
+                    - Rp. {{ session()->get('poin') }}
+                    </span>
+                    <span class="cart_value" id="disPrice">
+                    </span>
+                </span>
+            </div>
+        @endif
         @if(session()->has('coupon_discount'))
             <div class="d-flex justify-content-between mt-4">
                 <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
@@ -107,7 +120,11 @@
         <hr class="my-4 mb-2" style="border: 1px dashed #e3e9ef">
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('total_pembayaran_pertama')}}</span>
+            @if ($cartItem['usePoin'] == 0)
             <span id="priceTotal" class="d-none">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax-$coupon_dis-$total_discount_on_product + $deposit)}}</span>
+            @else
+            <span id="priceTotal" class="d-none">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax-$coupon_dis-$total_discount_on_product + $deposit - session()->get('poin'))}}</span>
+            @endif
             <div class="d-flex">
                 <span class="cart_value">
                     Rp.

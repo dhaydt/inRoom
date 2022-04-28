@@ -1,4 +1,11 @@
 <style>
+    .custom-control-input:checked ~ .custom-control-label::before{
+        background-color: #4f4f4f !important;
+        border-color: #4f4f4f !important;
+    }
+    .custom-switch .custom-control-input:checked ~ .custom-control-label::before{
+        box-shadow: 0 0.375rem 0.875rem -0.3rem #4f4f4f !important;
+    }
     .cart_title {
         font-weight: 400 !important;
         font-size: 16px;
@@ -64,12 +71,16 @@
                 + {{\App\CPU\Helpers::currency_converter($product->deposit)}}
             </span>
         </div>
-        @if (count($userPoin) != 0)
+        @php($poinUser = session()->get('poin'))
+        @if ($poinUser != 0)
         <div class="d-flex justify-content-between" id="cart-poin">
-            <span class="cart_title">Poin Cashback</span>
-            <span class="cart_value">
-                - Rp. 10,000
+            <span class="cart_title">
+                <div class="custom-control custom-switch" style="cursor: pointer;">
+                    <input type="checkbox" class="custom-control-input switchPoin" value="off" onchange="usePoin(this.value)" id="customSwitch1" style="cursor: pointer;">
+                    <label class="custom-control-label" for="customSwitch1" style="cursor: pointer;">Poin Cashback</label>
+                </div>
             </span>
+            <span class="cart_value">{{\App\CPU\Helpers::currency_converter($poinUser)}}</span>
         </div>
         @endif
         @if(session()->has('coupon_discount'))
@@ -86,7 +97,7 @@
         <hr class="mt-2 mb-2">
         <div class="d-flex justify-content-between" id="cart-total">
             <span class="cart_title">{{\App\CPU\translate('total')}}</span>
-            <span class="cart_value">
+            <span class="cart_value" id="total-val">
                 {{\App\CPU\Helpers::currency_converter(
                     $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))+ $tax + $product->deposit)}}
             </span>

@@ -235,6 +235,7 @@ class CartManager
         $cart['product_id'] = $product->id;
         $cart['choices'] = json_encode($choices);
         $cart['deposit'] = $product->deposit;
+        $cart['usePoin'] = $request->pakai;
 
         //chek if out of stock
         if ($product['current_stock'] < $request['quantity']) {
@@ -302,6 +303,7 @@ class CartManager
         /*$data['shipping_cost'] = $shipping_cost;*/
         $cart['thumbnail'] = json_decode($product->images)[0];
         $cart['seller_id'] = $product->user_id;
+        $cart['usePoin'] = $request->pakai;
         $cart['seller_is'] = $product->added_by;
         if ($product->added_by == 'seller') {
             $cart['shop_info'] = Shop::where(['seller_id' => $product->user_id])->first()->name;

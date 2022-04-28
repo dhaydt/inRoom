@@ -344,14 +344,6 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                             </div>
                             <hr class="border_section" style="margin: 50px 0 50px 0;">
                         </div>
-                        {{-- <div class="d-block d-md-none" style="margin-top: 100px"></div> --}}
-                        {{-- @if( $cart->count() > 0)
-                        <aside class="col-lg-4 col-12 pt-4 pt-lg-0 d-block d-md-none">
-                            <div class="d-block d-md-none" style="margin-top: -70px;">
-                                @include('web-views.partials._order-summary')
-                            </div>
-                        </aside>
-                        @endif --}}
 
                     </div>
                 </div>
