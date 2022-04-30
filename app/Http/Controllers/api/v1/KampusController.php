@@ -25,7 +25,7 @@ class KampusController extends Controller
     {
         try {
             $products = Helpers::get_products_ptn($ptn_id);
-            $format = Helpers::product_home_api_format($products);
+            $format = Helpers::product_home_api_format_ptn($products);
         } catch (\Exception $e) {
             return response()->json(['errors' => $e], 403);
         }

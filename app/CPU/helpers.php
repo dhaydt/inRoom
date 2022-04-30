@@ -599,6 +599,15 @@ class Helpers
         if (isset($fas_kos)) {
             $fas_kos = json_decode($fas_kos);
         }
+        $seller = [];
+        if ($d->added_by == 'admin') {
+            $sel = Admin::find($d->user_id);
+            array_push($seller, $sel);
+        }
+        if ($d->added_by == 'seller') {
+            $sel = Seller::find($d->user_id);
+            array_push($seller, $sel);
+        }
 
         $f_room = [];
         foreach ($fas as $r) {
@@ -624,7 +633,7 @@ class Helpers
                     'name' => $d->kost->name,
                     'added_by' => $d->added_by,
                     'kost_id' => $d->kost_id,
-                    'seller_id' => $d->user_id,
+                    'seller_id' => $seller,
                     'penghuni' => $d->kost->penghuni,
                     'deskripsi' => $d->kost->deskripsi,
                     'aturan' => $rules,
@@ -724,6 +733,95 @@ class Helpers
                     'current_stock' => $d->current_stock,
                     'slug' => $d->slug,
                     'category_ids' => $d->category_ids,
+                    'unit' => $d->unit,
+                    'unit_price' => $d->unit_price,
+                    'discount' => $d->discount,
+                    'tax' => $d->tax,
+                    'tax_type' => $d->tax_type,
+                    'discount_type' => $d->discount_type,
+                    'status' => $d->status,
+                    'published' => $d->published,
+                    'min-qty' => $d->min_qty,
+                    'attributes' => $d->attributes,
+                    'choice_options' => $d->choice_options,
+                    'variation' => $d->variation,
+                    'details' => $d->details,
+                    'featured_status' => $d->featured_status,
+                    'denied_note' => $d->denied_note,
+                    'reviews_count' => $d->reviews_count,
+                    'rating' => $d->rating,
+                    'reviews' => $d->reviews,
+                ];
+            array_push($resp, $item);
+        }
+
+        return $resp;
+    }
+
+    public static function product_home_api_format_ptn($data)
+    {
+        // dd($data);
+        $resp = [];
+        foreach ($data as $key => $d) {
+            $fas_room = $d->fasilitas_id;
+            $fas_kos = $d->kost->fasilitas_id;
+
+            if (isset($fas_kos)) {
+                $fas_kos = json_decode($fas_kos);
+            }
+            if (isset($fas_room)) {
+                $fas_room = json_decode($fas_room);
+            }
+
+            $f_kos = [];
+            foreach ($fas_kos as $fk) {
+                $items = Helpers::fasilitas($fk);
+                array_push($f_kos, $items);
+            }
+
+            $f_room = [];
+            foreach ($fas_room as $fr) {
+                $item = Helpers::fasilitas($fr);
+                array_push($f_room, $item);
+            }
+
+            $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
+            $count = count($cashback);
+            $poin = 0;
+            for ($i = 0; $i < $count; ++$i) {
+                if ($cashback[$i]->transaction <= $d->unit_price) {
+                    $poin = $cashback[$i]->persen;
+                }
+            }
+
+            $item = [
+                    'id' => $d->id,
+                    'name' => $d->kost->name,
+                    'added_by' => $d->added_by,
+                    'cashback' => $poin.' %',
+                    'kost_id' => $d->kost_id,
+                    'seller_id' => $seller,
+                    'penghuni' => $d->kost->penghuni,
+                    'deposit' => $d->deposit,
+                    'deskripsi' => $d->kost->deskripsi,
+                    'ptn_id' => $d->kost->ptn_id,
+                    'province' => $d->kost->province,
+                    'city' => $d->kost->city,
+                    'district' => $d->kost->district,
+                    'note_address' => $d->kost->note_address,
+                    'note' => $d->kost->note,
+                    'room_id' => $d->room_id,
+                    'type' => $d->type,
+                    'fasilitas_id' => $f_room,
+                    'fasilitas_kos_id' => $f_kos,
+                    'images' => json_decode($d->images)[0],
+                    'kost_images' => json_decode($d->kost->images),
+                    'purchase_price' => $d->purchase_price,
+                    'size' => $d->size,
+                    'total' => $d->total,
+                    'current_stock' => $d->current_stock,
+                    'slug' => $d->slug,
+                    'category_ids' => json_decode($d->category_ids),
                     'unit' => $d->unit,
                     'unit_price' => $d->unit_price,
                     'discount' => $d->discount,
