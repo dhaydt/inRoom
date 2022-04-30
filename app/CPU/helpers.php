@@ -599,14 +599,11 @@ class Helpers
         if (isset($fas_kos)) {
             $fas_kos = json_decode($fas_kos);
         }
-        $seller = [];
         if ($d->added_by == 'admin') {
-            $sel = Admin::find($d->user_id);
-            array_push($seller, $sel);
+            $seller = Admin::find($d->user_id);
         }
         if ($d->added_by == 'seller') {
-            $sel = Seller::find($d->user_id);
-            array_push($seller, $sel);
+            $seller = Seller::find($d->user_id);
         }
 
         $f_room = [];
@@ -760,7 +757,6 @@ class Helpers
 
     public static function product_home_api_format_ptn($data)
     {
-        // dd($data);
         $resp = [];
         foreach ($data as $key => $d) {
             $fas_room = $d->fasilitas_id;
@@ -783,6 +779,12 @@ class Helpers
             foreach ($fas_room as $fr) {
                 $item = Helpers::fasilitas($fr);
                 array_push($f_room, $item);
+            }
+
+            if ($d->added_by == 'admin') {
+                $seller = Admin::find($d->user_id);
+            } else {
+                $seller = Seller::find($d->user_id);
             }
 
             $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
