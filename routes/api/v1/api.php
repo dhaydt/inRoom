@@ -169,6 +169,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('track', 'OrderController@track_order');
+        Route::post('cancel', 'OrderController@cancel');
     });
 
     Route::group(['prefix' => 'banners'], function () {

@@ -9,6 +9,7 @@ use App\CPU\OrderManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Cart;
+use App\Model\Order;
 use App\Model\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -74,5 +75,28 @@ class OrderController extends Controller
         CartManager::cart_clean($request);
 
         return response()->json(translate('order_placed_successfully'), 200);
+    }
+
+    public function cancel(Request $request)
+    {
+        $id = $request['order_id'];
+        $order = Order::where(['id' => $id])->first();
+        if ($order['payment_method'] == 'cash_on_delivery' && $order['order_status'] == 'pending' || $order['order_status'] == 'processing') {
+            $alasan = $request['alasan'];
+            if (isset($alasan)) {
+                $alasan = $request['alasan'];
+            } else {
+                $alasan = 'NULL';
+            }
+            OrderManager::stock_update_on_order_status_change($order, 'canceled');
+            Order::where(['id' => $id])->update([
+                'order_status' => 'canceled',
+                'alasan_user' => $alasan,
+            ]);
+
+            return response()->json(['Booking_successfully_cancelled'], 200);
+        }
+
+        return response()->json(['Cancel_Booking_failed'], 200);
     }
 }
