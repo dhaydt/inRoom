@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Chatting;
 use App\Model\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function App\CPU\translate;
 
 class ChatController extends Controller
 {
     public function chat_with_seller(Request $request)
     {
         try {
-            $last_chat = Chatting::with(['seller_info', 'customer', 'shop'])->where('user_id', $request->user()->id)
+            $last_chat = Chatting::with(['kost'])->where('user_id', $request->user()->id)
                 ->orderBy('created_at', 'DESC')
                 ->first();
 
             if (isset($last_chat)) {
-
                 $chattings = Chatting::with(['seller_info', 'customer', 'shop'])->join('shops', 'shops.id', '=', 'chattings.shop_id')
                     ->select('chattings.*', 'shops.name', 'shops.image')
                     ->where('chattings.user_id', $request->user()->id)
@@ -47,7 +46,6 @@ class ChatController extends Controller
             } else {
                 return response()->json($last_chat, 200);
             }
-
         } catch (\Exception $e) {
             return response()->json(['errors' => $e], 403);
         }
@@ -56,7 +54,7 @@ class ChatController extends Controller
     public function messages(Request $request)
     {
         try {
-            $messages = Chatting::with(['seller_info', 'customer', 'shop'])->where('user_id', $request->user()->id)
+            $messages = Chatting::where('user_id', $request->user()->id)
                 ->where('shop_id', $request->shop_id)
                 ->get();
 
