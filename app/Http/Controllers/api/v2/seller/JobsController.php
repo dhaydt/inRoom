@@ -124,9 +124,9 @@ class JobsController extends Controller
         $kost->seller_id = $auth;
         $kost->added_by = 'seller';
 
-        $kost->penanggung_jwb = $request['penanggung'];
-        $kost->hp_penanggung_jwb = $request['hp'];
-        $kost->email_penanggung_jwb = $request['email'];
+        $kost->penanggung_jwb = $request['nama_penanggung_jawab'];
+        $kost->hp_penanggung_jwb = $request['hp_penanggung_jawab'];
+        $kost->email_penanggung_jwb = $request['email_penanggung_jawab'];
         $kost->expire = $request['expire'];
         $kost->status = 0;
         $kost->request_status = 1;

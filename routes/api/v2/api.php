@@ -47,6 +47,10 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
             Route::get('list_applied', 'JobsController@applied');
         });
 
+        Route::group(['prefix' => 'kost'], function () {
+            Route::get('list', 'KostController@list');
+        });
+
         Route::group(['prefix' => 'shipping-method'], function () {
             Route::get('list', 'ShippingMethodController@list');
             Route::post('add', 'ShippingMethodController@store');
