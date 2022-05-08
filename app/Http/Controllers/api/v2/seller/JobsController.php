@@ -138,4 +138,107 @@ class JobsController extends Controller
 
         return $request;
     }
+
+    public function update(Request $request)
+    {
+        $data = Helpers::get_seller_by_token($request);
+        if ($data['success'] == 1) {
+            $seller = $data['data'];
+        } else {
+            return response()->json([
+                'auth-001' => translate('Your existing session token does not authorize you any more'),
+            ], 401);
+        }
+
+        $product = Jobs::where(['id' => $request->job_id, 'added_by' => 'seller', 'seller_id' => $seller->id])->first();
+
+        if (!isset($product)) {
+            return response()->json(['job not found'], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'company_name' => 'required',
+            'province_id' => 'required',
+            'city_id' => 'required',
+            'district_name' => 'required',
+            'penempatan' => 'required',
+            'keahlian' => 'required',
+            'pendidikan' => 'required',
+            'status' => 'required',
+            'deskripsi' => 'required',
+            'gaji' => 'required',
+            'satuan' => 'required',
+        ], [
+            'name.required' => 'Nama pekerjaan diperlukan!',
+            'company_name.required' => 'Nama perusahaan diperlukan!',
+            'province_id.required' => 'Mohon provinsi nya di isi!',
+            'city_id.required' => 'Mohon kota nya di isi!',
+            'district_name.required' => 'Mohon kecamatannya nya di isi!',
+            'deskripsi.required' => 'Mohon isi deskripsi pekerjaan!',
+            'status.required' => 'Mohon isi status pekerjaan!',
+        ]);
+
+        if ($validator->errors()->count() > 0) {
+            return response()->json(['errors' => Helpers::error_processor($validator)]);
+        }
+
+        $prov = Province::where('id', $request['province_id'])->first();
+        $city = City::where('id', $request['city_id'])->first();
+
+        $product->company_name = $request['company_name'];
+        $product->province = $prov->name;
+        $product->city = $city->name;
+        $product->district = $request['district_name'];
+        $product->note_address = $request['noteAddress'];
+        $product->penempatan = $request['penempatan'];
+        $product->onsite = $request['onsite'];
+        $product->name = $request['name'];
+        $product->keahlian = $request['keahlian'];
+        $product->pendidikan = $request['pendidikan'];
+        $product->status_employe = $request['status'];
+        $product->description = $request['deskripsi'];
+        $product->gaji = $request['gaji'];
+        $product->hide_gaji = $request['hide'];
+        $product->satuan_gaji = $request['satuan'];
+        // $product->logo = $img;
+        // $product->seller_id = $auth;
+        // $product->added_by = 'admin';
+
+        $product->penanggung_jwb = $request['nama_penanggung_jawab'];
+        $product->hp_penanggung_jwb = $request['hp_penanggung_jawab'];
+        $product->email_penanggung_jwb = $request['email_penanggung_jawab'];
+        $product->expire = $request['expire'];
+
+        $product->logo = $request->file('logo') ? ImageManager::update('jobs/', $product->logo, 'png', $request->file('logo')) : $product->logo;
+        $product->save();
+
+        return response()->json('job successfully updated', 200);
+    }
+
+    public function destroy(Request $request)
+    {
+        $data = Helpers::get_seller_by_token($request);
+
+        if ($data['success'] == 1) {
+            $seller = $data['data'];
+        } else {
+            return response()->json([
+                'auth-001' => translate('Your existing session token does not authorize you any more'),
+            ], 401);
+        }
+
+        $product = Jobs::find($request->job_id);
+        if (!isset($product)) {
+            return back();
+        }
+
+        if (isset($product->logo)) {
+            ImageManager::delete('/jobs/'.$product->logo);
+        }
+
+        $product->delete();
+
+        return response()->json('Job successfully deleted', 200);
+    }
 }
