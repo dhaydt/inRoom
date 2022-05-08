@@ -49,6 +49,16 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
 
         Route::group(['prefix' => 'kost'], function () {
             Route::get('list', 'KostController@list');
+            Route::post('add', 'KostController@create');
+            Route::get('delete', 'KostController@destroy');
+            Route::post('update', 'KostController@update');
+        });
+
+        Route::group(['prefix' => 'attribute'], function () {
+            Route::get('fasilitas_kost', 'AttributeController@FasilitasKost');
+            Route::get('category', 'AttributeController@category');
+            Route::get('kampus', 'AttributeController@kampus');
+            Route::get('aturan', 'AttributeController@rule');
         });
 
         Route::group(['prefix' => 'shipping-method'], function () {
