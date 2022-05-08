@@ -32,8 +32,15 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
             Route::put('order-detail-status/{id}', 'OrderController@order_detail_status');
         });
 
+        Route::group(['prefix' => 'area'], function () {
+            Route::get('province', 'AreaController@province');
+            Route::get('city', 'AreaController@city');
+            Route::get('district', 'AreaController@district');
+        });
+
         Route::group(['prefix' => 'jobs'], function () {
             Route::get('list', 'JobsController@list');
+            Route::post('add_job', 'JobsController@create');
             Route::get('list_applied', 'JobsController@applied');
         });
 
