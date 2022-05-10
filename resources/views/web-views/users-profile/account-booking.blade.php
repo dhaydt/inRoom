@@ -449,7 +449,7 @@
                                     Chat pemilik
                                 </button>
                             </div>
-                            @php($seller = $order->details[0]->product->kost->seller_id)
+                            @php($seller = $order->details[0]->seller_id)
                             @php($kost = $order->details[0]->product->kost->id)
 
                             <!-- Modal -->

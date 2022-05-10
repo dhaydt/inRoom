@@ -26,7 +26,7 @@ class OrderController extends Controller
 
         $order_ids = OrderDetail::where(['seller_id' => $seller['id']])->pluck('order_id')->toArray();
 
-        return response()->json(Order::with(['customer'])->whereIn('id', $order_ids)->get(), 200);
+        return response()->json(Order::with(['customer'])->whereIn('id', $order_ids)->orderBy('created_at', 'desc')->get(), 200);
     }
 
     public function details(Request $request, $id)
@@ -41,7 +41,7 @@ class OrderController extends Controller
             ], 401);
         }
 
-        $details = OrderDetail::where(['seller_id' => $seller['id'], 'order_id' => $id])->get();
+        $details = OrderDetail::with('order')->where(['seller_id' => $seller['id'], 'order_id' => $id])->get();
         foreach ($details as $det) {
             $det['product_details'] = Helpers::product_data_formatting(json_decode($det['product_details'], true));
         }
@@ -77,6 +77,39 @@ class OrderController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([]);
+        }
+
+        if ($request->alasan_penolakan != null) {
+            $order->order_status = 'canceled';
+            $order->alasan_admin = $request->alasan_penolakan;
+            $order->save();
+
+            return response()->json($request->order_status);
+        }
+
+        $kamar = $request->room_id;
+        if (strpos($kamar, 'id') !== false) {
+            $rom = 'ditempat';
+        } else {
+            $rom = $kamar;
+        }
+
+        $status = $request->order_status;
+
+        if ($status == 'canceled') {
+            $order->order_status = $status;
+            $rom = $order->roomDetail_id;
+            if ($rom != null || $rom != 'ditempat') {
+                $uid = '';
+                OrderManager::updateRoom($rom, 1, $uid);
+                $order->save();
+            }
+        } else {
+            $order->order_status = $status;
+            $order->roomDetail_id = $rom;
+            $uid = $order->customer_id;
+            OrderManager::updateRoom($kamar, 0, $uid);
+            $order->save();
         }
 
         if ($order->order_status == 'delivered') {

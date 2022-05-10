@@ -163,6 +163,8 @@ class OrderController extends Controller
             return response()->json($request->order_status);
         }
 
+        dd($request->no_kamar);
+
         $kamar = $request->no_kamar;
         if (strpos($kamar, 'id') !== false) {
             $rom = 'ditempat';

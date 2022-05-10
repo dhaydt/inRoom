@@ -29,7 +29,7 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
         Route::group(['prefix' => 'orders'], function () {
             Route::get('list', 'OrderController@list');
             Route::get('/{id}', 'OrderController@details');
-            Route::put('order-detail-status/{id}', 'OrderController@order_detail_status');
+            Route::post('order-detail-status/{id}', 'OrderController@order_detail_status');
         });
 
         Route::group(['prefix' => 'area'], function () {
