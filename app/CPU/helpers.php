@@ -655,6 +655,7 @@ class Helpers
                     'unit' => $d->unit,
                     'unit_price' => $d->unit_price,
                     'discount' => $d->discount,
+                    'deposit' => $d->deposit,
                     'tax' => $d->tax,
                     'tax_type' => $d->tax_type,
                     'discount_type' => $d->discount_type,
