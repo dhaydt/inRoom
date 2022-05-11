@@ -380,7 +380,7 @@ class UserProfileController extends Controller
         if (!$check) {
             return redirect()->route('customer.auth.login');
         }
-        $orders = Order::with('details', 'room')->where('customer_id', auth('customer')->id())->orderBy('id', 'DESC')->get();
+        $orders = Order::with('details', 'room')->where('customer_id', auth('customer')->id())->orderBy('created_at', 'DESC')->get();
 
         return view('web-views.users-profile.account-booking', compact('orders'));
     }
