@@ -45,6 +45,7 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
             Route::get('delete_job', 'JobsController@destroy');
 
             Route::get('list_applied', 'JobsController@applied');
+            Route::post('apply_status', 'JobsController@apply_status');
         });
 
         Route::group(['prefix' => 'kost'], function () {

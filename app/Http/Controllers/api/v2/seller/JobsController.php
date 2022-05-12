@@ -53,6 +53,18 @@ class JobsController extends Controller
         }
     }
 
+    public function apply_status(Request $request)
+    {
+        $order = Apply::where('id', $request['job_id'])->first();
+
+        $order->job_status = $request['job_status'];
+        $order->save();
+
+        return response()->json([
+            'applied status successfully changed!!',
+        ]);
+    }
+
     public function create(Request $request)
     {
         $data = Helpers::get_seller_by_token($request);
