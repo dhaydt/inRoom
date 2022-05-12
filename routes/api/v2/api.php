@@ -48,6 +48,10 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
             Route::post('apply_status', 'JobsController@apply_status');
         });
 
+        Route::group(['prefix' => 'room'], function () {
+            Route::get('room-detail/{id}', 'RoomController@roomDetail');
+        });
+
         Route::group(['prefix' => 'kost'], function () {
             Route::get('list', 'KostController@list');
             Route::post('add', 'KostController@create');
