@@ -450,7 +450,7 @@
                                 </button>
                             </div>
                             @php($seller = $order->details[0]->seller_id)
-                            @php($kost = $order->details[0]->product->kost->id)
+                            @php($kost = $order->details[0]->product ? $order->details[0]->product->kost->id : 0)
 
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -539,7 +539,7 @@
                         </div>
                         @endif
                     </div>
-                    {{-- {{ dd($order->details[0]->product->kost->id) }} --}}
+                    {{-- {{ dd($order->details->product->kost->id) }} --}}
                 </div>
 
             </div>

@@ -191,7 +191,9 @@ class CustomerController extends Controller
 
     public function get_order_list(Request $request)
     {
-        $orders = Order::with('details')->where(['customer_id' => $request->user()->id])->orderBy('created_at', 'DESC')->get();
+        $orders = Order::with('details', 'room')->where('customer_id', $request->user()->id)->orderBy('created_at', 'DESC')->get();
+
+        // dd($request->user());
         $data = $orders->map(function ($data) {
             $product = json_decode($data['details'][0]->product_details);
             $penyewa = json_decode($data['details'][0]->data_penyewa);
