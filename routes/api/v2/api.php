@@ -50,6 +50,9 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
 
         Route::group(['prefix' => 'room'], function () {
             Route::get('room-detail/{id}', 'RoomController@roomDetail');
+            Route::post('add-room', 'RoomController@addRoom');
+            Route::post('room-status', 'RoomController@room_update');
+            Route::get('delete-room/{id}', 'RoomController@deleteRoom');
         });
 
         Route::group(['prefix' => 'kost'], function () {
