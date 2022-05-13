@@ -55,7 +55,7 @@ class ChatController extends Controller
     public function messages(Request $request)
     {
         try {
-            $messages = Chatting::where('user_id', $request->user()->id)
+            $messages = Chatting::with('seller_info')->where('user_id', $request->user()->id)
                 ->where('seller_id', $request->seller_id)
                 ->get();
 
