@@ -75,7 +75,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('latest', 'ProductController@get_latest_products');
         Route::get('featured', 'ProductController@get_featured_products');
         Route::get('top-rated', 'ProductController@get_top_rated_products');
-        Route::get('search', 'ProductController@get_searched_products');
+        Route::post('search', 'ProductController@get_searched_products');
         Route::get('details/{id}', 'ProductController@get_product');
         Route::get('related-products/{product_id}', 'ProductController@get_related_products');
         Route::get('reviews/{product_id}', 'ProductController@get_product_reviews');
