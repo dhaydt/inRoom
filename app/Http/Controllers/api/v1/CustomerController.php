@@ -203,6 +203,8 @@ class CustomerController extends Controller
                 $name = Helpers::fasilitas($f);
                 array_push($fasilitas, $name);
             }
+
+            // return $product->kost->id;
             $item = [
                 'id' => $data['id'],
                 'customer_id' => $data['customer_id'],
@@ -239,6 +241,7 @@ class CustomerController extends Controller
                 'product_province' => $product->kost->province,
                 'nama_penyewa' => $penyewa->f_name.' '.$penyewa->l_name,
                 'hp_penyewa' => $penyewa->phone,
+                'kost' => $product->kost,
             ];
 
             return $item;

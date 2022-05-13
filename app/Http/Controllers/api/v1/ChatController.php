@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
+use App\Kost;
 use App\Model\Chatting;
 use App\Model\Shop;
 use Illuminate\Http\Request;
@@ -55,7 +56,7 @@ class ChatController extends Controller
     {
         try {
             $messages = Chatting::where('user_id', $request->user()->id)
-                ->where('shop_id', $request->shop_id)
+                ->where('seller_id', $request->seller_id)
                 ->get();
 
             return response()->json($messages, 200);
@@ -70,10 +71,14 @@ class ChatController extends Controller
             if ($request->message == '') {
                 return response()->json(translate('type something!'));
             } else {
-                $shop = Shop::find($request->shop_id);
+                $shop = Kost::find($request->kost_id);
+
+                if (!isset($shop)) {
+                    return response()->json('kost has been deleted');
+                }
                 DB::table('chattings')->insert([
                     'user_id' => $request->user()->id,
-                    'shop_id' => $request->shop_id,
+                    'shop_id' => $request->kost_id,
                     'seller_id' => $shop->seller_id,
                     'message' => $request->message,
                     'sent_by_customer' => 1,
