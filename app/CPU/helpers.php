@@ -978,6 +978,17 @@ class Helpers
                 foreach ($item['fasilitas_id'] as $fas) {
                     array_push($fasilitas, Helpers::fasilitas($fas));
                 }
+
+                $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
+                $count = count($cashback);
+                $poin = 0;
+                for ($i = 0; $i < $count; ++$i) {
+                    if ($cashback[$i]->transaction <= $item['unit_price']) {
+                        $poin = $cashback[$i]->persen;
+                    }
+                }
+                $item['cashback'] = $poin.' %';
+
                 $item['fasilitas_id'] = $fasilitas;
                 $item['deposit'] = $item['deposit'];
 
