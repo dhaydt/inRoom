@@ -11,9 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\FlashDealProduct;
 use App\Model\OrderDetail;
+use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\ShippingMethod;
+use App\Model\UserPoin;
 use App\Model\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -96,11 +98,28 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-    public function get_product($id)
+    public function get_product(Request $request, $id)
     {
         $product = Product::with('kost')->find($id);
         if (isset($product)) {
             $product = Helpers::product_data_formatting($product, false);
+        }
+
+        $data = Helpers::get_customer_by_token($request);
+
+        if ($data['data'] !== '') {
+            $auth = $data['data']->id;
+
+            // return $auth;
+            $poin = Poin::where('status', 1)->orderBy('transaction', 'DESC')->get();
+            $poinUser = UserPoin::where('user_id', $auth)->where('used', 0)->get();
+            $userPoin = [];
+            foreach ($poinUser as $po) {
+                $item = $po->poin;
+                array_push($userPoin, $item);
+            }
+
+            return response()->json(Helpers::single_product_api_format_poin($product, array_sum($userPoin)), 200);
         }
 
         return response()->json(Helpers::single_product_api_format($product), 200);

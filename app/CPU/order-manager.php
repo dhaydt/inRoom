@@ -309,7 +309,7 @@ class OrderManager
         $deposit = $seller_data['deposit'] ? $seller_data['deposit'] : 0;
         $used = 0;
         if ($seller_data['usePoin'] == 1) {
-            $used = session()->get('poin');
+            $used = $seller_data['poin'];
         }
         $or = [
             'id' => $order_id,

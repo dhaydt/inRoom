@@ -662,6 +662,97 @@ class Helpers
                     'discount' => $d->discount,
                     'deposit' => $d->deposit,
                     'tax' => $d->tax,
+                    'poin' => 0,
+                    'tax_type' => $d->tax_type,
+                    'discount_type' => $d->discount_type,
+                    'status' => $d->status,
+                    'published' => $d->published,
+                    'min-qty' => $d->min_qty,
+                    'attributes' => $d->attributes,
+                    'choice_options' => $d->choice_options,
+                    'variation' => $d->variation,
+                    'details' => $d->details,
+                    'featured_status' => $d->featured_status,
+                    'denied_note' => $d->denied_note,
+                    'reviews_count' => $d->reviews_count,
+                    'rating' => $d->rating,
+                    'reviews' => $d->reviews,
+                ];
+
+        return $item;
+    }
+
+    public static function single_product_api_format_poin($d, $poin)
+    {
+        $fas = $d->fasilitas_id;
+        $fas_kos = $d->kost->fasilitas_id;
+
+        if (isset($fas)) {
+            $fas = json_decode($fas);
+        }
+
+        if (isset($fas_kos)) {
+            $fas_kos = json_decode($fas_kos);
+        }
+        if ($d->added_by == 'admin') {
+            $seller = Admin::find($d->user_id);
+        }
+        if ($d->added_by == 'seller') {
+            $seller = Seller::find($d->user_id);
+        }
+
+        $f_room = [];
+        foreach ($fas as $r) {
+            $itemss = Helpers::fasilitas($r);
+            array_push($f_room, $itemss);
+        }
+
+        $f_kos = [];
+        foreach ($fas_kos as $fk) {
+            $items = Helpers::fasilitas($fk);
+            array_push($f_kos, $items);
+        }
+
+        $rules = [];
+        $rule = json_decode($d->kost->aturan_id);
+        foreach ($rule as $r) {
+            $item = Helpers::aturan($r);
+            array_push($rules, $item);
+        }
+
+        $item = [
+                    'id' => $d->id,
+                    'name' => $d->kost->name,
+                    'added_by' => $d->added_by,
+                    'kost_id' => $d->kost_id,
+                    'seller_id' => $seller,
+                    'penghuni' => $d->kost->penghuni,
+                    'deskripsi' => $d->kost->deskripsi,
+                    'aturan' => $rules,
+                    'ptn_id' => $d->kost->ptn_id,
+                    'province' => $d->kost->province,
+                    'city' => $d->kost->city,
+                    'district' => $d->kost->district,
+                    'note_address' => $d->kost->note_address,
+                    'note' => $d->kost->note,
+                    'room_id' => $d->room_id,
+                    'type' => $d->type,
+                    'poin' => $poin,
+                    'fasilitas_id' => $f_room,
+                    'fasilitas_kos_id' => $f_kos,
+                    'images' => $d->images,
+                    'kost_images' => json_decode($d->kost->images),
+                    'purchase_price' => $d->purchase_price,
+                    'size' => $d->size,
+                    'total' => $d->total,
+                    'current_stock' => $d->current_stock,
+                    'slug' => $d->slug,
+                    'category_ids' => $d->category_ids,
+                    'unit' => $d->unit,
+                    'unit_price' => $d->unit_price,
+                    'discount' => $d->discount,
+                    'deposit' => $d->deposit,
+                    'tax' => $d->tax,
                     'tax_type' => $d->tax_type,
                     'discount_type' => $d->discount_type,
                     'status' => $d->status,
@@ -1223,6 +1314,27 @@ class Helpers
         $token = explode(' ', $request->header('authorization'));
         if (count($token) > 1 && strlen($token[1]) > 30) {
             $seller = Seller::where(['auth_token' => $token['1']])->first();
+            if (isset($seller)) {
+                $data = $seller;
+                $success = 1;
+            }
+        }
+
+        return [
+            'success' => $success,
+            'data' => $data,
+        ];
+    }
+
+    public static function get_customer_by_token($request)
+    {
+        $data = '';
+        $success = 0;
+
+        $token = explode(' ', $request->header('authorization'));
+        // dd($token[1]);
+        if (count($token) > 1 && strlen($token[1]) > 30) {
+            $seller = User::where(['auth_token' => $token['1']])->first();
             if (isset($seller)) {
                 $data = $seller;
                 $success = 1;

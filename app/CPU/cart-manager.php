@@ -242,6 +242,7 @@ class CartManager
         $cart['choices'] = json_encode($choices);
         $cart['deposit'] = $product->deposit;
         $cart['usePoin'] = $gunakan;
+        $cart['poin'] = $request->poin ? $request->poin : session()->get('poin');
 
         //chek if out of stock
         if ($product['current_stock'] < $request['quantity']) {
