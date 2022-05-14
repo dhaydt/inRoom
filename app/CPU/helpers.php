@@ -724,7 +724,7 @@ class Helpers
         $count = count($cashback);
         $poin = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if ($cashback[$i]->transaction <= $item['unit_price']) {
+            if ($cashback[$i]->transaction <= $d->unit_price) {
                 $cash = $cashback[$i]->persen;
             }
         }
