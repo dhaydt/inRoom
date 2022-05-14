@@ -70,8 +70,8 @@ class XenditController extends Controller
             'should_send_email' => true,
             'customer' => $user,
             'invoice_duration' => $duration,
-            'success_redirect_url' => env('APP_URL').'/xendit/success/'.$order_id,
-            'failure_redirect_url' => env('APP_URL').'/xendit/expired/'.$order_id,
+            'success_redirect_url' => env('APP_URL').'/xendit-payment/success/'.$order_id,
+            'failure_redirect_url' => env('APP_URL').'/xendit-payment/expired/'.$order_id,
         ];
 
         $checkout_session = \Xendit\Invoice::create($params);
