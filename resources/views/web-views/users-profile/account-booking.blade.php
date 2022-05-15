@@ -130,25 +130,25 @@
                     <div class="row">
                         <div class="col-12 col-md-4">
                             @if ($order->order_status == 'pending')
-                            <span class="status text-info">Tunggu Konfirmasi</span>
+                            <span class="status text-info">Menunggu Konfirmasi</span>
                             @endif
                             @if ($order->order_status == 'processing')
-                            <span class="status text-warning">Butuh Pembayaran</span>
+                            <span class="status text-warning">Menunggu Pembayaran</span>
                             @endif
                             @if ($order->order_status == 'delivered')
-                            <span class="status text-success">Terbayar</span>
+                            <span class="status text-success">Sudah Terbayar</span>
                             @endif
                             @if ($order->order_status == 'canceled')
-                            <span class="status text-danger">Booking dibatalkan</span>
+                            <span class="status text-danger">Dibatalkan</span>
                             @endif
                             @if ($order->order_status == 'directPay')
-                            <span class="status text-info">Bayar langsung</span>
+                            <span class="status text-info">Bayar Langsung</span>
                             @endif
                             @if ($order->order_status == 'failed')
-                            <span class="status text-danger">Kadaluarsa</span>
+                            <span class="status text-danger">Gagal</span>
                             @endif
                             @if ($order->order_status == 'expired')
-                            <span class="status text-danger">Kadaluarsa oleh admin</span>
+                            <span class="status text-danger">Waktu berakhir</span>
                             @endif
                         </div>
                         {{-- {{ dd($order->order_status) }} --}}

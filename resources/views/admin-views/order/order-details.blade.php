@@ -86,7 +86,7 @@
 
                         @if($order['order_status']=='pending')
                             <span class="badge badge-soft-info ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-info text"></span>need confirmation
+                              <span class="legend-indicator bg-info text"></span>Menunggu konfirmasi
                             </span>
                         @elseif($order['order_status']=='failed')
                             <span class="badge badge-danger ml-2 ml-sm-3 text-capitalize">
@@ -94,11 +94,11 @@
                             </span>
                         @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
                             <span class="badge badge-soft-warning ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-warning"></span>tunggu pembayaran
+                              <span class="legend-indicator bg-warning"></span>Menunggu Pembayaran
                             </span>
                         @elseif($order['order_status']=='delivered' || $order['order_status']=='confirmed')
                             <span class="badge badge-soft-success ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-success"></span>Terbayar
+                              <span class="legend-indicator bg-success"></span>Sudah Terbayar
                             </span>
                         @elseif($order['order_status']=='directPay')
                             <span class="badge badge-soft-info ml-2 ml-sm-3 text-capitalize">

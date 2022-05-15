@@ -88,7 +88,7 @@
                             <span
                                 class="badge badge-soft-info {{Session::get('direction') === "rtl" ? 'mr-2 mr-sm-3' : 'ml-2 ml-sm-3'}} text-capitalize">
                           <span class="legend-indicator bg-info text text-capitalize"
-                                style="{{Session::get('direction') === "rtl" ? 'margin-right: 0;margin-left: .4375rem;' : 'margin-left: 0;margin-right: .4375rem;'}}"></span>need confirmation
+                                style="{{Session::get('direction') === "rtl" ? 'margin-right: 0;margin-left: .4375rem;' : 'margin-left: 0;margin-right: .4375rem;'}}"></span>Menunggu Konfirmasi
                         </span>
                         @elseif($order['order_status']=='failed')
                             <span
@@ -98,12 +98,12 @@
                         </span>
                         @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
                             <span class="badge badge-soft-warning ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-warning"></span>tunggu pembayaran
+                              <span class="legend-indicator bg-warning"></span>Menunggu Pembayaran
                             </span>
 
                         @elseif($order['order_status']=='delivered' || $order['order_status']=='confirmed')
                             <span class="badge badge-soft-success ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-success"></span>terbayar
+                              <span class="legend-indicator bg-success"></span>SudahTerbayar
                             </span>
                         @else
                             <span
