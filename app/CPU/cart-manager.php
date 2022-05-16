@@ -240,7 +240,7 @@ class CartManager
 
         $cart['product_id'] = $product->id;
         $cart['choices'] = json_encode($choices);
-        $cart['deposit'] = $product->deposit;
+        $cart['deposit'] = round($product->deposit);
         $cart['usePoin'] = $gunakan;
         $cart['poin'] = $request->poin ? $request->poin : session()->get('poin');
 
@@ -301,8 +301,8 @@ class CartManager
         $cart['customer_id'] = $user->id ?? 0;
         $cart['quantity'] = 1;
         /*$data['shipping_method_id'] = $shipping_id;*/
-        $cart['price'] = $price;
-        $cart['tax'] = $tax;
+        $cart['price'] = round($price);
+        $cart['tax'] = round($tax);
         $cart['slug'] = $product->slug;
         $cart['name'] = $product->name;
         $cart['mulai'] = $request['start_date'];

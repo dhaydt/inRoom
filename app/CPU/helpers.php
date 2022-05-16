@@ -1128,7 +1128,7 @@ class Helpers
     {
         $amount = ($price / 100) * $tax;
 
-        return $amount;
+        return round($amount);
     }
 
     public static function get_price_range($product)
@@ -1164,7 +1164,7 @@ class Helpers
             $discount = $product->discount;
         }
 
-        return floatval($discount);
+        return round($discount);
     }
 
     public static function module_permission_check($mod_name)

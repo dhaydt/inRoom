@@ -71,7 +71,6 @@ class CartController extends Controller
         session()->forget('coupon_discount');
 
         return response()->json($cart);
-        // return redirect()->route('shop-cart');
     }
 
     public function updateNavCart()

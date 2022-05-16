@@ -950,7 +950,7 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
                         $('#loading').show();
                     },
                     success: function (response) {
-                        console.log(response);
+                        // console.log('cart',response);
                         if (response.status == 1) {
                             // updateNavCart();
                             // toastr.success(response.message, {
