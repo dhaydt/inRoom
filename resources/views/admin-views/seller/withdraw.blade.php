@@ -52,7 +52,7 @@
                                         <td scope="row">{{$withdraw_req->firstItem()+$k}}</td>
                                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($wr['amount']))}}</td>
                                         {{-- <td>{{$wr->transaction_note}}</td> --}}
-                                        @php($f_name = $wr->seller->f_name)
+                                        @php($f_name = $wr->seller)
                                         <td>
                                             @if (isset($f_name))
                                                 <a href="{{route('admin.sellers.view',$wr->seller_id)}}">{{ $wr->seller->f_name . ' ' . $wr->seller->l_name }}</a>
