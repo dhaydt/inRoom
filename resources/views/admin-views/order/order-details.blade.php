@@ -5,6 +5,12 @@
 @push('css_or_js')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
+        .detail-price {
+            border: 1px solid #f5f5f5;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+        }
         .ktp img{
             max-width: 300px;
             height: auto;
@@ -321,7 +327,21 @@
                                                 @endif
                                             @endif
                                         </span>
-                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->details[0]->price)}}  <span class="month">/Bulan</span></span>
+                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->order_amount)}}  <span class="month">/ {{ $order->durasi }} Bulan</span></span>
+                                        <div class="row detail-price mt-3 ml-2">
+                                            <div class="col-12">
+                                                <span class="d-block">Detail Harga:</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <img onerror="this.src='{{asset('assets/back-end/img/400x400/img2.jpg')}}'"
