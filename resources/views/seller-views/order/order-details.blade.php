@@ -5,6 +5,12 @@
     <!-- Custom styles for this page -->
     <link href="{{asset('public/assets/back-end')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <style>
+        .detail-price {
+            border: 1px solid #f5f5f5;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+        }
         .ktp img {
             max-width: 300px;
             height: auto;
@@ -103,7 +109,7 @@
 
                         @elseif($order['order_status']=='delivered' || $order['order_status']=='confirmed')
                             <span class="badge badge-soft-success ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-success"></span>SudahTerbayar
+                              <span class="legend-indicator bg-success"></span>Sudah Terbayar
                             </span>
                         @else
                             <span
@@ -229,27 +235,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- @php($shipping=\App\CPU\Helpers::get_business_settings('shipping_method'))
-                            @if($order['payment_method']=='cash_on_delivery' && $shipping=='sellerwise_shipping')
-                                <div class="hs-unfold float-right pr-2">
-                                    <div class="dropdown">
-                                        <select name="payment_status" class="payment_status form-control"
-                                                data-id="{{$order['id']}}">
-                                            <option
-                                                onclick="route_alert('{{route('admin.orders.payment-status',['id'=>$order['id'],'payment_status'=>'paid'])}}','{{\App\CPU\translate('Change status to paid')}} ?')"
-                                                href="javascript:"
-                                                value="paid" {{$order->payment_status == 'paid'?'selected':''}} >
-                                                {{\App\CPU\translate('Paid')}}
-                                            </option>
-                                            <option
-                                                value="unpaid" {{$order->payment_status == 'unpaid'?'selected':''}} >
-                                                {{\App\CPU\translate('Unpaid')}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            @endif --}}
                         </div>
                     </div>
 
@@ -323,6 +308,23 @@
                                             @endif
                                         </span>
                                         <span class="price">{{\App\CPU\Helpers::currency_converter($order->details[0]->price)}}  <span class="month">/Bulan</span></span>
+                                        <div class="row detail-price mt-3 ml-2">
+                                            <div class="col-12">
+                                                <span class="d-block">Detail Harga:</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter(json_decode($order->details[0]->product_details)->deposit) }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <img onerror="this.src='{{asset('assets/back-end/img/400x400/img2.jpg')}}'"
