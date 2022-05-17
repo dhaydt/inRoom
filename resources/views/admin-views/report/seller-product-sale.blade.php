@@ -103,8 +103,14 @@
                             @foreach($products as $key=>$data)
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>
-                                    <td>{{$data['name']}}</td>
-                                    <td>{{$data->order_details->sum('qty')}}</td>
+                                    <td>{{$data['kost']->name}} - {{ $data->type }}</td>
+                                    <td>
+                                        @if ($data->order_details->sum('qty') != 0)
+                                            {{$data->order_details->sum('qty')}}
+                                        @else
+                                            <span class="badge badge-danger">Invalid order details</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

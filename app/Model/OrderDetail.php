@@ -49,7 +49,7 @@ class OrderDetail extends Model
     {
         parent::boot();
         static::addGlobalScope('translate', function (Builder $builder) {
-            $builder->with('product');
+            $builder->with('product', 'order');
         });
     }
 }
