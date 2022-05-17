@@ -341,6 +341,9 @@
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
                                             </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter(json_decode($order->details[0]->product_details)->deposit) }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
