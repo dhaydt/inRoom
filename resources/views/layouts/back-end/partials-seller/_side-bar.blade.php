@@ -40,8 +40,8 @@
                     @php($seller_logo=\App\Model\BusinessSetting::where(['type'=>'company_web_logo'])->first()->value)
                     <a class="navbar-brand" href="{{route('seller.dashboard.index')}}" aria-label="Front">
                         <img onerror="this.src='{{asset('public/assets/back-end/img/900x400/img1.jpg')}}'"
-                             class="navbar-brand-logo-mini for-seller-logo"
-                             src="{{asset("storage/company/$seller_logo")}}" alt="Logo">
+                            class="navbar-brand-logo-mini for-seller-logo"
+                            src="{{asset("storage/company/$seller_logo")}}" alt="Logo">
                     </a>
                     <!-- End Logo -->
 
@@ -184,8 +184,8 @@
 
                         <li class="navbar-vertical-aside-has-menu {{Request::is('seller/jobs/applied*')?'active':''}}">
                             <a class="js-navbar-vertical-aside-menu-link nav-link"
-                               href="{{route('seller.jobs.applied')}}">
-                               <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
+                                href="{{route('seller.jobs.applied')}}">
+                                <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
                                 <span class="text-truncate">{{\App\CPU\translate('Applied_job')}}</span>
                             </a>
                         </li>
@@ -265,6 +265,16 @@
                                 <i class="tio-email nav-icon"></i>
                                 <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                     {{\App\CPU\translate('messages')}}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="navbar-vertical-aside-has-menu {{Request::is('seller/profile*')?'active':''}}">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link"
+                               href="{{route('seller.profile.view')}}">
+                                <i class="tio-shop nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                    {{\App\CPU\translate('my_bank_info')}}
                                 </span>
                             </a>
                         </li>

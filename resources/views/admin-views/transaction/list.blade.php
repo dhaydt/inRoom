@@ -5,7 +5,6 @@
         <div class="col-md-4" style="margin-bottom: 20px;">
             <h3 class="text-capitalize">{{ \App\CPU\translate('transaction_table')}}
                 <span class="badge badge-soft-dark mx-2">{{$transactions->total()}}</span>
-
             </h3>
         </div>
         {{-- <div class="row" style="margin-top: 20px"> --}}
@@ -81,6 +80,8 @@
                         </thead>
                         <tbody>
                         @foreach($transactions as $key=>$transaction)
+                        {{-- {{ dd($transaction) }} --}}
+
                             <tr>
                                 <td>{{$transactions->firstItem()+$key}}</td>
                                 {{-- <td>{{$transaction['seller_id']}}</td> --}}
@@ -88,12 +89,20 @@
                                     @if($transaction['seller_is'] == 'admin')
                                         {{ \App\CPU\Helpers::get_business_settings('company_name') }}
                                     @else
-                                        {{ $transaction->seller->f_name }} {{ $transaction->seller->l_name }}
-                                    @endif
+                                        @if ($transaction->seller)
+                                            {{ $transaction->seller->f_name }} {{ $transaction->seller->l_name }}
+                                        @else
+                                            <span class="badge badge-danger">Invalid seller data</span>
+                                            @endif
+                                            @endif
 
-                                </td>
-                                <td>
-                                    {{ $transaction->customer->f_name}} {{ $transaction->customer->l_name }}
+                                        </td>
+                                        <td>
+                                        @if ($transaction->customer)
+                                            {{ $transaction->customer->f_name}} {{ $transaction->customer->l_name }}
+                                        @else
+                                            <span class="badge badge-danger">Invalid Customer data</span>
+                                        @endif
                                 </td>
                                 <td>{{$transaction['order_id']}}</td>
                                 <td>{{$transaction['transaction_id']}}</td>
