@@ -71,10 +71,14 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.sellers.withdraw_view',[$wr['id'],$wr->seller['id']])}}"
-                                               class="btn btn-primary btn-sm">
-                                                {{\App\CPU\translate('View')}}
-                                            </a>
+                                            @if (isset($f_name))
+                                                <a href="{{route('admin.sellers.withdraw_view',[$wr['id'],$wr->seller['id']])}}"
+                                                    class="btn btn-primary btn-sm">
+                                                    {{\App\CPU\translate('View')}}
+                                                </a>
+                                            @else
+                                                <span class="badge badge-danger">Invalid seller data</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
