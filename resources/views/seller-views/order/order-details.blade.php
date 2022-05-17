@@ -157,7 +157,7 @@
                                 <form action="{{ route('seller.orders.manual-payment') }}" method="POST" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     @csrf
-                                    @php($rooms = $order->details[0]->product->room)
+                                    @php($rooms = $order->details[0]->product ? $order->details[0]->product->room : 'invalid data')
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input type="hidden" name="id" value="{{ $order->id }}">
@@ -279,7 +279,7 @@
                                             <span>
                                                 {{ $detail->kost->penghuni }}
                                             </span>
-                                            @php($stock = $order->details[0]->product->current_stock)
+                                            @php($stock = $order->details[0]->product ? $order->details[0]->product->current_stock : 'invalid data')
                                              @if ($order->order_status != 'delivered')
                                                 @if ($stock <= 3 && $stock != 0)
                                                 <span>
@@ -321,9 +321,17 @@
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
                                             </div>
-                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter(json_decode($order->details[0]->product_details)->deposit) }}</span>
-                                            </div>
+                                            @php($details = json_decode($order->details[0]->product_details))
+                                            @if (isset($details->deposit))
+                                                @php($deposit = $details->deposit)
+                                            @else
+                                                @php($deposit = 'invalid data')
+                                            @endif
+                                            @if($deposit !== 'invalid data')
+                                                <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                    <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($deposit) }}</span>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">

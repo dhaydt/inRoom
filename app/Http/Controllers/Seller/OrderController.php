@@ -152,7 +152,6 @@ class OrderController extends Controller
                 Helpers::send_push_notif_to_device($fcm_token, $data);
             }
         } catch (\Exception $e) {
-            return response()->json([]);
         }
 
         if ($request->alasan) {
@@ -162,8 +161,6 @@ class OrderController extends Controller
 
             return response()->json($request->order_status);
         }
-
-        dd($request->no_kamar);
 
         $kamar = $request->no_kamar;
         if (strpos($kamar, 'id') !== false) {

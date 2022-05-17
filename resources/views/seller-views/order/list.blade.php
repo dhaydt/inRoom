@@ -70,7 +70,11 @@
                                             {{$orders->firstItem()+$k}}
                                         </td>
                                         <td>
-                                            <a href="{{route('seller.orders.details',$order['id'])}}">{{$order['id']}}</a>
+                                            @if ($order->customer)
+                                                <a href="{{route('seller.orders.details',$order['id'])}}">{{$order['id']}}</a>
+                                            @else
+                                                <span>{{ $order['id'] }}</span>
+                                            @endif
                                         </td>
                                         <td class="text-center">{{date('d M Y',strtotime($order['mulai']))}}</td>
                                         <td>
@@ -120,6 +124,7 @@
                                             @endif
                                         </td>
                                             <td>
+                                                @if ($order->customer)
                                                 <div class="dropdown">
                                                     <button class="btn btn-outline-secondary dropdown-toggle"
                                                             type="button"
@@ -137,6 +142,7 @@
                                                                 class="tio-download"></i> {{\App\CPU\translate('invoice')}}</a>
                                                     </div>
                                                 </div>
+                                                @endif
                                             </td>
                                         </tr>
 
