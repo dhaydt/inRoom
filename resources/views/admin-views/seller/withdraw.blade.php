@@ -32,9 +32,9 @@
                     <div class="card-body" style="padding: 0">
                         <div class="table-responsive">
                             <table id="datatable"
-                                   style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
-                                   class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-                                   style="width: 100%">
+                                style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                                class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                                style="width: 100%">
                                 <thead class="thead-light">
                                 <tr>
                                     <th>{{\App\CPU\translate('SL#')}}</th>
@@ -52,8 +52,13 @@
                                         <td scope="row">{{$withdraw_req->firstItem()+$k}}</td>
                                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($wr['amount']))}}</td>
                                         {{-- <td>{{$wr->transaction_note}}</td> --}}
+                                        @php($f_name = $wr->seller->f_name)
                                         <td>
-                                            <a href="{{route('admin.sellers.view',$wr->seller_id)}}">{{ $wr->seller->f_name . ' ' . $wr->seller->l_name }}</a>
+                                            @if (isset($f_name))
+                                                <a href="{{route('admin.sellers.view',$wr->seller_id)}}">{{ $wr->seller->f_name . ' ' . $wr->seller->l_name }}</a>
+                                            @else
+                                                <span class="badge badge-danger">Invalid seller data</span>
+                                            @endif
                                         </td>
                                         <td>{{$wr->created_at}}</td>
                                         <td>
