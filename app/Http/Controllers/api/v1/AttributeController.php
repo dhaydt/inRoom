@@ -5,12 +5,34 @@ namespace App\Http\Controllers\api\v1;
 use App\Country;
 use App\Http\Controllers\Controller;
 use App\Model\Attribute;
+use App\Model\BusinessSetting;
 use App\Model\Product;
 use Illuminate\Support\Facades\DB;
 use Laravolt\Indonesia\Models\City;
 
 class AttributeController extends Controller
 {
+    public function about_us()
+    {
+        $about_us = BusinessSetting::where('type', 'about_us')->first();
+
+        return response()->json($about_us, 200);
+    }
+
+    public function termsandCondition()
+    {
+        $terms_condition = BusinessSetting::where('type', 'terms_condition')->first();
+
+        return response()->json($terms_condition, 200);
+    }
+
+    public function privacy_policy()
+    {
+        $privacy_policy = BusinessSetting::where('type', 'privacy_policy')->first();
+
+        return response()->json($privacy_policy, 200);
+    }
+
     public function get_attributes()
     {
         $attributes = Attribute::all();
