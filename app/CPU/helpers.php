@@ -65,8 +65,13 @@ class Helpers
     {
         $poin = UserPoin::where(['user_id' => $id, 'used' => 0])->pluck('poin')->toArray();
         $sum = array_sum($poin);
+        if ($sum < 0) {
+            $sumCheck = 0;
+        } else {
+            $sumCheck = $sum;
+        }
 
-        return $sum;
+        return $sumCheck;
     }
 
     public static function roomFormattApi($data)
