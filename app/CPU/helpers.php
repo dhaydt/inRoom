@@ -19,6 +19,7 @@ use App\Model\Rule;
 use App\Model\Seller;
 use App\Model\ShippingAddress;
 use App\Model\ShippingMethod;
+use App\Model\UserPoin;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
@@ -27,6 +28,47 @@ use Laravolt\Indonesia\Models\Province;
 
 class Helpers
 {
+    public static function userProfile($user, $poin)
+    {
+        $data = [
+            'id' => $user->id,
+            'f_name' => $user->f_name,
+            'l_name' => $user->l_name,
+            'poin' => $poin,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'ktp' => $user->ktp,
+            'kelamin' => $user->kelamin,
+            'lahir' => $user->lahir,
+            'asal' => $user->asal,
+            'status_pernikahan' => $user->status_pernikahan,
+            'pendidikan' => $user->pendidikan,
+            'hp_darurat' => $user->hp_darurat,
+            'pekerjaan' => $user->pekerjaan,
+            'kampus' => $user->kampus,
+            'tempat_kerja' => $user->tempat_kerja,
+            'image' => $user->image,
+            'created_at' => $user->created_at,
+            'jenis_id' => $user->jenis_id,
+            'foto_id' => $user->foto_id,
+            'is_phone_verified' => $user->is_phone_verified,
+            'is_email_verified' => $user->is_email_verified,
+            'is_active' => $user->is_active,
+            'temporary_token' => $user->temporary_token,
+            'auth_token' => $user->auth_token,
+        ];
+
+        return $data;
+    }
+
+    public static function getPoinUser($id)
+    {
+        $poin = UserPoin::where(['user_id' => $id, 'used' => 0])->pluck('poin')->toArray();
+        $sum = array_sum($poin);
+
+        return $sum;
+    }
+
     public static function roomFormattApi($data)
     {
         return $data;

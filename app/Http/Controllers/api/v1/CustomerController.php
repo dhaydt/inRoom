@@ -23,7 +23,12 @@ class CustomerController extends Controller
 {
     public function info(Request $request)
     {
-        return response()->json($request->user(), 200);
+        $id = $request->user()->id;
+        $poin = Helpers::getPoinUser($id);
+        $user = $request->user();
+        $combine = Helpers::userProfile($user, $poin);
+
+        return response()->json($combine, 200);
     }
 
     public function create_support_ticket(Request $request)
