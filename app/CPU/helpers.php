@@ -1499,7 +1499,7 @@ class Helpers
     public static function sales_commission($order)
     {
         $order_summery = OrderManager::order_summary($order);
-        $order_total = $order_summery['subtotal'] - $order_summery['total_discount_on_product'] - $order['discount_amount'];
+        $order_total = $order_summery['subtotal'] - $order_summery['total_discount_on_product'] - $order['poin'];
         $commission_amount = 0;
 
         if ($order['seller_is'] == 'seller') {

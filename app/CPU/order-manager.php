@@ -158,7 +158,6 @@ class OrderManager
         $order = Order::with('details')->find($order['id']);
         $order_summary = OrderManager::order_summary($order);
         $order_amount = $order_summary['subtotal'] - $order_summary['total_discount_on_product'] + $order_summary['deposit'] - $order_summary['poin'] + $order_summary['total_tax'];
-        // dd($order_amount);
         $commission = Helpers::sales_commission($order);
         $shipping_model = Helpers::get_business_settings('shipping_method');
 
