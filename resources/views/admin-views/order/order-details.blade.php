@@ -333,6 +333,9 @@
                                                 <span class="d-block">Detail Harga:</span>
                                             </div>
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Harga awal : </span> <span class="text-success"> {{ \App\CPU\Helpers::currency_converter($order->details[0]->price) }}</span>
+                                            </div>
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
                                             </div>
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
