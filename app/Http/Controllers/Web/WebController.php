@@ -538,7 +538,7 @@ class WebController extends Controller
     public function product($slug)
     {
         session()->forget('poin');
-        $product = Product::active()->with(['reviews'])->where('slug', $slug)->first();
+        $product = Product::active()->with(['reviews', 'kost'])->where('slug', $slug)->first();
         $auth = auth('customer')->id();
         if ($auth) {
             CartManager::cart_clean();

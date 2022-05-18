@@ -2,11 +2,11 @@
 
 namespace App\CPU;
 
+use App\Kost;
 use App\Model\Cart;
 use App\Model\CartShipping;
 use App\Model\Color;
 use App\Model\Product;
-use App\Model\Shop;
 use Illuminate\Support\Str;
 
 class CartManager
@@ -227,10 +227,11 @@ class CartManager
         foreach ($poin as $p) {
             if ($p->transaction < $product->unit_price) {
                 $gotPoin = $p->persen;
-                $cart['poin'] = $gotPoin;
+                $cart['poinCashback'] = $gotPoin;
                 break;
             }
         }
+
         $gunakan = 0;
         if (isset($request->pakai)) {
             $gunakan = $request->pakai;
@@ -313,7 +314,7 @@ class CartManager
         $cart['usePoin'] = $gunakan;
         $cart['seller_is'] = $product->added_by;
         if ($product->added_by == 'seller') {
-            $cart['shop_info'] = Shop::where(['seller_id' => $product->user_id])->first()->name;
+            $cart['shop_info'] = Kost::where(['seller_id' => $product->user_id])->first()->name;
         } else {
             $cart['shop_info'] = Helpers::get_business_settings('company_name');
         }

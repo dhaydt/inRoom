@@ -855,12 +855,11 @@
                                     </div>
                                 </div>
 
-
                             </div>
                             <div class="row msg-option" id="msg-option">
                                 <form action="">
                                     <input type="text" class="seller_id" hidden seller-id="{{$product->seller->id }}">
-                                    <textarea shop-id="{{$product->seller->shop->id}}" class="chatInputBox"
+                                    <textarea shop-id="{{$product->kost->id}}" class="chatInputBox"
                                             id="chatInputBox" rows="5"> </textarea>
                                     <button class="btn btn-secondary" style="color: white;"
                                             id="cancelBtn">{{\App\CPU\translate('cancel')}}
@@ -966,7 +965,7 @@
                                         @foreach (array_slice(json_decode($product->images), 1, 2) as $key => $photo)
                                             <div class="cz-thumblist d-block">
                                                 <a class="mt-0 {{$key==0?'active':''}} d-flex align-items-center justify-content-center "
-                                                   href="#image{{$key}}" style="overflow: hidden;">
+                                                href="#image{{$key}}" style="overflow: hidden;">
                                                     <img
                                                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                                         src="{{asset("storage/product/$photo")}}"

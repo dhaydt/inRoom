@@ -307,7 +307,7 @@
                                                 @endif
                                             @endif
                                         </span>
-                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->details[0]->price)}}  <span class="month">/Bulan</span></span>
+                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->order_amount)}}  <span class="month">/Bulan</span></span>
                                         <div class="row detail-price mt-3 ml-2">
                                             <div class="col-12">
                                                 <span class="d-block">Detail Harga:</span>

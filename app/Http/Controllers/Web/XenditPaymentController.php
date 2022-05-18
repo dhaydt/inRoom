@@ -154,6 +154,10 @@ class XenditPaymentController extends Controller
         // $order = Order::find($request->id);
 
         $order = Order::with('details')->find($id);
+        $seller_is = json_decode($order->details[0]->product_details)->added_by;
+
+        $ord = OrderManager::wallet_manage_on_order_status_change($order, $seller_is);
+        // dd($ord);
         // $order_ids = [];
         // foreach (CartManager::get_cart_group_ids() as $group_id) {
         //     $data = [
@@ -192,8 +196,8 @@ class XenditPaymentController extends Controller
         $poin = new UserPoin();
         $poin->user_id = $order->customer_id;
         $poin->shop = $order->order_amount;
-        $poin->persen = $order->details[0]->poin;
-        $poin->poin = intval($order->order_amount * $order->details[0]->poin / 100);
+        $poin->persen = $order->details[0]->poinCashback;
+        $poin->poin = intval($order->order_amount * $order->details[0]->poinCashback / 100);
         $poin->used = 0;
         $poin->save();
 

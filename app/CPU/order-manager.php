@@ -32,21 +32,35 @@ class OrderManager
 
     public static function order_summary($order)
     {
-        $sub_total = 0;
-        $total_tax = 0;
-        $total_discount_on_product = 0;
-        foreach ($order->details as $key => $detail) {
-            $sub_total += $detail->price * $detail->qty;
-            $total_tax += $detail->tax;
-            $total_discount_on_product += $detail->discount;
+        // dd($order);
+        $ord = $order->details[0];
+        $sub_total = $ord->price;
+        $total_tax = $ord->tax;
+        if ($order->usePoin == 1) {
+            $poin = $ord->poin;
+        } else {
+            $poin = 0;
         }
-        $total_shipping_cost = $order['shipping_cost'];
+        $deposit = $ord->deposit;
+        $total_discount_on_product = $ord->discount;
+        // foreach ($order->details as $key => $detail) {
+        //     $sub_total += $detail->price;
+        //     $total_tax += $detail->tax;
+        //     $total_discount_on_product += $detail->discount;
+        //     if ($order->usePoin == 1) {
+        //         $poin = $detail->poin;
+        //     } else {
+        //         $poin = 0;
+        //     }
+        //     $deposit += $detail->deposit;
+        // }
 
         return [
             'subtotal' => $sub_total,
             'total_tax' => $total_tax,
             'total_discount_on_product' => $total_discount_on_product,
-            'total_shipping_cost' => $total_shipping_cost,
+            'poin' => $poin,
+            'deposit' => $deposit,
         ];
     }
 
@@ -141,9 +155,10 @@ class OrderManager
 
     public static function wallet_manage_on_order_status_change($order, $received_by)
     {
-        $order = Order::find($order['id']);
+        $order = Order::with('details')->find($order['id']);
         $order_summary = OrderManager::order_summary($order);
-        $order_amount = $order_summary['subtotal'] - $order_summary['total_discount_on_product'] - $order['discount_amount'];
+        $order_amount = $order_summary['subtotal'] - $order_summary['total_discount_on_product'] + $order_summary['deposit'] - $order_summary['poin'] + $order_summary['total_tax'];
+        // dd($order_amount);
         $commission = Helpers::sales_commission($order);
         $shipping_model = Helpers::get_business_settings('shipping_method');
 
@@ -195,9 +210,6 @@ class OrderManager
 
             $wallet = AdminWallet::where('admin_id', 1)->first();
             $wallet->commission_earned += $commission;
-            if ($shipping_model == 'inhouse_shipping') {
-                $wallet->delivery_charge_earned += $order['shipping_cost'];
-            }
             $wallet->save();
 
             if ($order['seller_is'] == 'admin') {
@@ -211,6 +223,7 @@ class OrderManager
             } else {
                 $wallet = SellerWallet::where('seller_id', $order['seller_id'])->first();
                 $wallet->commission_given += $commission;
+                $wallet->total_earning += ($order_amount - $commission);
                 $wallet->total_tax_collected += $order_summary['total_tax'];
 
                 if ($shipping_model == 'sellerwise_shipping') {
@@ -284,7 +297,7 @@ class OrderManager
         $user = Helpers::get_customer($req);
 
         if ($discount > 0) {
-            $discount = round($discount / count(CartManager::get_cart_group_ids($req)), 2);
+            $discount = round($discount / count(CartManager::get_cart_group_ids($req)));
         }
         if (!isset($data['api'])) {
             $id = auth('customer')->id();
@@ -362,7 +375,9 @@ class OrderManager
                 'variation' => $c['variations'],
                 'delivery_status' => 'pending',
                 // 'shipping_method_id' => null,
+                'deposit' => $seller_data['deposit'],
                 'poin' => $seller_data['poin'],
+                'poinCashback' => $seller_data['poinCashback'],
                 'payment_status' => 'unpaid',
                 'created_at' => now(),
                 'updated_at' => now(),
