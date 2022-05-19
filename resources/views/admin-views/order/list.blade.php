@@ -110,7 +110,11 @@
                                 {{$orders->firstItem()+$key}}
                             </td>
                             <td class="table-column-pl-0 text-center">
-                                <a href="{{route('admin.orders.details',['id'=>$order['id']])}}">{{$order['id']}}</a>
+                                @if($order->customer)
+                                    <a href="{{route('admin.orders.details',['id'=>$order['id']])}}">{{$order['id']}}</a>
+                                @else
+                                    <span>{{$order['id']}}</span>
+                                @endif
                             </td>
                             <td class="text-center">{{date('d M Y',strtotime($order['mulai']))}}</td>
                             <td>

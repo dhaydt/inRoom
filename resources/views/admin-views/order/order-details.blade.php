@@ -347,7 +347,7 @@
                                                 </div>
                                             @endif
                                             @php($deposit = json_decode($order->details[0]->product_details))
-                                            @if (isset($deposit))
+                                            @if (isset($deposit->deposit))
                                                 <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                     <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($deposit->deposit) }}</span>
                                                 </div>
