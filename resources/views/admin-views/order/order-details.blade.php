@@ -478,7 +478,7 @@
                             {{\App\CPU\translate('Waktu')}} {{\App\CPU\translate('Pemesanan')}}:
                         </h3>
                         <div class="subtitle">
-                            {{date('d M Y',strtotime($order['created_at']))}}, Pukul {{ date('H:m', strtotime($order['created_at'])) }}
+                            {{date('d M Y',strtotime($order['created_at']))}}, Pukul {{ date('H:i', strtotime($order['created_at'])) }}
                         </div>
                         @php($date = Carbon\Carbon::parse($order->mulai)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">

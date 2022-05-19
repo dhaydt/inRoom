@@ -280,7 +280,7 @@
                                                 {{ $detail->kost->penghuni }}
                                             </span>
                                             @php($stock = $order->details[0]->product ? $order->details[0]->product->current_stock : 'invalid data')
-                                             @if ($order->order_status != 'delivered')
+                                            @if ($order->order_status != 'delivered')
                                                 @if ($stock <= 3 && $stock != 0)
                                                 <span>
                                                     {{\App\CPU\translate('Sisa')}} {{ $stock }} {{\App\CPU\translate('kamar')}}
@@ -456,7 +456,7 @@
                             {{\App\CPU\translate('Waktu')}} {{\App\CPU\translate('Pemesanan')}}:
                         </h3>
                         <div class="subtitle">
-                            {{date('d M Y',strtotime($order['created_at']))}}, Pukul {{ date('H:m', strtotime($order['created_at'])) }}
+                            {{date('d M Y',strtotime($order['created_at']))}}, Pukul {{ date('H:i', strtotime($order['created_at'])) }}
                         </div>
                         @php($date = Carbon\Carbon::parse($order->mulai)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
