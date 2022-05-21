@@ -381,6 +381,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
             Route::get('sms-module', 'SMSModuleController@sms_index')->name('sms-module');
             Route::post('sms-module-update/{sms_module}', 'SMSModuleController@sms_update')->name('sms-module-update');
         });
+
+        // occunpant management
+        Route::group(['prefix' => 'booked', 'as' => 'booked.', 'middleware' => ['module:order_management']], function () {
+            Route::get('list/{status}', 'BookedController@list')->name('list');
+        });
         //order management
         Route::group(['prefix' => 'orders', 'as' => 'orders.', 'middleware' => ['module:order_management']], function () {
             Route::get('list/{status}', 'OrderController@list')->name('list');

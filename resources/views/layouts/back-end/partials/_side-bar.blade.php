@@ -84,7 +84,7 @@
                             <!-- Order -->
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/orders*')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle"
-                                   href="javascript:">
+                                    href="javascript:">
                                     <i class="tio-shopping-cart-outlined nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                     {{\App\CPU\translate('Booking')}}
@@ -212,10 +212,18 @@
                                 </ul>
                             </li>
 
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/booked/list*')?'active':''}}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link"
+                                    href="{{route('admin.booked.list', ['delivered'])}}">
+                                    <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
+                                    <span class="text-truncate">{{\App\CPU\translate('Booked')}}</span>
+                                </a>
+                            </li>
+
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/jobs/applied*')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
-                                   href="{{route('admin.jobs.applied')}}">
-                                   <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
+                                href="{{route('admin.jobs.applied')}}">
+                                <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
                                     <span class="text-truncate">{{\App\CPU\translate('Applied_job')}}</span>
                                 </a>
                             </li>

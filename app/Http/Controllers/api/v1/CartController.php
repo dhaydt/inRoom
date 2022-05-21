@@ -31,6 +31,7 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'start_date' => 'required',

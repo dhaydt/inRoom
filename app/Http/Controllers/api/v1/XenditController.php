@@ -6,9 +6,11 @@ use App\CPU\CartManager;
 use App\CPU\Convert;
 use App\CPU\OrderManager;
 use App\Http\Controllers\Controller;
+use App\Model\Booked;
 use App\Model\Detail_room;
 use App\Model\Order;
 use App\Model\UserPoin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Xendit\Xendit;
 
@@ -21,7 +23,7 @@ class XenditController extends Controller
         $type = strtoupper($request->payment_type);
 
         $order = Order::find($order_id);
-        $value = $order->order_amount;
+        $value = $order->firstPayment;
         $tran = OrderManager::gen_unique_id();
         $duration = '10800';
 
@@ -94,6 +96,59 @@ class XenditController extends Controller
     public function success($id)
     {
         $order = Order::with('details')->find($id);
+
+        $seller_is = json_decode($order->details[0]->product_details)->added_by;
+
+        if ($order->useVarian == 0) {
+            $longtime = $order->durasi;
+
+            for ($i = 0; $i < $longtime; ++$i) {
+                $booked = new Booked();
+                $booked->customer_id = $order->customer_id;
+                $booked->seller_is = $seller_is;
+                $booked->product_id = $order->details[0]->product_id;
+                $booked->seller_id = $order->seller_id;
+                $booked->room_id = $order->roomDetail_id;
+                $booked->total_durasi = $order->durasi;
+                $booked->bulan_ke = $i + 1;
+                $booked->order_id = $order->id;
+                $booked->payment_status = 'unpaid';
+                $booked->order_amount = $order->order_amount;
+                $booked->current_payment = 0;
+                $booked->next_payment = $order->nextPayment;
+                $booked->total_payyed = 0;
+                $booked->next_payment_date = Carbon::now()->addMonth($i + 1)->toDateTimeString();
+                $booked->save();
+            }
+
+            $bookeds = Booked::where(['customer_id' => $order->customer_id, 'room_id' => $order->roomDetail_id, 'payment_status' => 'unpaid'])->first();
+            $bookeds->payment_status = 'paid';
+            $bookeds->current_payment = $order->firstPayment;
+            $bookeds->total_payyed += $order->firstPayment;
+            $bookeds->save();
+
+            $bookend = Booked::where(['customer_id' => $order->customer_id, 'room_id' => $order->roomDetail_id, 'payment_status' => 'unpaid'])->orderBy('id', 'desc')->first();
+            $bookend->next_payment = 0;
+            $bookend->save();
+        } else {
+            $booked = new Booked();
+            $booked->customer_id = $order->customer_id;
+            $booked->seller_is = $seller_is;
+            $booked->product_id = $order->details[0]->product_id;
+            $booked->seller_id = $order->seller_id;
+            $booked->room_id = $order->roomDetail_id;
+            $booked->total_durasi = $order->durasi;
+            $booked->bulan_ke = 0;
+            $booked->order_id = $order->id;
+            $booked->payment_status = 'paid';
+            $booked->order_amount = $order->order_amount;
+            $booked->current_payment = $order->firstPayment;
+            $booked->next_payment = 0;
+            $booked->total_payyed = $order->firstPayment;
+            $booked->next_payment_date = Carbon::now();
+            $booked->save();
+        }
+
         $order->order_status = 'delivered';
         $order->payment_status = 'paid';
         $order->transaction_ref = session('transaction_ref');

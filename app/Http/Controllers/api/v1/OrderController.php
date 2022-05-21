@@ -48,6 +48,9 @@ class OrderController extends Controller
         }
         $data = Cart::find($request->cart_id);
         // dd($data);
+        if (!isset($data)) {
+            return response()->json('cart anda kosong!!', 200);
+        }
         $check = Product::find($data->product_id);
         if ($check->current_stock < 1) {
             CartManager::cart_clean($request);

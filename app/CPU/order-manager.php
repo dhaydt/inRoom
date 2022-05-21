@@ -324,18 +324,41 @@ class OrderManager
         if ($seller_data['usePoin'] == 1) {
             $used = $seller_data['poin'];
         }
+        // dd($data['data']);
+        if (isset($data['api'])) {
+            if ($data['api']->varian == 'true') {
+                $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                $firstPayment = $order_price;
 
-        if (isset($data['data']->varian)) {
-            $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
-            $firstPayment = $order_price;
-
-            $useVarian = 1;
-            $next = 0;
+                $useVarian = 1;
+                $next = 0;
+            } else {
+                if ($amount > 1) {
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
+                    $next = ($order_price - $firstPayment) / ($amount - 1);
+                    $data['data']->durasi = $amount;
+                    $useVarian = 0;
+                } else {
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                    $firstPayment = $order_price;
+                    $next = 0;
+                    $useVarian = 0;
+                }
+            }
         } else {
-            $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
-            $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
-            $next = ($order_price - $firstPayment) / ($amount - 1);
-            $useVarian = 0;
+            if ($data['data']->varian == 'true') {
+                $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                $firstPayment = $order_price;
+
+                $useVarian = 1;
+                $next = 0;
+            } else {
+                $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
+                $next = ($order_price - $firstPayment) / ($amount - 1);
+                $useVarian = 0;
+            }
         }
 
         // dd($order_price, $firstPayment, $next, $amount);

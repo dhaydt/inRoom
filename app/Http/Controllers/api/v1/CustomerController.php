@@ -214,6 +214,8 @@ class CustomerController extends Controller
                 'id' => $data['id'],
                 'customer_id' => $data['customer_id'],
                 'customer_type' => $data['customer_type'],
+                'pembayaran_pertama' => $data['firstPayment'],
+                'pembayaran_berikutnya' => $data['nextPayment'],
                 'payment_status' => $data['payment_status'],
                 'struk' => $data['struk'],
                 'alasan_user' => $data['alasan_user'],
