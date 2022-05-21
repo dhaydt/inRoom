@@ -7,6 +7,7 @@ use App\CPU\Convert;
 use App\CPU\OrderManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
+use App\Model\Booked;
 use App\Model\Detail_room;
 use App\Model\Order;
 use App\Model\UserPoin;
@@ -72,7 +73,7 @@ class XenditPaymentController extends Controller
         $order = Order::find($order_id);
         $type = strtoupper($request['type']);
         // dd($type);
-        $value = $order['order_amount'];
+        $value = $order['firstPayment'];
         $tran = OrderManager::gen_unique_id();
         $duration = '10800';
         // dd($duration);
@@ -150,27 +151,61 @@ class XenditPaymentController extends Controller
 
     public function success($id)
     {
-        // dd($type);
-        // $order = Order::find($request->id);
-
         $order = Order::with('details')->find($id);
+        // dd($order);
+
         $seller_is = json_decode($order->details[0]->product_details)->added_by;
 
-        $ord = OrderManager::wallet_manage_on_order_status_change($order, $seller_is);
-        // dd($ord);
-        // $order_ids = [];
-        // foreach (CartManager::get_cart_group_ids() as $group_id) {
-        //     $data = [
-        //         'payment_method' => 'Virtual Account'.$type,
-        //         'order_status' => 'confirmed',
-        //         'payment_status' => 'paid',
-        //         'transaction_ref' => session('transaction_ref'),
-        //         'order_group_id' => $unique_id,
-        //         'cart_group_id' => $group_id,
-        //     ];
-        //     $order_id = OrderManager::generate_order($data);
-        //     array_push($order_ids, $order_id);
-        // }
+        if ($order->useVarian == 0) {
+            $longtime = $order->durasi;
+
+            for ($i = 0; $i < $longtime; ++$i) {
+                $booked = new Booked();
+                $booked->customer_id = $order->customer_id;
+                $booked->seller_is = $seller_is;
+                $booked->product_id = $order->details[0]->product_id;
+                $booked->seller_id = $order->seller_id;
+                $booked->room_id = $order->roomDetail_id;
+                $booked->total_durasi = $order->durasi;
+                $booked->bulan_ke = $i + 1;
+                $booked->order_id = $order->id;
+                $booked->payment_status = 'unpaid';
+                $booked->order_amount = $order->order_amount;
+                $booked->current_payment = 0;
+                $booked->next_payment = $order->nextPayment;
+                $booked->total_payyed = 0;
+                $booked->next_payment_date = Carbon::now()->addMonth($i + 1)->toDateTimeString();
+                $booked->save();
+            }
+
+            $bookeds = Booked::where(['customer_id' => $order->customer_id, 'room_id' => $order->roomDetail_id, 'payment_status' => 'unpaid'])->first();
+            $bookeds->payment_status = 'paid';
+            $bookeds->current_payment = $order->firstPayment;
+            $bookeds->total_payyed += $order->firstPayment;
+            $bookeds->save();
+
+            $bookend = Booked::where(['customer_id' => $order->customer_id, 'room_id' => $order->roomDetail_id, 'payment_status' => 'unpaid'])->orderBy('id', 'desc')->first();
+            $bookend->next_payment = 0;
+            $bookend->save();
+        } else {
+            $booked = new Booked();
+            $booked->customer_id = $order->customer_id;
+            $booked->seller_is = $seller_is;
+            $booked->product_id = $order->details[0]->product_id;
+            $booked->seller_id = $order->seller_id;
+            $booked->room_id = $order->roomDetail_id;
+            $booked->total_durasi = $order->durasi;
+            $booked->bulan_ke = 0;
+            $booked->order_id = $order->id;
+            $booked->payment_status = 'paid';
+            $booked->order_amount = $order->order_amount;
+            $booked->current_payment = $order->firstPayment;
+            $booked->next_payment = 0;
+            $booked->total_payyed = $order->firstPayment;
+            $booked->next_payment_date = Carbon::now();
+            $booked->save();
+        }
+
         $order->order_status = 'delivered';
         $order->payment_status = 'paid';
         $order->transaction_ref = session('transaction_ref');
@@ -193,6 +228,8 @@ class XenditPaymentController extends Controller
             }
         }
 
+        OrderManager::wallet_manage_on_order_status_change($order, $seller_is);
+
         $poin = new UserPoin();
         $poin->user_id = $order->customer_id;
         $poin->shop = $order->order_amount;
@@ -207,7 +244,7 @@ class XenditPaymentController extends Controller
         if (auth('customer')->check()) {
             Toastr::success('Pembayaran berhasil.');
 
-            return view('web-views.payment-complete');
+            return redirect('payment-complete');
         }
 
         return response()->json(['message' => 'Payment succeeded'], 200);

@@ -237,7 +237,7 @@
                     <div class="more-content d-none" id="more_content{{ $order->id }}">
                         <div class="row justify-content-center px-4 mb-4">
                             <div class="price mt-3 col-md-9 px2">
-                                <span class="price-card">{{\App\CPU\Helpers::currency_converter($order->order_amount)}} <span class="satuan">/bulan</span></span>
+                                <span class="price-card">{{\App\CPU\Helpers::currency_converter($order->order_amount)}} <span class="satuan">/ {{ $order->durasi }} bulan</span></span>
                             </div>
                             @php($product = json_decode($order->details[0]->product_details))
                             @php($fasilitas = json_decode($product->fasilitas_id))
@@ -332,6 +332,10 @@
                                 <div class="col-12 d-flex justify-content-between mt-3">
                                     <span class="field">Durasi sewa</span>
                                     <span class="content">{{ $order->durasi }} bulan</span>
+                                </div>
+                                <div class="col-12 d-flex justify-content-between mt-3">
+                                    <span class="field">Pembayaran pertama</span>
+                                    <span class="content">{{ App\CPU\Helpers::currency_converter($order->firstPayment ? $order->firstPayment : $order->order_amount)}}</span>
                                 </div>
                             </div>
                         </div>

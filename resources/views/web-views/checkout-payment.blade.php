@@ -361,11 +361,10 @@
                 <div class="form-list d-flex justify-content-between w-100">
                     <span class="subtitle mb-1">Total Pembayaran</span>
                     <input type="hidden" name="value" value="{{ $order->details[0]->price}}" id="price">
-                    <span class="content price">{{ \App\CPU\Helpers::currency_converter($order->order_amount)
+                    <span class="content price">{{ \App\CPU\Helpers::currency_converter($order->firstPayment)
                         }}</span>
                     <hr class="line mt-4 mb-4">
                 </div>
-
 
                 <!-- Navigation (desktop)-->
                 <div class="row">

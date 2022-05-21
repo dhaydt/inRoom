@@ -110,9 +110,9 @@
 
                             <div class="row mt-4">
                                 <div class="col-12">
-                                    <a href="{{route('account-oder')}}"
+                                    <a href="{{route('account-kost')}}"
                                        class="btn btn-primary w-100 pull-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">
-                                        {{\App\CPU\translate('lihat_status_pengajuan')}}
+                                        {{\App\CPU\translate('lihat_bookingan_saya')}}
                                     </a>
                                 </div>
                             </div>

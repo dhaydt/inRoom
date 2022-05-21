@@ -110,8 +110,9 @@
             @include('web-views.partials._profile-aside')
         <section class="col-lg-9 mt-2 col-md-9 booking-col">
             <h1 class="h3 float-left headerTitle w-100">{{\App\CPU\translate('My_kost')}}</h1>
-            {{-- {{ dd($orders) }} --}}
             @foreach ($orders as $order)
+            @php($bookeds = App\Model\Booked::where('order_id', $order->id)->get())
+
             <div class="card w-100 mt-4">
                 <div class="card-header">
                     @if ($order->order_status == 'pending')
@@ -254,6 +255,53 @@
                                     <span class="content">{{ $order->durasi }} bulan</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-12 data-penyewa p-3 mt-3">
+                            <span class="title-kost capitalize">
+                                detail pembayaran
+                            </span>
+                            @if (count($bookeds) > 0)
+                                @foreach ($bookeds as $b)
+                                <div class="row mt-5">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <span class="field">Bulan ke-</span>
+                                        <span class="content" style="font-size: 25px;">
+                                            @if ($b->bulan_ke == 0)
+                                                LUNAS
+                                            @else
+                                                {{ $b->bulan_ke }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Status</span>
+                                        <span class="badge content {{ $b->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ $b->payment_status }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Tanggal Bayar</span>
+                                        <span class="content">{{ App\CPU\Helpers::dateChange($b->created_at) }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Jumlah bayar</span>
+                                        <span class="content">{{ App\CPU\Helpers::currency_converter($b->current_payment) }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Tanggal Bayar berikutnya</span>
+                                        <span class="content">
+                                            @if ($b->bulan_ke == 0)
+                                                Lunas
+                                            @else
+                                                {{ App\CPU\Helpers::dateChange($b->next_payment_date) }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Nominal pembayaran berikutnya</span>
+                                        <span class="content badge badge-warning">{{ App\CPU\Helpers::currency_converter(($b->next_payment)) }}</span>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     @if ($order->order_status == 'pending')
