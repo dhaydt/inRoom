@@ -354,10 +354,17 @@ class OrderManager
                 $useVarian = 1;
                 $next = 0;
             } else {
-                $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
-                $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
-                $next = ($order_price - $firstPayment) / ($amount - 1);
-                $useVarian = 0;
+                if ($amount > 1) {
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
+                    $next = ($order_price - $firstPayment) / ($amount - 1);
+                    $useVarian = 0;
+                } else {
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+                    $firstPayment = $order_price;
+                    $next = 0;
+                    $useVarian = 0;
+                }
             }
         }
 
