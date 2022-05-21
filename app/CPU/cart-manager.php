@@ -140,11 +140,12 @@ class CartManager
         $cart = CartManager::get_cart($cart_group_id);
         $shipping_cost = CartManager::get_shipping_cost($cart_group_id);
         $total = 0;
+
         if (!empty($cart)) {
             foreach ($cart as $item) {
                 $product_subtotal = ($item['price'] * $item['quantity'])
-                    + ($item['tax'] * $item['quantity'])
-                    - $item['discount'] * $item['quantity'];
+                + ($item['tax'] * $item['quantity'])
+                - $item['discount'] * $item['quantity'];
                 $total += $product_subtotal;
             }
             $total += $shipping_cost;
@@ -301,7 +302,6 @@ class CartManager
         //generate group id end
         $cart['customer_id'] = $user->id ?? 0;
         $cart['quantity'] = 1;
-        /*$data['shipping_method_id'] = $shipping_id;*/
         $cart['price'] = round($price);
         $cart['tax'] = round($tax);
         $cart['slug'] = $product->slug;

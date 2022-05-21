@@ -328,20 +328,35 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                             <div class="penyewa mb-3">
                                 <h3 class="title-section mb-1">Durasi kos</h3>
                             </div>
-
-                            <div class="row mt-3">
-                                <div class="col-md-4" style="margin-left: 12px;">
-                                    <div class="data-penyewa pl-2 d-flex-justify-content-center">
-                                        <span id="dur" class="d-none">{{ $cartItem->durasi }}</span>
-                                        <div class="quantity">
-                                            <input type="number" name="durasi" min="{{ 1 * $cartItem->durasi }}" max="999" step="{{ 1 * $cartItem->durasi }}"
-                                                value="{{ $cartItem->durasi }}">
-                                        </div>
-                                        <input type="hidden" name="anchor" value="1" id="anchor">
-                                        </div>
-                                    <span style="margin-left: 40px">Bulan</span>
+{{-- {{ dd($cart) }} --}}
+                            @if ($cartItem->variant == "" || $cartItem->variant == 1)
+                                <div class="row mt-3">
+                                    <div class="col-md-4" style="margin-left: 12px;">
+                                        <div class="data-penyewa pl-2 d-flex-justify-content-center">
+                                            <span id="dur" class="d-none">{{ $cartItem->durasi }}</span>
+                                            <div class="quantity">
+                                                <input type="number" name="durasi" min="{{ 1 * $cartItem->durasi }}" max="999" step="{{ 1 * $cartItem->durasi }}"
+                                                    value="{{ $cartItem->durasi }}">
+                                            </div>
+                                            <input type="hidden" name="anchor" value="1" id="anchor">
+                                            </div>
+                                        <span style="margin-left: 40px">Bulan</span>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="row mt-3">
+                                    <div class="col-md-4" style="margin-left: 12px;">
+                                        <div class="data-penyewa pl-2 d-flex-justify-content-center">
+                                            <div class="d-flex">
+                                                <span><strong>{{ $cartItem->durasi }}</strong> Bulan</span>
+                                            </div>
+                                            <input type="hidden" name="durasi" value="{{ $cartItem->durasi }}">
+                                            <input type="hidden" name="anchor" value="1">
+                                            <input type="hidden" name="varian" value="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <hr class="border_section" style="margin: 50px 0 50px 0;">
                         </div>
 
@@ -384,13 +399,6 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
 @push('script')
 <script src="{{asset('public/assets/back-end/js/spartan-multi-image-picker.js')}}"></script>
 <script>
-    // $(documnet).ready(function(){
-    //     var cart = $('#counter').val();
-    //     if(cart == 0){
-    //         location.reload();
-    //     }
-    // })
-
     $(function () {
             $("#coba").spartanMultiImagePicker({
                 fieldName: 'ktp',
@@ -461,9 +469,15 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var oldValue = parseFloat(input.val());
             var anc = $('#anchor').val();
             if (oldValue >= max) {
-            var newVal = oldValue;
+                var newVal = oldValue;
             } else {
-            var newVal = oldValue + parseFloat(step);
+                var newVal = oldValue + parseFloat(step);
+            }
+
+            if(newVal > 1){
+                $('#firstPayment').removeClass('d-none');
+                $('#firstPayment').addClass('d-flex justify-content-between');
+                $('#firstPay').text($("#priceTotal").text())
             }
             spinner.find("input").val(newVal);
             var anc = parseFloat(anc) + 1;
@@ -496,6 +510,11 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var newVal = oldValue;
             } else {
             var newVal = oldValue - parseFloat(step);
+            }
+
+            if(newVal = 1){
+                $('#firstPayment').addClass('d-none');
+                $('#firstPayment').removeClass('d-flex');
             }
             spinner.find("input").val(newVal);
             var anc = parseFloat(anc) - 1;

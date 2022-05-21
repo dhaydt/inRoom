@@ -55,9 +55,9 @@ class CartController extends Controller
                 // dd($val);
                 $ord = $val->details[0]->product_id;
                 if ($val->order_status != 'delivered' && $val->order_status != 'canceled' && $val->order_status != 'failed' && $val->order_status != 'expired') {
-                    if ($product_id == $ord) {
-                        return response()->json('Selesaikan proses booking sebelumnya dulu');
-                    }
+                    // if ($product_id == $ord) {
+                    return response()->json('Selesaikan proses booking sebelumnya dulu');
+                    // }
                 }
             }
 

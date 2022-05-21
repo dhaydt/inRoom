@@ -317,12 +317,28 @@ class OrderManager
         $seller_data = Cart::where(['cart_group_id' => $cart_group_id])->first();
         $minute = 2880;
 
-        // dd($tambahan);
+        $product = Product::find($seller_data['product_id']);
+
         $deposit = $seller_data['deposit'] ? $seller_data['deposit'] : 0;
         $used = 0;
         if ($seller_data['usePoin'] == 1) {
             $used = $seller_data['poin'];
         }
+
+        if (isset($data['data']->varian)) {
+            $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+            $firstPayment = $order_price;
+
+            $useVarian = 1;
+            $next = 0;
+        } else {
+            $order_price = ((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used;
+            $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
+            $next = ($order_price - $firstPayment) / ($amount - 1);
+            $useVarian = 0;
+        }
+
+        // dd($order_price, $firstPayment, $next, $amount);
         $or = [
             'id' => $order_id,
             'verification_code' => rand(100000, 999999),
@@ -345,7 +361,10 @@ class OrderManager
             'discount_type' => $discount == 0 ? null : 'coupon_discount',
             'coupon_code' => $coupon_code,
             'usePoin' => $seller_data['usePoin'],
-            'order_amount' => +((CartManager::cart_grand_total($cart_group_id) - $discount) * $amount) + $deposit - $used,
+            'order_amount' => $order_price,
+            'useVarian' => $useVarian,
+            'nextPayment' => $next,
+            'firstPayment' => $firstPayment,
             'created_at' => now(),
             'updated_at' => now(),
         ];
@@ -373,7 +392,6 @@ class OrderManager
                 'variant' => $c['variant'],
                 'variation' => $c['variations'],
                 'delivery_status' => 'pending',
-                // 'shipping_method_id' => null,
                 'deposit' => $seller_data['deposit'],
                 'poin' => $seller_data['poin'],
                 'poinCashback' => $seller_data['poinCashback'],

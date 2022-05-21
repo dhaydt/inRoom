@@ -27,7 +27,6 @@ use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
-use App\Model\ShippingAddress;
 use App\Model\Shop;
 use App\Model\UserPoin;
 use App\Model\Wishlist;
@@ -373,25 +372,20 @@ class WebController extends Controller
                 // dd($val);
                 $ord = $val->details[0]->product_id;
                 if ($val->order_status != 'delivered' && $val->order_status != 'canceled' && $val->order_status != 'failed' && $val->order_status != 'expired') {
-                    if ($product_id == $ord) {
-                        Toastr::warning('Selesaikan proses booking sebelumnya dulu');
+                    // if ($product_id == $ord) {
+                    Toastr::warning('Selesaikan proses booking sebelumnya dulu');
 
-                        return redirect()->back();
-                    }
+                    return redirect()->back();
+                    // }
                 }
             }
-            // dd($order, $cart);
+
             $user = auth('customer')->user();
-            // dd($user);
             if ($user->kelamin == null || $user->lahir == null || $user->status_pernikahan == null) {
                 Toastr::info('Mohon lengkapi data diri !');
 
                 return redirect()->route('user-account');
             }
-            // $address = ShippingAddress::where('customer_id', $user)->first();
-
-            // dd($address);
-            // session()->put('address_id', $address->id);
 
             return view('web-views.shop-cart');
         }

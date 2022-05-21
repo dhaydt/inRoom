@@ -108,7 +108,7 @@
                 <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
                     <div class="form-group">
                         <input class="form-control input_code" type="text" name="code" placeholder="{{\App\CPU\translate('Coupon code')}}"
-                               required>
+                            required>
                         <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
                     </div>
                     <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
@@ -118,8 +118,14 @@
             @php($coupon_dis=0)
         @endif
         <hr class="my-4 mb-2" style="border: 1px dashed #e3e9ef">
+        <div id="firstPayment" class="d-none mb-2">
+            <span class="cart_value">
+                Pembayaran pertama
+            </span>
+            <span id="firstPay"></span>
+        </div>
         <div class="d-flex justify-content-between">
-            <span class="cart_title">{{\App\CPU\translate('total_pembayaran_pertama')}}</span>
+            <span class="cart_title">{{\App\CPU\translate('total_pembayaran')}}</span>
             @if ($cartItem['usePoin'] == 0)
             <span id="priceTotal" class="d-none">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax-$coupon_dis-$total_discount_on_product + $deposit)}}</span>
             @else
