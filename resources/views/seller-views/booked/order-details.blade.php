@@ -1,4 +1,4 @@
-@extends('layouts.back-end.app')
+@extends('layouts.back-end.app-seller')
 
 @section('title', \App\CPU\translate('Booked Details'))
 

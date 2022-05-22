@@ -37,7 +37,7 @@ class BookedController extends Controller
             }
         } else {
             if ($status != 'all') {
-                $orders = Order::with('details', 'booked', 'customer')->whereHas('booked', );
+                $orders = Order::with('details', 'booked', 'customer')->whereHas('booked');
             } else {
                 $orders = Order::with(['customer', 'details']);
             }

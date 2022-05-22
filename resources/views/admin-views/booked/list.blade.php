@@ -22,8 +22,8 @@
         <!-- End Row -->
         <!-- Nav Scroller -->
         <div class="js-nav-scroller hs-nav-scroller-horizontal">
-            <span class="hs-nav-scroller-arrow-prev" style="display: none;">
-                <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+            <span class="hs-nav-scroller-arrow-prev" style="display: none">
+                <a class="hs-nav-scroller-arrow-link" href="javascript:">
                     <i class="tio-chevron-left"></i>
                 </a>
             </span>
@@ -100,7 +100,7 @@
                 <tbody>
                     @foreach($orders as $key=>$order)
                     @php($detail = json_decode($order->details[0]->product_details))
-                    @php($user = $order->customer);
+                    @php($user = $order->customer)
                     @php($district = strtolower($detail->kost->district))
                     @php($city = strtolower($detail->kost->city))
                     {{-- {{ dd(($user)) }} --}}
