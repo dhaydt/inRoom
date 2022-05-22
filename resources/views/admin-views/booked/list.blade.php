@@ -20,7 +20,6 @@
             </div>
         </div>
         <!-- End Row -->
-
         <!-- Nav Scroller -->
         <div class="js-nav-scroller hs-nav-scroller-horizontal">
             <span class="hs-nav-scroller-arrow-prev" style="display: none;">
@@ -90,30 +89,25 @@
                 style="width: 100%; text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }}">
                 <thead class="thead-light">
                     <tr>
-                        <th class="text-center">
-                            {{\App\CPU\translate('SL')}}#
-                        </th>
                         <th class="text-center">{{\App\CPU\translate('Booking_ID')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Star_date')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Property')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Duration')}}</th>
-                        <th class="text-center">{{\App\CPU\translate('Booking')}} {{\App\CPU\translate('Status')}} </th>
+                        <th class="text-center">{{\App\CPU\translate('Occupant')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Action')}}</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach($orders as $key=>$order)
                     @php($detail = json_decode($order->details[0]->product_details))
+                    @php($user = $order->customer);
                     @php($district = strtolower($detail->kost->district))
                     @php($city = strtolower($detail->kost->city))
+                    {{-- {{ dd(($user)) }} --}}
                     <tr class="status-{{$order['order_status']}} class-all">
-                        <td class="text-center">
-                            {{$orders->firstItem()+$key}}
-                        </td>
                         <td class="table-column-pl-0 text-center">
                             @if($order->customer)
-                            <a href="{{route('admin.orders.details',['id'=>$order['id']])}}">{{$order['id']}}</a>
+                            <a href="{{route('admin.booked.detail',['order'=>$order['id']])}}">{{$order['id']}}</a>
                             @else
                             <span>{{$order['id']}}</span>
                             @endif
@@ -121,9 +115,8 @@
                         <td class="text-center">{{date('d M Y',strtotime($order['mulai']))}}</td>
                         <td>
                             @if($order->customer)
-                            <a class="text-body text-capitalize"
-                                href="{{route('admin.orders.details',['id'=>$order['id']])}}">{{ $detail->kost->name }}
-                                {{ $detail->type }} {{ $district }} {{ $city }}</a>
+                            <span class="text-body text-capitalize">{{ $detail->kost->name }},
+                                {{ $detail->type }}, {{ $district }}, {{ $city }}</span>
                             @else
                             <label class="badge badge-danger">{{\App\CPU\translate('invalid_customer_data')}}</label>
                             @endif
@@ -131,54 +124,8 @@
                         <td class="text-center">
                             {{ $order->durasi }} {{ App\CPU\Translate('month') }}
                         </td>
-                        {{-- <td>
-                            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}
-                        </td> --}}
                         <td class="text-capitalize text-center">
-                            @if($order['order_status']=='pending')
-                            <span class="badge badge-soft-warning ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-warning" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate('need_confirmation')}}
-                            </span>
-
-                            @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
-                            <span class="badge badge-soft-warning ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-warning" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate('wait_for_payment')}}
-                            </span>
-                            @elseif($order['order_status']=='confirmed')
-                            <span class="badge badge-soft-success ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-success" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate($order['order_status'])}}
-                            </span>
-                            @elseif($order['order_status']=='failed')
-                            <span class="badge badge-danger ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-warning" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate('expired')}}
-                            </span>
-                            @elseif($order['order_status']=='delivered')
-                            <span class="badge badge-soft-success ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-success" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate($order['order_status'])}}
-                            </span>
-                            @else
-                            <span class="badge badge-soft-danger ml-2 ml-sm-3">
-                                <span class="legend-indicator bg-danger" style="{{Session::get('direction') === " rtl"
-                                    ? 'margin-right: 0;margin-left: .4375rem;'
-                                    : 'margin-left: 0;margin-right: .4375rem;'
-                                    }}"></span>{{\App\CPU\translate($order['order_status'])}}
-                            </span>
-                            @endif
+                            {{ $user->f_name }} {{ $user->l_name }}
                         </td>
                         <td>
                             <div class="dropdown">

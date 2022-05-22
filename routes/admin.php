@@ -385,6 +385,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         // occunpant management
         Route::group(['prefix' => 'booked', 'as' => 'booked.', 'middleware' => ['module:order_management']], function () {
             Route::get('list/{status}', 'BookedController@list')->name('list');
+            Route::get('detail/{order}', 'BookedController@detail')->name('detail');
         });
         //order management
         Route::group(['prefix' => 'orders', 'as' => 'orders.', 'middleware' => ['module:order_management']], function () {

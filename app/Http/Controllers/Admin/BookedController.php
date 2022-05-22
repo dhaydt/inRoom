@@ -39,7 +39,7 @@ class BookedController extends Controller
             }
         } else {
             if ($status != 'all') {
-                $orders = Order::with(['customer', 'details'])->where(['order_status' => $status]);
+                $orders = Order::with('details', 'booked', 'customer')->whereHas('booked');
             } else {
                 $orders = Order::with(['customer', 'details']);
             }
@@ -60,5 +60,12 @@ class BookedController extends Controller
         $orders = $orders->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
 
         return view('admin-views.booked.list', compact('orders', 'search'));
+    }
+
+    public function detail($order)
+    {
+        $book = Order::with('booked', 'details', 'customer', 'room')->where('id', $order)->first();
+
+        return view('admin-views.booked.order-details', compact('book'));
     }
 }

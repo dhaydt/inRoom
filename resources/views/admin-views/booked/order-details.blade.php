@@ -1,6 +1,6 @@
 @extends('layouts.back-end.app')
 
-@section('title', \App\CPU\translate('Order Details'))
+@section('title', \App\CPU\translate('Booked Details'))
 
 @push('css_or_js')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -62,6 +62,7 @@
 @endpush
 
 @section('content')
+{{-- {{ dd($book) }} --}}
     <div class="content container-fluid">
         <!-- Page Header -->
         <div class="page-header d-print-none p-3" style="background: white">
@@ -70,7 +71,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-no-gutter">
                             <li class="breadcrumb-item"><a class="breadcrumb-link"
-                                                           href="{{route('admin.orders.list',['status'=>'all'])}}">{{\App\CPU\translate('Bookings')}}</a>
+                                href="{{route('admin.orders.list',['status'=>'all'])}}">{{\App\CPU\translate('Booked')}}</a>
                             </li>
                             <li class="breadcrumb-item active"
                                 aria-current="page">{{\App\CPU\translate('Booking')}} {{\App\CPU\translate('details')}} </li>
@@ -78,9 +79,9 @@
                     </nav>
 
                     <div class="d-sm-flex align-items-sm-center">
-                        <h1 class="page-header-title">{{\App\CPU\translate('Booking')}} #{{$order['id']}}</h1>
+                        <h1 class="page-header-title">{{\App\CPU\translate('Booking')}} #{{$book['id']}}</h1>
 
-                        @if($order['payment_status']=='paid')
+                        @if($book['payment_status']=='paid')
                             <span class="badge badge-soft-success ml-sm-3">
                                 <span class="legend-indicator bg-success"></span>{{\App\CPU\translate('Paid')}}
                             </span>
@@ -90,172 +91,10 @@
                             </span>
                         @endif
 
-                        @if($order['order_status']=='pending')
-                            <span class="badge badge-soft-info ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-info text"></span>Menunggu konfirmasi
-                            </span>
-                        @elseif($order['order_status']=='failed')
-                            <span class="badge badge-danger ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-info"></span>Gagal
-                            </span>
-                        @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
-                            <span class="badge badge-soft-warning ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-warning"></span>Menunggu Pembayaran
-                            </span>
-                        @elseif($order['order_status']=='delivered' || $order['order_status']=='confirmed')
-                            <span class="badge badge-soft-success ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-success"></span>Sudah Terbayar
-                            </span>
-                        @elseif($order['order_status']=='directPay')
-                            <span class="badge badge-soft-info ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-info"></span>Bayar langsung
-                            </span>
-                        @else
-                            <span class="badge badge-soft-danger ml-2 ml-sm-3 text-capitalize">
-                              <span class="legend-indicator bg-danger"></span>{{str_replace('_',' ',$order['order_status'])}}
-                            </span>
-                        @endif
                         <span class="ml-2 ml-sm-3">
-                        <i class="tio-date-range"></i> {{date('d M Y H:i:s',strtotime($order['created_at']))}}
+                        <i class="tio-date-range"></i> {{date('d M Y H:i:s',strtotime($book['created_at']))}}
                         </span>
 
-                        @if(\App\CPU\Helpers::get_business_settings('order_verification'))
-                            <span class="ml-2 ml-sm-3">
-                                <b>
-                                    {{\App\CPU\translate('Booking_verification_code')}} : {{$order['verification_code']}}
-                                </b>
-                            </span>
-                        @endif
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6 mt-2">
-                            <a class="text-body mr-3" target="_blank"
-                               href={{route('admin.orders.generate-invoice',[$order['id']])}}>
-                                <i class="tio-print mr-1"></i> {{\App\CPU\translate('Print')}} {{\App\CPU\translate('invoice')}}
-                            </a>
-                        </div>
-                        @if ($order->order_status == 'directPay')
-                        <div class="col-md-6 mt-2 text-right">
-                            <a class="text-body mr-3 btn btn-outline-secondary"
-                            href='javascript:' data-toggle="modal" data-target="#upload">
-                                <i class="tio-print mr-1"></i> Upload Bukti Transfer
-                            </a>
-                        </div>
-                        @endif
-                        <!-- Modal -->
-                            <div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Upload bukti transfer manual</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <form action="{{ route('admin.orders.manual-payment') }}" method="POST" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        @csrf
-                                        @php($rooms = $order->details[0]->product->room)
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="hidden" name="id" value="{{ $order->id }}">
-                                                <input type="hidden" name="order_status" value="delivered">
-                                                {{-- <select id="roomsd" class="custom-select custom-select-lg mb-3" name="no_kamar">
-                                                    <option value="">Pilih nomor kamar</option>
-                                                    <option value="id{{ $rooms[0]->room_id }}">Pilih ditempat</option>
-                                                    @foreach ($rooms as $r)
-                                                    @if ($r->available == 1)
-                                                    <option value="{{ $r->id }}">{{ $r->name }}</option>
-                                                    @endif
-                                                    @endforeach
-                                                </select> --}}
-                                                <label for="name">{{ \App\CPU\translate('Pilih bukti transfer')}}</label>
-                                                <br>
-                                                <div class="custom-file" style="text-align: left">
-                                                    <input type="file" name="image" id="mbimageFileUploader"
-                                                        class="custom-file-input"
-                                                        accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
-                                                    <label class="custom-file-label"
-                                                        for="mbimageFileUploader">{{\App\CPU\translate('choose')}} {{\App\CPU\translate('file')}}</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <center>
-                                                    <img
-                                                        style="max-width: 250px;border: 1px solid; border-radius: 10px; max-height:200px;"
-                                                        id="mbImageviewer"
-                                                        onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                                        src="{{asset('storage/struk'.'/'.$order->struk)}}"
-                                                        alt="banner image"/>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                                        <button type="submit" class="btn btn-primary">Upload</button>
-                                    </form>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 mt-4">
-                            <label class="badge badge-info">{{\App\CPU\translate('linked_orders')}}
-                                : {{$linked_orders->count()}}</label><br>
-                            @foreach($linked_orders as $linked)
-                                <a href="{{route('admin.orders.details',[$linked['id']])}}" class="btn btn-secondary">{{\App\CPU\translate('ID')}}
-                                    :{{$linked['id']}}</a>
-                            @endforeach
-                        </div>
-
-                        <div class="col-6">
-                            <div class="hs-unfold float-right">
-                                <div class="dropdown">
-                                    <select name="order_status" onchange="order_status(this.value)"
-                                            class="status form-control"
-                                            data-id="{{$order['id']}}">
-
-                                        <option
-                                            value="pending" {{$order->order_status == 'pending'?'selected':''}} > {{\App\CPU\translate('Pending')}}</option>
-                                        <option
-                                            value="confirmed" {{$order->order_status == 'confirmed'?'selected':''}} > {{\App\CPU\translate('Confirmed')}}</option>
-                                        <option
-                                            value="processing" {{$order->order_status == 'processing'?'selected':''}} >{{\App\CPU\translate('Processing')}} </option>
-                                        <option class="text-capitalize"
-                                                value="out_for_delivery" {{$order->order_status == 'out_for_delivery'?'selected':''}} >{{\App\CPU\translate('out_for_delivery')}} </option>
-                                        <option
-                                            value="delivered" {{$order->order_status == 'delivered'?'selected':''}} >{{\App\CPU\translate('Delivered')}} </option>
-                                        <option
-                                            value="returned" {{$order->order_status == 'returned'?'selected':''}} > {{\App\CPU\translate('Returned')}}</option>
-                                        <option
-                                            value="failed" {{$order->order_status == 'failed'?'selected':''}} >{{\App\CPU\translate('Failed')}} </option>
-                                        <option
-                                            value="canceled" {{$order->order_status == 'canceled'?'selected':''}} >{{\App\CPU\translate('Canceled')}} </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="hs-unfold float-right pr-2">
-                                <div class="dropdown">
-                                    <select name="payment_status" class="payment_status form-control"
-                                            data-id="{{$order['id']}}">
-
-                                        <option
-                                            onclick="route_alert('{{route('admin.orders.payment-status',['id'=>$order['id'],'payment_status'=>'paid'])}}','Change status to paid ?')"
-                                            href="javascript:"
-                                            value="paid" {{$order->payment_status == 'paid'?'selected':''}} >
-                                            {{\App\CPU\translate('Paid')}}
-                                        </option>
-                                        <option value="unpaid" {{$order->payment_status == 'unpaid'?'selected':''}} >
-                                            {{\App\CPU\translate('Unpaid')}}
-                                        </option>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- End Unfold -->
                 </div>
@@ -263,8 +102,8 @@
         </div>
 
         <!-- End Page Header -->
-        @php($detail = json_decode($order->details[0]->product_details))
-        @php($sewa = $order->customer)
+        @php($detail = json_decode($book->details[0]->product_details))
+        @php($sewa = $book->customer)
         @php($district = strtolower($detail->kost->district))
         @php($city = strtolower($detail->kost->city))
         <div class="row" id="printableArea">
@@ -277,9 +116,9 @@
                         <div class="row">
                             <div class="col-12 pb-2 border-bottom">
                                 <h4 class="card-header-title">
-                                    {{\App\CPU\translate('Booking')}} {{\App\CPU\translate('details')}}
+                                    {{\App\CPU\translate('Booked')}} {{\App\CPU\translate('details')}}
                                     <span
-                                        class="badge badge-soft-dark rounded-circle ml-1">{{$order->details->count()}}</span>
+                                        class="badge badge-soft-dark rounded-circle ml-1">{{$book->details->count()}}</span>
                                 </h4>
                             </div>
 
@@ -291,62 +130,46 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <div class="title-sub w-100 d-block mt-2">
-                                    <h4>Properti yang dipesan:</h4>
+                                    <h4>Properti:</h4>
                                 </div>
                                 <div class="row w-100">
                                     <div class="col-md-8">
-                                        <div class="status-kos mt-2">
-                                            <span>
-                                                {{ $detail->kost->penghuni }}
-                                            </span>
-                                            @php($stock = $order->details[0]->product->current_stock)
-                                            @if ($order->order_status != 'delivered')
-                                                @if ($stock <= 3 && $stock != 0)
+                                        <div class="d-flex mb-4">
+                                            <div class="status-kos mt-2">
                                                 <span>
-                                                    {{\App\CPU\translate('Sisa')}} {{ $stock }} {{\App\CPU\translate('kamar')}}
+                                                    {{ $detail->kost->penghuni }}
                                                 </span>
-                                                @elseif ($stock == 0)
+                                            </div>
+                                            <div class="status-kos w-100 d-block mt-2">
                                                 <span>
-                                                    Kamar Habis
+                                                    @if ($book->roomDetail_id == NULL)
+                                                    Kamar belum dipilih
+                                                    @else
+                                                        Kamar  {{ $book->room[0]->name }}
+                                                    @endif
                                                 </span>
-                                                @else
-                                                <span>
-                                                    Ada {{ $stock }} kamar
-                                                </span>
-                                                @endif
-                                            @endif
+                                            </div>
                                         </div>
-                                        <span class="room-status w-100 d-block">
-                                            @if ($order->roomDetail_id == NULL)
-                                                Kamar belum dikonfirmasi
-                                            @elseif ($order->roomDetail_id == 'ditempat')
-                                                Pilih kamar ditempat
-                                            @else
-                                                @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
-                                                    Kamar  {{ $order->room[0]->name }}
-                                                @endif
-                                            @endif
-                                        </span>
-                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->order_amount)}}  <span class="month">/ {{ $order->durasi }} Bulan</span></span>
+                                        <span class="price">{{\App\CPU\Helpers::currency_converter($book->order_amount)}}  <span class="month">/ {{ $book->total_durasi }} Bulan</span></span>
                                         <div class="row detail-price mt-3 ml-2">
                                             <div class="col-12">
                                                 <span class="d-block">Detail Harga:</span>
                                             </div>
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                <span>Harga awal : </span> <span class="text-success"> {{ \App\CPU\Helpers::currency_converter($order->details[0]->price) }}</span>
+                                                <span>Harga awal : </span> <span class="text-success"> {{ \App\CPU\Helpers::currency_converter($book->details[0]->price) }}</span>
                                             </div>
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
+                                                <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($book->details[0]->discount) }}</span>
                                             </div>
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
+                                                <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($book->details[0]->tax) }}</span>
                                             </div>
-                                            @if ($order->usePoin == 1)
+                                            @if ($book->usePoin == 1)
                                                 <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                    <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
+                                                    <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($book->details[0]->poin) }}</span>
                                                 </div>
                                             @endif
-                                            @php($deposit = json_decode($order->details[0]->product_details))
+                                            @php($deposit = json_decode($book->details[0]->product_details))
                                             @if (isset($deposit->deposit))
                                                 <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                     <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($deposit->deposit) }}</span>
@@ -375,9 +198,9 @@
                                     +62{{ $sewa->phone }}
                                 </span>
                             </div>
-                            <button class="btn btn-outline-secondary px-4 my-auto" style="height: 40px;">
+                            {{-- <button class="btn btn-outline-secondary px-4 my-auto" style="height: 40px;">
                                 Chat
-                            </button>
+                            </button> --}}
                         </div>
                         <hr>
                         <div class="col-12 py-3">
@@ -395,7 +218,7 @@
                             <img src="{{ asset('assets/back-end/img/keyhand.png') }}" alt="" style="height: 30px;" class="mb-3">
                             <h5 style="capitalize">Jumlah Penyewa:</h5>
                             <span style="font-weight: 700;">
-                                {{ $order->jumlah_penyewa }} Penyewa
+                                {{ $book->jumlah_penyewa }} Penyewa
                             </span>
                         </div>
                         <hr>
@@ -404,7 +227,7 @@
                             color: #000;"></i>
                             <h5 style="capitalize">Catatan tambahan:</h5>
                             <span style="font-weight: 700;" class="capitalize">
-                                {{ $order->catatan_tambahan }}
+                                {{ $book->catatan_tambahan }}
                             </span>
                         </div>
                         <hr>
@@ -435,40 +258,7 @@
                 <div class="card card-confirm">
                     <!-- Header -->
                     <div class="card-header px-2">
-                        @if($order['order_status']=='pending')
-                        <span class="badge badge-soft-warning text-capitalize" style="font-size: 14px;">
-                            {{ \App\CPU\translate('butuh_konfirmasi') }}
-                        </span>
-                        @elseif($order['order_status']=='failed')
-                            <span class="badge badge-danger ml-sm-3 text-capitalize" style="font-size: 14px;">
-                            <span class="legend-indicator bg-danger"></span>
-                            {{ \App\CPU\translate('gagal') }}
-                            </span>
-                        @elseif($order['order_status']=='directPay')
-                            <span class="badge badge-info ml-sm-3 text-capitalize" style="font-size: 14px;">
-                            {{ \App\CPU\translate('Bayar_langsung') }}
-                            </span>
-                        @elseif($order['order_status']=='processing' || $order['order_status']=='out_for_delivery')
-                            <span class="badge badge-soft-success text-capitalize" style="font-size: 14px;">
-                                {{ \App\CPU\translate('tunggu_pembayaran') }}
-                            </span>
-                        @elseif($order['order_status']=='delivered' || $order['order_status']=='confirmed')
-                            <span class="badge badge-soft-success ml-sm-3 text-capitalize" style="font-size: 14px;">
-                            {{ \App\CPU\translate('terbayar') }}
-                            </span>
-                        @else
-                            <span class="badge badge-soft-danger ml-sm-3 text-capitalize" style="font-size: 14px;">
-                            {{str_replace('_',' ',$order['order_status'])}}
-                            </span>
-                        @endif
-                        <span class="alasan">
-                            @if ($order['alasan_admin'] != 'NULL')
-                                {{ $order['alasan_admin'] }}
-                            @endif
-                            @if ($order->alasan_user != 'NULL')
-                                {{ $order->alasan_user }}
-                            @endif
-                        </span>
+                        <span class="text-capitalize">Status pembayaran</span>
                     </div>
                     <!-- End Header -->
 
@@ -478,16 +268,16 @@
                             {{\App\CPU\translate('Waktu')}} {{\App\CPU\translate('Pemesanan')}}:
                         </h3>
                         <div class="subtitle">
-                            {{date('d M Y',strtotime($order['created_at']))}}, Pukul {{ date('H:i', strtotime($order['created_at'])) }}
+                            {{date('d M Y',strtotime($book['created_at']))}}, Pukul {{ date('H:i', strtotime($book['created_at'])) }}
                         </div>
-                        @php($date = Carbon\Carbon::parse($order->mulai)->isoFormat('dddd, D MMMM Y'))
+                        @php($date = Carbon\Carbon::parse($book->mulai)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
                             <span class="capitalize">Mulai sewa</span>
                             <span>{{ App\CPU\Helpers::dateChange($date) }}</span>
                         </div>
-                        @if (count($order->room) > 0)
-                        @if ($order->room[0]->habis != NULL)
-                        @php($abis = Carbon\Carbon::parse($order->room[0]->habis)->isoFormat('dddd, D MMMM Y'))
+                        @if (count($book->room) > 0)
+                        @if ($book->room[0]->habis != NULL)
+                        @php($abis = Carbon\Carbon::parse($book->room[0]->habis)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
                             <span class="capitalize">Habis sewa</span>
                             <span>{{ App\CPU\Helpers::dateChange($abis) }}</span>
@@ -496,16 +286,62 @@
                         @endif
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
                             <span class="capitalize">Durasi sewa</span>
-                            <span>{{ $order->durasi }} Bulan</span>
+                            <span>{{ $book->durasi }} Bulan</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Detail pembayaran</h3>
+                        <div class="detail-pembayaran">
+                            @foreach ($book->booked as $b)
+                                <div class="row mt-5">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <span class="field">Bulan ke-</span>
+                                        <span class="" style="font-size: 25px;">
+                                            @if ($b->bulan_ke == 0)
+                                                LUNAS
+                                            @else
+                                                {{ $b->bulan_ke }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Status</span>
+                                        <span class="badge pt-2 pb-1 {{ $b->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ $b->payment_status }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Tanggal Bayar</span>
+                                        <span class="">{{ App\CPU\Helpers::dateChange($b->created_at) }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Jumlah bayar</span>
+                                        <span class="">{{ App\CPU\Helpers::currency_converter($b->current_payment) }}</span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Tanggal Bayar berikutnya</span>
+                                        <span class="">
+                                            @if ($b->bulan_ke == 0)
+                                                Lunas
+                                            @else
+                                                {{ App\CPU\Helpers::dateChange($b->next_payment_date) }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        <span class="field">Nominal pembayaran berikutnya</span>
+                                        <span class="badge badge-warning pt-2 pb-1">{{ App\CPU\Helpers::currency_converter(($b->next_payment)) }}</span>
+                                    </div>
+                                </div>
+                                <hr class="mb-4">
+                                @endforeach
                         </div>
                     </div>
                 <!-- End Body -->
-                @if ($order['struk'] != NULL && $order['order_status'] == 'delivered')
+                @if ($book['struk'] != NULL && $book['order_status'] == 'delivered')
                 <a onclick="cancel('canceled')" class="btn btn-danger w-100">
                     {{ \App\CPU\Translate('Batalkan') }}
                 </a>
                 @endif
-                @if ($order['order_status']=='pending' )
+                @if ($book['order_status']=='pending' )
                 <div class="card-footer d-flex justify-content-center">
                     <div class="row w-100">
                         <div class="col-md-6">
@@ -564,7 +400,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
-                        @php($rooms = $order->details[0]->product->room)
+                        @php($rooms = $book->details[0]->product->room)
                         {{-- {{ dd($rooms) }} --}}
                         <div class="modal-body">
                                 <input type="hidden" name="order_status" value="processing">
@@ -667,7 +503,7 @@
                         url: "{{route('admin.orders.status')}}",
                         method: 'POST',
                         data: {
-                            "id": '{{$order['id']}}',
+                            "id": '{{$book['id']}}',
                             "order_status": 'cancelled',
                             'alasan': alasan
                         },
@@ -712,7 +548,7 @@
                         url: "{{route('admin.orders.status')}}",
                         method: 'POST',
                         data: {
-                            "id": '{{$order['id']}}',
+                            "id": '{{$book['id']}}',
                             "order_status": status,
                             'no_kamar': room
                         },

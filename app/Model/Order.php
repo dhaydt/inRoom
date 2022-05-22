@@ -51,4 +51,9 @@ class Order extends Model
     {
         return $this->hasMany(Detail_room::class, 'id', 'roomDetail_id');
     }
+
+    public function booked()
+    {
+        return $this->hasMany(Booked::class, 'order_id');
+    }
 }

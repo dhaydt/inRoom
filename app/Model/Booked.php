@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Booked extends Model
@@ -20,5 +21,13 @@ class Booked extends Model
     public function seller()
     {
         return $this->belongsTo(Seller::class, 'seller_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(function (Builder $builder) {
+            $builder->with('customer');
+        });
     }
 }

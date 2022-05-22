@@ -82,6 +82,11 @@ class Product extends Model
         return $this->belongsTo(Seller::class, 'user_id');
     }
 
+    public function booked()
+    {
+        return $this->hasMany(Booked::class, 'product_id');
+    }
+
     public function kost()
     {
         return $this->belongsTo(Kost::class, 'kost_id');
