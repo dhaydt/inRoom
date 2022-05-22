@@ -72,8 +72,8 @@
                     <label> {{\App\CPU\translate('inhouse_booking_only')}} : </label>
                     <label class="switch ml-3">
                         <input type="checkbox" class="status" onclick="filter_order()"
-                            {{session()->has('show_inhouse_orders') &&
-                        session('show_inhouse_orders')==1?'checked':''}}>
+                            {{session()->has('show_inhouse_bookings') &&
+                        session('show_inhouse_bookings')==1?'checked':''}}>
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -125,11 +125,7 @@
                             {{ $order->durasi }} {{ App\CPU\Translate('month') }}
                         </td>
                         <td class="text-capitalize text-center">
-                            @if (isset($user))
-                                {{ $user->f_name }} {{ $user->l_name }}
-                            @else
-                                <span class="badge badge-danger">Invalid customer data</span>
-                            @endif
+                            {{ $user->f_name }} {{ $user->l_name }}
                         </td>
                         <td>
                             <div class="dropdown">

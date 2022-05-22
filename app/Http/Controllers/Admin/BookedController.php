@@ -14,10 +14,8 @@ class BookedController extends Controller
         $query_param = [];
         $search = $request['search'];
         if (session()->has('show_inhouse_orders') && session('show_inhouse_orders') == 1) {
-            $query = Order::whereHas('details', function ($query) {
-                $query->whereHas('product', function ($query) {
-                    $query->where('added_by', 'admin');
-                });
+            $query = Order::whereHas('booked', function ($query) {
+                $query->where('seller_is', 'admin');
             })->with(['customer', 'details']);
 
             if ($status != 'all') {
@@ -39,20 +37,25 @@ class BookedController extends Controller
             }
         } else {
             if ($status != 'all') {
-                $orders = Order::with('details', 'booked', 'customer')->whereHas('booked');
+                $orders = Order::with('details', 'booked', 'customer')->whereHas('booked', );
             } else {
                 $orders = Order::with(['customer', 'details']);
             }
 
             if ($request->has('search')) {
-                $key = explode(' ', $request['search']);
-                $orders = $orders->where(function ($q) use ($key) {
-                    foreach ($key as $value) {
-                        $q->orWhere('id', 'like', "%{$value}%")
-                            ->orWhere('order_status', 'like', "%{$value}%")
-                            ->orWhere('transaction_ref', 'like', "%{$value}%");
-                    }
-                });
+                $key = $request['search'];
+                $orders = $orders->whereHas('customer', function ($q) use ($key) {
+                    $q->where('f_name', 'like', "%{$key}%")
+                        ->orWhere('l_name', 'like', "%{$key}%");
+                })
+                    ->orWhereHas('booked', function ($d) use ($key) {
+                        $d->whereHas('product', function ($p) use ($key) {
+                            $p->whereHas('kost', function ($k) use ($key) {
+                                $k->where('name', 'like', "%{$key}%");
+                            });
+                        });
+                    });
+                // dd($orders);
                 $query_param = ['search' => $request['search']];
             }
         }

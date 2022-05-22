@@ -71,7 +71,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-no-gutter">
                             <li class="breadcrumb-item"><a class="breadcrumb-link"
-                                href="{{route('admin.booked.list',['status'=>'all'])}}">{{\App\CPU\translate('Booked')}}</a>
+                                href="{{route('admin.orders.list',['status'=>'all'])}}">{{\App\CPU\translate('Booked')}}</a>
                             </li>
                             <li class="breadcrumb-item active"
                                 aria-current="page">{{\App\CPU\translate('Booking')}} {{\App\CPU\translate('details')}} </li>

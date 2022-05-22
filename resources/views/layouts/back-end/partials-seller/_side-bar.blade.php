@@ -182,6 +182,14 @@
                             </ul>
                         </li>
 
+                        <li class="navbar-vertical-aside-has-menu {{Request::is('seller/booked/list*')?'active':''}}">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link"
+                                href="{{route('seller.booked.list', ['delivered'])}}">
+                                <i class="fa fa-key nav-icon" aria-hidden="true"></i>
+                                <span class="text-truncate">{{\App\CPU\translate('Booked')}}</span>
+                            </a>
+                        </li>
+
                         <li class="navbar-vertical-aside-has-menu {{Request::is('seller/jobs/applied*')?'active':''}}">
                             <a class="js-navbar-vertical-aside-menu-link nav-link"
                                 href="{{route('seller.jobs.applied')}}">

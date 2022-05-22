@@ -23,6 +23,11 @@ class Booked extends Model
         return $this->belongsTo(Seller::class, 'seller_id');
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

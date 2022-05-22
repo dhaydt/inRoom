@@ -36,6 +36,12 @@ Route::group(['namespace' => 'Seller', 'prefix' => 'seller', 'as' => 'seller.'],
             Route::post('business-overview', 'DashboardController@business_overview')->name('business-overview');
         });
 
+        // occunpant management
+        Route::group(['prefix' => 'booked', 'as' => 'booked.'], function () {
+            Route::get('list/{status}', 'BookedController@list')->name('list');
+            Route::get('detail/{order}', 'BookedController@detail')->name('detail');
+        });
+
         Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
             Route::get('list', 'KostController@index')->name('list');
             Route::get('new-property', 'KostController@create')->name('add-new');
