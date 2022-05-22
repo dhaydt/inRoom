@@ -150,7 +150,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <span class="price">{{\App\CPU\Helpers::currency_converter($book->order_amount)}}  <span class="month">/ {{ $book->total_durasi }} Bulan</span></span>
+                                        <span class="price">{{\App\CPU\Helpers::currency_converter($book->order_amount)}}  <span class="month">/ {{ $book->durasi }} Bulan</span></span>
                                         <div class="row detail-price mt-3 ml-2">
                                             <div class="col-12">
                                                 <span class="d-block">Detail Harga:</span>
@@ -175,6 +175,9 @@
                                                     <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($deposit->deposit) }}</span>
                                                 </div>
                                             @endif
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between mt-1 pt-2" style="border-top: solid 1px #c5c5c5">
+                                                <span>Pembayaran awal : </span><span class="text-danger"> {{ \App\CPU\Helpers::currency_converter($book->firstPayment) }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">

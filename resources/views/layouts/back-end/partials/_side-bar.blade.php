@@ -199,7 +199,7 @@
 
                                     <li class="nav-item {{Request::is('admin/orders/list/canceled')?'active':''}}">
                                         <a class="nav-link " href="{{route('admin.orders.list',['canceled'])}}"
-                                           title="">
+                                            title="">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">
                                             {{\App\CPU\translate('canceled')}}
@@ -215,7 +215,7 @@
                             <li class="navbar-vertical-aside-has-menu {{Request::is('admin/booked/list*')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                     href="{{route('admin.booked.list', ['delivered'])}}">
-                                    <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-key nav-icon" aria-hidden="true"></i>
                                     <span class="text-truncate">{{\App\CPU\translate('Booked')}}</span>
                                 </a>
                             </li>
