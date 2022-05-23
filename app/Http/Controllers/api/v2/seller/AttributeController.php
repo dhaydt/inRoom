@@ -25,6 +25,21 @@ class AttributeController extends Controller
         return response()->json($format, 200);
     }
 
+    public function FasilitasKamar()
+    {
+        $data = Fasilitas::where('tipe', 'kamar')->get();
+        $format = [];
+        foreach ($data as $d) {
+            $item = [
+                'id' => $d->id,
+                'name' => $d->name,
+            ];
+            array_push($format, $item);
+        }
+
+        return response()->json($format, 200);
+    }
+
     public function category()
     {
         $data = Category::get();

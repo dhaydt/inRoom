@@ -65,6 +65,7 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
 
         Route::group(['prefix' => 'attribute'], function () {
             Route::get('fasilitas_kost', 'AttributeController@FasilitasKost');
+            Route::get('fasilitas_kamar', 'AttributeController@FasilitasKamar');
             Route::get('category', 'AttributeController@category');
             Route::get('kampus', 'AttributeController@kampus');
             Route::get('aturan', 'AttributeController@rule');
