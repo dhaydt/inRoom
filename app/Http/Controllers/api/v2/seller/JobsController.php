@@ -55,7 +55,7 @@ class JobsController extends Controller
 
     public function apply_status(Request $request)
     {
-        $order = Apply::where('id', $request['job_id'])->first();
+        $order = Apply::where('id', $request['job_list_id'])->first();
 
         $order->job_status = $request['job_status'];
         $order->save();

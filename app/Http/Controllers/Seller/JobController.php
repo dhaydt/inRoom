@@ -25,7 +25,7 @@ class JobController extends Controller
         $query_param = [];
         $search = $request['search'];
 
-        $products = Jobs::where('added_by', 'seller');
+        $products = Jobs::where(['added_by' => 'seller', 'seller_id' => auth('seller')->id()]);
 
         if ($request->has('search')) {
             $key = explode(' ', $request['search']);
