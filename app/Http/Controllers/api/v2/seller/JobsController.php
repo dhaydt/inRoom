@@ -35,6 +35,36 @@ class JobsController extends Controller
         return response()->json($apply, 200);
     }
 
+    public function status_update(Request $request)
+    {
+        $data = Helpers::get_seller_by_token($request);
+
+        if ($data['success'] == 1) {
+            $seller = $data['data'];
+        } else {
+            return response()->json([
+                'auth-001' => translate('Your existing session token does not authorize you any more'),
+            ], 401);
+        }
+
+        $product = Jobs::where(['id' => $request['job_id']])->first();
+        $success = 1;
+        if ($request['status'] == 1) {
+            if ($product->added_by == 'seller' && $product->request_status == 0) {
+                $success = 0;
+            } else {
+                $product->status = $request['status'];
+            }
+        } else {
+            $product->status = $request['status'];
+        }
+        $product->save();
+
+        return response()->json([
+            'success' => $success,
+        ], 200);
+    }
+
     public function list(Request $request)
     {
         $data = Helpers::get_seller_by_token($request);

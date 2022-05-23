@@ -43,6 +43,7 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
             Route::post('add_job', 'JobsController@create');
             Route::post('edit_job', 'JobsController@update');
             Route::get('delete_job', 'JobsController@destroy');
+            Route::post('update_job_status', 'JobsController@status_update');
 
             Route::get('list_applied', 'JobsController@applied');
             Route::post('apply_status', 'JobsController@apply_status');
