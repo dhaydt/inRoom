@@ -335,6 +335,9 @@
                                                     <span>Deposit : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($deposit) }}</span>
                                                 </div>
                                             @endif
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between mt-1 pt-2" style="border-top: solid 1px #c5c5c5">
+                                                <span>Pembayaran awal : </span><span class="text-danger"> {{ \App\CPU\Helpers::currency_converter($order->firstPayment) }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
