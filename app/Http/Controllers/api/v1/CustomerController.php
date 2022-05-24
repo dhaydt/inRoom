@@ -208,7 +208,8 @@ class CustomerController extends Controller
                 $name = Helpers::fasilitas($f);
                 array_push($fasilitas, $name);
             }
-
+            $no = \App\CPU\Helpers::get_business_settings('whatsapp');
+            $redirect = 'https://api.whatsapp.com/send?phone='.$no;
             // return $product->kost->id;
             $item = [
                 'id' => $data['id'],
@@ -217,6 +218,7 @@ class CustomerController extends Controller
                 'pembayaran_pertama' => $data['firstPayment'],
                 'pembayaran_berikutnya' => $data['nextPayment'],
                 'payment_status' => $data['payment_status'],
+                'chat_admin_inroom' => $redirect,
                 'struk' => $data['struk'],
                 'alasan_user' => $data['alasan_user'],
                 'alasan_admin' => $data['alasan_admin'],
