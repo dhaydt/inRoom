@@ -506,7 +506,7 @@
                                     Chat Admin InRoom
                             </a> --}}
                             @php($no=\App\CPU\Helpers::get_business_settings('whatsapp'))
-                            <a href="https://web.whatsapp.com/send?phone={{ $no }}" target="_blank" class="btn btn-outline-success text-success">
+                            <a href="https://api.whatsapp.com/send?phone={{ $no }}" target="_blank" class="btn btn-outline-success text-success">
                                     Chat Admin InRoom
                             </a>
                             @endif
