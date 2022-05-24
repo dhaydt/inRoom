@@ -321,6 +321,11 @@
                                     <span class="field">ID Booking</span>
                                     <span class="content">{{ $order->id }}</span>
                                 </div>
+                                @php($order_date = Carbon\Carbon::parse($order->created_at)->isoFormat('dddd, D MMMM Y h:mm'))
+                                <div class="col-12 d-flex justify-content-between mt-3">
+                                    <span class="field">Tanggal Booking</span>
+                                    <span class="content">{{ App\CPU\Helpers::dateChange($order_date) }}</span>
+                                </div>
                                 <div class="col-12 d-flex justify-content-between mt-3">
                                     <span class="field">Tanggal Masuk</span>
                                     <span class="content">{{ App\CPU\Helpers::dateChange($date) }}</span>
@@ -497,10 +502,14 @@
                         @else
                         <div class="col-6 d-flex justify-content-start">
                             @if($order->order_status == 'pending' || $order->order_status == 'delivered')
-                            <a href="{{ route('contacts') }}" target="_blank" class="btn btn-outline-success text-success">
+                            {{-- <a href="{{ route('contacts') }}" target="_blank" class="btn btn-outline-success text-success">
                                     Chat Admin InRoom
-                                </a>
-                                @endif
+                            </a> --}}
+                            @php($no=\App\CPU\Helpers::get_business_settings('whatsapp'))
+                            <a href="https://web.whatsapp.com/send?phone={{ $no }}" target="_blank" class="btn btn-outline-success text-success">
+                                    Chat Admin InRoom
+                            </a>
+                            @endif
                         </div>
                         @endif
 

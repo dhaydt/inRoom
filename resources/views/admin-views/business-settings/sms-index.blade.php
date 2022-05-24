@@ -71,7 +71,7 @@
                 </div>
             </div> --}}
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('Zenziva_sms')}}</h5>
@@ -135,53 +135,39 @@
                 </div>
             </div>
 
-            {{-- <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
-                        <h5 class="text-center">{{\App\CPU\translate('nexmo_sms')}}</h5>
-                        <span class="badge badge-soft-info mb-3">NB : #OTP# will be replace with otp</span>
-                        @php($config=\App\CPU\Helpers::get_business_settings('nexmo_sms'))
-                        <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['nexmo_sms']):'javascript:'}}"
-                              style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                        <h5 class="text-center">{{\App\CPU\translate('Whatsapp Redirect')}}</h5>
+                        <span class="badge badge-soft-info mb-3">NB : Message will be redirect to your WhatsApp number</span>
+                        @php($config=\App\CPU\Helpers::get_business_settings('whatsapp'))
+                        <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['whatsapp']):'javascript:'}}"
+                            style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
                               method="post">
                             @csrf
-
-                            <div class="form-group mb-2">
-                                <label class="control-label">{{\App\CPU\translate('nexmo_sms')}}</label>
-                            </div>
-                            <div class="form-group mb-2 mt-2">
-                                <input type="radio" name="status" value="1" {{isset($config) && $config['status']==1?'checked':''}}>
-                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('active')}}</label>
-                                <br>
-                            </div>
-                            <div class="form-group mb-2">
-                                <input type="radio" name="status" value="0" {{isset($config) && $config['status']==0?'checked':''}}>
-                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('inactive')}} </label>
-                                <br>
-                            </div>
                             <div class="form-group mb-2">
                                 <label class="text-capitalize"
-                                       style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('api_key')}}</label><br>
-                                <input type="text" class="form-control" name="api_key"
-                                       value="{{env('APP_MODE')!='demo'?$config['api_key']??"":''}}">
+                                    style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('whatsapp_number')}}</label><br>
+                                <input type="text" class="form-control" name="no"
+                                    value="{{env('APP_MODE')!='demo'?$config??"":''}}">
                             </div>
-                            <div class="form-group mb-2">
-                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('api_secret')}}</label><br>
+                            {{-- <div class="form-group mb-2">
+                                <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('template')}}</label><br>
                                 <input type="text" class="form-control" name="api_secret"
-                                       value="{{env('APP_MODE')!='demo'?$config['api_secret']??"":''}}">
+                                    value="{{env('APP_MODE')!='demo'?$config['api_secret']??"":''}}">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('from')}}</label><br>
                                 <input type="text" class="form-control" name="from"
-                                       value="{{env('APP_MODE')!='demo'?$config['from']??"":''}}">
+                                    value="{{env('APP_MODE')!='demo'?$config['from']??"":''}}">
                             </div>
 
                             <div class="form-group mb-2">
                                 <label style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('otp_template')}}</label><br>
                                 <input type="text" class="form-control" name="otp_template"
-                                       value="{{env('APP_MODE')!='demo'?$config['otp_template']??"":''}}">
-                            </div>
+                                    value="{{env('APP_MODE')!='demo'?$config['otp_template']??"":''}}">
+                            </div> --}}
 
                             <button type="{{env('APP_MODE')!='demo'?'submit':'button'}}"
                                     onclick="{{env('APP_MODE')!='demo'?'':'call_demo()'}}"
@@ -189,7 +175,7 @@
                         </form>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
             {{-- <div class="col-md-6 mt-4">
                 <div class="card">

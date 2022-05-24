@@ -30,6 +30,13 @@ class SMSModuleController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+        } elseif ($module == 'whatsapp') {
+            DB::table('business_settings')->updateOrInsert(['type' => 'whatsapp'], [
+                'type' => 'whatsapp',
+                'value' => '62'.(floatval($request['no'])),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         } elseif ($module == 'nexmo_sms') {
             DB::table('business_settings')->updateOrInsert(['type' => 'nexmo_sms'], [
                 'type' => 'nexmo_sms',
@@ -41,7 +48,7 @@ class SMSModuleController extends Controller
                     'private_key' => '',
                     'application_id' => '',
                     'from' => $request['from'],
-                    'otp_template' => $request['otp_template']
+                    'otp_template' => $request['otp_template'],
                 ]),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -74,7 +81,7 @@ class SMSModuleController extends Controller
                     'status' => $request['status'],
                     'api_key' => $request['api_key'],
                     'from' => $request['from'],
-                    'otp_template' => $request['otp_template']
+                    'otp_template' => $request['otp_template'],
                 ]),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -110,7 +117,7 @@ class SMSModuleController extends Controller
                         'private_key' => '',
                         'application_id' => '',
                         'from' => $config['from'],
-                        'otp_template' => $config['otp_template']
+                        'otp_template' => $config['otp_template'],
                     ]),
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -152,7 +159,7 @@ class SMSModuleController extends Controller
                         'status' => 0,
                         'api_key' => $request['api_key'],
                         'from' => $request['from'],
-                        'otp_template' => $request['otp_template']
+                        'otp_template' => $request['otp_template'],
                     ]),
                     'created_at' => now(),
                     'updated_at' => now(),
