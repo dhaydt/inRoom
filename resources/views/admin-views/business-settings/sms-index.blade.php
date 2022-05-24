@@ -139,7 +139,7 @@
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
                         <h5 class="text-center">{{\App\CPU\translate('Whatsapp Redirect')}}</h5>
-                        <span class="badge badge-soft-info mb-3">NB : Message will be redirect to your WhatsApp number</span>
+                        <span class="badge badge-soft-info mb-3">NB : Message will be redirect to your WhatsApp number (ex: 0822 3344 5566)</span>
                         @php($config=\App\CPU\Helpers::get_business_settings('whatsapp'))
                         <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['whatsapp']):'javascript:'}}"
                             style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
@@ -148,7 +148,7 @@
                             <div class="form-group mb-2">
                                 <label class="text-capitalize"
                                     style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('whatsapp_number')}}</label><br>
-                                <input type="text" class="form-control" name="no"
+                                <input type="number" class="form-control" name="no"
                                     value="{{env('APP_MODE')!='demo'?$config??"":''}}">
                             </div>
                             {{-- <div class="form-group mb-2">
