@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\CPU\CartManager;
 use App\CPU\Convert;
+use App\CPU\Helpers;
 use App\CPU\OrderManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
@@ -132,6 +133,8 @@ class XenditPaymentController extends Controller
         ];
 
         $checkout_session = \Xendit\Invoice::create($params);
+
+        Helpers::sendNotif($checkout_session, $order_id);
 
         return redirect()->away($checkout_session['invoice_url']);
     }
