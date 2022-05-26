@@ -21,6 +21,8 @@ Route::get('/storage-link', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('reminder', 'ReminderController@checkDeadline')->name('deadline');
+
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], function () {
     Route::get('payment-complete', function () {
         return view('web-views.payment-complete');

@@ -780,12 +780,23 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             array_push($rules, $item);
         }
 
+        $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
+        $count = count($cashback);
+        $poin = 0;
+        $cash = 0;
+        for ($i = 0; $i < $count; ++$i) {
+            if ($cashback[$i]->transaction <= $d->unit_price) {
+                $cash = $cashback[$i]->persen;
+            }
+        }
+
         $item = [
                     'id' => $d->id,
                     'name' => $d->kost->name,
                     'added_by' => $d->added_by,
                     'kost_id' => $d->kost_id,
                     'seller_id' => $seller,
+                    'cashback' => $cash.' %',
                     'penghuni' => $d->kost->penghuni,
                     'deskripsi' => $d->kost->deskripsi,
                     'aturan' => $rules,
@@ -873,6 +884,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         $cashback = Poin::where('status', 1)->orderBy('transaction', 'asc')->get();
         $count = count($cashback);
         $poin = 0;
+        $cash = 0;
         for ($i = 0; $i < $count; ++$i) {
             if ($cashback[$i]->transaction <= $d->unit_price) {
                 $cash = $cashback[$i]->persen;
