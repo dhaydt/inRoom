@@ -188,8 +188,10 @@ class XenditPaymentController extends Controller
             $bookeds->save();
 
             $bookend = Booked::where(['customer_id' => $order->customer_id, 'room_id' => $order->roomDetail_id, 'payment_status' => 'unpaid'])->orderBy('id', 'desc')->first();
-            $bookend->next_payment = 0;
-            $bookend->save();
+            if (isset($bookend)) {
+                $bookend->next_payment = 0;
+                $bookend->save();
+            }
         } else {
             $booked = new Booked();
             $booked->customer_id = $order->customer_id;
@@ -231,6 +233,8 @@ class XenditPaymentController extends Controller
             }
         }
 
+        $saved = Booked::with('order')->where('order_id', $order->id)->first();
+        Helpers::successPayment($saved);
         OrderManager::wallet_manage_on_order_status_change($order, $seller_is);
 
         $poin = new UserPoin();

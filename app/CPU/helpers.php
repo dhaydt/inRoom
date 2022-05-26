@@ -56,8 +56,10 @@ class Helpers
             $province = $detail->kost->province;
             $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
 
-            $message = 'Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
-             Bayar via '.$link;
+            $message = 'Inroom Notifikas:
+Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
+Bayar via :
+'.$link;
             $receiver = $order->customer->phone;
 
             $userkey = $config['sid'];
@@ -83,6 +85,50 @@ class Helpers
             $results = json_decode(curl_exec($curlHandle), true);
             curl_close($curlHandle);
         }
+    }
+
+    public static function successPayment($booked)
+    {
+        $product = json_decode($booked->order->details[0]->product_details);
+        $name = $product->kost->name;
+        $type = $product->type;
+        $kecamatan = $product->kost->district;
+        $province = $product->kost->province;
+        $kamar = $booked->order->room[0]->name ? $booked->order->room[0]->name : 'Pilih ditempat';
+
+        if ($booked->next_payment == 0) {
+            $message = 'Inroom Notifikas:
+Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' telah berhasil dibayar dengan nominal '.Helpers::currency_converter($booked->current_payment).', Dengan total durasi '.$booked->total_durasi.' bulan';
+        } else {
+            $message = 'Inroom Notifikas:
+Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' telah berhasil dibayar dengan nominal '.Helpers::currency_converter($booked->current_payment).'.
+Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).' pada tanggal '.$booked->next_payment_date;
+        }
+        $receiver = $booked->customer->phone;
+        $config = SMS_module::get_settings('twilio_sms');
+
+        $userkey = $config['sid'];
+        $passkey = $config['messaging_service_sid'];
+        $telepon = '+62'.(int) $receiver;
+        // $message = $msg;
+        $message = $message;
+        $url = $config['token'];
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandle, CURLOPT_POST, 1);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
+                        'userkey' => $userkey,
+                        'passkey' => $passkey,
+                        'to' => $telepon,
+                        'message' => $message,
+                    ]);
+        $results = json_decode(curl_exec($curlHandle), true);
+        curl_close($curlHandle);
     }
 
     public static function userProfile($user, $poin)
