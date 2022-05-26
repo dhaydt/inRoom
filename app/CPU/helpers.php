@@ -31,55 +31,58 @@ class Helpers
 {
     public static function sendNotif($checkout_session, $order_id)
     {
-        // dd($checkout_session);
-        $link = $checkout_session['invoice_url'];
-        $expire = $checkout_session['expiry_date'];
-        $dt = new DateTime($expire);
+        $config = SMS_module::get_settings('twilio_sms');
+        $response = 'error';
 
-        // get the local timezone
-        $loc = (new DateTime())->getTimezone();
+        if (isset($config) && $config['status'] == 1) {
+            $link = $checkout_session['invoice_url'];
+            $expire = $checkout_session['expiry_date'];
+            $dt = new DateTime($expire);
 
-        // change the timezone of the object without changing its time
-        $dt->setTimezone($loc);
+            // get the local timezone
+            $loc = (new DateTime())->getTimezone();
 
-        // format the datetime
-        $dt->format('Y-m-d H:i:s T');
+            // change the timezone of the object without changing its time
+            $dt->setTimezone($loc);
 
-        $order = Order::where('id', $order_id)->with('customer', 'details', 'room')->first();
-        $detail = json_decode($order->details[0]->product_details);
-        $name = $detail->kost->name;
-        $type = $detail->type;
-        $kecamatan = $detail->kost->district;
-        $province = $detail->kost->province;
-        $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
+            // format the datetime
+            $dt->format('Y-m-d H:i:s T');
 
-        $message = 'Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'. Bayar via '.$link;
-        $receiver = $order->customer->phone;
+            $order = Order::where('id', $order_id)->with('customer', 'details', 'room')->first();
+            $detail = json_decode($order->details[0]->product_details);
+            $name = $detail->kost->name;
+            $type = $detail->type;
+            $kecamatan = $detail->kost->district;
+            $province = $detail->kost->province;
+            $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
 
-        $userkey = 'nm3eok';
-        $passkey = 'cbmmaju2017';
-        $telepon = '+62'.(int) $receiver;
-        // $message = $msg;
-        $message = $message;
-        $url = 'https://gsm.zenziva.net/api/sendWA/';
-        $curlHandle = curl_init();
-        curl_setopt($curlHandle, CURLOPT_URL, $url);
-        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curlHandle, CURLOPT_POST, 1);
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
-                    'userkey' => $userkey,
-                    'passkey' => $passkey,
-                    'nohp' => $telepon,
-                    'pesan' => $message,
-                ]);
-        $results = json_decode(curl_exec($curlHandle), true);
-        curl_close($curlHandle);
+            $message = 'Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
+             Bayar via '.$link;
+            $receiver = $order->customer->phone;
 
-        return $results;
+            $userkey = $config['sid'];
+            $passkey = $config['messaging_service_sid'];
+            $telepon = '+62'.(int) $receiver;
+            // $message = $msg;
+            $message = $message;
+            $url = $config['token'];
+            $curlHandle = curl_init();
+            curl_setopt($curlHandle, CURLOPT_URL, $url);
+            curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+            curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($curlHandle, CURLOPT_POST, 1);
+            curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
+                        'userkey' => $userkey,
+                        'passkey' => $passkey,
+                        'to' => $telepon,
+                        'message' => $message,
+                    ]);
+            $results = json_decode(curl_exec($curlHandle), true);
+            curl_close($curlHandle);
+        }
     }
 
     public static function userProfile($user, $poin)
