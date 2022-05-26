@@ -56,7 +56,7 @@ class Helpers
             $province = $detail->kost->province;
             $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
 
-            $message = 'Inroom Notifikas:
+            $message = 'Inroom Notifikasi:
 Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
 Bayar via :
 '.$link;
@@ -97,7 +97,7 @@ Bayar via :
         $kamar = $booked->order->room[0]->name ? $booked->order->room[0]->name : 'Pilih ditempat';
 
         if ($booked->next_payment == 0) {
-            $message = 'Inroom Notifikas:
+            $message = 'Inroom Notifikasi:
 Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' telah berhasil dibayar dengan nominal '.Helpers::currency_converter($booked->current_payment).', Dengan total durasi '.$booked->total_durasi.' bulan';
         } else {
             $message = 'Inroom Notifikas:
