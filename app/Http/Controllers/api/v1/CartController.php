@@ -49,6 +49,7 @@ class CartController extends Controller
         $exist = Cart::where('customer_id', $user)->get();
         if (count($exist) > 0) {
             CartManager::cart_clean();
+            CartManager::cleanCartUser($user);
         }
 
         $cart = CartManager::add_to_cart($request);
