@@ -62,12 +62,12 @@ class CartController extends Controller
                 $ord = $val->details[0]->product_id;
                 if ($val->order_status != 'delivered' && $val->order_status != 'canceled' && $val->order_status != 'failed' && $val->order_status != 'expired') {
                     // if ($product_id == $ord) {
+                    CartManager::cleanCartUser($user);
+
                     return response()->json('Selesaikan proses booking sebelumnya dulu');
                     // }
                 }
             }
-
-            CartManager::cart_clean();
         }
 
         return response()->json($cart, 200);

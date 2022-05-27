@@ -168,6 +168,14 @@ class CartManager
         session()->forget('cart_group_id');
     }
 
+    public static function cleanCartUser($id)
+    {
+        $cart = Cart::where('customer_id', $id)->get();
+        foreach ($cart as $c) {
+            $c->delete();
+        }
+    }
+
     public static function add_to_cart($request, $from_api = false)
     {
         $str = '';
@@ -232,7 +240,6 @@ class CartManager
                 break;
             }
         }
-        // dd($cart['poinCashback']);
         $gunakan = 0;
         if (isset($request->pakai)) {
             $gunakan = $request->pakai;
