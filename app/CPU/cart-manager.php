@@ -232,7 +232,7 @@ class CartManager
                 break;
             }
         }
-
+        // dd($cart['poinCashback']);
         $gunakan = 0;
         if (isset($request->pakai)) {
             $gunakan = $request->pakai;
