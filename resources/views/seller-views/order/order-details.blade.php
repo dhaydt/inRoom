@@ -318,12 +318,19 @@
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
                                             </div>
+                                            @if($order->discount_amount > 0)
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Kupon <span class="text-grey">({{ $order->coupon_code }})</span> : </span><span class="text-success">- {{ \App\CPU\Helpers::currency_converter($order->discount_amount) }}</span>
+                                            </div>
+                                            @endif
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
                                             </div>
+                                            @if ($order->usePoin == 1)
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
                                             </div>
+                                            @endif
                                             @php($details = json_decode($order->details[0]->product_details))
                                             @if (isset($details->deposit))
                                                 @php($deposit = $details->deposit)

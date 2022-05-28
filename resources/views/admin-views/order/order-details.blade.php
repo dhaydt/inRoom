@@ -338,6 +338,11 @@
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Diskon : </span> <span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->discount) }}</span>
                                             </div>
+                                            @if($order->discount_amount > 0)
+                                            <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                <span>Kupon <span class="text-grey">({{ $order->coupon_code }})</span> : </span><span class="text-success">- {{ \App\CPU\Helpers::currency_converter($order->discount_amount) }}</span>
+                                            </div>
+                                            @endif
                                             <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
                                                 <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
                                             </div>
@@ -356,6 +361,7 @@
                                                 <span>Pembayaran awal : </span><span class="text-danger"> {{ \App\CPU\Helpers::currency_converter($order->firstPayment) }}</span>
                                             </div>
                                         </div>
+                                        {{-- {{ dd($order) }} --}}
                                     </div>
                                     <div class="col-md-4">
                                         <img onerror="this.src='{{asset('assets/back-end/img/400x400/img2.jpg')}}'"

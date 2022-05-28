@@ -26,7 +26,7 @@ class CouponController extends Controller
         if ($coupon) {
             $total = 0;
             foreach (CartManager::get_cart() as $cart) {
-                $product_subtotal = $cart['price'] * $cart['quantity'];
+                $product_subtotal = $cart['price'];
                 $total += $product_subtotal;
             }
             if ($total >= $coupon['min_purchase']) {
@@ -43,14 +43,14 @@ class CouponController extends Controller
                     'status' => 1,
                     'discount' => Helpers::currency_converter($discount),
                     'total' => Helpers::currency_converter($total - $discount),
-                    'messages' => ['0' => 'Coupon Applied Successfully!']
+                    'messages' => ['0' => 'Coupon Applied Successfully!'],
                 ]);
             }
         }
 
         return response()->json([
             'status' => 0,
-            'messages' => ['0' => 'Invalid Coupon']
+            'messages' => ['0' => 'Invalid Coupon'],
         ]);
     }
 }
