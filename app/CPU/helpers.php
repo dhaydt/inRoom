@@ -12,6 +12,7 @@ use App\Model\Currency;
 use App\Model\Detail_room;
 use App\Model\Fasilitas;
 use App\Model\Order;
+use App\Model\OrderDetail;
 use App\Model\Poin;
 use App\Model\Product;
 use App\Model\Review;
@@ -29,6 +30,16 @@ use Laravolt\Indonesia\Models\Province;
 
 class Helpers
 {
+    public static function countOrder($id)
+    {
+        // $order = OrderDetail::with('order')->where(['product_id' => $id, 'payment_status' => 'paid'])->get();
+        $order = OrderDetail::with('order')->where(['product_id' => $id])->whereHas('order', function ($q) {
+            $q->where('order_status', 'delivered');
+        })->get();
+
+        return count($order);
+    }
+
     public static function sendNotif($checkout_session, $order_id)
     {
         $config = SMS_module::get_settings('twilio_sms');

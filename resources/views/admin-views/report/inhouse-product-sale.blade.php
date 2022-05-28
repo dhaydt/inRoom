@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <form style="width: 100%;" action="{{route('admin.report.inhoue-product-sale')}}">
                             @csrf
                             <div class="flex-between row">
@@ -55,9 +55,9 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="card-body"
-                         style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                        style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
                         <table class="table">
                             <thead>
                             <tr>
@@ -78,8 +78,9 @@
                                     <th scope="row">{{$key+1}}</th>
                                     <td>{{$data['kost']->name}} - {{ $data->type }}</td>
                                     <td>
-                                        @if ($data->order_details->sum('qty') != 0)
-                                            {{$data->order_details->sum('qty')}}
+                                        @php($sum = App\CPU\helpers::countOrder($data->id))
+                                        @if ($sum != 0)
+                                            {{$sum}}
                                         @else
                                             <span class="badge badge-danger">Invalid order details</span>
                                         @endif

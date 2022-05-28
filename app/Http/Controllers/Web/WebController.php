@@ -359,6 +359,20 @@ class WebController extends Controller
         return view('web-views.checkout-complete');
     }
 
+    public function paid()
+    {
+        $orders = OrderDetail::with('order')->get();
+        foreach ($orders as $order) {
+            if (isset($order->order)) {
+                if ($order->order['order_status'] == 'delivered') {
+                    $order->payment_status = 'paid';
+                    $order->save();
+                }
+            }
+            // if($order->order->order_status)
+        }
+    }
+
     public function shop_cart()
     {
         session()->put('keep_return_url', url()->previous());
