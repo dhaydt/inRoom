@@ -332,7 +332,11 @@
                         <tr>
                             <td class="text-center" scope="row">{{$no++}}</td>
                             <td class="text-center">{{ $user->f_name }} {{ $user->l_name }}</td>
-                            <td class="text-center">{{ $room->name }}
+                            <td class="text-center">@if (isset($room['name']))
+                                {{ $room['name'] }}
+                                @else
+                                <span class="badge badge-danger">Invalid room data</span>
+                            @endif
                             <td class="text-center">
                                 {{-- <a class="btn btn-danger btn-sm" href="javascript:"
                                     onclick="form_alert('product-{{$p['id']}}','{{\App\CPU\translate("Ingin menghapus kamar ini?")}} ?')">

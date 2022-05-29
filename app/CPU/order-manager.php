@@ -141,10 +141,6 @@ class OrderManager
                     //     }
                     //     array_push($var_store, $var);
                     // }
-                    Product::where(['id' => $product['id']])->update([
-                        // 'variation' => json_encode($var_store),
-                        // 'current_stock' => $product['current_stock'] - $detail['qty'],
-                    ]);
                     OrderDetail::where(['id' => $detail['id']])->update([
                         'is_stock_decreased' => 1,
                     ]);

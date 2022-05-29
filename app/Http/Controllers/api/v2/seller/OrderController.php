@@ -76,7 +76,6 @@ class OrderController extends Controller
                 Helpers::send_push_notif_to_device($fcm_token, $notif);
             }
         } catch (\Exception $e) {
-            return response()->json([]);
         }
 
         if ($request->alasan_penolakan != null) {

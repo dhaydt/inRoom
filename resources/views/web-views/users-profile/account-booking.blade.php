@@ -214,7 +214,11 @@
                                     @elseif ($order->roomDetail_id == 'ditempat')
                                     Dipilih ditempat
                                     @else
-                                    Kamar {{ $order->room[0]->name }}
+                                    Kamar @if (isset($order->room[0]->name))
+                                            {{ $order->room[0]->name }}
+                                        @else
+                                            <span class="badge badge-danger">Invalid room data</span>
+                                        @endif
                                     @endif
 
                                 </span>
