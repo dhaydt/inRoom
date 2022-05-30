@@ -758,6 +758,20 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         $fas = $d->fasilitas_id;
         $fas_kos = $d->kost->fasilitas_id;
 
+        $img = $d->images;
+
+        $kost = json_decode($d->kost->images);
+
+        if (isset($kost->depan)) {
+            array_push($img, $kost->depan);
+        }
+        if (isset($kost->dalam)) {
+            array_push($img, $kost->dalam);
+        }
+        if (isset($kost->jalan)) {
+            array_push($img, $kost->jalan);
+        }
+
         if (isset($fas)) {
             $fas = json_decode($fas);
         }
@@ -821,7 +835,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                     'type' => $d->type,
                     'fasilitas_id' => $f_room,
                     'fasilitas_kos_id' => $f_kos,
-                    'images' => $d->images,
+                    'images' => $img,
                     'kost_images' => json_decode($d->kost->images),
                     'purchase_price' => $d->purchase_price,
                     'size' => $d->size,
@@ -858,6 +872,20 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
     {
         $fas = $d->fasilitas_id;
         $fas_kos = $d->kost->fasilitas_id;
+
+        $img = $d->images;
+
+        $kost = json_decode($d->kost->images);
+
+        if (isset($kost->depan)) {
+            array_push($img, $kost->depan);
+        }
+        if (isset($kost->dalam)) {
+            array_push($img, $kost->dalam);
+        }
+        if (isset($kost->jalan)) {
+            array_push($img, $kost->jalan);
+        }
 
         if (isset($fas)) {
             $fas = json_decode($fas);
@@ -923,7 +951,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                     'poin' => $poin,
                     'fasilitas_id' => $f_room,
                     'fasilitas_kos_id' => $f_kos,
-                    'images' => $d->images,
+                    'images' => $img,
                     'kost_images' => json_decode($d->kost->images),
                     'purchase_price' => $d->purchase_price,
                     'size' => $d->size,
