@@ -90,7 +90,7 @@
                     <span class="cart_value">
                     - {{\App\CPU\Helpers::currency_converter(session()->get('poin'))}}
                     </span>
-                    <span class="cart_value" id="disPrice">
+                    <span class="cart_value" id="PoinsPrice">
                     </span>
                 </span>
             </div>
@@ -122,7 +122,8 @@
             <span class="cart_value">
                 Pembayaran pertama
             </span>
-            <span id="firstPay"></span>
+            <span>Rp.
+            <span id="firstPay"></span></span>
         </div>
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('total_pembayaran')}}</span>

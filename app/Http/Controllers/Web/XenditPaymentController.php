@@ -239,9 +239,9 @@ class XenditPaymentController extends Controller
 
         $poin = new UserPoin();
         $poin->user_id = $order->customer_id;
-        $poin->shop = $order->order_amount;
+        $poin->shop = $order->details[0]->price;
         $poin->persen = $order->details[0]->poinCashback;
-        $poin->poin = intval($order->order_amount * $order->details[0]->poinCashback / 100);
+        $poin->poin = intval($order->details[0]->price * $order->details[0]->poinCashback / 100);
         $poin->used = 0;
         $poin->save();
 

@@ -458,7 +458,7 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
         $('#kosPrice').text(koss)
         $('#disPrice').text(diss)
         $('#taxPrice').text(taxx)
-        console.log(rmrp)
+
         jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up" id="up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
         jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up" id="up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.penghuni input');
         jQuery('.quantity').each(function() {
@@ -481,13 +481,18 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
                 var newVal = oldValue + parseFloat(step);
             }
 
+            var anc = parseFloat(anc) + 1;
             if(newVal > 1){
                 $('#firstPayment').removeClass('d-none');
                 $('#firstPayment').addClass('d-flex justify-content-between');
-                $('#firstPay').text($("#priceTotal").text())
+
+                var har = parseFloat(rmrp.replace(/[^\d\.]/g, ''))
+                var po = parseFloat((poinn.replace(/[^\d\.]/g, '')))
+                var harga = har + po - (po/anc)
+
+                $('#firstPay').text(number(harga))
             }
             spinner.find("input").val(newVal);
-            var anc = parseFloat(anc) + 1;
             $('#anchor').val(anc);
             var price = $("#priceTotal").text()
             var rp = price.replace(/[^\d\.]/g, '')
@@ -502,8 +507,6 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var disNew = parseFloat(disRp.replace(/[\.]/g, '')) * anc
             var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
             var val = ((parseFloat(rp.replace(/[\.]/g, '')) - depRpp + poinRpp) * anc) + depRpp - poinRpp
-
-            // console.log('poin', (parseFloat(rp.replace(/[\.]/g, '')) .' - '.depRpp.' + '.poinRpp . ' * '. anc . ' + ' . depRpp)
             var newPrice = number(val)
             var newKos = number(kosNew)
             var newDis = number(disNew);
@@ -534,6 +537,12 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var anc = parseFloat(anc) - 1;
             if(anc < 1){
                 var anc = 1
+            }else{
+                var har = parseFloat(rmrp.replace(/[^\d\.]/g, ''))
+                var po = parseFloat((poinn.replace(/[^\d\.]/g, '')))
+                var harga = har + po - (po/anc)
+
+                $('#firstPay').text(number(harga))
             }
             $('#anchor').val(anc);
             var price = $("#priceTotal").text()

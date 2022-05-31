@@ -138,18 +138,16 @@ class CartManager
     public static function cart_grand_total($cart_group_id = null)
     {
         $cart = CartManager::get_cart($cart_group_id);
-        $shipping_cost = CartManager::get_shipping_cost($cart_group_id);
         $total = 0;
-
         if (!empty($cart)) {
-            foreach ($cart as $item) {
-                $product_subtotal = ($item['price'] * $item['quantity'])
-                + ($item['tax'] * $item['quantity'])
-                - $item['discount'] * $item['quantity'];
-                $total += $product_subtotal;
-            }
-            $total += $shipping_cost;
+            $product_subtotal = ($cart[0]['price'] * $cart[0]['quantity'])
+                + ($cart[0]['tax'] * $cart[0]['quantity'])
+                - $cart[0]['discount'] * $cart[0]['quantity'];
+            $total += $product_subtotal;
+            $total = $product_subtotal;
         }
+
+        // dd($cart, $total);
 
         return $total;
     }

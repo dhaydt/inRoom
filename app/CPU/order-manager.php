@@ -331,7 +331,8 @@ class OrderManager
                 $next = 0;
             } else {
                 if ($amount > 1) {
-                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used;
+                    $used_poin = $used / $amount;
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used_poin;
                     $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
                     $next = ($order_price - $firstPayment) / ($amount - 1);
                     $data['data']->durasi = $amount;
@@ -353,12 +354,12 @@ class OrderManager
             } else {
                 if ($amount > 1) {
                     $used_poin = $used / $amount;
-                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used_poin;
+                    $order_price = (CartManager::cart_grand_total($cart_group_id) * $amount) - $discount + $deposit - $used;
                     $firstPayment = ((CartManager::cart_grand_total($cart_group_id)) - $discount + $deposit - $used_poin);
                     $next = ($order_price - $firstPayment) / ($amount - 1);
                     $useVarian = 0;
                 } else {
-                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used;
+                    $order_price = (CartManager::cart_grand_total($cart_group_id) * $amount) - $discount + $deposit - $used;
                     $firstPayment = $order_price;
                     $next = 0;
                     $useVarian = 0;
@@ -396,8 +397,6 @@ class OrderManager
             'created_at' => now(),
             'updated_at' => now(),
         ];
-        // dd((CartManager::cart_grand_total($cart_group_id) - $discount) * $data['data']->anchor);
-
         $order_id = DB::table('orders')->insertGetId($or);
 
         foreach (CartManager::get_cart($data['cart_group_id']) as $c) {

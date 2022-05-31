@@ -346,10 +346,11 @@
                                         </div>
                                         @php($cart=\App\Model\Cart::where(['customer_id' =>
                                         auth('customer')->id()])->get()->groupBy('cart_group_id'))
+                                        {{-- {{ dd($order) }} --}}
 
                                         @php($coupon_discount = session()->has('coupon_discount') ?
                                         session('coupon_discount') : 0)
-                                        @php($amount = \App\CPU\CartManager::cart_grand_total() - $coupon_discount)
+                                        {{-- @php($amount = \App\CPU\CartManager::cart_grand_total() - $coupon_discount) --}}
                                         {{-- @endif --}}
                                     </div>
                                 </div>
