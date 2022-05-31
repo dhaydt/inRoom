@@ -214,10 +214,10 @@
                                     @elseif ($order->roomDetail_id == 'ditempat')
                                     Dipilih ditempat
                                     @else
-                                    Kamar @if (isset($order->room[0]->name))
-                                            {{ $order->room[0]->name }}
+                                        @if (isset($order->room[0]->name))
+                                        Kamar {{ $order->room[0]->name }}
                                         @else
-                                            <span class="badge badge-danger">Invalid room data</span>
+                                            <span class="badge badge-danger">Data kamar hilang</span>
                                         @endif
                                     @endif
 

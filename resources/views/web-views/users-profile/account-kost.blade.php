@@ -143,7 +143,6 @@
                         <div class="kost-detail d-flex flex-column">
                             <span class="title-kost capitalize">{{ $detail->kost->name }} {{ $detail->type }} {{ $district }} {{ $city }}</span>
                             <div class="status mt-1">
-                                {{-- {{ dd($order) }} --}}
                                 <img src="{{ asset('assets/front-end/img/room.png') }}" class="img-kos" alt="">
                                 <span class="capitalize room-info ml-2">
                                     @if ($order->roomDetail_id == NULL)
@@ -151,7 +150,11 @@
                                     @elseif ($order->roomDetail_id == 'ditempat')
                                     Dipilih ditempat
                                     @else
-                                    Kamar {{ $order->room[0]->name }}
+                                        @if (isset($order->room[0]->name))
+                                        Kamar {{ $order->room[0]->name }}
+                                        @else
+                                            <span class="badge badge-danger">Data kamar hilang</span>
+                                        @endif
                                     @endif
 
                                 </span>
@@ -162,45 +165,45 @@
                                     <span class="ml-2 dated">Tanggal masuk</span>
                                 </div>
                                 {{-- @php($add = 2)
-                                {{ date("Y-m-d", strtotime("+".$add."month", strtotime($order->mulai))) }} --}}
-                                @php($date = Carbon\Carbon::parse($order->mulai)->isoFormat('dddd, D MMMM Y'))
-                                <div class="ml-4 mt-1">
-                                    <span class="date-date">{{ App\CPU\Helpers::dateChange($date) }}</span>
+                                    {{ date("Y-m-d", strtotime("+".$add."month", strtotime($order->mulai))) }} --}}
+                                    @php($date = Carbon\Carbon::parse($order->mulai)->isoFormat('dddd, D MMMM Y'))
+                                    <div class="ml-4 mt-1">
+                                        <span class="date-date">{{ App\CPU\Helpers::dateChange($date) }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="more-content d-none" id="more_content{{ $order->id }}">
-                    <div class="row justify-content-center px-4 mb-4">
-                        <div class="price mt-3 col-md-9 px2">
-                            <span class="price-card">{{\App\CPU\Helpers::currency_converter($order->order_amount)}} <span class="satuan">/bulan</span></span>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="btn-fasilitas">
-                                <a href="javascript:" class="fasilitas capitalize text-success" data-toggle="modal" data-target="#exampleModal">
-                                    Lihat fasilitas
-                                </a>
+                    <div class="more-content d-none" id="more_content{{ $order->id }}">
+                        <div class="row justify-content-center px-4 mb-4">
+                            <div class="price mt-3 col-md-9 px2">
+                                <span class="price-card">{{\App\CPU\Helpers::currency_converter($order->order_amount)}} <span class="satuan">/bulan</span></span>
                             </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    ...
+                            <div class="col-md-9">
+                                <div class="btn-fasilitas">
+                                    <a href="javascript:" class="fasilitas capitalize text-success" data-toggle="modal" data-target="#exampleModal">
+                                        Lihat fasilitas
+                                    </a>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ...
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                        </div>
-                        @php($user = auth('customer')->user())
-                        @if (isset($user))
+                            @php($user = auth('customer')->user())
+                            @if (isset($user))
                         <div class="col-md-12 data-penyewa p-3 mt-3">
                             <span class="title-kost capitalize">
                                 data penyewa
@@ -261,7 +264,7 @@
                                 detail pembayaran
                             </span>
                             @if (count($bookeds) > 0)
-                                @foreach ($bookeds as $b)
+                            @foreach ($bookeds as $b)
                                 <div class="row mt-5">
                                     <div class="col-12 d-flex justify-content-between">
                                         <span class="field">Bulan ke-</span>
@@ -273,6 +276,7 @@
                                             @endif
                                         </span>
                                     </div>
+
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Status</span>
                                         <span class="badge content {{ $b->payment_status == 'paid' ? 'badge-success' : 'badge-danger' }}">{{ $b->payment_status }}</span>
@@ -304,6 +308,7 @@
                             @endif
                         </div>
                     </div>
+
                     @if ($order->order_status == 'pending')
                     <div class="col-12 d-flex justify-content-end mb-4 pr-3">
                         <button onclick="route_alert('{{ route('order-cancel',[$order->id]) }}','{{\App\CPU\translate('ingin_membatalkan_bookingan_ini ?')}}')" class="btn btn-outline-success capitalize">
@@ -376,13 +381,14 @@
 
                             @endif
                         @else
-                            @if($order->order_status == 'pending' || $order->order_status == 'delivered')
-                            <div class="col-12 d-flex justify-content-end">
-                                <a href="{{ route('contacts') }}" target="_blank" class="btn btn-outline-success text-success">
-                                    Chat Admin InRoom
-                                </a>
-                            </div>
-                            @endif
+
+                        @if($order->order_status == 'pending' || $order->order_status == 'delivered')
+                        <div class="col-12 d-flex justify-content-end">
+                            <a href="{{ route('contacts') }}" target="_blank" class="btn btn-outline-success text-success">
+                                Chat Admin InRoom
+                            </a>
+                        </div>
+                        @endif
                         @endif
 
                         @if($order->order_status == 'processing')
@@ -393,7 +399,6 @@
                         </div>
                         @endif
                     </div>
-                    {{-- {{ dd($order->details[0]->product->kost->id) }} --}}
 
                 </div>
             </div>

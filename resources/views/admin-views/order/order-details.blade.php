@@ -347,9 +347,15 @@
                                                 <span>Tax : </span><span class="text-danger"> + {{ \App\CPU\Helpers::currency_converter($order->details[0]->tax) }}</span>
                                             </div>
                                             @if ($order->usePoin == 1)
-                                                <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
-                                                    <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
-                                                </div>
+                                                @if($order->useVarian == 1)
+                                                    <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                        <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin) }}</span>
+                                                    </div>
+                                                @else
+                                                    <div class="col-12 col-md-8 pl-4 d-flex justify-content-between">
+                                                        <span>Poin : </span><span class="text-success"> - {{ \App\CPU\Helpers::currency_converter($order->details[0]->poin/$order->durasi) }}</span>
+                                                    </div>
+                                                @endif
                                             @endif
                                             @php($deposit = json_decode($order->details[0]->product_details))
                                             @if (isset($deposit->deposit))

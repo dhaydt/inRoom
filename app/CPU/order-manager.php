@@ -270,8 +270,9 @@ class OrderManager
 
     public static function generate_order($data)
     {
-        // dd($data);
-        $order_id = 100000 + Order::all()->count() + 1;
+        $date = mb_strimwidth(Carbon::now()->getTimestamp(), 7, 3);
+        $order_id = (100000 + Order::all()->count() + 1).$date;
+
         if (Order::find($order_id)) {
             $order_id = Order::orderBy('id', 'DESC')->first()->id + 1;
         }
@@ -351,8 +352,9 @@ class OrderManager
                 $next = 0;
             } else {
                 if ($amount > 1) {
-                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used;
-                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id)) - $discount + $deposit - $used);
+                    $used_poin = $used / $amount;
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used_poin;
+                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id)) - $discount + $deposit - $used_poin);
                     $next = ($order_price - $firstPayment) / ($amount - 1);
                     $useVarian = 0;
                 } else {
