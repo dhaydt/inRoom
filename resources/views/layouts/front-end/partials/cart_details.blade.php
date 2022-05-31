@@ -445,11 +445,14 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
         var dis = $('#priceDis').text();
         var tax = $('#priceTax').text();
         var dep = $('#priceDeposit').text();
+        var poin = $('#pricePoins').text();
+
         var rmrp = pure.replace(/[Rp.]/g, '');
         var koss = kos.replace(/[Rp.]/g, '');
         var diss = dis.replace(/[Rp.]/g, '');
         var taxx = tax.replace(/[Rp.]/g, '');
         var depp = dep.replace(/[Rp.]/g, '');
+        var poinn = poin.replace(/[Rp.]/g, '');
 
         $('#totalPrice').text(rmrp)
         $('#kosPrice').text(koss)
@@ -492,11 +495,15 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var disRp = dis.replace(/[^\d\.]/g, '')
             var taxRp = tax.replace(/[^\d\.]/g, '')
             var depRp = depp.replace(/[^\d\.]/g, '')
+            var poinRp = poinn.replace(/[^\d\.]/g, '')
             var depRpp = parseFloat(depRp.replace(/[\.]/g, ''))
+            var poinRpp = parseFloat(poinRp.replace(/[\.]/g, ''))
             var taxNew = parseFloat(taxRp.replace(/[\.]/g, '')) * anc
             var disNew = parseFloat(disRp.replace(/[\.]/g, '')) * anc
             var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
-            var val = ((parseFloat(rp.replace(/[\.]/g, '')) - depRpp) * anc) + depRpp
+            var val = ((parseFloat(rp.replace(/[\.]/g, '')) - depRpp + poinRpp) * anc) + depRpp - poinRpp
+
+            // console.log('poin', (parseFloat(rp.replace(/[\.]/g, '')) .' - '.depRpp.' + '.poinRpp . ' * '. anc . ' + ' . depRpp)
             var newPrice = number(val)
             var newKos = number(kosNew)
             var newDis = number(disNew);
@@ -532,10 +539,12 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var price = $("#priceTotal").text()
             var disRp = dis.replace(/[^\d\.]/g, '')
             var depRp = depp.replace(/[^\d\.]/g, '')
+            var poinRp = poinn.replace(/[^\d\.]/g, '')
             var depRpp = parseFloat(depRp.replace(/[\.]/g, ''))
+            var poinRpp = parseFloat(poinRp.replace(/[\.]/g, ''))
             var disNew = parseFloat(disRp.replace(/[\.]/g, '')) * anc
             var rp = price.replace(/[^\d\.]/g, '')
-            const val = (parseFloat(rp.replace(/[\.]/g, '')) - depRpp * anc) + depRpp
+            const val = (parseFloat(rp.replace(/[\.]/g, '')) - depRpp + poinRpp) * anc + depRpp - poinRpp
             var kosRp = kos.replace(/[^\d\.]/g, '')
             var kosNew = parseFloat(kosRp.replace(/[\.]/g, '')) * anc
             var taxRp = tax.replace(/[^\d\.]/g, '')
