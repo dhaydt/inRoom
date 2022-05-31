@@ -507,12 +507,13 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
             var oldValue = parseFloat(input.val());
             var anc = $('#anchor').val();
             if (oldValue <= min) {
-            var newVal = oldValue;
+                var newVal = oldValue;
             } else {
-            var newVal = oldValue - parseFloat(step);
+                var newVal = oldValue - parseFloat(step);
             }
+            console.log('oldVal', newVal);
 
-            if(newVal = 1){
+            if(newVal == 1){
                 $('#firstPayment').addClass('d-none');
                 $('#firstPayment').removeClass('d-flex');
             }
