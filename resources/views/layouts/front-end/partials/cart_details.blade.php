@@ -472,6 +472,10 @@ auth('customer')->id()])->get()->groupBy('cart_group_id'))
         var step = $('#dur').text();
 
         btnUp.click(function() {
+            if(poinn == ''){
+                poinn = '0,0'
+            }
+            console.log('poin',poinn)
 
             var oldValue = parseFloat(input.val());
             var anc = $('#anchor').val();

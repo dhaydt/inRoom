@@ -331,8 +331,7 @@ class OrderManager
                 $next = 0;
             } else {
                 if ($amount > 1) {
-                    $used_poin = $used / $amount;
-                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used_poin;
+                    $order_price = ((CartManager::cart_grand_total($cart_group_id)) * $amount) - $discount + $deposit - $used;
                     $firstPayment = ((CartManager::cart_grand_total($cart_group_id) - $discount) + $deposit - $used);
                     $next = ($order_price - $firstPayment) / ($amount - 1);
                     $data['data']->durasi = $amount;
@@ -353,9 +352,8 @@ class OrderManager
                 $next = 0;
             } else {
                 if ($amount > 1) {
-                    $used_poin = $used / $amount;
                     $order_price = (CartManager::cart_grand_total($cart_group_id) * $amount) - $discount + $deposit - $used;
-                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id)) - $discount + $deposit - $used_poin);
+                    $firstPayment = ((CartManager::cart_grand_total($cart_group_id)) - $discount + $deposit - $used);
                     $next = ($order_price - $firstPayment) / ($amount - 1);
                     $useVarian = 0;
                 } else {
