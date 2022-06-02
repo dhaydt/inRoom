@@ -924,7 +924,7 @@
                         <div class="card-body pt-1">
                             @foreach (json_decode($product->kost->aturan_id) as $a)
                             <div class="item-facility">
-                                <img onerror="this.src='{{asset('assets/front-end/img/rules.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img').'/'.strtolower($a).'.png' }}" alt="broken" style="height: 23px">
+                                <img onerror="this.src='{{asset('assets/front-end/img/rules.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img/rulepng.png') }}" alt="broken" style="height: 23px">
                                 <span>{{ App\CPU\helpers::aturan($a) }}</span>
                             </div>
                             @endforeach
