@@ -1091,23 +1091,6 @@
 
     <!-- Product carousel (You may also like)-->
     <div class="container  mb-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-        {{-- <div class="flex-between">
-            <div class="feature_header">
-                <span>{{ \App\CPU\translate('similar_products')}}</span>
-            </div>
-
-            <div class="view_all ">
-                <div>
-                    @php($category=json_decode($product['category_ids']))
-                    <a class="btn btn-outline-accent btn-sm viw-btn-a"
-                       href="{{route('products',['id'=> $category[0]->id,'data_from'=>'category','page'=>1])}}">{{ \App\CPU\translate('view_all')}}
-                        <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'}}"></i>
-                    </a>
-                </div>
-            </div>
-        </div> --}}
-        <!-- Grid-->
-        {{-- <hr class="view_border"> --}}
         <!-- Product-->
         <div class="row mt-4">
             @if (count($relatedProducts)>0)

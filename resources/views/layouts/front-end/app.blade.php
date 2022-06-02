@@ -54,6 +54,18 @@
             background-color: #f7f8fa94;
             font-family: 'Poppins', sans-serif;
         }
+        .label-cashback {
+            position: absolute;
+            background-color: #dededea3;
+            padding: 2px 8px 2px 10px;
+            top: 0;
+            right: 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #e51b23 !important;
+            letter-spacing: 1px;
+            border-radius: 0 10px 0 10px;
+        }
         .rtl {
             direction: {{ Session::get('direction') }};
         }
