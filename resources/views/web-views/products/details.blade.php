@@ -341,18 +341,17 @@
                                     {{ $product->kost->penghuni }}
                                 </span>
                                 <span class="detail-kost-overview__divider">·</span>
-                                @for($inc=0;$inc<1;$inc++)
-                                @if($inc<$overallRating[0])
-                                <div class="detail-kost-overview__rating">
-                                        <i class="sr-star czi-star-filled active"></i>
-                                        <span class="detail-kost-overview__rating-text">{{$overallRating[1]}}</span>
-                                        {{-- <span class="detail-kost-overview__rating-review">
-                                            <span class="font-for-tab d-inline-block font-size-sm text-body align-middle">({{$overallRating[1]}})</span>
-                                        </span> --}}
-                                </div>
-                                <span class="detail-kost-overview__divider d-none d-md-flex">·</span>
-                                @endif
+                                @for($inc=0;$inc<5;$inc++)
+                                    @if($inc<$overallRating[0])
+                                        <div class="detail-kost-overview__rating">
+                                                <i class="sr-star czi-star-filled active"></i>
+                                            </div>
+                                            <span class="detail-kost-overview__divider d-none d-md-flex">·</span>
+                                    @endif
                                 @endfor
+                                @if ($product->reviews->count() !== 0)
+                                    <span class="detail-kost-overview__rating-text">({{$product->reviews->count()}} Ulasan)</span>
+                                @endif
                             </div>
                             <div class="detail-kost-overview__right-section">
                                 <div class="detail-kost-overview__area pl-1">
@@ -489,7 +488,7 @@
                                 {{$rating[1]}}
                                 </span>
                                     </div>
-
+{{-- {{ dd($product) }} --}}
                                     <div class="d-flex align-items-center mb-2">
                                         <div
                                             class="text-nowrap {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}"><span
@@ -550,14 +549,14 @@
                             <div class="kost-review__users-feedback">
                                 @foreach ($product->reviews as $r)
                                 {{-- {{ dd($r) }} --}}
-                                @php($user = $r->user)
+                                @php($user = $r->customer)
                                 <div class="users-feedback-container users-feedback-container--card">
                                     <div class="users-feedback">
                                         <div class="users-feedback__section">
                                             <div class="user-feedback__header">
-                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('storage/profile'.'/'.$user->image) }}" lazy="error">
+                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('storage/profile'.'/'.'def.png') }}" lazy="error">
                                                 <div class="user-feedback__profile">
-                                                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 capitalize">{{ $user->f_name }} {{ $user->l_name }}</p>
+                                                    <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 capitalize">{{ $user ? $user->f_name : 'invalid user data' }} {{ $user ? $user->l_name : '' }}</p>
                                                     <p class="bg-c-text bg-c-text--label-2 ">{{ $r->created_at }}</p>
                                                 </div>
                                                 <div class="p-2 user-feedback__rating bg-c-label bg-c-label--rainbow bg-c-label--rainbow-white">
@@ -1112,7 +1111,7 @@
     </div>
 
     <div class="modal fade rtl" id="show-modal-view" tabindex="-1" role="dialog" aria-labelledby="show-modal-image"
-         aria-hidden="true" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+        aria-hidden="true" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" style="display: flex;justify-content: center">

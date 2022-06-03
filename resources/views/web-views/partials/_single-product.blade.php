@@ -60,15 +60,15 @@
                 </span>
                 @endif
                 <div class="room-card_overview">
-                    <span class="d-inline-block font-size-sm text-body">
+                    <span class="d-flex justify-content-center font-size-sm text-body">
                         {{-- {{ dd($product) }} --}}
                             @for($inc=0;$inc<5;$inc++)
                                 @if($inc<$overallRating[0])
                                     <i class="sr-star czi-star-filled active"></i>
-                                    @endif
+                                @endif
                             @endfor
                             @if ($product->reviews()->count() !== 0)
-                                <label class="badge-style rc-label bg-c-text--label-1"></label>({{$product->reviews()->count()}})</label>
+                                <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$product->reviews()->count()}})</label>
                             @endif
                     </span>
                 </div>
