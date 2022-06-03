@@ -189,7 +189,17 @@ class ProductManager
         foreach ($data as $val => $key) {
             if ($key > 0) {
                 for ($i = 0; $i < $key; ++$i) {
-                    array_push($av, $val + 1);
+                    if ($val == 0) {
+                        array_push($av, 5);
+                    } elseif ($val == 1) {
+                        array_push($av, 4);
+                    } elseif ($val == 2) {
+                        array_push($av, 3);
+                    } elseif ($val == 3) {
+                        array_push($av, 2);
+                    } else {
+                        array_push($av, 1);
+                    }
                 }
             }
         }

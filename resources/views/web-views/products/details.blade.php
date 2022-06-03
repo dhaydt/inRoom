@@ -295,7 +295,7 @@
     $star = \App\CPU\ProductManager::averageStar($rating);
     ?>
     <!-- Page Content-->
-    {{ dd($rating, $star) }}
+    {{-- {{ dd($rating, $star) }} --}}
     <div class="mobile-margin d-block d-md-none"></div>
     <div class="container mt-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <!-- General info tab-->
