@@ -554,7 +554,8 @@
                                     <div class="users-feedback">
                                         <div class="users-feedback__section">
                                             <div class="user-feedback__header">
-                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" src="{{ asset('storage/profile'.'/'.'def.png') }}" lazy="error">
+                                                @php($img = $user ? $user->image : 'def.png')
+                                                <img alt="foto profile" class="user-feedback__photo" data-src="null" onerror="this.src='{{asset('assets/front-end/img/user.png')}}'"  src="{{ asset('storage/profile'.'/'.$img) }}" lazy="error">
                                                 <div class="user-feedback__profile">
                                                     <p class="user-feedback__profile-name bg-c-text bg-c-text--body-1 capitalize">{{ $user ? $user->f_name : 'invalid user data' }} {{ $user ? $user->l_name : '' }}</p>
                                                     <p class="bg-c-text bg-c-text--label-2 ">{{ $r->created_at }}</p>
