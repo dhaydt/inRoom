@@ -774,7 +774,7 @@
                             @foreach (json_decode($product->fasilitas_id) as $f)
                             @php($fas = App\CPU\Helpers::fasilitas($f))
                             <div class="item-facility d-flex mb-2">
-                                <img onerror="this.src='{{asset('assets/front-end/img/bantal.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img/ilog.png') }}" alt="broken" style="height: 23px">
+                                <img onerror="this.src='{{asset('assets/front-end/img/bantal.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img'.'/'.strtolower($fas).'.png') }}" alt="broken" style="height: 23px">
                                 <span>
                                     {{ $fas }}
                                 </span>
@@ -789,7 +789,7 @@
                             @foreach (json_decode($product->kost->fasilitas_id) as $f)
                             @php($fas = App\CPU\Helpers::fasilitas($f))
                             <div class="item-facility d-flex mb-2">
-                                <img onerror="this.src='{{asset('assets/front-end/img/tv.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img/ilog.png') }}" alt="broken" style="height: 23px">
+                                <img onerror="this.src='{{asset('assets/front-end/img/tv.png')}}'" class="mr-3" src="{{ asset('assets/front-end/img'.'/'.strtolower($fas).'.png') }}" alt="broken" style="height: 23px">
                                 <span>
                                     {{ $fas }}
                                 </span>
