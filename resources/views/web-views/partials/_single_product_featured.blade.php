@@ -1,4 +1,8 @@
-@php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
+@php
+    $overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews);
+    $rating = \App\CPU\ProductManager::get_rating($product->reviews);
+    $star = \App\CPU\ProductManager::averageStar($rating);
+@endphp
 <div class="product-card card {{$product['current_stock']==0?'stock-card':''}}"
     style="margin-bottom: 10px; box-shadow: none;">
     <label class="label-kost text-white">{{ $product->kost['name'] }}</label>
@@ -41,14 +45,12 @@
                         @endif
                 <div class="room-card_overview">
                     <span class="d-inline-block font-size-sm text-body">
-                        @for($inc=0;$inc<5;$inc++)
+                        @for($inc=0;$inc<1;$inc++)
                         @if($inc<$overallRating[0])
                             <i class="sr-star czi-star-filled active"></i>
+                            <label class="badge-style rc-label bg-c-text--label-1">{{$star}}</label>
                         @endif
                         @endfor
-                        @if ($product->reviews()->count() !== 0)
-                            <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$product->reviews()->count()}})</label>
-                        @endif
                     </span>
                 </div>
             </div>

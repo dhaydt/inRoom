@@ -183,6 +183,27 @@ class ProductManager
         return [$rating5, $rating4, $rating3, $rating2, $rating1];
     }
 
+    public static function averageStar($data)
+    {
+        $av = [];
+        foreach ($data as $val => $key) {
+            if ($key > 0) {
+                for ($i = 0; $i < $key; ++$i) {
+                    array_push($av, $val + 1);
+                }
+            }
+        }
+
+        $total = count($av);
+        $sum = array_sum($av);
+        $average = 0;
+        if ($sum !== 0) {
+            $average = round($sum / $total, 1);
+        }
+
+        return $average;
+    }
+
     public static function get_overall_rating($reviews)
     {
         $totalRating = count($reviews);

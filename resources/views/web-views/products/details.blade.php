@@ -292,6 +292,7 @@
     <?php
     $overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews);
     $rating = \App\CPU\ProductManager::get_rating($product->reviews);
+    $star = \App\CPU\ProductManager::averageStar($rating);
     ?>
     <!-- Page Content-->
     <div class="mobile-margin d-block d-md-none"></div>
@@ -341,17 +342,15 @@
                                     {{ $product->kost->penghuni }}
                                 </span>
                                 <span class="detail-kost-overview__divider">·</span>
-                                @for($inc=0;$inc<5;$inc++)
+                                @for($inc=0;$inc<1;$inc++)
                                     @if($inc<$overallRating[0])
                                         <div class="detail-kost-overview__rating">
                                                 <i class="sr-star czi-star-filled active"></i>
+                                                <span class="detail-kost-overview__rating-text">{{$star}}</span>
                                             </div>
                                             <span class="detail-kost-overview__divider d-none d-md-flex">·</span>
                                     @endif
                                 @endfor
-                                @if ($product->reviews->count() !== 0)
-                                    <span class="detail-kost-overview__rating-text">({{$product->reviews->count()}} Ulasan)</span>
-                                @endif
                             </div>
                             <div class="detail-kost-overview__right-section">
                                 <div class="detail-kost-overview__area pl-1">

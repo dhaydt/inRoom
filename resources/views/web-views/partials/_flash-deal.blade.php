@@ -230,9 +230,13 @@
             @if($filter == '')
             @foreach($flash_deals->products as $key=>$deal)
             @if( $deal->product)
-            @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
+            @php
+                $overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null);
+                $rating = \App\CPU\ProductManager::get_rating($deal->product->reviews);
+                $star = \App\CPU\ProductManager::averageStar($rating);
+            @endphp
             <div class="flash_deal_product rtl filtered"
-              onclick="location.href='{{route('product',$deal->product->slug)}}'">
+                onclick="location.href='{{route('product',$deal->product->slug)}}'">
                 @if($deal->product->label)
                 <div class="d-flex justify-content-end for-dicount-div discount-hed">
                     <span class="for-discoutn-value">
@@ -272,14 +276,12 @@
                         @endif
                         <div class="room-card_overview">
                             <span class="d-inline-block font-size-sm text-body">
-                                    @for($inc=0;$inc<5;$inc++)
+                                    @for($inc=0;$inc<1;$inc++)
                                         @if($inc<$overallRating[0])
-                                            <i class="sr-star czi-star-filled active" style="font-size: 8px"></i>
+                                            <i class="sr-star czi-star-filled active"></i>
+                                            <label class="badge-style rc-label bg-c-text--label-1">{{$star}}</label>
                                         @endif
-                                        @endfor
-                                        @if ($deal->product->reviews()->count() !== 0)
-                                            <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$deal->product->reviews()->count()}})</label>
-                                    @endif
+                                    @endfor
                             </span>
                         </div>
                     </div>
