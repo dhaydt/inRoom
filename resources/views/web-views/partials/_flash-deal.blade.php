@@ -274,7 +274,7 @@
                             <span class="d-inline-block font-size-sm text-body">
                                     @for($inc=0;$inc<5;$inc++)
                                         @if($inc<$overallRating[0])
-                                            <i class="sr-star czi-star-filled active"></i>
+                                            <i class="sr-star czi-star-filled active" style="font-size: 8px"></i>
                                         @endif
                                         @endfor
                                         @if ($deal->product->reviews()->count() !== 0)
