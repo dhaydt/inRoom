@@ -278,7 +278,7 @@
                                         @endif
                                         @endfor
                                         @if ($deal->product->reviews()->count() !== 0)
-                                            <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$product->reviews()->count()}})</label>
+                                            <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$deal->product->reviews()->count()}})</label>
                                     @endif
                             </span>
                         </div>
