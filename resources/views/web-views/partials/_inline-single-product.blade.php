@@ -110,12 +110,13 @@
         @php($overallRating=\App\CPU\ProductManager::get_overall_rating($product->reviews))
         <h6 class="ptr">
             @for($inc=0;$inc<5;$inc++)
-                @if($inc<$overallRating[0])
-                    <i class="sr-star czi-star-filled active" style="color: gold"></i>
-                @else
-                    <i class="sr-star czi-star active"></i>
-                @endif
+            @if($inc<$overallRating[0])
+                <i class="sr-star czi-star-filled active"></i>
+            @endif
             @endfor
+            @if ($product->reviews()->count() !== 0)
+                <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$product->reviews()->count()}})</label>
+            @endif
         </h6>
         <div class="product-price">
             <span class="text-accent ptp">

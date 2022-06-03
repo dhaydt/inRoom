@@ -159,12 +159,14 @@ label.label-vendor {
                             </div>
                             <div class="room-card_overview">
                                 <span class="d-inline-block font-size-sm text-body">
-                                        @for($inc=0;$inc<1;$inc++)
-                                        @if($inc<$overallRating[0])
+                                    @for($inc=0;$inc<5;$inc++)
+                                    @if($inc<$overallRating[0])
                                         <i class="sr-star czi-star-filled active"></i>
-                                        <label class="badge-style rc-label bg-c-text--label-1 text-bold"></label>{{$product->reviews()->count()}}</label>
-                                        @endif
-                                        @endfor
+                                    @endif
+                                    @endfor
+                                    @if ($product->reviews()->count() !== 0)
+                                        <label class="badge-style rc-label bg-c-text--label-1" style="font-size: 10px">({{$product->reviews()->count()}})</label>
+                                    @endif
                                 </span>
                             </div>
                         </div>
