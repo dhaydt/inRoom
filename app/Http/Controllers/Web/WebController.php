@@ -747,11 +747,12 @@ class WebController extends Controller
                 'max_price' => $request['max_price'],
             ];
             session()->put('collage', 0);
-            if ($request->ajax()) {
-                return response()->json([
-                    'view' => view('web-views.products._ajax-products', compact('products'))->render(),
-                ], 200);
-            }
+            // $products = $fetched->paginate(20)->appends($data);
+            // if ($request->ajax()) {
+            //     return response()->json([
+            //         'view' => view('web-views.products._ajax-products', compact('products'))->render(),
+            //     ], 200);
+            // }
         }
 
         if ($request['sort_by'] == 'latest') {
