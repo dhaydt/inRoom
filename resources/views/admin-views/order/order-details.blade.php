@@ -316,6 +316,7 @@
                                                 @endif
                                             @endif
                                         </div>
+                                        @php($room = $order->room)
                                         <span class="room-status w-100 d-block">
                                             @if ($order->roomDetail_id == NULL)
                                                 Kamar belum dikonfirmasi
@@ -323,7 +324,11 @@
                                                 Pilih kamar ditempat
                                             @else
                                                 @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
+                                                @if (count($room) > 0)
                                                     Kamar  {{ $order->room[0]->name }}
+                                                @else
+                                                    <span class="badge badge-danger">Invalid room name</span>
+                                                @endif
                                                 @endif
                                             @endif
                                         </span>

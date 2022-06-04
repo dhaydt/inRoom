@@ -296,6 +296,7 @@
                                                 @endif
                                             @endif
                                         </div>
+                                        @php($room = $order->room)
                                         <span class="room-status w-100 d-block">
                                             @if ($order->roomDetail_id == NULL)
                                                 Kamar belum dikonfirmasi
@@ -303,11 +304,15 @@
                                                 Pilih kamar ditempat
                                             @else
                                                 @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
-                                                    Kamar  {{ $order->room[0]->name }}
+                                                    @if (count($room) > 0)
+                                                        Kamar  {{ $order->room[0]->name }}
+                                                    @else
+                                                        <span class="badge badge-danger">Invalid room name</span>
+                                                    @endif
                                                 @endif
                                             @endif
                                         </span>
-                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->order_amount)}}  <span class="month">/Bulan</span></span>
+                                        <span class="price">{{\App\CPU\Helpers::currency_converter($order->order_amount)}}  <span class="month">/ {{ $order->durasi }} Bulan</span></span>
                                         <div class="row detail-price mt-3 ml-2">
                                             <div class="col-12">
                                                 <span class="d-block">Detail Harga:</span>
