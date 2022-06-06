@@ -399,11 +399,12 @@
                                 @endif
                                 <div class="room-card_overview">
                                     <span class="d-inline-block font-size-sm text-body">
-                                            @for($inc=0;$inc<1;$inc++) @if($inc<$overallRating[0])
-                                            <i class="sr-star czi-star-filled active"></i>
-                                            <label class="badge-style rc-label bg-c-text--label-1"></label>{{$deal->product->reviews()->count()}}</label>
+                                        @for($inc=0;$inc<1;$inc++)
+                                            @if($inc<$overallRating[0])
+                                                <i class="sr-star czi-star-filled active"></i>
+                                                <label class="badge-style rc-label bg-c-text--label-1">{{$star}}</label>
                                             @endif
-                                            @endfor
+                                        @endfor
                                     </span>
                                 </div>
                             </div>
@@ -541,15 +542,16 @@
                                             @endif
                                             @else
                                             <span class="stock-label ml-1 text-grey bg-c-text--label-1">
-                                               {{\App\CPU\translate('Penuh')}}
+                                                {{\App\CPU\translate('Penuh')}}
                                             </span>
                                             @endif
 
                                             <span class="rc-overview__availability bg-c-text bg-c-text--label-4 bg-c-text--italic ">
-                                                @for($inc=0;$inc<1;$inc++) @if($inc<$overallRating[0])
-                                                <i class="sr-star czi-star-filled active"></i>
-                                                <label class="badge-style rc-label bg-c-text--label-1"></label>{{$deal->product->reviews()->count()}}</label>
-                                                @endif
+                                                @for($inc=0;$inc<1;$inc++)
+                                                    @if($inc<$overallRating[0])
+                                                        <i class="sr-star czi-star-filled active"></i>
+                                                        <label class="badge-style rc-label bg-c-text--label-1">{{$star}}</label>
+                                                    @endif
                                                 @endfor
                                             </span>
                                         </div>
