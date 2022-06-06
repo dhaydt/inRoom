@@ -545,7 +545,7 @@
                                                 {{\App\CPU\translate('Penuh')}}
                                             </span>
                                             @endif
-{{ var_dump($start) }}
+{{ var_dump($star) }}
                                             @if ($star != 0)
                                             <span class="rc-overview__availability bg-c-text bg-c-text--label-4 bg-c-text--italic ">
                                                 @for($inc=0;$inc<1;$inc++)
