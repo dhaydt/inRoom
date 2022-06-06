@@ -488,7 +488,6 @@
                                 {{$rating[1]}}
                                 </span>
                                     </div>
-{{-- {{ dd($product) }} --}}
                                     <div class="d-flex align-items-center mb-2">
                                         <div
                                             class="text-nowrap {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}"><span
