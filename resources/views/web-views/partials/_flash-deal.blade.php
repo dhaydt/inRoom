@@ -366,7 +366,11 @@
                 {{-- {{ dd($deal->product) }} --}}
                 @if( $deal->product)
                 @if ($deal->product->kost['city'] == $filter)
-                    @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
+                    @php
+                        $overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null)
+                        $rating = \App\CPU\ProductManager::get_rating($deal->product->reviews);
+                        $star = \App\CPU\ProductManager::averageStar($rating);
+                    @endphp
                     <div class="flash_deal_product rtl filtered"
                     onclick="location.href='{{route('product',$deal->product->slug)}}'">
                         @if($deal->product->label)
@@ -545,8 +549,7 @@
                                                 {{\App\CPU\translate('Penuh')}}
                                             </span>
                                             @endif
-{{ var_dump($star) }}
-                                            @if ($star != 0)
+
                                             <span class="rc-overview__availability bg-c-text bg-c-text--label-4 bg-c-text--italic ">
                                                 @for($inc=0;$inc<1;$inc++)
                                                     @if($inc<$overallRating[0])
@@ -555,7 +558,7 @@
                                                     @endif
                                                 @endfor
                                             </span>
-                                            @endif
+
                                         </div>
                                     </div>
                                     <div class="kost-rc__info">
