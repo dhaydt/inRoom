@@ -366,11 +366,7 @@
                 {{-- {{ dd($deal->product) }} --}}
                 @if( $deal->product)
                 @if ($deal->product->kost['city'] == $filter)
-                    @php
-                        $overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null)
-                        $rating = \App\CPU\ProductManager::get_rating($deal->product->reviews);
-                        $star = \App\CPU\ProductManager::averageStar($rating);
-                    @endphp
+                    @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
                     <div class="flash_deal_product rtl filtered"
                     onclick="location.href='{{route('product',$deal->product->slug)}}'">
                         @if($deal->product->label)
@@ -507,6 +503,9 @@
                     @if( $deal->product)
                     @php($overallRating =
                     \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
+                    @php($rating = \App\CPU\ProductManager::get_rating($deal->product->reviews))
+                    @php($star = \App\CPU\ProductManager::averageStar($rating))
+
                 <div class="css-vzo4av" onclick="location.href='{{route('product',$deal->product->slug)}}'">
                     <div class="css-13ekl7h" data-testid="master-product-card">
                         <div class="css-2lm59p" data-testid="">
@@ -550,6 +549,7 @@
                                             </span>
                                             @endif
 
+                                            @if ($star != 0)
                                             <span class="rc-overview__availability bg-c-text bg-c-text--label-4 bg-c-text--italic ">
                                                 @for($inc=0;$inc<1;$inc++)
                                                     @if($inc<$overallRating[0])
@@ -558,7 +558,7 @@
                                                     @endif
                                                 @endfor
                                             </span>
-
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="kost-rc__info">
