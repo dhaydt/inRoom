@@ -23,7 +23,7 @@ class CategoryManager
 
     public static function products($category_id)
     {
-        return Product::active()->whereJsonContains('category_ids', ['id' => (string) $category_id])->orderBy('created_at', 'DESC')->get();
+        return Product::active()->whereJsonContains('category_ids', ['id' => (string) $category_id])->orderBy('created_at', 'DESC')->take(8)->get();
     }
 
     public static function short_products($category_id, $city)
