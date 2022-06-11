@@ -129,7 +129,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('/apply', 'JobController@apply');
         Route::get('info', 'CustomerController@info');
         Route::post('update-profile', 'CustomerController@update_profile');
-        Route::put('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
+        Route::post('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
 
         Route::get('apply-list', 'CustomerController@listLamaran');
 
