@@ -710,7 +710,7 @@
     </div>
 
     <div class="row mt-2 mb-3 w-100">
-        @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
+        @foreach($category['products'] as $key=>$product)
         @if($key<12)
         <div class="col-md-3 mb-3 col-sm-3 col-6 pl-0">
             @if (empty($country))
