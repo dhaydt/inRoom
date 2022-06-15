@@ -67,7 +67,7 @@ class WebController extends Controller
         $featured_products = Product::with(['reviews'])->active()
             ->where('featured', 1)
             ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
-            ->take(12)
+            ->take(8)
             ->get();
         //end
 
