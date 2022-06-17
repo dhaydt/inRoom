@@ -168,6 +168,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::get('/', 'ChatController@chat_with_seller');
             Route::get('messages', 'ChatController@messages');
             Route::post('send-message', 'ChatController@messages_store');
+            Route::post('end-chat', 'ChatController@endChat');
         });
     });
 

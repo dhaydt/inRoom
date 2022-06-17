@@ -52,6 +52,21 @@ class ChatController extends Controller
         }
     }
 
+    public function endChat(Request $request)
+    {
+        $user = $request->user()->id;
+        $seller = $request['seller_id'];
+        if (!$seller) {
+            return response()->json(['status' => 'fail', 'message' => 'seller_id required']);
+        }
+        $chat = Chatting::where(['user_id' => $user, 'seller_id' => $seller])->get();
+        foreach ($chat as $c) {
+            $c->delete();
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'chat successfully ended']);
+    }
+
     public function messages(Request $request)
     {
         try {
