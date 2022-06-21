@@ -83,7 +83,7 @@ label.label-vendor {
                         @endif
                         @if ($product->current_stock == 0)
                         <span class="stock-label ml-1 text-danger bg-c-text--label-1">
-                            {{\App\CPU\translate('Kamar_habis')}}
+                            {{\App\CPU\translate('Kamar_penuh')}}
                         </span>
                         @endif
             </div>
