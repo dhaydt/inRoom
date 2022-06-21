@@ -5,12 +5,10 @@
     <title>
         @yield('title')
     </title>
-    {{-- <meta name="viewport" content="width=1024"> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="180x180"
-          href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
-    <link rel="icon" type="image/png" sizes="32x32"
-          href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
+    href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
 
     <link rel="stylesheet" media="screen"
           href="{{asset('public/assets/front-end')}}/vendor/simplebar/dist/simplebar.min.css"/>
@@ -780,7 +778,7 @@
 
 <!-- Vendor scrits: js libraries and plugins-->
 @if (Request::segment(1) !== 'products' && Request::segment(1) !== 'jobs')
-{{-- <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery.slim.min.js"></script> --}}
+<script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery.slim.min.js"></script>
 <script src="{{asset('public/assets/front-end')}}/vendor/jquery/dist/jquery-2.2.4.min.js"></script>
 @endif
 <script src="{{asset('public/assets/front-end')}}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -804,7 +802,6 @@ src="{{asset('public/assets/front-end')}}/vendor/bs-custom-file-input/dist/bs-cu
 {{--Toastr--}}
 <script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
 {!! Toastr::message() !!}
-
 <script>
     function addWishlist(product_id) {
         $.ajaxSetup({
