@@ -11,6 +11,7 @@ use App\Model\Coupon;
 use App\Model\Currency;
 use App\Model\Detail_room;
 use App\Model\Fasilitas;
+use App\Model\Notification;
 use App\Model\Order;
 use App\Model\OrderDetail;
 use App\Model\Poin;
@@ -1432,6 +1433,14 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         return $res['message'];
     }
 
+    public static function getNotifImage()
+    {
+        $img = Notification::where('title', 'notification')->first();
+        if ($img) {
+            return $img->image;
+        }
+    }
+
     public static function send_push_notif_to_device($fcm_token, $data)
     {
         $key = BusinessSetting::where(['type' => 'push_notification_key'])->first()->value;
@@ -1444,12 +1453,14 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             $data['order_id'] = null;
         }
 
+        $img = asset('storage/notification').'/'.Helpers::getNotifImage();
+
         $postdata = '{
             "to" : "'.$fcm_token.'",
             "data" : {
                 "title" :"'.$data['title'].'",
                 "body" : "'.$data['description'].'",
-                "image" : "'.$data['image'].'",
+                "image" : "'.$img.'",
                 "order_id":"'.$data['order_id'].'",
                 "is_read": 0
               },
