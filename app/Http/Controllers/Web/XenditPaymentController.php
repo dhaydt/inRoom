@@ -253,7 +253,7 @@ class XenditPaymentController extends Controller
             $fcm_token = $user->cm_firebase_token;
 
             $data = [
-                    'title' => 'payment success',
+                    'title' => 'Payment Successfully',
                     'description' => 'Your payment for room '.$room->name.' successfully',
                     'order_id' => $order->id,
                     'image' => '',
