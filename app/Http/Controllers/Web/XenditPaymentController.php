@@ -12,6 +12,7 @@ use App\Model\Booked;
 use App\Model\Detail_room;
 use App\Model\Order;
 use App\Model\UserPoin;
+use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -246,6 +247,19 @@ class XenditPaymentController extends Controller
         $poin->save();
 
         session()->forget('poin');
+
+        $user = User::where('id', $order->customer_id)->first();
+        if ($user->cm_firebase_token !== null) {
+            $fcm_token = $user->cm_firebase_token;
+
+            $data = [
+                    'title' => 'payment success',
+                    'description' => 'Your payment for room '.$room->name.' successfully',
+                    'order_id' => $order->id,
+                    'image' => '',
+                ];
+            Helpers::send_push_notif_to_device($fcm_token, $data);
+        }
 
         CartManager::cart_clean();
         if (auth('customer')->check()) {
