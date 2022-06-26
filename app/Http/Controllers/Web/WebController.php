@@ -9,6 +9,7 @@ use App\CPU\OrderManager;
 use App\CPU\ProductManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
+use App\Model\Booked;
 use App\Model\Brand;
 use App\Model\BusinessSetting;
 use App\Model\Cart;
@@ -47,6 +48,14 @@ class WebController extends Controller
         }
 
         return redirect()->route('home');
+    }
+
+    public function nextPayment($id)
+    {
+        $room = Booked::with('order')->find($id);
+        $pay = Booked::where(['order_id' => $room->order_id, 'bulan_ke' => (int) $room->bulan_ke - 1])->pluck('next_payment')->first();
+
+        return view('web-views.next_payment', compact('room', 'pay'));
     }
 
     public function home(Request $request)

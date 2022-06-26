@@ -153,6 +153,104 @@ class XenditPaymentController extends Controller
         return redirect()->route('account-oder');
     }
 
+    public function next_invoice(Request $request)
+    {
+        // dd($request);
+        $customer = auth('customer')->user();
+        $order_id = $request['order_id'];
+        $order = Booked::find($order_id);
+        $type = strtoupper($request['type']);
+        // dd($type);
+        $value = $request['amount'];
+        $tran = OrderManager::gen_unique_id();
+        $duration = '10800';
+        // dd($duration);
+
+        if ($request->type == 'direct') {
+            $order->payment_status = 'direct';
+            $order->save();
+            if (auth('customer')->check()) {
+                Toastr::success('Silahkan lakukan pembayaran langsung.');
+
+                return view('web-views.payment-direct');
+            }
+        }
+
+        session()->put('transaction_ref', $tran);
+        Xendit::setApiKey(config('xendit.apikey'));
+
+        $user = [
+            'given_names' => $customer->f_name,
+            'email' => $customer->email,
+            'mobile_number' => $customer->phone,
+            'address' => $customer->district.', '.$customer->city.', '.$customer->province,
+        ];
+
+        $params = [
+            'external_id' => $order_id,
+            'amount' => Convert::usdToidr($value),
+            'payer_email' => $customer->email,
+            'description' => 'inRoom',
+            'payment_methods' => [$type],
+            'fixed_va' => true,
+            'should_send_email' => true,
+            'customer' => $user,
+            'invoice_duration' => $duration,
+            'success_redirect_url' => env('APP_URL').'/xendit-payment/nextSuccess/'.$order_id,
+            'failure_redirect_url' => env('APP_URL').'/xendit-payment/nextExpired/'.$order_id,
+        ];
+
+        $checkout_session = \Xendit\Invoice::create($params);
+
+        Helpers::sendNotif($checkout_session, $order_id);
+
+        return redirect()->away($checkout_session['invoice_url']);
+    }
+
+    public function nextSuccess($id)
+    {
+        $order = Booked::with('order')->find($id);
+        // dd($order);
+
+        $seller_is = json_decode($order->order->details[0]->product_details)->added_by;
+
+        $payment_before = Booked::where(['order_id' => $order->order_id, 'bulan_ke' => (int) $order->bulan_ke - 1])->first();
+
+        $order->payment_status = 'paid';
+        $order->current_payment = $payment_before->next_payment;
+        $order->total_payyed = round((float) $payment_before->next_payment + (float) $payment_before->total_payyed);
+        $order->updated_at = Carbon::now();
+
+        $order->save();
+
+        $saved = Booked::with('order')->where('id', $order->id)->first();
+        Helpers::successPayment($saved);
+
+        session()->forget('poin');
+        $room = Detail_room::find($order->room_id);
+
+        $user = User::where('id', $order->customer_id)->first();
+        if ($user->cm_firebase_token !== null) {
+            $fcm_token = $user->cm_firebase_token;
+
+            $data = [
+                    'title' => 'Paymentfor next month Successfully',
+                    'description' => 'Your payment for room '.$room->name.' successfully',
+                    'order_id' => $order->id,
+                    'image' => '',
+                ];
+            Helpers::send_push_notif_to_device($fcm_token, $data);
+        }
+
+        if (auth('customer')->check()) {
+            Toastr::success('Pembayaran berhasil.');
+
+            return redirect('payment-complete');
+        }
+
+        return response()->json(['message' => 'Payment succeeded'], 200);
+    }
+
     public function success($id)
     {
         $order = Order::with('details')->find($id);
@@ -172,6 +270,7 @@ class XenditPaymentController extends Controller
                 $booked->room_id = $order->roomDetail_id;
                 $booked->total_durasi = $order->durasi;
                 $booked->bulan_ke = $i + 1;
+                $booked->deadline = Carbon::now()->addMonth($i)->toDateTimeString();
                 $booked->order_id = $order->id;
                 $booked->payment_status = 'unpaid';
                 $booked->order_amount = $order->order_amount;

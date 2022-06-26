@@ -46,6 +46,8 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], funct
         Route::get('checkout-complete', 'WebController@checkout_complete')->name('checkout-complete')->middleware('customer');
         Route::get('order-placed', 'WebController@order_placed')->name('order-placed')->middleware('customer');
         Route::get('shop-cart', 'WebController@shop_cart')->name('shop-cart');
+
+        Route::get('checkout-next-payment/{id}', 'WebController@nextPayment')->name('checkout-next-payment')->middleware('customer');
     });
 
     Route::group(['prefix' => 'xendit-payment', 'as' => 'xendit-payment.'], function () {
@@ -56,6 +58,10 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], funct
         Route::post('/va/invoice', 'XenditPaymentController@invoice')->name('vaInvoice');
         Route::get('/success/{id}', 'XenditPaymentController@success')->name('xenditSuccess');
         Route::get('/expired/{id}', 'XenditPaymentController@expire')->name('xenditExpire');
+
+        Route::get('/nextSuccess/{id}', 'XenditPaymentController@nextSuccess');
+        Route::get('/nextExpired/{id}', 'XenditPaymentController@nextExpire');
+        Route::post('/va-next/invoice', 'XenditPaymentController@next_invoice')->name('vaNextInvoice');
     });
 
     Route::group(['prefix' => 'apply', 'as' => 'apply.'], function () {

@@ -283,27 +283,54 @@
                                     </div>
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Tanggal Bayar</span>
-                                        <span class="content">{{ App\CPU\Helpers::dateChange($b->created_at) }}</span>
+                                        @if ($b->payment_status == 'paid')
+                                        @php($datePay = Carbon\Carbon::parse($order->updated_at)->isoFormat('dddd, D MMMM Y'))
+                                            <span class="content">{{ App\CPU\Helpers::dateChange($datePay) }}</span>
+                                        @else
+                                            <span class="content">-</span>
+                                        @endif
                                     </div>
+                                    @if ($b->payment_status == 'unpaid')
+                                    @php($deadline = Carbon\Carbon::parse($b->deadline)->isoFormat('dddd, D MMMM Y'))
+                                    <div class="col-12 d-flex justify-content-between mt-3">
+                                        @if ($b->total_durasi !==$b->bulan_ke)
+                                        <span class="field">Jatuh tempo pembayaran</span>
+                                        @else
+                                        <span class="field">Tanggal habis kos</span>
+                                        @endif
+                                        <span class="content">{{ App\CPU\Helpers::dateChange($deadline) }}</span>
+                                    </div>
+                                    @endif
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Jumlah bayar</span>
                                         <span class="content">{{ App\CPU\Helpers::currency_converter($b->current_payment) }}</span>
                                     </div>
+                                    @if ($b->total_durasi !==$b->bulan_ke)
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Tanggal Bayar berikutnya</span>
                                         <span class="content">
                                             @if ($b->bulan_ke == 0)
                                                 Lunas
                                             @else
-                                                {{ App\CPU\Helpers::dateChange($b->next_payment_date) }}
+                                            @php($next = Carbon\Carbon::parse($b->next_payment_date)->isoFormat('dddd, D MMMM Y'))
+                                                {{ App\CPU\Helpers::dateChange($next) }}
                                             @endif
                                         </span>
                                     </div>
+                                    @endif
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Nominal pembayaran berikutnya</span>
                                         <span class="content badge badge-warning">{{ App\CPU\Helpers::currency_converter(($b->next_payment)) }}</span>
                                     </div>
+                                    @if ($b->payment_status == "unpaid")
+                                        <div class="col-12 mt-4">
+                                            <div class="d-flex justify-content-end">
+                                                <a href="{{ route('checkout-next-payment', ["id" => $b->id]) }}" class="btn btn-success btn-sm">Bayar sekarang</a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
+                                <hr class="mt-4">
                                 @endforeach
                             @endif
                         </div>

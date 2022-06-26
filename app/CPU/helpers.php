@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use App\Country;
 use App\Model\Admin;
+use App\Model\Booked;
 use App\Model\BusinessSetting;
 use App\Model\Category;
 use App\Model\Color;
@@ -61,15 +62,22 @@ class Helpers
             $dt->format('Y-m-d H:i:s T');
 
             $order = Order::where('id', $order_id)->with('customer', 'details', 'room')->first();
-            $detail = json_decode($order->details[0]->product_details);
+            if (!isset($order)) {
+                $order = Booked::where('id', $order_id)->with('order')->first();
+                $detail = json_decode($order->order->details[0]->product_details);
+                $kamar = Detail_room::where('id', $order->room_id)->pluck('name')->first();
+            } else {
+                $detail = json_decode($order->details[0]->product_details);
+                $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
+            }
+
             $name = $detail->kost->name;
             $type = $detail->type;
             $kecamatan = $detail->kost->district;
             $province = $detail->kost->province;
-            $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
 
             $message = 'Inroom Notifikasi:
-Tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
+Tagihan lanjutan pembayaran '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo pada '.date_format($dt, 'd/m/Y H:i').'.
 Bayar via :
 '.$link;
             $receiver = $order->customer->phone;
@@ -112,7 +120,7 @@ Bayar via :
             $message = 'Inroom Notifikasi:
 Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' telah berhasil dibayar dengan nominal '.Helpers::currency_converter($booked->current_payment).', Dengan total durasi '.$booked->total_durasi.' bulan';
         } else {
-            $message = 'Inroom Notifikas:
+            $message = 'Inroom Notifikasi:
 Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' telah berhasil dibayar dengan nominal '.Helpers::currency_converter($booked->current_payment).'.
 Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).' pada tanggal '.$booked->next_payment_date;
         }
