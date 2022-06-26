@@ -107,6 +107,48 @@ Bayar via :
         }
     }
 
+    public static function reminderWa($booked)
+    {
+        $product = json_decode($booked->detail_order[0]->product_details);
+        $payment_before = Booked::where(['order_id' => $booked->order_id, 'bulan_ke' => (int) $booked->bulan_ke - 1])->first();
+        $name = $product->kost->name;
+        $type = $product->type;
+        $kecamatan = $product->kost->district;
+        $province = $product->kost->province;
+        $kamar = $booked->roomDetail->name;
+
+        if ($booked->next_payment !== 0) {
+            $message = 'Inroom Reminder:
+Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo dalam 5 hari, Mohon untuk melakukan pembayaran bulan ke-'.$booked->bulan_ke.', sebesar '.Helpers::currency_converter($payment_before->next_payment).', Dengan total durasi '.$booked->total_durasi.' bulan. 
+Note: Abaikan pesan ini jika anda sudah membayar!';
+        }
+        $receiver = $booked->customer->phone;
+        $config = SMS_module::get_settings('twilio_sms');
+
+        $userkey = $config['sid'];
+        $passkey = $config['messaging_service_sid'];
+        $telepon = '+62'.(int) $receiver;
+        // $message = $msg;
+        $message = $message;
+        $url = $config['token'];
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandle, CURLOPT_POST, 1);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
+                        'userkey' => $userkey,
+                        'passkey' => $passkey,
+                        'to' => $telepon,
+                        'message' => $message,
+                    ]);
+        $results = json_decode(curl_exec($curlHandle), true);
+        curl_close($curlHandle);
+    }
+
     public static function successPayment($booked)
     {
         $product = json_decode($booked->order->details[0]->product_details);
@@ -1447,6 +1489,59 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         if ($img) {
             return $img->image;
         }
+    }
+
+    public static function send_push_reminder_to_device($fcm_token, $data)
+    {
+        // dd($data);
+        $key = BusinessSetting::where(['type' => 'push_notification_key'])->first()->value;
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $header = ['authorization: key='.$key.'',
+            'content-type: application/json',
+        ];
+
+        if (isset($data['order_id']) == false) {
+            $data['order_id'] = null;
+        }
+
+        $img = asset('storage/notification').'/'.Helpers::getNotifImage();
+
+        $postdata = '{
+            "to" : "'.$fcm_token.'",
+            "data" : {
+                "title" :"'.$data['title'].'",
+                "body" : "'.$data['description'].'",
+                "image" : "'.$img.'",
+                "order_id":"'.$data['order_id'].'",
+                "is_read": 0
+              },
+              "notification" : {
+                "title" :"'.$data['title'].'",
+                "body" : "'.$data['description'].'",
+                "image" : "'.$data['image'].'",
+                "order_id":"'.$data['order_id'].'",
+                "title_loc_key":"'.$data['order_id'].'",
+                "is_read": 0,
+                "icon" : "new",
+                "sound" : "default"
+              }
+        }';
+
+        $ch = curl_init();
+        $timeout = 120;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+        // Get URL content
+        $result = curl_exec($ch);
+        // close handle to release resources
+        curl_close($ch);
+
+        return $result;
     }
 
     public static function send_push_notif_to_device($fcm_token, $data)

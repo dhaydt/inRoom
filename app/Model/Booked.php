@@ -23,9 +23,19 @@ class Booked extends Model
         return $this->belongsTo(Seller::class, 'seller_id');
     }
 
+    public function roomDetail()
+    {
+        return $this->belongsTo(Detail_room::class, 'room_id');
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function detail_order()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id', 'order_id');
     }
 
     protected static function boot()

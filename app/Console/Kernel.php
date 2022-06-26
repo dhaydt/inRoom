@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CancelCron;
+use App\Console\Commands\reminderCron;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         CancelCron::class,
+        reminderCron::class,
     ];
 
     /**
@@ -26,6 +28,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('cancel:cron')
                 ->everyMinute();
+        $schedule->command('reminder:cron')->everyMinute();
     }
 
     /**

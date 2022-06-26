@@ -210,7 +210,6 @@ class XenditPaymentController extends Controller
     public function nextSuccess($id)
     {
         $order = Booked::with('order')->find($id);
-        // dd($order);
 
         $seller_is = json_decode($order->order->details[0]->product_details)->added_by;
 
