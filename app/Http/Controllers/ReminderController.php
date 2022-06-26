@@ -15,9 +15,10 @@ class ReminderController extends Controller
         $booked = Booked::with('roomDetail', 'order', 'detail_order')->where('next_payment_date', 'like', "%{$now}%")->get();
         if (count($booked) > 0) {
             foreach ($booked as $b) {
+                $name = $b->roomDetail ? $b->roomDetail->name : 'Invalid room data';
                 $data = [
                     'title' => 'Payment for the next month only 5 days left',
-                    'description' => 'Please complete the payment for the room '.$b->roomDetail->name.' on time. Ignore this message if you already paid.',
+                    'description' => 'Please complete the payment for the room '.$name.' on time. Ignore this message if you already paid.',
                     'order_id' => $b->id,
                     'image' => '',
                 ];

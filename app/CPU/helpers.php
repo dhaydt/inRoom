@@ -115,11 +115,11 @@ Bayar via :
         $type = $product->type;
         $kecamatan = $product->kost->district;
         $province = $product->kost->province;
-        $kamar = $booked->roomDetail->name;
+        $kamar = $booked->roomDetail ? $booked->roomDetail->name : 'invalid room data';
 
         if ($booked->next_payment !== 0) {
             $message = 'Inroom Reminder:
-Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo dalam 5 hari, Mohon untuk melakukan pembayaran bulan ke-'.$booked->bulan_ke.', sebesar '.Helpers::currency_converter($payment_before->next_payment).', Dengan total durasi '.$booked->total_durasi.' bulan. 
+Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo dalam 5 hari, Mohon untuk melakukan pembayaran bulan ke-'.$booked->bulan_ke.', sebesar '.Helpers::currency_converter($payment_before->next_payment).', Dengan total durasi '.$booked->total_durasi.' bulan.
 Note: Abaikan pesan ini jika anda sudah membayar!';
         }
         $receiver = $booked->customer->phone;
