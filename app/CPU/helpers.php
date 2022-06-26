@@ -111,10 +111,10 @@ Bayar via :
     {
         $product = json_decode($booked->detail_order[0]->product_details);
         $payment_before = Booked::where(['order_id' => $booked->order_id, 'bulan_ke' => (int) $booked->bulan_ke - 1])->first();
-        $name = $product->kost->name;
+        $name = $product->kost ? $product->kost->name : 'invalid name';
         $type = $product->type;
-        $kecamatan = $product->kost->district;
-        $province = $product->kost->province;
+        $kecamatan = $product->kost ? $product->kost->district : 'invalid district';
+        $province = $product->kost ? $product->kost->province : 'invalid province';
         $kamar = $booked->roomDetail ? $booked->roomDetail->name : 'invalid room data';
 
         if ($booked->next_payment !== 0) {
