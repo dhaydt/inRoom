@@ -24,7 +24,9 @@ class ReminderController extends Controller
                 ];
                 $fcm_token = $b->customer->cm_firebase_token;
                 Helpers::reminderWa($b);
-                Helpers::send_push_reminder_to_device($fcm_token, $data);
+                if($b->next_payment !== 0){
+                    Helpers::send_push_reminder_to_device($fcm_token, $data);
+                }
             }
         }
     }

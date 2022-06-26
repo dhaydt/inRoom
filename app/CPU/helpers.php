@@ -122,7 +122,7 @@ Bayar via :
             $message = 'Inroom Reminder:
 Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar '.$kamar.' akan jatuh tempo dalam 5 hari, Mohon untuk melakukan pembayaran bulan ke-'.$booked->bulan_ke.', sebesar '.Helpers::currency_converter($next_pay).', Dengan total durasi '.$booked->total_durasi.' bulan.
 Note: Abaikan pesan ini jika anda sudah membayar!';
-        }else{
+        } else {
             $message = 'Inroom Reminder:
 Durasi sewa anda akan habis dalam 5 hari!';
         }
