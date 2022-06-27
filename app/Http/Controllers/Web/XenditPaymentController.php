@@ -233,7 +233,7 @@ class XenditPaymentController extends Controller
             $fcm_token = $user->cm_firebase_token;
 
             $data = [
-                    'title' => 'Paymentfor next month Successfully',
+                    'title' => 'Payment for next month Successfully',
                     'description' => 'Your payment for room '.$room->name.' successfully',
                     'order_id' => $order->id,
                     'image' => '',
@@ -333,7 +333,7 @@ class XenditPaymentController extends Controller
         }
 
         $saved = Booked::with('order')->where('order_id', $order->id)->first();
-        Helpers::successPayment($saved);
+        // Helpers::successPayment($saved);
         OrderManager::wallet_manage_on_order_status_change($order, $seller_is);
 
         $poin = new UserPoin();

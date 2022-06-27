@@ -1560,7 +1560,19 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             $data['order_id'] = null;
         }
 
-        $img = asset('storage/notification').'/'.Helpers::getNotifImage();
+        $img = asset('assets/front-end/img/fcm.png');
+
+        // dd($img);
+        $notif = [
+            'title' => $data['title'],
+            'body' => $data['description'],
+            'image' => $img,
+            'order_id' => $data['order_id'],
+            'title_loc_key' => $data['order_id'],
+            'is_read' => 0,
+            'icon' => $img,
+            'sound' => 'default',
+        ];
 
         $postdata = '{
             "to" : "'.$fcm_token.'",
@@ -1571,16 +1583,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                 "order_id":"'.$data['order_id'].'",
                 "is_read": 0
               },
-              "notification" : {
-                "title" :"'.$data['title'].'",
-                "body" : "'.$data['description'].'",
-                "image" : "'.$data['image'].'",
-                "order_id":"'.$data['order_id'].'",
-                "title_loc_key":"'.$data['order_id'].'",
-                "is_read": 0,
-                "icon" : "new",
-                "sound" : "default"
-              }
+              "notification" : '.json_encode($notif).'
         }';
 
         $ch = curl_init();
@@ -1609,7 +1612,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             'content-type: application/json',
         ];
 
-        $image = asset('storage/notification').'/'.$data['image'];
+        $image = asset('assets/front-end/img/fcm.png');
         $postdata = '{
             "to" : "/topics/sixvalley",
             "data" : {
