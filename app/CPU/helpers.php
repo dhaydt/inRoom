@@ -124,7 +124,7 @@ Pembayaran tagihan '.$name.' '.$type.' '.$kecamatan.' '.$province.' dengan kamar
 Note: Abaikan pesan ini jika anda sudah membayar!';
         } else {
             $message = 'Inroom Reminder:
-Durasi sewa anda akan habis dalam 5 hari!';
+Durasi sewa anda untuk kamar '.$name.', kecamatan '.$kecamatan.', akan habis dalam 5 hari!';
         }
         $receiver = $booked->customer->phone;
         $config = SMS_module::get_settings('twilio_sms');
