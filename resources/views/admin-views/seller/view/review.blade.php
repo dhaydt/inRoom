@@ -247,12 +247,13 @@
                                 <tbody>
                                 @foreach($reviews as $key=>$review)
                                     @if($review->product)
+                                    {{-- {{ dd($review->product->kost->name) }} --}}
                                         <tr>
                                             <td>{{$reviews->firstItem()+ $key}}</td>
                                             <td>
-                                        <span class="d-block font-size-sm text-body">
+                                        <span class="d-block font-size-sm text-body text-capitalize">
                                             <a href="{{route('admin.product.view',[$review->product['id']])}}">
-                                                {{$review->product?$review->product['name']:"Product removed"}}
+                                                {{$review->product->kost?$review->product->kost->name.', '. $review->product->kost->district:"Product removed"}}
                                             </a>
                                         </span>
                                             </td>
