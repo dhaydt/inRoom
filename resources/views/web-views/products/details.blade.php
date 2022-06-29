@@ -1179,7 +1179,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Tanggal mulai</label>
-                            <input name="start_date" id="start_dated" type="date" placeholder="Tanggal mulai" class="start_date form-control">
+                            <input name="start_date" id="start_dated" type="text" placeholder="Tanggal mulai" class="start_date form-control">
                         </div>
                         @foreach (json_decode($product->choice_options) as $key => $choice)
                                 <div class="row flex-start mx-0">
