@@ -89,19 +89,43 @@ class ProductController extends BaseController
 
     public function approve_status(Request $request)
     {
-        $product = Product::find($request->id);
+        $product = Product::with('seller')->find($request->id);
         $product->request_status = 1;
         $product->save();
+
+        $user = $product['seller'];
+
+        $fcm_token = $user->cm_firebase_token;
+        if ($fcm_token !== null) {
+            $data = [
+                    'title' => 'Your Rooms Approved',
+                    'description' => 'Your rooms was accepted by admin',
+                ];
+            Helpers::send_push_notif_to_device($fcm_token, $data);
+        }
+
+        Toastr::success('Seller has been approved successfully');
 
         return redirect()->route('admin.product.list', ['seller', 'status' => $product['request_status']]);
     }
 
     public function deny(Request $request)
     {
-        $product = Product::find($request->id);
+        $product = Product::with('seller')->find($request->id);
         $product->request_status = 2;
         $product->denied_note = $request->denied_note;
         $product->save();
+
+        $user = $product['seller'];
+
+        $fcm_token = $user->cm_firebase_token;
+        if ($fcm_token !== null) {
+            $data = [
+                    'title' => 'Your Rooms Denied',
+                    'description' => 'Your rooms was denied by admin',
+                ];
+            Helpers::send_push_notif_to_device($fcm_token, $data);
+        }
 
         return redirect()->route('admin.product.list', ['seller', 'status' => 2]);
     }

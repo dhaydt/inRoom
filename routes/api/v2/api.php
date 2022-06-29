@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_lang']], function () {
     Route::group(['prefix' => 'seller', 'namespace' => 'seller'], function () {
         Route::get('seller-info', 'SellerController@seller_info');
+        Route::post('cm-firebase-token', 'SellerController@update_cm_firebase_token');
         Route::get('shop-product-reviews', 'SellerController@shop_product_reviews');
         Route::post('seller-update', 'SellerController@seller_info_update');
         Route::get('monthly-earning', 'SellerController@monthly_earning');

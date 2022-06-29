@@ -28,6 +28,7 @@ class RegisterController extends Controller
             $seller->image = ImageManager::upload('seller/', 'png', $request->file('image'));
             $seller->password = bcrypt($request->password);
             $seller->status = 'pending';
+            $seller->cm_firebase_token = $request->cm_firebase_token;
             $seller->save();
 
             $shop = new Shop();

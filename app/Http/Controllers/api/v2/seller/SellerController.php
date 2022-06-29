@@ -18,6 +18,7 @@ use App\Model\WithdrawRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class SellerController extends Controller
@@ -102,6 +103,27 @@ class SellerController extends Controller
         ]);
 
         return response()->json(translate('Shop info updated successfully!'), 200);
+    }
+
+    public function update_cm_firebase_token(Request $request)
+    {
+        $data = Helpers::get_seller_by_token($request);
+
+        if ($data['success'] == 1) {
+            $validator = Validator::make($request->all(), [
+                'cm_firebase_token' => 'required',
+            ]);
+            $user = $data['data'];
+            if ($validator->fails()) {
+                return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+            }
+
+            DB::table('sellers')->where('id', $user['id'])->update([
+                'cm_firebase_token' => $request['cm_firebase_token'],
+            ]);
+
+            return response()->json(['message' => translate('successfully updated cm firebase token!')], 200);
+        }
     }
 
     public function seller_info_update(Request $request)
