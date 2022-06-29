@@ -8,6 +8,7 @@
     }
     .modal-dialog .modal-content{
         background-color: transparent;
+        border: none;
     }
 </style>
 @php($banner=\App\Model\Banner::inRandomOrder()->where(['published'=>1,'banner_type'=>'Popup Banner'])->first())
