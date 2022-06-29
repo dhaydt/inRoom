@@ -62,6 +62,7 @@
                                 <tr>
                                     <th class="text-center">{{\App\CPU\translate('SL#')}}</th>
                                     <th class="text-center">{{\App\CPU\translate('Name')}}</th>
+                                    <th class="text-center">{{\App\CPU\translate('Owner')}}</th>
                                     <th class="text-center">{{\App\CPU\translate('image')}}</th>
                                     <th class="text-center">{{\App\CPU\translate('Total_Rooms')}}</th>
                                     <th class="text-center">{{\App\CPU\translate('Nearest_collage')}}</th>
@@ -76,7 +77,16 @@
                                         <td class="text-center capitalize">
                                                 {{$p['name']}}
                                         </td>
-                                            @php($img = json_decode($p['images']))
+                                        @if ($p->seller)
+                                        <td class="text-center capitalize">
+                                                {{$p->seller->f_name.' '.$p->seller->l_name}}
+                                        </td>
+                                        @else
+                                        <td class="text-center capitalize">
+                                            <span class="badge badge-danger">Invalid owner data</span>
+                                        </td>
+                                        @endif
+                                        @php($img = json_decode($p['images']))
                                         <td class="text-center">
                                             {{-- {{ dd($img->depan) }} --}}
                                             <img class="avatar avatar-xxl avatar-4by3 {{Session::get('direction') === "rtl" ? 'ml-4' : 'mr-4'}}"

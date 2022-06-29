@@ -31,9 +31,9 @@ class KostAdminController extends Controller
         $query_param = [];
         $search = $request['search'];
         if ($type == 'in_house') {
-            $products = Kost::with(['kampus', 'rooms'])->where(['added_by' => 'admin']);
+            $products = Kost::with(['kampus', 'rooms', 'seller'])->where(['added_by' => 'admin']);
         } else {
-            $products = Kost::with(['kampus', 'rooms'])->where('added_by', 'seller');
+            $products = Kost::with(['kampus', 'rooms', 'seller'])->where('added_by', 'seller');
         }
 
         if ($request->has('search')) {

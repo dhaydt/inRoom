@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Kampus;
 use App\Model\Product;
+use App\Model\Seller;
 use Illuminate\Database\Eloquent\Model;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
@@ -38,5 +39,10 @@ class Kost extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'kost_id');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class, 'seller_id');
     }
 }
