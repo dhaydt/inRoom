@@ -44,6 +44,8 @@
     <meta property="twitter:url" content="{{route('product',[$product->slug])}}">
 
     <link rel="stylesheet" href="{{asset('public/assets/front-end/css/products-details.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.min.css') }}">
+
     <style>
         .thumblist-frame .cz-thumblist:first-child a {
             border-radius: 0 10px 0 0;
@@ -1059,7 +1061,8 @@
                             <section class="booking-input-checkin booking-card__info-select-dat w-100">
                                 <div class="form-group">
                                     <label for="">Tanggal mulai</label>
-                                    <input onclick="checkuser()" name="start_date" id="start_date" type="date" placeholder="Tanggal mulai" class="start_date form-control">
+                                    {{-- <input onclick="checkuser()" name="start_date" id="start_date" type="date" placeholder="Tanggal mulai" class="start_date form-control"> --}}
+                                    <input type="text" id="start_dates" onclick="checkuser()" name="start_date" placeholder="Pilih tanggal mulai kos" class="start_date form-control">
                                 </div>
                             </section>
                         </div>
@@ -1221,6 +1224,7 @@
 @endsection
 
 @push('script')
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script>
         function show_date(){
             var user = $('#user').val();
@@ -1236,6 +1240,22 @@
                 location.href = "{{route('customer.auth.login')}}";
             }
         }
+        $( function() {
+            $( "#start_dates" ).datepicker({
+                minDate: 0,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                dateFormat: "yy-mm-dd"
+            });
+
+            $( "#start_dated" ).datepicker({
+                minDate: 0,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                dateFormat: "yy-mm-dd"
+            });
+        });
+
 
         function selectDate(){
             console.log('select date')
@@ -1250,6 +1270,8 @@
     </script>
     <script type="text/javascript">
         $(".start_date").on('change', function(){
+            var val =$('#start_dates').val()
+            console.log('date', val)
             $('.order-summary').removeClass('d-none');
             $('#ajukan').removeAttr('disabled')
         })

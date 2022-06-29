@@ -6,15 +6,25 @@
         margin: -23px -12px -1rem auto !important;
         border-radius: 50%;
     }
-    .modal-dialog .modal-content{
+    #popup-modal .modal-dialog .modal-content{
         background-color: transparent;
         border: none;
+    }
+
+    @media(max-width: 700px){
+        #popup-modal .modal-dialog .modal-content{
+            max-width: 85% !important;
+        }
+
+        #popup-modal .modal-body{
+            /* width: 80%; */
+        }
     }
 </style>
 @php($banner=\App\Model\Banner::inRandomOrder()->where(['published'=>1,'banner_type'=>'Popup Banner'])->first())
 @if(isset($banner))
     <div class="modal fade" id="popup-modal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered d-flex justify-content-center" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 1px;border-bottom: 0px!important;">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
