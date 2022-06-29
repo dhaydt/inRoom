@@ -77,9 +77,13 @@
                                         <td class="text-center capitalize">
                                                 {{$p['name']}}
                                         </td>
-                                        @if ($p->seller)
+                                        @if ($p->seller && $p->added_by == 'seller')
                                         <td class="text-center capitalize">
                                                 {{$p->seller->f_name.' '.$p->seller->l_name}}
+                                        </td>
+                                        @elseif($p->added_by == 'admin')
+                                        <td class="text-center capitalize">
+                                            <span class="badge badge-success">Inroom Property</span>
                                         </td>
                                         @else
                                         <td class="text-center capitalize">

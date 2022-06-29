@@ -30,9 +30,9 @@ class JobController extends Controller
         $query_param = [];
         $search = $request['search'];
         if ($type == 'in_house') {
-            $products = Jobs::where(['added_by' => 'admin']);
+            $products = Jobs::with('seller')->where(['added_by' => 'admin']);
         } else {
-            $products = Jobs::where('added_by', 'seller');
+            $products = Jobs::with('seller')->where('added_by', 'seller');
         }
 
         if ($request->has('search')) {
