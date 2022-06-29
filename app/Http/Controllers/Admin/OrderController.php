@@ -155,6 +155,7 @@ class OrderController extends Controller
         $order = Order::find($request->id);
         $fcm_token = $order->customer->cm_firebase_token;
         $value = Helpers::order_status_update_message($request->order_status);
+
         try {
             if ($value) {
                 $data = [

@@ -1456,6 +1456,8 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
     {
         if ($status == 'pending') {
             $data = BusinessSetting::where('type', 'order_pending_message')->first()->value;
+        } elseif ($status == 'cancelled') {
+            $data = 'Upps, Sorry.. Your booking was denied!';
         } elseif ($status == 'confirmed') {
             $data = BusinessSetting::where('type', 'order_confirmation_msg')->first()->value;
         } elseif ($status == 'processing') {
@@ -1479,12 +1481,15 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         }
 
         $res = json_decode($data, true);
+        if (is_array($res)) {
+            if ($res['status'] == 0) {
+                return 0;
+            }
 
-        if ($res['status'] == 0) {
-            return 0;
+            return $res['message'];
+        } else {
+            return $data;
         }
-
-        return $res['message'];
     }
 
     public static function getNotifImage()
@@ -1560,7 +1565,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             $data['order_id'] = null;
         }
 
-        $img = asset('assets/front-end/img/fcm.png');
+        $img = asset('assets/front-end/img/notif.png');
 
         // dd($img);
         $notif = [
@@ -1582,8 +1587,8 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                 "image" : "'.$img.'",
                 "order_id":"'.$data['order_id'].'",
                 "is_read": 0
-              },
-              "notification" : '.json_encode($notif).'
+            },
+            "notification" : '.json_encode($notif).'
         }';
 
         $ch = curl_init();
