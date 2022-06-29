@@ -6,6 +6,9 @@
         margin: -23px -12px -1rem auto !important;
         border-radius: 50%;
     }
+    .modal-dialog .modal-content{
+        background-color: transparent;
+    }
 </style>
 @php($banner=\App\Model\Banner::inRandomOrder()->where(['published'=>1,'banner_type'=>'Popup Banner'])->first())
 @if(isset($banner))
