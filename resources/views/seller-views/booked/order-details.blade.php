@@ -62,7 +62,6 @@
 @endpush
 
 @section('content')
-{{-- {{ dd($book) }} --}}
     <div class="content container-fluid">
         <!-- Page Header -->
         <div class="page-header d-print-none p-3" style="background: white">
@@ -121,7 +120,6 @@
                                         class="badge badge-soft-dark rounded-circle ml-1">{{$book->details->count()}}</span>
                                 </h4>
                             </div>
-
                             <div class="col-12">
                                 <h2 class="mt-2 title-kos mt-3">{{ $detail->kost->name }} {{ $detail->type }} {{ $district }} {{ $city }}</h2>
                                 <span class="subtitle capitalize">
@@ -145,7 +143,11 @@
                                                     @if ($book->roomDetail_id == NULL)
                                                     Kamar belum dipilih
                                                     @else
-                                                        Kamar  {{ $book->room[0]->name }}
+                                                        @if ($book->room[0])
+                                                            Kamar  {{ $book->room[0]->name }}
+                                                        @else
+                                                            <span class="badge badge-danger">Invalid room data</span>
+                                                        @endif
                                                     @endif
                                                 </span>
                                             </div>
