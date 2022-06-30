@@ -365,6 +365,18 @@
                         </section>
                     </div>
                     <section class="detail-kost-additional-widget">
+                        <!-- lokasi -->
+                    <div class="container pb-2 pl-1 p-0 d-block d-md-none">
+                        <div class="card-header pb-1 pt-0 px-0 section-head d-flex">
+                            <i class="fa fa-map-marker mr-2" style="font-size: 16px"></i>
+                            <span class="capitalize" style="font-size: 14px;">
+                                {{ 'Kec. '.strToLower($product->kost->district).', '.strToLower($filter).', '.strtolower($product->kost->province) }}
+                            </span>
+                        </div>
+                        <div class="card-body mt-2 p-2 body-detail-product d-flex ml-2 capitalize" style="border: 1px solid #d5d5d5; border-radius: 5px; font-size:14px;">
+                            {!! $product->kost->note_address !!}
+                        </div>
+                    </div>
                         <div class="detail-kost-additional-widget__left-section">
                             <div class="detail-kost-overview__availability">
                                 <div class="detail-kost-overview__availability-icon">
@@ -802,7 +814,7 @@
                     <hr class="my-4" style="padding-bottom: 10px">
 
                     <!-- lokasi -->
-                    <div class="container">
+                    <div class="container d-none d-md-block">
                         <div class="section-header">
                             <h5 class="fasilitas">{{ App\CPU\translate('Lokasi') }}</h5>
                         </div>
