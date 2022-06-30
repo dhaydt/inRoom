@@ -93,6 +93,7 @@
                         <th class="text-center">{{\App\CPU\translate('Star_date')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Property')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Duration')}}</th>
+                        <th class="text-center">{{\App\CPU\translate('Payment_type')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Occupant')}}</th>
                         <th class="text-center">{{\App\CPU\translate('Action')}}</th>
                     </tr>
@@ -123,6 +124,13 @@
                         </td>
                         <td class="text-center">
                             {{ $order->durasi }} {{ App\CPU\Translate('month') }}
+                        </td>
+                        <td class="text-center">
+                            @if (count($order->booked) > 1)
+                                <span class="badge badge-danger">Per Month</span>
+                            @else
+                                <span class="badge badge-success">Paid All</span>
+                            @endif
                         </td>
                         <td class="text-capitalize text-center">
                             @if (isset($user))

@@ -140,15 +140,19 @@
                                                     {{ $detail->kost->penghuni }}
                                                 </span>
                                             </div>
+                                            @if (isset($book->room[0]))
                                             <div class="status-kos w-100 d-block mt-2">
                                                 <span>
                                                     @if ($book->roomDetail_id == NULL)
                                                     Kamar belum dipilih
                                                     @else
-                                                        Kamar  {{ $book->room[0]->name }}
+                                                    Kamar  {{ $book->room[0]->name }}
                                                     @endif
                                                 </span>
                                             </div>
+                                            @else
+                                                <span class="badge badge-danger d-flex align-items-center text-center mt-1">Invalid room data</span>
+                                            @endif
                                         </div>
                                         <span class="price">{{\App\CPU\Helpers::currency_converter($book->order_amount)}}  <span class="month">/ {{ $book->durasi }} Bulan</span></span>
                                         <div class="row detail-price mt-3 ml-2">
