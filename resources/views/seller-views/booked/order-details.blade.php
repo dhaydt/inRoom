@@ -143,7 +143,7 @@
                                                     @if ($book->roomDetail_id == NULL)
                                                     Kamar belum dipilih
                                                     @else
-                                                        @if ($book->room[0])
+                                                        @if (isset($book->room[0]))
                                                             Kamar  {{ $book->room[0]->name }}
                                                         @else
                                                             <span class="badge badge-danger">Invalid room data</span>
