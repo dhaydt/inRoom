@@ -146,7 +146,7 @@
                                                         @if (isset($book->room[0]))
                                                             Kamar  {{ $book->room[0]->name }}
                                                         @else
-                                                            <span class="badge badge-danger">Invalid room data</span>
+                                                            <span class="text-danger">Invalid room data</span>
                                                         @endif
                                                     @endif
                                                 </span>
