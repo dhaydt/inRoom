@@ -47,8 +47,8 @@
                                     <input type="password" class="form-control form-control-user" minlength="6" id="exampleInputPassword" name="password" placeholder="{{\App\CPU\translate('password')}}" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user" minlength="6" id="exampleRepeatPassword" placeholder="{{\App\CPU\translate('repeat_password')}}" required>
-                                    <div class="pass invalid-feedback">{{\App\CPU\translate('Repeat')}}  {{\App\CPU\translate('password')}} {{\App\CPU\translate('not match')}} .</div>
+                                    <input type="password" class="form-control form-control-user" minlength="6" id="exampleRepeatPassword" placeholder="{{\App\CPU\translate('Ulangi_password')}}" required>
+                                    <div class="pass invalid-feedback">{{\App\CPU\translate('Ulangi')}}  {{\App\CPU\translate('password')}} {{\App\CPU\translate('tidak sama')}} .</div>
                                 </div>
                             </div>
                              {{-- <div class="form-group row">
@@ -126,7 +126,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small"  href="{{route('seller.auth.login')}}">{{\App\CPU\translate('already_have_an_account?_login.')}}</a>
+                            <a class="small"  href="{{route('seller.auth.login')}}">{{\App\CPU\translate('sudah_memiliki_akun')}} ? Login disini!</a>
                         </div>
                     </div>
                 </div>

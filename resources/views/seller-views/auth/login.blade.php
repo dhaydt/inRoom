@@ -92,8 +92,8 @@
 
                             <div class="text-center">
                                 <div class="mb-5">
-                                    <h1 class="display-4">{{\App\CPU\translate('sign_in')}}</h1>
-                                    <center><h1 class="h4 text-gray-900 mb-4">{{\App\CPU\translate('welcome_back_to_seller_login')}}</h1>
+                                    <h1 class="display-4">{{\App\CPU\translate('Masuk')}}</h1>
+                                    <center><h1 class="h4 text-gray-900 mb-4">{{\App\CPU\translate('selamat_datang_pemilik_kos_Inroom')}}</h1>
                                     </center>
                                 </div>
                                 {{--<a class="btn btn-lg btn-block btn-white mb-4" href="#">
@@ -107,12 +107,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="si-email">{{\App\CPU\translate('your_email')}}</label>
+                                <label for="si-email">{{\App\CPU\translate('email_kamu')}}</label>
                                 <input class="form-control" type="text" name="email" id="si-email"
                                        style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};" value="{{old('user_id')}}"
                                        placeholder="email@address.com"
                                        required>
-                                <div class="invalid-feedback">{{\App\CPU\translate('please_provide_valid_email_or_phone_number')}}.</div>
+                                <div class="invalid-feedback">{{\App\CPU\translate('tolong_masukan_email_atau_no_handphone_yang_benar')}}.</div>
                             </div>
                             <div class="form-group">
                                 <label for="si-password">{{\App\CPU\translate('password')}}</label>
@@ -123,7 +123,7 @@
                                     <label class="password-toggle-btn" style="right: 7px;">
                                         <input class="custom-control-input" type="checkbox"><i
                                             class="czi-eye password-toggle-indicator"></i><span
-                                            class="sr-only">{{\App\CPU\translate('Show')}} {{\App\CPU\translate('password')}} </span>
+                                            class="sr-only">{{\App\CPU\translate('Lihat')}} {{\App\CPU\translate('password')}} </span>
                                     </label>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                                     <input type="checkbox" class="custom-control-input" id="termsCheckbox"
                                            name="remember">
                                     <label class="custom-control-label text-muted" for="termsCheckbox">
-                                      {{\App\CPU\translate('remember_me')}}
+                                      {{\App\CPU\translate('ingatkan_saya')}}
                                     </label>
                                 </div>
                             </div>
@@ -190,9 +190,9 @@
                                     @endif
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-lg btn-block btn-primary">{{\App\CPU\translate('sign_in')}}</button>
+                            <button type="submit" class="btn btn-lg btn-block btn-primary">{{\App\CPU\translate('Masuk')}}</button>
                         </form>
-                        <h5 class="mt-2">don't have account ? <a href="{{ route('shop.apply') }}">Register now!</a></h5>
+                        <h5 class="mt-2">tidak memiliki akun ? <a href="{{ route('shop.apply') }}">Daftar sekarang!</a></h5>
                         <!-- End Form -->
                     </div>
                     @if(env('APP_MODE')=='demo')
