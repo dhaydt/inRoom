@@ -647,10 +647,10 @@
 
 
 
-  {{-- Categorized product --}}
-  @foreach($home_categories as $category)
-  @if(App\CPU\CategoryManager::products($category['id'])->count()>0)
-  <section class="container rtl">
+{{-- Categorized product --}}
+@foreach($home_categories as $category)
+@if(App\CPU\CategoryManager::products($category['id'])->count()>0)
+<section class="container rtl">
     <div class="section-header">
         <div class="feature_header d-flex align-items-center">
             <span class="for-feature-title capitalize">{{strtolower($category['name'])}}</span>
@@ -695,16 +695,16 @@
             <div class="d-flex d-md-none">
                 <div class="dropleft d-flex align-items-center">
                     <a class="selectLoc" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                      Pilih lokasi
+                        Pilih lokasi
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}">Semua</a>
-                      @foreach ($city as $c)
+                        <a class="dropdown-item" href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}">Semua</a>
+                        @foreach ($city as $c)
 
-                      <a class="dropdown-item" href="{{route('products',['city' => $c['id'], 'catId'=> $category['id'], 'data_from'=>$category['name'], 'type' => 'catHome','page'=>1])}}">{{ $c['name'] }}</a>
-                      @endforeach
+                        <a class="dropdown-item" href="{{route('products',['city' => $c['id'], 'catId'=> $category['id'], 'data_from'=>$category['name'], 'type' => 'catHome','page'=>1])}}">{{ $c['name'] }}</a>
+                        @endforeach
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>

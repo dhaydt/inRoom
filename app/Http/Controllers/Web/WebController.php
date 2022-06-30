@@ -64,7 +64,7 @@ class WebController extends Controller
         CartManager::cart_clean();
         $home_categories = Category::where('home_status', true)->get();
         $home_categories->map(function ($data) {
-            $data['products'] = Product::active()->whereJsonContains('category_ids', ['id' => (string) $data['id']])->inRandomOrder()->take(8)->get();
+            $data['products'] = Product::active()->whereJsonContains('category_ids', ['id' => (string) $data['id']])->orderBy('created_at', 'DESC')->take(8)->get();
         });
         // dd($home_categories);
         //products based on top seller
