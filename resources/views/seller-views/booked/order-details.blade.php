@@ -149,7 +149,7 @@
                                                 </span>
                                             </div>
                                             @else
-                                                <span class="badge badge-danger">Invalid room data</span>
+                                                <span class="badge badge-danger d-flex align-items-center text-center">Invalid room data</span>
                                             @endif
                                         </div>
                                         <span class="price">{{\App\CPU\Helpers::currency_converter($book->order_amount)}}  <span class="month">/ {{ $book->durasi }} Bulan</span></span>
