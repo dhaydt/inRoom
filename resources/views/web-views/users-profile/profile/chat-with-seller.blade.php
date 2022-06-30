@@ -223,8 +223,15 @@
         .chat_ib {
             float: left;
             padding: {{Session::get('direction') === "rtl" ? '0 15px 6px 0' : '0 0 6px 15px'}};
-            width: 88%;
+            width: 68%;
             margin-top: 0.56rem;
+        }
+        .del{
+            float: right;
+            width: 20%;
+        }
+        .del a{
+            border-radius: 50%;
         }
 
         .chat_people {
@@ -438,7 +445,7 @@
 
     <!-- Page Content-->
     <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl"
-         style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+            style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row mt-3">
             <!-- Sidebar-->
             @include('web-views.partials._profile-aside')
@@ -477,6 +484,9 @@
                                                 <div class="chat_ib">
                                                     <h5 class="seller @if($shop->seen_by_customer)active-text @endif"
                                                         id="{{$shop->shop_id}}">{{$shop->name}}</h5>
+                                                </div>
+                                                <div class="del">
+                                                    <a href="{{ route('messages_delete', ['id' => $shop->seller_id]) }}" class="btn btn-success btn-sm"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </div>
                                         </div>

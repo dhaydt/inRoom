@@ -40,6 +40,18 @@ class ChattingController extends Controller
         return view('web-views.users-profile.profile.chat-with-seller');
     }
 
+    public function messages_delete($id)
+    {
+        $user = auth('customer')->id();
+        $chat = Chatting::where(['user_id' => $user, 'seller_id' => $id])->get();
+        foreach ($chat as $c) {
+            $c->delete();
+        }
+        Toastr::success('Chat berhasil dihapus');
+
+        return redirect()->back();
+    }
+
     public function messages(Request $request)
     {
         $last_chat = Chatting::where('user_id', auth('customer')->id())
