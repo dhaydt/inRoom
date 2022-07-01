@@ -10,7 +10,7 @@ class ReminderController extends Controller
 {
     public function checkDeadline()
     {
-        $now = Carbon::now()->addMonth(1)->toDateString();
+        $now = Carbon::now()->addDays(5)->toDateString();
         // dd($now);
         $booked = Booked::with('roomDetail', 'order', 'detail_order')->where('next_payment_date', 'like', "%{$now}%")->get();
         if (count($booked) > 0) {
@@ -24,7 +24,7 @@ class ReminderController extends Controller
                 ];
                 $fcm_token = $b->customer->cm_firebase_token;
                 Helpers::reminderWa($b);
-                if($b->next_payment !== 0){
+                if ($b->next_payment !== 0) {
                     Helpers::send_push_reminder_to_device($fcm_token, $data);
                 }
             }
