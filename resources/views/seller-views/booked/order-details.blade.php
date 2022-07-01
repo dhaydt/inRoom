@@ -321,6 +321,7 @@
                                         <span class="field">Jumlah bayar</span>
                                         <span class="">{{ App\CPU\Helpers::currency_converter($b->current_payment) }}</span>
                                     </div>
+                                    @if ($b->next_payment != 0)
                                     <div class="col-12 d-flex justify-content-between mt-3">
                                         <span class="field">Tanggal Bayar berikutnya</span>
                                         <span class="">
@@ -335,6 +336,7 @@
                                         <span class="field">Nominal pembayaran berikutnya</span>
                                         <span class="badge badge-warning pt-2 pb-1">{{ App\CPU\Helpers::currency_converter(($b->next_payment)) }}</span>
                                     </div>
+                                    @endif
                                 </div>
                                 <hr class="mb-4">
                                 @endforeach
