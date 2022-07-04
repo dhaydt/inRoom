@@ -349,7 +349,7 @@
     <table class="content-position">
         <tr>
             <th style="text-align: left">
-                <img height="70" width="200" src="{{asset("storage/app/public/company/$company_web_logo")}}"
+                <img height="70" width="200" src="{{asset("storage/company/$company_web_logo")}}"
                      alt="">
             </th>
             <th style="text-align: right">
@@ -443,9 +443,9 @@
                 <tr class="for-tb" style=" border: 1px solid #D8D8D8;margin-top: 5px">
                     <td class="for-tb for-th-font-bold">{{$key+1}}</td>
                     <td class="for-tb">
-                        {{$details['product']?$details['product']->name:''}}
+                        {{$details['product']? $details->product->kost->name :''}}, {{ $details['product']? $details->product->kost->district :'' }} - {{ $details['product']? $details->product->kost->province :'' }}
                         <br>
-                        {{\App\CPU\translate('variation')}} : {{$details['variant']}}
+                        {{\App\CPU\translate('Room')}} : {{$details->order->room ? $details->order->room->name : ''}}
                     </td>
                     <td class="for-tb for-th-font-bold">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))}}</td>
                     <td class="for-tb">{{$details->qty}}</td>
@@ -455,9 +455,9 @@
                 @php
                     $sub_total+=$details['price']*$details['qty'];
                     $total_tax+=$details['tax'];
-                    $total_shipping_cost+=$details->shipping ? $details->shipping->cost :0;
                     $total_discount_on_product+=$details['discount'];
                     $total+=$subtotal;
+                    $main_total = $sub_total+$total_tax-$total_discount_on_product;
                 @endphp
             @endforeach
             </tbody>
@@ -487,24 +487,24 @@
                         <th class="gry-color text-left text-uppercase"><b>{{\App\CPU\translate('tax')}}</b></th>
                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))}}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th class="gry-color text-left"><b>{{\App\CPU\translate('shipping')}}</b></th>
                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))}}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th class="gry-color text-left"><b>{{\App\CPU\translate('coupon_discount')}}</b></th>
                         <td>
                             - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))}} </td>
                     </tr>
                     <tr class="border-bottom">
-                        <th class="gry-color text-left"><b>{{\App\CPU\translate('discount_on_product')}}</b></th>
+                        <th class="gry-color text-left"><b>{{\App\CPU\translate('discount_on_room')}}</b></th>
                         <td>
                             - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))}} </td>
                     </tr>
                     <tr class="bg-primary" style="background-color: #2D7BFF">
                         <th class="text-left"><b class="text-white">{{\App\CPU\translate('total')}}</b></th>
                         <td class="text-white">
-                            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}
+                            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($main_total))}}
                         </td>
                     </tr>
                     </tbody>

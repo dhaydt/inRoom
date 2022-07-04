@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Order;
 use App\Model\Seller;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -121,7 +122,7 @@ class OrderController extends Controller
         $data['order'] = $order;
 
         $mpdf_view = \View::make('seller-views.order.invoice')->with('order', $order)->with('seller', $seller);
-        Helpers::gen_mpdf($mpdf_view, 'order_invoice_', $order->id);
+        Helpers::gen_mpdf($mpdf_view, 'order_invoice_'.Carbon::now(), $order->id);
     }
 
     public function payment_status(Request $request)

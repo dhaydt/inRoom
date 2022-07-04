@@ -8,10 +8,38 @@ use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
 use App\Model\OrderDetail;
+use App\Model\Seller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function generate_invoice(Request $request, $id)
+    {
+        $data = Helpers::get_seller_by_token($request);
+        if ($data['success'] == 1) {
+            $seller = $data['data'];
+            $sellerId = Seller::findOrFail($seller->id)->gst;
+
+            $order = Order::with(['details' => function ($query) use ($sellerId) {
+                $query->where('seller_id', $sellerId);
+            }])->with('customer', 'shipping')
+            ->with('seller')
+            ->where('id', $id)->first();
+
+            $data['email'] = $order->customer['email'];
+            $data['client_name'] = $order->customer['f_name'].' '.$order->customer['l_name'];
+            $data['order'] = $order;
+
+            $mpdf_view = \View::make('seller-views.order.invoice')->with('order', $order)->with('seller', $sellerId);
+            Helpers::gen_mpdf($mpdf_view, 'order_invoice_'.Carbon::now(), $order->id);
+        } else {
+            return response()->json([
+                'auth-001' => translate('Your existing session token does not authorize you any more'),
+            ], 401);
+        }
+    }
+
     public function list(Request $request)
     {
         $data = Helpers::get_seller_by_token($request);

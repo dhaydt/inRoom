@@ -318,6 +318,9 @@
         .bs-0 {
             border-spacing: 0;
         }
+        .capitalize{
+            text-transform: capitalize;
+        }
 
 
     </style>
@@ -346,7 +349,7 @@
     <table class="content-position">
         <tr>
             <th style="text-align: left">
-                <img height="70" width="200" src="{{asset("storage/app/public/company/$company_web_logo")}}"
+                <img height="70" width="200" src="{{asset("storage/company/$company_web_logo")}}"
                      alt="">
             </th>
             <th style="text-align: right">
@@ -438,10 +441,10 @@
                 @php $subtotal=($details['price'])*$details->qty @endphp
                 <tr class="for-tb" style=" border: 1px solid #D8D8D8;margin-top: 5px">
                     <td class="for-tb for-th-font-bold">{{$key+1}}</td>
-                    <td class="for-tb">
-                        {{$details['product']?$details['product']->name:''}}
+                    <td class="for-tb capitalize">
+                        {{$details['product']? $details->product->kost->name :''}}, {{ $details['product']? $details->product->kost->district :'' }} - {{ $details['product']? $details->product->kost->province :'' }}
                         <br>
-                        {{\App\CPU\translate('variation')}} : {{$details['variant']}}
+                        {{\App\CPU\translate('Room')}} : {{$details->order->room ? $details->order->room->name : ''}}
                     </td>
                     <td class="for-tb for-th-font-bold">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))}}</td>
                     <td class="for-tb">{{$details->qty}}</td>
@@ -469,7 +472,7 @@
         <tr>
             <th style="text-align: left; vertical-align: text-top;">
                 <h4 style="color: #130505 !important; margin:0px;">{{\App\CPU\translate('payment_details')}}</h4>
-                <h5 style="color: #414141 !important ; padding-top:5px;">{{ str_replace('_',' ',$order->payment_method) }}</h5>
+                {{-- <h5 style="color: #414141 !important ; padding-top:5px;">{{ str_replace('_',' ',$order->payment_method) }}</h5> --}}
                 <p style="color: #414141 !important ; padding-top:5px;">{{$order->payment_status}}, {{date('y-m-d',strtotime($order['created_at']))}}</p>
             </th>
 
@@ -486,21 +489,21 @@
                         <th class="gry-color text-left text-uppercase"><b>{{\App\CPU\translate('tax')}}</b></th>
                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))}}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th class="gry-color text-left"><b>{{\App\CPU\translate('shipping')}}</b></th>
                         <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))}}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th class="gry-color text-left"><b>{{\App\CPU\translate('coupon_discount')}}</b></th>
                         <td>- {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))}}</td>
                     </tr>
                     <tr class="border-bottom">
-                        <th class="gry-color text-left"><b>{{\App\CPU\translate('discount_on_product')}}</b></th>
+                        <th class="gry-color text-left"><b>{{\App\CPU\translate('discount_on_room')}}</b></th>
                         <td>- {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))}}</td>
                     </tr>
                     <tr style="background-color: #2D7BFF">
                         <th class="text-left"><b class="text-white">{{\App\CPU\translate('total')}}</b></th>
-                        <td class="text-white">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}</td>
+                        <td class="text-white">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($main_total))}}</td>
                     </tr>
                     </tbody>
                 </table>

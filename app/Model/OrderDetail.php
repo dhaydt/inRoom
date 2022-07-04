@@ -45,6 +45,11 @@ class OrderDetail extends Model
         return $this->belongsTo(ShippingAddress::class, 'shipping_address');
     }
 
+    public function booked()
+    {
+        return $this->hasMany(Booked::class, 'order_id', 'order_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

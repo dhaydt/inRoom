@@ -30,7 +30,13 @@ Route::group(['namespace' => 'api\v2', 'prefix' => 'v2', 'middleware' => ['api_l
         Route::group(['prefix' => 'orders'], function () {
             Route::get('list', 'OrderController@list');
             Route::get('/{id}', 'OrderController@details');
+            Route::get('generate_invoice/{id}', 'OrderController@generate_invoice');
             Route::post('order-detail-status/{id}', 'OrderController@order_detail_status');
+        });
+
+        Route::group(['prefix' => 'booked'], function () {
+            Route::get('list', 'BookedController@list');
+            Route::get('detail/{id}', 'BookedController@detail');
         });
 
         Route::group(['prefix' => 'area'], function () {

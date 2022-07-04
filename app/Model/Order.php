@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -49,11 +50,19 @@ class Order extends Model
 
     public function room()
     {
-        return $this->hasMany(Detail_room::class, 'id', 'roomDetail_id');
+        return $this->belongsTo(Detail_room::class, 'roomDetail_id');
     }
 
     public function booked()
     {
         return $this->hasMany(Booked::class, 'order_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(function (Builder $builder) {
+            $builder->with('room');
+        });
     }
 }

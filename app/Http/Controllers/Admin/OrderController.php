@@ -236,7 +236,7 @@ class OrderController extends Controller
         $data['order'] = $order;
 
         $mpdf_view = \View::make('admin-views.order.invoice')->with('order', $order)->with('seller', $seller);
-        Helpers::gen_mpdf($mpdf_view, 'order_invoice_', $order->id);
+        Helpers::gen_mpdf($mpdf_view, 'order_invoice_'.Carbon::now(), $order->id);
     }
 
     public function inhouse_order_filter()
