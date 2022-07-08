@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\CPU\Helpers;
 use App\CPU\ImageManager;
 use App\Http\Controllers\Controller;
 use App\Model\Apply;
 use App\Model\Jobs;
+use App\Model\Seller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
@@ -103,6 +105,34 @@ class LokerController extends Controller
         $apply->onsite = $on;
         $apply->save();
         Toastr::success('Lamaran anda berhasil dikirim, mohon tunggu info selanjutnya..');
+
+        $jobss = Jobs::where('id', $request->id)->first('seller_id');
+        if ($jobss['seller_id'] != 0) {
+            $user = Seller::find($jobss['seller_id']);
+            if ($user->cm_firebase_token !== null) {
+                $fcm_token = $user->cm_firebase_token;
+
+                $data = [
+                        'title' => 'Lamaran masuk',
+                        'description' => 'Pekerjaan anda dilamar oleh '.$request->name,
+                        'order_id' => $jobss->name,
+                        'image' => '',
+                    ];
+                Helpers::send_push_notif_to_device($fcm_token, $data);
+            }
+        }
+
+        // if ($user->cm_firebase_token !== null) {
+        //     $fcm_token = $user->cm_firebase_token;
+
+        //     $data = [
+        //             'title' => 'Payment Successfully',
+        //             'description' => 'Your payment for room '.$room->name.' successfully',
+        //             'order_id' => $order->id,
+        //             'image' => '',
+        //         ];
+        //     Helpers::send_push_notif_to_device($fcm_token, $data);
+        // }
 
         return redirect()->back();
     }
