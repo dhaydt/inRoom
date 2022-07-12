@@ -360,4 +360,70 @@ class CustomerController extends Controller
 
         return response()->json(['message' => translate('successfully updated cm firebase token!')], 200);
     }
+
+    public function userKost(Request $request)
+    {
+        $orders = Order::with('details', 'room', 'booked')->where('customer_id', $request->user()->id)->where('order_status', 'delivered')->orderBy('id', 'DESC')->get();
+
+        $data = $orders->map(function ($data) {
+            $product = json_decode($data['details'][0]->product_details);
+            $penyewa = json_decode($data['details'][0]->data_penyewa);
+            $fasilitas_id = json_decode($product->fasilitas_id);
+            $rincian = $data['booked'];
+            $fasilitas = [];
+            foreach ($fasilitas_id as $f) {
+                $name = Helpers::fasilitas($f);
+                array_push($fasilitas, $name);
+            }
+            $no = \App\CPU\Helpers::get_business_settings('whatsapp');
+            $redirect = 'https://api.whatsapp.com/send?phone='.$no;
+            // return $product->kost->id;
+            $item = [
+                'id' => $data['id'],
+                'customer_id' => $data['customer_id'],
+                'customer_type' => $data['customer_type'],
+                'pembayaran_pertama' => $data['firstPayment'],
+                'pembayaran_berikutnya' => $data['nextPayment'],
+                'rincian_pembayaran' => $rincian,
+                'payment_status' => $data['payment_status'],
+                'chat_admin_inroom' => $redirect,
+                'struk' => $data['struk'],
+                'alasan_user' => $data['alasan_user'],
+                'alasan_admin' => $data['alasan_admin'],
+                'order_status' => $data['order_status'],
+                'room_name' => Helpers::roomName($data['roomDetail_id']),
+                'mulai' => $data['mulai'],
+                'durasi' => $data['durasi'],
+                'catatan_tambahan' => $data['catatan_tambahan'],
+                'ktp' => $data['ktp'],
+                'jumlah_penyewa' => $data['jumlah_penyewa'],
+                'auto_cancel' => $data['auto_cancel'],
+                'transaction_ref' => $data['transaction_ref'],
+                'order_amount' => $data['order_amount'],
+                'created_at' => $data['created_at'],
+                'updated_at' => $data['updated_at'],
+                'discount_amount' => $data['discount_amount'],
+                'discount_type' => $data['discount_type'],
+                'coupon_code' => $data['coupon_code'],
+                'order_group_id' => $data['order_group_id'],
+                'verification_code' => $data['verification_code'],
+                'seller_id' => $data['seller_id'],
+                'seller_is' => $data['seller_is'],
+                'product_id' => $product->id,
+                'product_type' => $product->type,
+                'fasilitas_kamar' => $fasilitas,
+                'product_image' => json_decode($product->images)[0],
+                'product_district' => $product->kost->district,
+                'product_city' => $product->kost->city,
+                'product_province' => $product->kost->province,
+                'nama_penyewa' => $penyewa->f_name.' '.$penyewa->l_name,
+                'hp_penyewa' => $penyewa->phone,
+                'kost' => $product->kost,
+            ];
+
+            return $item;
+        });
+
+        return response()->json($data, 200);
+    }
 }

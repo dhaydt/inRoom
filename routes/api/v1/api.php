@@ -160,6 +160,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         Route::group(['prefix' => 'order'], function () {
             Route::get('list', 'CustomerController@get_order_list');
+            Route::get('booked', 'CustomerController@userKost');
             Route::get('details', 'CustomerController@get_order_details');
             Route::post('place', 'OrderController@place_order');
         });
