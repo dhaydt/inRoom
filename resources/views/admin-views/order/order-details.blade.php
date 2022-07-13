@@ -324,7 +324,7 @@
                                                 Pilih kamar ditempat
                                             @else
                                                 @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
-                                                @if (count($room) > 0)
+                                                @if ($room && count($room) > 0)
                                                     Kamar  {{ $order->room[0]->name }}
                                                 @else
                                                     <span class="badge badge-danger">Invalid room name</span>
@@ -505,7 +505,7 @@
                             <span class="capitalize">Mulai sewa</span>
                             <span>{{ App\CPU\Helpers::dateChange($date) }}</span>
                         </div>
-                        @if (count($order->room) > 0)
+                        @if ($order->room && count($order->room) > 0)
                         @if ($order->room[0]->habis != NULL)
                         @php($abis = Carbon\Carbon::parse($order->room[0]->habis)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
