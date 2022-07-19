@@ -304,11 +304,12 @@
                                                 Pilih kamar ditempat
                                             @else
                                                 @if ($order['order_status'] == 'delivered' || $order['order_status'] == 'processing')
-                                                    @if (count($room) > 0)
-                                                        Kamar  {{ $order->room[0]->name }}
-                                                    @else
-                                                        <span class="badge badge-danger">Invalid room name</span>
-                                                    @endif
+                                                {{-- {{ dd($room) }} --}}
+                                                @if($room)
+                                                    Kamar  {{ $order->room->name }}
+                                                @else
+                                                    <span class="badge badge-danger">Invalid room name</span>
+                                                @endif
                                                 @endif
                                             @endif
                                         </span>
