@@ -282,9 +282,9 @@
                             <span class="capitalize">Mulai sewa</span>
                             <span>{{ App\CPU\Helpers::dateChange($date) }}</span>
                         </div>
-                        @if (count($book->room) > 0)
-                        @if ($book->room[0]->habis != NULL)
-                        @php($abis = Carbon\Carbon::parse($book->room[0]->habis)->isoFormat('dddd, D MMMM Y'))
+                        @if ($book->room)
+                        @if ($book->room->habis != NULL)
+                        @php($abis = Carbon\Carbon::parse($book->room->habis)->isoFormat('dddd, D MMMM Y'))
                         <div class="col-12 d-flex justify-content-between mt-3 px-0">
                             <span class="capitalize">Habis sewa</span>
                             <span>{{ App\CPU\Helpers::dateChange($abis) }}</span>
