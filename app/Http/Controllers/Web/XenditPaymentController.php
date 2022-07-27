@@ -155,7 +155,6 @@ class XenditPaymentController extends Controller
 
     public function next_invoice(Request $request)
     {
-        // dd($request);
         $customer = auth('customer')->user();
         $order_id = $request['order_id'];
         $order = Booked::find($order_id);

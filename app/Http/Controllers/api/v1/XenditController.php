@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\CPU\CartManager;
 use App\CPU\Convert;
+use App\CPU\Helpers;
 use App\CPU\OrderManager;
 use App\Http\Controllers\Controller;
 use App\Model\Booked;
@@ -16,6 +17,59 @@ use Xendit\Xendit;
 
 class XenditController extends Controller
 {
+    public function next_invoice(Request $request)
+    {
+        $customer = $request->user();
+        $order_id = $request->booked_id;
+        $order = Booked::find($order_id);
+        $type = strtoupper($request->payment_method);
+        // dd($order);
+        $value = $request->total;
+        $tran = OrderManager::gen_unique_id();
+        $duration = '10800';
+        // dd($duration);
+
+        if ($request->type == 'direct') {
+            $order->payment_status = 'direct';
+            $order->save();
+            // if (auth('customer')->check()) {
+            //     Toastr::success('Silahkan lakukan pembayaran langsung.');
+
+            //     return view('web-views.payment-direct');
+            // }
+        }
+
+        session()->put('transaction_ref', $tran);
+        Xendit::setApiKey(config('xendit.apikey'));
+
+        $user = [
+            'given_names' => $customer->f_name,
+            'email' => $customer->email,
+            'mobile_number' => $customer->phone,
+            'address' => $customer->district.', '.$customer->city.', '.$customer->province,
+        ];
+
+        $params = [
+            'external_id' => $order_id,
+            'amount' => Convert::usdToidr($value),
+            'payer_email' => $customer->email,
+            'description' => 'inRoom',
+            'payment_methods' => [$type],
+            'fixed_va' => true,
+            'should_send_email' => true,
+            'customer' => $user,
+            'invoice_duration' => $duration,
+            'success_redirect_url' => env('APP_URL').'/xendit-payment/nextSuccess/'.$order_id,
+            'failure_redirect_url' => env('APP_URL').'/xendit-payment/nextExpired/'.$order_id,
+        ];
+
+        $checkout_session = \Xendit\Invoice::create($params);
+
+        // Helpers::sendNotif($checkout_session, $order_id);
+
+        return response()->json(['redirect_to_this_link' => $checkout_session['invoice_url']]);
+    }
+
     public function invoice(Request $request)
     {
         $customer = $request->user();

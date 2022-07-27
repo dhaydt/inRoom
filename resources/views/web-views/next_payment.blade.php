@@ -410,7 +410,7 @@
                                     {{ $detail->kost->penghuni }}
                                 </span>
                                 <span>
-                                    Kamar {{ $room->order->room[0]->name }}
+                                    Kamar {{ $room->order->room->name }}
                                 </span>
                             </div>
                             <div class="mt-2">

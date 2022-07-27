@@ -8,6 +8,7 @@ use App\CPU\ImageManager;
 use App\CPU\OrderManager;
 use function App\CPU\translate;
 use App\Http\Controllers\Controller;
+use App\Model\Booked;
 use App\Model\Cart;
 use App\Model\Order;
 use App\Model\Product;
@@ -101,5 +102,22 @@ class OrderController extends Controller
         }
 
         return response()->json(['Cancel_Booking_failed'], 200);
+    }
+
+    public function nextPayment($id)
+    {
+        $room = Booked::with('order')->find($id);
+        $pay = Booked::where(['order_id' => $room->order_id, 'bulan_ke' => (int) $room->bulan_ke - 1])->pluck('next_payment')->first();
+        $payment = ['BNI', 'BCA', 'MANDIRI', 'BRI', 'ALFAMART', 'INDOMARET', 'DANA', 'OVO', 'SHOPEEPAY', 'LINKAJA'];
+
+        $data = [
+            'booked_id' => $id,
+            'no booking' => $room->order_id,
+            'Jenis_pembayaran' => 'Pembayaran Lanjutan',
+            'payment_method' => $payment,
+            'total' => $pay,
+        ];
+
+        return response()->json(['status' => 'success', 'data' => $data]);
     }
 }

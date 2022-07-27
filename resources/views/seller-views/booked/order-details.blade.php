@@ -138,13 +138,13 @@
                                                     {{ $detail->kost->penghuni }}
                                                 </span>
                                             </div>
-                                            @if (isset($book->room[0]))
+                                            @if (isset($book->room))
                                             <div class="status-kos w-100 d-block mt-2">
                                                 <span>
                                                     @if ($book->roomDetail_id == NULL)
                                                     Kamar belum dipilih
                                                     @else
-                                                    Kamar  {{ $book->room[0]->name }}
+                                                    Kamar  {{ $book->room->name }}
                                                     @endif
                                                 </span>
                                             </div>

@@ -132,6 +132,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('cm-firebase-token', 'CustomerController@update_cm_firebase_token');
 
         Route::get('apply-list', 'CustomerController@listLamaran');
+        Route::get('next-payment/{id}', 'OrderController@nextPayment');
+        Route::post('next-invoice/', 'XenditController@next_invoice');
 
         Route::group(['prefix' => 'xendit'], function () {
             Route::post('/va/invoice', 'XenditController@invoice')->name('vaInvoice');

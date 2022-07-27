@@ -68,7 +68,7 @@ class Helpers
                 $kamar = Detail_room::where('id', $order->room_id)->pluck('name')->first();
             } else {
                 $detail = json_decode($order->details[0]->product_details);
-                $kamar = $order->room[0]->name ? $order->room[0]->name : 'Pilih ditempat';
+                $kamar = $order->room->name ? $order->room->name : 'Pilih ditempat';
             }
 
             $name = $detail->kost->name;
@@ -160,7 +160,7 @@ Durasi sewa anda untuk kamar '.$name.', kecamatan '.$kecamatan.', akan habis dal
         $type = $product->type;
         $kecamatan = $product->kost->district;
         $province = $product->kost->province;
-        $kamar = $booked->order->room[0]->name ? $booked->order->room[0]->name : 'Pilih ditempat';
+        $kamar = $booked->order->room->name ? $booked->order->room->name : 'Pilih ditempat';
 
         if ($booked->next_payment == 0) {
             $message = 'Inroom Notifikasi:
