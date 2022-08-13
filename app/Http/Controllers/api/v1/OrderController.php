@@ -108,7 +108,16 @@ class OrderController extends Controller
     {
         $room = Booked::with('order')->find($id);
         $pay = Booked::where(['order_id' => $room->order_id, 'bulan_ke' => (int) $room->bulan_ke - 1])->pluck('next_payment')->first();
-        $payment = ['BNI', 'BCA', 'MANDIRI', 'BRI', 'ALFAMART', 'INDOMARET', 'DANA', 'OVO', 'SHOPEEPAY', 'LINKAJA'];
+        $payment = ['BNI',
+        // 'BCA',
+        'MANDIRI',
+        'BRI',
+        'ALFAMART',
+        'INDOMARET',
+        'DANA',
+        'OVO',
+        'SHOPEEPAY',
+        'LINKAJA', ];
 
         $data = [
             'booked_id' => $id,
