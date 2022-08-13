@@ -201,7 +201,7 @@
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
                                                     </a>
-                                                    <a href="javascript:" onclick="payment('bca')" class="row mt-3">
+                                                    {{-- <a href="javascript:" onclick="payment('bca')" class="row mt-3">
                                                         <div class="col-9">
                                                             <span class="bank">
                                                                 Bank BCA
@@ -213,7 +213,7 @@
                                                                 style="height: 20px;" alt="BCA">
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
-                                                    </a>
+                                                    </a> --}}
                                                     <a href="javascript:" onclick="payment('mandiri')" class="row mt-3">
                                                         <div class="col-9">
                                                             <span class="bank">
