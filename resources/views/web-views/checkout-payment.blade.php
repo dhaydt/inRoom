@@ -237,7 +237,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="content-payment">
-                                                    <a href="javascript:" onclick="payment('alfamart')" class="row">
+                                                    {{-- <a href="javascript:" onclick="payment('alfamart')" class="row">
                                                         <div class="col-9">
                                                             <span class="bank">
                                                                 Alfamart
@@ -249,7 +249,7 @@
                                                                 alt="alfa">
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
-                                                    </a>
+                                                    </a> --}}
                                                     <a href="javascript:" onclick="payment('indomaret')"
                                                         class="row mt-3">
                                                         <div class="col-9">
