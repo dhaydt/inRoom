@@ -114,10 +114,11 @@ class OrderController extends Controller
         'MANDIRI',
         'BRI',
         'INDOMARET',
-        'DANA',
-        'OVO',
-        'SHOPEEPAY',
-        'LINKAJA', ];
+        // 'DANA',
+        // 'OVO',
+        // 'SHOPEEPAY',
+        // 'LINKAJA',
+    ];
 
         $data = [
             'booked_id' => $id,
