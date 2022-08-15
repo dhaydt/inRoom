@@ -267,26 +267,13 @@
                                                 </div>
                                                 <hr class="mt-3 mb-3">
                                             </div>
-                                            <div class="section-payment w-100">
+                                            {{-- <div class="section-payment w-100">
                                                 <div class="title-payment mb-3">
                                                     <span>
                                                         Uang Elektronik
                                                     </span>
                                                 </div>
                                                 <div class="content-payment">
-                                                    {{-- <a href="javascript:" onclick="payment('gopay')" class="row">
-                                                        <div class="col-9">
-                                                            <span class="bank">
-                                                                Go PAY
-                                                            </span>
-                                                        </div>
-                                                        <div
-                                                            class="col-3 bank-logo d-flex justify-content-between align-items-center">
-                                                            <img src="{{ asset('assets/front-end/img/gopay-ready.png') }}"
-                                                                style="height: 18px;" alt="gopay">
-                                                            <i class="fa fa-chevron-right"></i>
-                                                        </div>
-                                                    </a> --}}
                                                     <a href="javascript:" onclick="payment('dana')" class="row mt-3">
                                                         <div class="col-9">
                                                             <span class="bank">
@@ -342,7 +329,7 @@
                                                     </a>
                                                 </div>
                                                 <hr class="mt-3 mb-3">
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         @php($cart=\App\Model\Cart::where(['customer_id' =>
                                         auth('customer')->id()])->get()->groupBy('cart_group_id'))
