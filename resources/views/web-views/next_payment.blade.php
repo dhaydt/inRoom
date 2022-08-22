@@ -214,6 +214,19 @@
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
                                                     </a> --}}
+                                                    <a href="javascript:" onclick="payment('permata')" class="row mt-3">
+                                                        <div class="col-9">
+                                                            <span class="bank">
+                                                                Bank Permata
+                                                            </span>
+                                                        </div>
+                                                        <div
+                                                            class="col-3 bank-logo d-flex justify-content-between align-items-center">
+                                                            <img src="{{ asset('assets/front-end/img/permata.png') }}"
+                                                                style="height: 22px;" alt="BRI">
+                                                            <i class="fa fa-chevron-right"></i>
+                                                        </div>
+                                                    </a>
                                                     <a href="javascript:" onclick="payment('mandiri')" class="row mt-3">
                                                         <div class="col-9">
                                                             <span class="bank">
@@ -237,7 +250,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="content-payment">
-                                                    {{-- <a href="javascript:" onclick="payment('alfamart')" class="row">
+                                                    <a href="javascript:" onclick="payment('alfamart')" class="row">
                                                         <div class="col-9">
                                                             <span class="bank">
                                                                 Alfamart
@@ -249,8 +262,8 @@
                                                                 alt="alfa">
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
-                                                    </a> --}}
-                                                    <a href="javascript:" onclick="payment('indomaret')"
+                                                    </a>
+                                                    {{-- <a href="javascript:" onclick="payment('indomaret')"
                                                         class="row mt-3">
                                                         <div class="col-9">
                                                             <span class="bank">
@@ -263,7 +276,7 @@
                                                                 alt="indo">
                                                             <i class="fa fa-chevron-right"></i>
                                                         </div>
-                                                    </a>
+                                                    </a> --}}
                                                 </div>
                                                 <hr class="mt-3 mb-3">
                                             </div>
