@@ -458,7 +458,7 @@
                                 {{-- <button class="btn btn-outline-success">
                                     Chat pemilik
                                 </button> --}}
-                                <button type="button" class="btn btn-outline-success mr-2" data-toggle="modal" data-target="#staticBackdrop">
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#staticBackdrop">
                                     Chat pemilik
                                 </button>
                             </div>

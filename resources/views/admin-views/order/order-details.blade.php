@@ -184,7 +184,7 @@
                                                     <img
                                                         style="max-width: 250px;border: 1px solid; border-radius: 10px; max-height:200px;"
                                                         id="mbImageviewer"
-                                                        onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                                        onerror="this.src='{{asset('assets/front-end/img/image-place-holder.png')}}'"
                                                         src="{{asset('storage/struk'.'/'.$order->struk)}}"
                                                         alt="banner image"/>
                                                 </center>

@@ -835,7 +835,7 @@
                     @if($product->added_by=='seller')
                         <div class="container mt-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
                             <div class="row seller_details d-flex align-items-center" id="sellerOption">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="seller_shop">
                                         <div class="shop_image d-flex justify-content-center align-items-center">
                                             <a href="#" class="d-flex justify-content-center">
@@ -848,11 +848,10 @@
                                         <div
                                             class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
                                             <div>
-                                                <a href="#" class="d-flex align-items-center">
-                                                    <div
-                                                        class="title">{{$product->kost->name}}</div>
+                                                <a href="#" class="d-flex align-items-center mt-2">
+                                                    <div class="title text-capitalize">{{$product->seller->f_name}} {{$product->seller->l_name}}</div>
                                                 </a>
-                                                <div class="review d-flex align-items-center">
+                                                <div class="review d-flex align-items-center justify-content-center">
                                                     <div class="">
                                                         <span
                                                             class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Info')}} {{\App\CPU\translate('Pemilik')}} </span>
