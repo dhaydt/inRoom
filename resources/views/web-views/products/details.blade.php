@@ -848,15 +848,15 @@
                                         <div
                                             class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
                                             <div>
-                                                <a href="#" class="d-flex align-items-center mt-2">
+                                                <a href="#" class="d-flex align-items-center mt-2 justify-content-center">
                                                     <div class="title text-capitalize">{{$product->seller->f_name}} {{$product->seller->l_name}}</div>
                                                 </a>
                                                 <div class="review d-flex align-items-center justify-content-center">
                                                     <div class="">
                                                         <span
-                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Info')}} {{\App\CPU\translate('Pemilik')}} </span>
+                                                            class="d-inline-block font-size-sm text-body align-middle mt-1">{{\App\CPU\translate('Info')}} {{\App\CPU\translate('Pemilik')}} </span>
                                                         <span
-                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
+                                                            class="d-inline-block font-size-sm text-body align-middle mt-"></span>
                                                     </div>
                                                 </div>
                                                 <div class="review d-flex align-items-center">
@@ -888,7 +888,7 @@
                     @else
                         <div class="container rtl mt-3" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
                             <div class="row seller_details d-flex align-items-center" id="sellerOption">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="seller_shop">
                                         <div class="shop_image d-flex justify-content-center align-items-center">
                                             <a href="{{ route('shopView',[0]) }}" class="d-flex justify-content-center">
@@ -901,16 +901,16 @@
                                         <div
                                             class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
                                             <div>
-                                                <a href="#" class="d-flex align-items-center">
+                                                <a href="#" class="d-flex align-items-center mt-2 justify-content-center">
                                                     <div
                                                         class="title">{{$web_config['name']->value}}</div>
                                                 </a>
-                                                <div class="review d-flex align-items-center">
+                                                <div class="review d-flex align-items-center justify-content-center">
                                                     <div class="">
                                                         <span
-                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{ \App\CPU\translate('web_admin')}}</span>
+                                                            class="d-inline-block font-size-sm text-body align-middle mt-1">{{ \App\CPU\translate('web_admin')}}</span>
                                                         <span
-                                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
+                                                            class="d-inline-block font-size-sm text-body align-middle mt-1"></span>
                                                     </div>
                                                 </div>
                                                 <div class="review d-flex align-items-center">
