@@ -1618,40 +1618,46 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         ];
 
         $image = asset('assets/front-end/img/fcm.png');
-        $postdata = '{
-            "to" : "/topics/sixvalley",
-            "data" : {
-                "title":"'.$data->title.'",
-                "body" : "'.$data->description.'",
-                "image" : "'.$image.'",
-                "is_read": 0
-              },
-              "notification" : {
-                "title":"'.$data->title.'",
-                "body" : "'.$data->description.'",
-                "image" : "'.$image.'",
-                "title_loc_key":"'.$data['order_id'].'",
-                "is_read": 0,
-                "icon" : "new",
-                "sound" : "default"
-              }
-        }';
 
-        $ch = curl_init();
-        $timeout = 120;
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        $user = User::pluck('cm_firebase_token');
+        foreach ($user as $s) {
+            if ($s !== null) {
+                $postdata = '{
+                    "to" : "'.$s.'",
+                    "data" : {
+                        "title":"'.$data->title.'",
+                        "body" : "'.$data->description.'",
+                        "image" : "'.$image.'",
+                        "is_read": 0
+                    },
+                    "notification" : {
+                    "title":"'.$data->title.'",
+                    "body" : "'.$data->description.'",
+                    "image" : "'.$image.'",
+                    "title_loc_key":"'.$data['order_id'].'",
+                    "is_read": 0,
+                    "icon" : "new",
+                    "sound" : "default"
+                    }
+                }';
 
-        // Get URL content
-        $result = curl_exec($ch);
-        // close handle to release resources
-        curl_close($ch);
+                $ch = curl_init();
+                $timeout = 120;
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 
-        return $result;
+                // Get URL content
+                $result = curl_exec($ch);
+                // close handle to release resources
+                curl_close($ch);
+
+                return $result;
+            }
+        }
     }
 
     public static function get_seller_by_token($request)
