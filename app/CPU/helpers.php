@@ -1622,6 +1622,16 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         $user = User::pluck('cm_firebase_token');
         foreach ($user as $s) {
             if ($s !== null) {
+                $notif = [
+                    'title' => $data->title,
+                    'body' => $data->description,
+                    'image' => $image,
+                    'title_loc_key' => $data['order_id'],
+                    'is_read' => 0,
+                    'icon' => 'new',
+                    'sound' => 'default',
+                ];
+
                 $postdata = '{
                     "to" : "'.$s.'",
                     "data" : {
@@ -1630,15 +1640,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                         "image" : "'.$image.'",
                         "is_read": 0
                     },
-                    "notification" : {
-                    "title":"'.$data->title.'",
-                    "body" : "'.$data->description.'",
-                    "image" : "'.$image.'",
-                    "title_loc_key":"'.$data['order_id'].'",
-                    "is_read": 0,
-                    "icon" : "new",
-                    "sound" : "default"
-                    }
+                    "notification" : '.json_encode($notif).'
                 }';
 
                 $ch = curl_init();
