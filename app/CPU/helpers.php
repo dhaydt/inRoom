@@ -1618,6 +1618,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         ];
 
         $image = asset('assets/front-end/img/fcm.png');
+        $img = asset('storage/notification'.'/'.$data->image);
 
         $user = User::pluck('cm_firebase_token');
         foreach ($user as $s) {
@@ -1625,7 +1626,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                 $notif = [
                     'title' => $data->title,
                     'body' => $data->description,
-                    'image' => $image,
+                    'image' => $img,
                     'title_loc_key' => $data['order_id'],
                     'is_read' => 0,
                     'icon' => 'new',
@@ -1637,7 +1638,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
                     "data" : {
                         "title":"'.$data->title.'",
                         "body" : "'.$data->description.'",
-                        "image" : "'.$image.'",
+                        "image" : "'.$img.'",
                         "is_read": 0
                     },
                     "notification" : '.json_encode($notif).'
