@@ -592,7 +592,7 @@
 {{--                                    </li>--}}
 {{--                                </ul>--}}
 {{--                            </li>--}}
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/social-login/view')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/social-login/view')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.social-login.view')}}">
                                     <i class="tio-top-security-outlined nav-icon"></i>
@@ -600,7 +600,7 @@
                                         {{\App\CPU\translate('social_login')}}
                                     </span>
                                 </a>
-                            </li>
+                            </li> --}}
                             {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/currency/view')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.currency.view')}}">

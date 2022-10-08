@@ -120,7 +120,7 @@
     <div class="card">
         <div class="card-header">
             <div class="flex-start">
-                <h5>{{ $rooms[0]->room_id }} {{ \App\CPU\translate('Room')}} {{ \App\CPU\translate('Details')}}</h5>
+                <h5>{{ \App\CPU\translate('Room')}} {{ \App\CPU\translate('Details')}}</h5>
             </div>
             <div class="add-new flex-end">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> {{ \App\CPU\translate('Rooms')}}</button>
