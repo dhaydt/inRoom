@@ -768,7 +768,7 @@
                         @endif
                     <!--reporting and analysis ends here-->
 
-                        {{-- @if(\App\CPU\Helpers::module_permission_check('employee_section'))
+                        @if(\App\CPU\Helpers::module_permission_check('employee_section'))
                             <li class="nav-item {{(Request::is('admin/employee*') || Request::is('admin/custom-role*'))?'scroll-here':''}}">
                                 <small class="nav-subtitle">{{\App\CPU\translate('employee_section')}}</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
@@ -806,7 +806,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif --}}
+                        @endif
 
                         <li class="nav-item" style="padding-top: 50px">
                             <div class="nav-divider"></div>
