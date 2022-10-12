@@ -699,7 +699,7 @@
                                     </li> --}}
                                 </ul>
                             </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/social-media')?'active':''}}">
+                            {{-- <li class="navbar-vertical-aside-has-menu {{Request::is('admin/business-settings/social-media')?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link"
                                    href="{{route('admin.business-settings.social-media')}}">
                                     <i class="tio-twitter nav-icon"></i>
@@ -707,7 +707,7 @@
                                         {{\App\CPU\translate('social_media')}}
                                     </span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
                     <!--web & app settings ends here-->
 
