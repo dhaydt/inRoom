@@ -102,12 +102,12 @@ class KostAdminController extends Controller
         $city = City::where('id', $request['city'])->first();
 
         $rules = [];
-        if (count($request['aturan']) > 0) {
+        if ($request['aturan'] !== null) {
             $rules = $request['aturan'];
         }
 
         $fasi = [];
-        if (count($request['fasilitas']) > 0) {
+        if ($request['fasilitas'] !== null) {
             $fasi = $request['fasilitas'];
         }
 
@@ -219,12 +219,12 @@ class KostAdminController extends Controller
         }
 
         $rules = [];
-        if (count($request->aturan) > 0) {
+        if ($request->aturan !== null) {
             $rules = $request->aturan;
         }
 
         $fasi = [];
-        if (count($request->fasilitas) > 0) {
+        if ($request->fasilitas !== null) {
             $fasi = $request->fasilitas;
         }
 
