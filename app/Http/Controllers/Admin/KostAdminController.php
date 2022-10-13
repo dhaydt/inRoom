@@ -101,6 +101,16 @@ class KostAdminController extends Controller
         $prov = Province::where('id', $request['province'])->first();
         $city = City::where('id', $request['city'])->first();
 
+        $rules = [];
+        if (count($request['aturan']) > 0) {
+            $rules = $request['aturan'];
+        }
+
+        $fasi = [];
+        if (count($request['fasilitas']) > 0) {
+            $fasi = $request['fasilitas'];
+        }
+
         $kost = new Kost();
         $kost->province = $prov->name;
         $kost->city = $city->name;
@@ -114,10 +124,10 @@ class KostAdminController extends Controller
         $kost->penghuni = $request['penghuni'];
         $kost->deskripsi = $request['description'];
         $kost->note = $request['note'];
-        $kost->aturan_id = json_encode($request['aturan']);
+        $kost->aturan_id = json_encode($rules);
         $kost->address = $request['address'];
         $kost->images = json_encode($img);
-        $kost->fasilitas_id = json_encode($request['fasilitas']);
+        $kost->fasilitas_id = json_encode($fasi);
         if ($request->ajax()) {
             return response()->json([], 200);
         } else {
@@ -208,12 +218,22 @@ class KostAdminController extends Controller
             }
         }
 
+        $rules = [];
+        if (count($request->aturan) > 0) {
+            $rules = $request->aturan;
+        }
+
+        $fasi = [];
+        if (count($request->fasilitas) > 0) {
+            $fasi = $request->fasilitas;
+        }
+
         $product->category_id = $request->category;
         $product->penghuni = $request->penghuni;
         $product->deskripsi = $request->description;
         $product->note = $request->note;
-        $product->aturan_id = json_encode($request->aturan);
-        $product->fasilitas_id = json_encode($request->fasilitas);
+        $product->aturan_id = json_encode($rules);
+        $product->fasilitas_id = json_encode($fasi);
 
         $product_images = json_decode($product->images);
 
