@@ -110,6 +110,8 @@
         <a style="background: darkblue" class="btn btn-primary" href="{{$url}}">
             {{\App\CPU\translate('Click to Reset')}}
         </a>
+
+        <span>or this: <a href="{{$url}}">{{$url}}</a></span>
     </div>
 </div>
 
