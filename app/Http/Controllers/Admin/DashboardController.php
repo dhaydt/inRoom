@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CPU\Helpers;
 use App\Http\Controllers\Controller;
 use App\Model\AdminWallet;
 use App\Model\Brand;
@@ -19,6 +20,13 @@ use Session;
 
 class DashboardController extends Controller
 {
+    public function getApplied()
+    {
+        $apply = Helpers::sellerApply();
+
+        return $apply;
+    }
+
     public function dashboard()
     {
         // $top_sell = OrderDetail::with(['product'])

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -10,6 +11,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::get('/province', 'AddressController@province')->name('prov');
     Route::get('/city/{id}', 'AddressController@city')->name('city');
     Route::get('/district/{id}', 'AddressController@district')->name('district');
+    Route::get('/getApplied', [DashboardController::class, 'getApplied'])->name('getApplied');
 
     /*authentication*/
     Route::group(['namespace' => 'Auth', 'prefix' => 'auth', 'as' => 'auth.'], function () {

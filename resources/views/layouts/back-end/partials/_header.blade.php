@@ -61,7 +61,7 @@
                 <!-- Navbar -->
                 <ul class="navbar-nav align-items-center flex-row">
 
-                    <li class="nav-item d-none d-sm-inline-block">
+                    {{-- <li class="nav-item d-none d-sm-inline-block">
                         <div class="hs-unfold">
                             <div style="background:white;padding: 9px;border-radius: 5px;">
                                 @php( $local = session()->has('local')?session('local'):'en')
@@ -98,6 +98,18 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                    </li> --}}
+
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <div class="hs-unfold">
+                            @php($applied = APP\CPU\Helpers::sellerApply())
+                            <a title="Pendaftaran Pemilik Kos"
+                               class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                               href="{{route('admin.sellers.seller-list')}}" target="_blank">
+                                <i class="tio-user"></i>
+                                <span class="btn-status btn-sm-status btn-status-danger" style="font-size: 12px; width:17px; height:17px;" id="applied">{{ $applied }}</span>
+                            </a>
                         </div>
                     </li>
 
@@ -218,3 +230,22 @@
 </div>
 <div id="headerFluid" class="d-none"></div>
 <div id="headerDouble" class="d-none"></div>
+@push('script')
+    <script>
+        $(document).ready(function(){
+            setInterval(() => {
+                getApply();
+            }, 5000);
+        })
+
+        function getApply(){
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.getApplied') }}`,
+                success: function(data){
+                    $('#applied').text(data);
+                }
+            })
+        }
+    </script>
+@endpush
