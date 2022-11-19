@@ -225,6 +225,14 @@ class DashboardController extends Controller
                 return $query->whereMonth('created_at', Carbon::now());
             })
             ->count();
+        $expired = Order::where(['order_status' => 'expired'])
+            ->when($today, function ($query) {
+                return $query->whereDate('created_at', Carbon::today());
+            })
+            ->when($this_month, function ($query) {
+                return $query->whereMonth('created_at', Carbon::now());
+            })
+            ->count();
         $failed = Order::where(['order_status' => 'failed'])
             ->when($today, function ($query) {
                 return $query->whereDate('created_at', Carbon::today());
@@ -242,6 +250,7 @@ class DashboardController extends Controller
             'delivered' => $delivered,
             'canceled' => $canceled,
             'returned' => $returned,
+            'expired' => $expired,
             'failed' => $failed,
         ];
 

@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+<div class="col-sm-6 col-lg-4 mb-3 mb-lg-5">
     <!-- Card -->
     <a class="card card-hover-shadow h-100" href="{{route('admin.orders.list',['pending'])}}" style="background: #3E215D">
         <div class="card-body">
@@ -19,7 +19,7 @@
     <!-- End Card -->
 </div>
 
-<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+<div class="col-sm-6 col-lg-4 mb-3 mb-lg-5">
     <!-- Card -->
     <a class="card card-hover-shadow h-100" href="{{route('admin.orders.list',['confirmed'])}}" style="background: #001E6C">
         <div class="card-body">
@@ -41,7 +41,7 @@
     <!-- End Card -->
 </div>
 
-<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+<div class="col-sm-6 col-lg-4 mb-3 mb-lg-5">
     <!-- Card -->
     <a class="card card-hover-shadow h-100" href="{{route('admin.orders.list',['processing'])}}" style="background: #053742">
         <div class="card-body">
@@ -63,8 +63,7 @@
     <!-- End Card -->
 </div>
 
-<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
-    <!-- Card -->
+{{-- <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
     <a class="card card-hover-shadow h-100" href="{{route('admin.orders.list',['out_for_delivery'])}}" style="background: #343A40">
         <div class="card-body">
             <div class="flex-between align-items-center gx-2 mb-1">
@@ -79,20 +78,18 @@
                     <i class="tio-bike" style="font-size: 30px;color: white"></i>
                 </div>
             </div>
-            <!-- End Row -->
         </div>
     </a>
-    <!-- End Card -->
-</div>
+</div> --}}
 
 <div class="col-12">
     <div class="card card-body" style="background: #FEF7DC!important;">
         <div class="row gx-lg-4">
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-sm-6 col-lg-4">
                 <div class="media flex-between align-items-center" style="cursor: pointer"
                      onclick="location.href='{{route('admin.orders.list',['delivered'])}}'">
                     <div class="media-body" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-                        <h6 class="card-subtitle">{{\App\CPU\translate('delivered')}}</h6>
+                        <h6 class="card-subtitle">{{\App\CPU\translate('Success')}}</h6>
                         <span class="card-title h3">{{$data['delivered']}}</span>
                     </div>
                     <div>
@@ -106,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-3 column-divider-sm">
+            <div class="col-sm-6 col-lg-4 column-divider-sm">
                 <div class="media flex-between align-items-center" style="cursor: pointer"
                      onclick="location.href='{{route('admin.orders.list',['canceled'])}}'">
                     <div class="media-body" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
@@ -122,7 +119,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-3 column-divider-lg">
+            {{-- <div class="col-sm-6 col-lg-3 column-divider-lg">
                 <div class="media flex-between align-items-center" style="cursor: pointer"
                      onclick="location.href='{{route('admin.orders.list',['returned'])}}'">
                     <div class="media-body" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
@@ -136,15 +133,14 @@
                 <div class="d-lg-none">
                     <hr>
                 </div>
-            </div>
-
-            <div class="col-sm-6 col-lg-3 column-divider-sm">
+            </div> --}}
+            <div class="col-sm-6 col-lg-4 column-divider-sm">
                 <div class="media flex-between align-items-center" style="cursor: pointer"
-                     onclick="location.href='{{route('admin.orders.list',['failed'])}}'">
+                     onclick="location.href='{{route('admin.orders.list',['expired'])}}'">
                     <div class="media-body" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-                        <h6 class="card-subtitle">{{\App\CPU\translate('failed')}}</h6>
+                        <h6 class="card-subtitle">{{\App\CPU\translate('Expired')}}</h6>
                         <span
-                            class="card-title h3">{{$data['failed']}}</span>
+                            class="card-title h3">{{$data['expired']}}</span>
                     </div>
                     <span class="icon icon-sm icon-soft-secondary icon-circle ml-3">
                       <i class="tio-message-failed"></i>

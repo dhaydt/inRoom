@@ -133,7 +133,7 @@
                                     <i class="tio-shopping-cart nav-icon"></i>
 
                                     <div class="media-body">
-                                        <h4 class="mb-1">{{\App\CPU\translate('Delivered')}}</h4>
+                                        <h4 class="mb-1">{{\App\CPU\translate('Success')}}</h4>
                                         <span class="font-size-sm text-success">
                                           <i class="tio-trending-up"></i> {{$delivered}}
                                         </span>
@@ -170,7 +170,7 @@
 
             <div class="col-sm-6 col-lg-3 mb-3 mb-lg-6">
             @php
-                $returned=\App\Model\Order::where(['order_status'=>'returned'])->whereBetween('created_at', [$from, $to])->count()
+                $returned=\App\Model\Order::where(['order_status'=>'canceled'])->whereBetween('created_at', [$from, $to])->count()
             @endphp
             <!-- Card -->
                 <div class="card card-sm">
@@ -182,7 +182,7 @@
                                     <i class="tio-shopping-cart-off nav-icon"></i>
 
                                     <div class="media-body">
-                                        <h4 class="mb-1">{{\App\CPU\translate('Returned')}}</h4>
+                                        <h4 class="mb-1">{{\App\CPU\translate('Canceled')}}</h4>
                                         <span class="font-size-sm text-warning">
                                           <i class="tio-trending-up"></i> {{$returned}}
                                         </span>
@@ -219,7 +219,7 @@
 
             <div class="col-sm-6 col-lg-3 mb-3 mb-lg-6">
             @php
-                $failed=\App\Model\Order::where(['order_status'=>'failed'])->whereBetween('created_at', [$from, $to])->count()
+                $failed=\App\Model\Order::where(['order_status'=>'expired'])->whereBetween('created_at', [$from, $to])->count()
             @endphp
             <!-- Card -->
                 <div class="card card-sm">
@@ -231,7 +231,7 @@
                                     <i class="tio-message-failed nav-icon"></i>
 
                                     <div class="media-body">
-                                        <h4 class="mb-1">{{\App\CPU\translate('Failed')}}</h4>
+                                        <h4 class="mb-1">{{\App\CPU\translate('Expired')}}</h4>
                                         <span class="font-size-sm text-danger">
                                           <i class="tio-trending-up"></i> {{$failed}}
                                         </span>
