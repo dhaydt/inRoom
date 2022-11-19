@@ -67,15 +67,14 @@
                             <div class="js-form-message form-group">
                                 <label class="input-label" for="signinSrEmail">{{\App\CPU\translate('your_email')}}</label>
 
-                                <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail"
-                                       tabindex="1" placeholder="email@address.com" aria-label="email@address.com"
+                                <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" placeholder="email@address.com" aria-label="email@address.com"
                                        required data-msg="Please enter a valid email address.">
                             </div>
                             <!-- End Form Group -->
 
                             <!-- Form Group -->
                             <div class="js-form-message form-group">
-                                <label class="input-label" for="signupSrPassword" tabindex="0">
+                                <label class="input-label" for="signupSrPassword">
                                     <span class="d-flex justify-content-between align-items-center">
                                       {{\App\CPU\translate('password')}}
                                     </span>
@@ -93,7 +92,7 @@
                                             "classChangeTarget": "#changePassIcon"
                                             }'>
                                     <div id="changePassTarget" class="input-group-append">
-                                        <a class="input-group-text" href="javascript:">
+                                        <a class="input-group-text" href="javascript:" tabindex="-1">
                                             <i id="changePassIcon" class="tio-visible-outlined"></i>
                                         </a>
                                     </div>
@@ -102,7 +101,7 @@
                             <!-- End Form Group -->
 
                             <!-- Checkbox -->
-                            <div class="form-group">
+                            {{-- <div class="form-group" tabindex="-1">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="termsCheckbox"
                                            name="remember">
@@ -110,10 +109,10 @@
                                         {{\App\CPU\translate('remember_me')}}
                                     </label>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- End Checkbox -->
 
-                            <button type="submit" class="btn btn-lg btn-block btn-primary">{{\App\CPU\translate('sign_in')}}</button>
+                            <button type="submit" class="btn btn-lg btn-block btn-primary" tabindex="0">{{\App\CPU\translate('sign_in')}}</button>
                         </form>
                         <!-- End Form -->
                     </div>
