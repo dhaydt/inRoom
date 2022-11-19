@@ -21,7 +21,7 @@
             <div class="js-nav-scroller hs-nav-scroller-horizontal">
                 <ul class="nav nav-tabs page-header-tabs" id="projectsTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="javascript:">{{\App\CPU\translate('Seller product sale report')}}</a>
+                        <a class="nav-link active" href="javascript:">{{\App\CPU\translate('Seller room rental report')}}</a>
                     </li>
                 </ul>
             </div>
@@ -32,17 +32,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    {{-- <div class="card-header">
+                    <div class="card-header">
                         <form style="width: 100%;" action="{{route('admin.report.seller-product-sale')}}">
                             @csrf
                             <div class="row">
-                                <div class="col-6 col-md-1">
-                                    <div class="form-group text-center">
-                                        <label for="exampleInputEmail1">{{\App\CPU\translate('Seller')}}</label>
+                                <div class="col-6 col-md-1 align-items-center d-flex">
+                                    <div class="form-group text-center mb-0 d-flex">
+                                        <label for="exampleInputEmail1" class="mb-0">{{\App\CPU\translate('Owner')}}</label>
                                     </div>
                                 </div>
                                 <div class="col-6 col-md-4">
-                                    <div class="form-group">
+                                    <div class="form-group mb-0">
                                         <select class="js-select2-custom form-control" name="seller_id">
                                             <option value="all">{{\App\CPU\translate('All')}}</option>
                                             @foreach(\App\Model\Seller::where(['status'=>'approved'])->get() as $seller)
@@ -55,13 +55,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-md-1 text-center">
-                                    <div class="form-group ">
-                                        <label for="exampleInputEmail1">{{\App\CPU\translate('Category')}}</label>
+                                <div class="col-6 col-md-1 text-center  align-items-center d-flex">
+                                    <div class="form-group mb-0 d-flex">
+                                        <label for="exampleInputEmail1" class="mb-0">{{\App\CPU\translate('Category')}}</label>
                                     </div>
                                 </div>
                                 <div class="col-6 col-md-4">
-                                    <div class="form-group">
+                                    <div class="form-group mb-0">
                                         <select
                                             class="js-select2-custom form-control"
                                             name="category_id">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div> --}}
+                    </div>
                     <div class="card-body"
                         style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
                         <table class="table">
@@ -90,12 +90,14 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">
-                                    {{\App\CPU\translate('Product Name')}} <label class="badge badge-success ml-3"
-                                                        style="cursor: pointer">{{\App\CPU\translate('ASE/DESC')}}</label>
+                                    {{\App\CPU\translate('Property Name')}}
+                                    {{-- <label class="badge badge-success ml-3"
+                                                        style="cursor: pointer">{{\App\CPU\translate('ASE/DESC')}}</label> --}}
                                 </th>
-                                <th scope="col">
-                                    {{\App\CPU\translate('Total Sale')}} <label class="badge badge-success ml-3"
-                                    style="cursor: pointer">{{\App\CPU\translate('ASE/DESC')}}</label>
+                                <th scope="col" class="d-flex align-items-center justify-content-center">
+                                    {{\App\CPU\translate('Total Rental')}}
+                                    <label class="badge badge-success ml-3 mb-0"
+                                    style="cursor: pointer">{{\App\CPU\translate('Month')}}</label>
                                 </th>
                             </tr>
                             </thead>
@@ -105,7 +107,7 @@
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>
                                     <td>{{$data['kost']->name}} - {{ $data->type }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @php($sum = App\CPU\helpers::countOrder($data->id))
                                         @if ($sum != 0)
                                             {{$sum}}
