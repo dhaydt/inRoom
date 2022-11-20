@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-md-1 text-center  align-items-center d-flex">
+                                {{-- <div class="col-6 col-md-1 text-center  align-items-center d-flex">
                                     <div class="form-group mb-0 d-flex">
                                         <label for="exampleInputEmail1" class="mb-0">{{\App\CPU\translate('Category')}}</label>
                                     </div>
@@ -73,12 +73,19 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-12 col-md-2">
-                                    <button type="submit" class="btn btn-primary btn-block">
-                                        {{\App\CPU\translate('Filter')}}
-                                    </button>
+                                <div class="col-12 col-md-7">
+                                    <div class="row justify-content-between">
+                                        <div class="col-12 col-md-2">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                {{\App\CPU\translate('Filter')}}
+                                            </button>
+                                        </div>
+                                        <div class="col-4 col-md-3">
+                                            <a href="{{ route('admin.refreshOrderStatus') }}" class="btn btn-info"><i class="fa fa-rotate-left mr-2"></i><span>Refresh</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -99,6 +106,9 @@
                                     <label class="badge badge-success ml-3 mb-0"
                                     style="cursor: pointer">{{\App\CPU\translate('Month')}}</label>
                                 </th>
+                                <th scope="col">
+                                    Details
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -106,14 +116,20 @@
                             @foreach($products as $key=>$data)
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>
-                                    <td>{{$data['kost']->name}} - {{ $data->type }}</td>
+                                    <td class="text-capitalize">{{$data['kost']->name}} - {{ $data->type }}</td>
                                     <td class="text-center">
                                         @php($sum = App\CPU\helpers::countOrder($data->id))
+                                        {{-- {{ var_dump($sum, $data->id) }} --}}
                                         @if ($sum != 0)
                                             {{$sum}}
                                         @else
                                             <span class="badge badge-danger">Invalid order details</span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.report.seller-product-sale-earning', ['id' => $data['kost']['seller_id']]) }}" class="btn btn-success btn-sm" data-bs-toggle="tooltip" title="Detail">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

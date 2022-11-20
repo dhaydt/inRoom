@@ -32,6 +32,13 @@ use Laravolt\Indonesia\Models\Province;
 
 class Helpers
 {
+    public static function getSeller($id)
+    {
+        $seller = Seller::find($id);
+
+        return $seller;
+    }
+
     public static function sellerApply()
     {
         $seller = Seller::where('status', 'pending')->get();
@@ -41,10 +48,10 @@ class Helpers
 
     public static function countOrder($id)
     {
-        // $order = OrderDetail::with('order')->where(['product_id' => $id, 'payment_status' => 'paid'])->get();
-        $order = OrderDetail::with('order')->where(['product_id' => $id])->whereHas('order', function ($q) {
-            $q->where('order_status', 'delivered');
-        })->get();
+        $order = OrderDetail::with('order')->where(['product_id' => $id, 'payment_status' => 'paid'])->get();
+        // $order = OrderDetail::with('order')->where(['product_id' => $id])->whereHas('order', function ($q) {
+        //     $q->where('order_status', 'delivered');
+        // })->get();
 
         return count($order);
     }

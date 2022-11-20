@@ -712,7 +712,7 @@
                     <!--web & app settings ends here-->
 
                         @if(\App\CPU\Helpers::module_permission_check('report'))
-                            <li class="nav-item {{(Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') || Request::is('admin/report/order') || Request::is('admin/report/earning'))?'scroll-here':''}}">
+                            <li class="nav-item {{(Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') || Request::is('admin/report/order') || Request::is('admin/report/earning')) || Request::is('admin/report/seller-product-sale-earning/*')?'scroll-here':''}}">
                                 <small class="nav-subtitle" title="">
                                     {{\App\CPU\translate('Report')}}& {{\App\CPU\translate('Analytics')}}
                                 </small>
@@ -737,7 +737,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') ?'active':''}}">
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') || Request::is('admin/report/seller-product-sale-earning/*') ?'active':''}}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle"
                                    href="javascript:">
                                     <i class="tio-chart-bar-4 nav-icon"></i>
@@ -746,7 +746,7 @@
                                     </span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
-                                    style="display: {{Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') ?'block':'none'}}">
+                                    style="display: {{Request::is('admin/report/inhoue-product-sale') || Request::is('admin/report/seller-product-sale') || Request::is('admin/report/seller-product-sale-earning/*') ?'block':'none'}}">
                                     <li class="nav-item {{Request::is('admin/report/inhoue-product-sale')?'active':''}}">
                                         <a class="nav-link" href="{{route('admin.report.inhoue-product-sale')}}">
                                             <span class="tio-circle nav-indicator-icon"></span>
@@ -755,7 +755,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="nav-item {{Request::is('admin/report/seller-product-sale')?'active':''}}">
+                                    <li class="nav-item {{Request::is('admin/report/seller-product-sale') || Request::is('admin/report/seller-product-sale-earning/*') ?'active':''}}">
                                         <a class="nav-link" href="{{route('admin.report.seller-product-sale')}}">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate text-capitalize">

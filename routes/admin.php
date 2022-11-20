@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::group(['middleware' => ['admin']], function () {
         //dashboard routes
         Route::get('/', 'DashboardController@dashboard')->name('dashboard'); //previous dashboard route
+        Route::get('/refreshOrder', 'DashboardController@refreshOrderStatus')->name('refreshOrderStatus');
         Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
             Route::get('/', 'DashboardController@dashboard')->name('index');
             Route::post('order-stats', 'DashboardController@order_stats')->name('order-stats');
@@ -220,6 +221,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
             //sale report inhouse
             Route::get('inhoue-product-sale', 'InhouseProductSaleController@index')->name('inhoue-product-sale');
             Route::get('seller-product-sale', 'SellerProductSaleReportController@index')->name('seller-product-sale');
+            Route::get('seller-product-sale-earning/{id}', 'SellerProductSaleReportController@sellerEarning')->name('seller-product-sale-earning');
+            Route::post('seller-product-sale-earning/set-date/{id}', 'SellerProductSaleReportController@set_date')->name('seller-product-sale-earning.set-date');
         });
         Route::group(['prefix' => 'stock', 'as' => 'stock.', 'middleware' => ['module:business_section']], function () {
             //product stock report

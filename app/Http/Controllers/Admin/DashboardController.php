@@ -13,6 +13,7 @@ use App\Model\Product;
 use App\Model\SellerWalletHistory;
 use App\Model\Shop;
 use App\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,46 @@ use Session;
 
 class DashboardController extends Controller
 {
+    public function refreshOrderStatus()
+    {
+        $orders = Order::with('details')->get();
+        foreach ($orders as $order) {
+            if ($order['order_status'] == 'processing') {
+                $details = OrderDetail::where('order_id', $order['id'])->get();
+                foreach ($details as $d) {
+                    $d->delivery_status = 'processing';
+                    $d->save();
+                }
+            }
+            if ($order['order_status'] == 'canceled') {
+                $details = OrderDetail::where('order_id', $order['id'])->get();
+                foreach ($details as $d) {
+                    $d->delivery_status = 'canceled';
+                    $d->save();
+                }
+            }
+            if ($order['order_status'] == 'delivered') {
+                $details = OrderDetail::where('order_id', $order['id'])->get();
+                foreach ($details as $d) {
+                    $d->delivery_status = 'delivered';
+                    $d->payment_status = 'paid';
+                    $d->save();
+                }
+            }
+            if ($order['order_status'] == 'expired') {
+                $details = OrderDetail::where('order_id', $order['id'])->get();
+                foreach ($details as $d) {
+                    $d->delivery_status = 'expired';
+                    $d->save();
+                }
+            }
+        }
+
+        Toastr::success('Order Status updated successfully');
+
+        return redirect()->route('admin.report.seller-product-sale');
+    }
+
     public function getApplied()
     {
         $apply = Helpers::sellerApply();
