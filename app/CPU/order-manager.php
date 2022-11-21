@@ -502,6 +502,12 @@ class OrderManager
                     'image' => '',
                 ];
                 Helpers::send_push_notif_to_device($fcm_token, $data);
+                if ($order['seller_is'] == 'seller') {
+                    $seller = Seller::find($order['seller_id']);
+                    $fcm_seller = $seller['cm_firebase_token'];
+
+                    Helpers::send_push_notif_to_device($fcm_seller, $data);
+                }
             }
 
             Mail::to($user->email)->send(new \App\Mail\OrderPlaced($order_id));
