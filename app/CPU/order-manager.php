@@ -503,6 +503,13 @@ class OrderManager
                 Helpers::send_push_notif_to_device($fcm_token, $data);
                 $orders = Order::find($order_id);
                 if ($orders['seller_is'] == 'seller') {
+                    $value = Helpers::order_status_incoming_message('pending');
+                    $data = [
+                        'title' => 'Order Baru',
+                        'description' => $value,
+                        'order_id' => $order_id,
+                        'image' => '',
+                    ];
                     $seller_id = $seller_data->seller_id;
                     $seller_fcm = Seller::find($seller_id);
                     Helpers::send_push_notif_to_device($seller_fcm->cm_firebase_token, $data);

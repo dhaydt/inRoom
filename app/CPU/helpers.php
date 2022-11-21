@@ -1506,6 +1506,46 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
         }
     }
 
+    public static function order_status_incoming_message($status)
+    {
+        if ($status == 'pending') {
+            $data = 'Anda menerima orderan baru!';
+        } elseif ($status == 'cancelled') {
+            $data = 'Upps, Sorry.. Your booking was denied!';
+        } elseif ($status == 'confirmed') {
+            $data = BusinessSetting::where('type', 'order_confirmation_msg')->first()->value;
+        } elseif ($status == 'processing') {
+            $data = BusinessSetting::where('type', 'order_processing_message')->first()->value;
+        } elseif ($status == 'out_for_delivery') {
+            $data = BusinessSetting::where('type', 'out_for_delivery_message')->first()->value;
+        } elseif ($status == 'delivered') {
+            $data = BusinessSetting::where('type', 'order_delivered_message')->first()->value;
+        } elseif ($status == 'returned') {
+            $data = BusinessSetting::where('type', 'order_returned_message')->first()->value;
+        } elseif ($status == 'failed') {
+            $data = BusinessSetting::where('type', 'order_failed_message')->first()->value;
+        } elseif ($status == 'delivery_boy_delivered') {
+            $data = BusinessSetting::where('type', 'delivery_boy_delivered_message')->first()->value;
+        } elseif ($status == 'del_assign') {
+            $data = BusinessSetting::where('type', 'delivery_boy_assign_message')->first()->value;
+        } elseif ($status == 'ord_start') {
+            $data = BusinessSetting::where('type', 'delivery_boy_start_message')->first()->value;
+        } else {
+            $data = '{"status":"0","message":""}';
+        }
+
+        $res = json_decode($data, true);
+        if (is_array($res)) {
+            if ($res['status'] == 0) {
+                return 0;
+            }
+
+            return $res['message'];
+        } else {
+            return $data;
+        }
+    }
+
     public static function getNotifImage()
     {
         $img = Notification::where('title', 'notification')->first();
