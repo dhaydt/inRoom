@@ -307,7 +307,7 @@ class OrderManager
             $penyewa = $data['request']->penyewa;
         }
 
-        // dd($id);
+        // dd($data);
         $user = User::find($id);
 
         $cart_group_id = $data['cart_group_id'];
@@ -365,7 +365,6 @@ class OrderManager
             }
         }
 
-        // dd($order_price, $firstPayment, $next, $amount);
         $or = [
             'id' => $order_id,
             'verification_code' => rand(100000, 999999),
@@ -502,11 +501,11 @@ class OrderManager
                     'image' => '',
                 ];
                 Helpers::send_push_notif_to_device($fcm_token, $data);
-                if ($order['seller_is'] == 'seller') {
-                    $seller = Seller::find($order['seller_id']);
-                    $fcm_seller = $seller['cm_firebase_token'];
-
-                    Helpers::send_push_notif_to_device($fcm_seller, $data);
+                $orders = Order::find($order_id);
+                if ($orders['seller_is'] == 'seller') {
+                    $seller_id = $seller_data->seller_id;
+                    $seller_fcm = Seller::find($seller_id);
+                    Helpers::send_push_notif_to_device($seller_fcm->cm_firebase_token, $data);
                 }
             }
 
