@@ -138,7 +138,7 @@
                     <form action="{{ route('admin.product.add-room') }}" method="post">
                         <div class="modal-body">
                             @csrf
-                            <input type="hidden" name="room_id" value="{{ $rooms[0]->room_id }}">
+                            <input type="hidden" name="room_id" value="{{ $product->room_id }}">
                             <div class="form-group">
                                 <label for="name">Nama / Nomor kamar</label>
                                 <input class="form-control" type="text" name="name">
