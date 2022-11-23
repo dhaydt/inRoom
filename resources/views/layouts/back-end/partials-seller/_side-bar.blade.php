@@ -75,14 +75,17 @@
                         </li>
 
                         <!-- Pages -->
+                        @php($sellerId = auth('seller')->id())
                         <li class="navbar-vertical-aside-has-menu {{Request::is('seller/orders*')?'active':''}}">
                             <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:">
                                 <i class="tio-shopping-cart nav-icon"></i>
                                 <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                     {{\App\CPU\translate('rents')}}
+                                    <span id="pending-count" data-bs-toggle="tooltip" title="Pending Order" class="badge badge-soft-danger bg-warning badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
+                                        {{ \App\Model\Order::where(['seller_is'=>'seller'])->where(['seller_id'=>$sellerId])->where(['order_status'=>'pending'])->count()}}
+                                    </span>
                                 </span>
                             </a>
-                            @php($sellerId = auth('seller')->id())
                             <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
                                 style="display: {{Request::is('seller/order*')?'block':'none'}}">
 
@@ -99,7 +102,7 @@
                                     <a class="nav-link " href="{{route('seller.orders.list',['pending'])}}" title="">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span class="text-truncate">{{\App\CPU\translate('Pending')}}</span>
-                                        <span class="badge badge-soft-info badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
+                                        <span class="badge badge-soft-danger badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
                                             {{ \App\Model\Order::where(['seller_is'=>'seller'])->where(['seller_id'=>$sellerId])->where(['order_status'=>'pending'])->count()}}
                                         </span>
                                     </a>
@@ -310,3 +313,22 @@
     </aside>
 </div>
 
+@push('script')
+<script>
+    $(document).ready(function(){
+        setInterval(() => {
+            getApply();
+        }, 5000);
+    })
+
+    function getApply(){
+        $.ajax({
+            type: 'GET',
+            url: `{{ route('seller.rent-pending') }}`,
+            success: function(data){
+                $('#pending-count').text(data);
+            }
+        })
+    }
+</script>
+@endpush

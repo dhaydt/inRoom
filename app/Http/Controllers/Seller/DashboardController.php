@@ -18,6 +18,14 @@ use Session;
 
 class DashboardController extends Controller
 {
+    public function counterOrder()
+    {
+        $id = auth('seller')->id();
+        $order = Order::where(['seller_is' => 'seller'])->where(['seller_id' => $id, 'order_status' => 'pending'])->count();
+
+        return $order;
+    }
+
     public function dashboard()
     {
         // $top_sell = OrderDetail::with(['product'])->where(['seller_id' => auth('seller')->id()])

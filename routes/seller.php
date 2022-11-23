@@ -29,6 +29,8 @@ Route::group(['namespace' => 'Seller', 'prefix' => 'seller', 'as' => 'seller.'],
     /*authenticated*/
     Route::group(['middleware' => ['seller']], function () {
         //dashboard routes
+
+        Route::get('pending', 'DashboardController@counterOrder')->name('rent-pending');
         Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
             Route::get('dashboard', 'DashboardController@dashboard');
             Route::get('/', 'DashboardController@dashboard')->name('index');
