@@ -22,11 +22,11 @@
             <div class="navbar-nav-wrap-content-left">
                 <!-- Navbar Vertical Toggle -->
                 <button type="button" class="js-navbar-vertical-aside-toggle-invoker close mr-3">
-                    <i class="tio-first-page navbar-vertical-aside-toggle-short-align" data-toggle="tooltip"
+                    <i class="tio-menu-hamburger navbar-vertical-aside-toggle-short-align" data-bs-toggle="tooltip"
                        data-placement="right" title="Collapse"></i>
-                    <i class="tio-last-page navbar-vertical-aside-toggle-full-align"
+                    <i class="tio-menu-hamburger navbar-vertical-aside-toggle-full-align"
                        data-template='<div class="tooltip d-none d-sm-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-                       data-toggle="tooltip" data-placement="right" title="Expand"></i>
+                       data-bs-toggle="tooltip" data-placement="right" title="Expand"></i>
                 </button>
                 <!-- End Navbar Vertical Toggle -->
                 <div class="d-none d-md-block">
