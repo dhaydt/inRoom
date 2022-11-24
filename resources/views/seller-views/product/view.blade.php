@@ -117,7 +117,6 @@
                         </thead>
                         <tbody>
                             @php($no = 1)
-
                             @foreach($rooms as $k=>$p)
                             <tr>
                                 {{-- <td class="text-center" scope="row">{{$rooms->firstitem()+ $k}}</td> --}}
@@ -268,15 +267,15 @@
                     </thead>
                     <tbody>
                         @php($no = 1)
-
                         @foreach($order as $o)
                         @php($user = json_decode($o['data_penyewa']))
                         @if ($o['order']['roomDetail_id'] !== 'ditempat')
                         @php($room = App\CPU\Helpers::getRoom($o['order']['roomDetail_id']))
+                        {{-- {{ dd($room) }} --}}
                         <tr>
                             <td class="text-center" scope="row">{{$no++}}</td>
                             <td class="text-center">{{ $user->f_name }} {{ $user->l_name }}</td>
-                            <td class="text-center">{{ $room->name }}
+                            <td class="text-center">{{ $room ? $room->name : 'Invalid Room Name' }}
                             <td class="text-center">
                                 {{-- <a class="btn btn-danger btn-sm" href="javascript:"
                                     onclick="form_alert('product-{{$p['id']}}','{{\App\CPU\translate("Ingin menghapus kamar ini?")}} ?')">

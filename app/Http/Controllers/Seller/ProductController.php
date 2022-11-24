@@ -222,6 +222,12 @@ class ProductController extends Controller
         $seller = auth('seller')->user();
         $rooms_id = 100000 + Product::all()->count() + 1;
 
+        $check = Product::where('room_id', $rooms_id)->first();
+        if ($check) {
+            $slug = Str::slug($request->type, '-').'-'.Str::random(6);
+            $rooms_id = $rooms_id.'-'.$slug;
+        }
+
         $product = new Product();
         $product->user_id = $seller->id;
         $product->added_by = 'seller';
@@ -229,7 +235,7 @@ class ProductController extends Controller
         $product->fasilitas_id = json_encode($request->fasilitas);
         $product->type = $request->type;
         $product->kost_id = $request->kost_id;
-        $product->slug = Str::slug($request->type, '-').'-'.Str::random(6);
+        $product->slug = $slug;
         $product->deposit = $request->deposit;
 
         $kost = Kost::where('id', $request->kost_id)->first();

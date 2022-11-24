@@ -59,7 +59,8 @@ class RegisterController extends Controller
             ]);
         });
 
-        Toastr::success('Pemilik_kos_berasil_didaftarkan!');
+        Toastr::success('Pendaftaran berhasil!');
+        Toastr::success('Mohon tunggu inroom mereview dokumen anda!');
 
         return redirect()->route('seller.auth.login');
     }

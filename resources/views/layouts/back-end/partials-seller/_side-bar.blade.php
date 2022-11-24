@@ -102,7 +102,7 @@
                                     <a class="nav-link " href="{{route('seller.orders.list',['pending'])}}" title="">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span class="text-truncate">{{\App\CPU\translate('Pending')}}</span>
-                                        <span class="badge badge-soft-danger badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
+                                        <span id="pending_status" class="badge badge-soft-danger badge-pill {{Session::get('direction') === "rtl" ? 'mr-1' : 'ml-1'}}">
                                             {{ \App\Model\Order::where(['seller_is'=>'seller'])->where(['seller_id'=>$sellerId])->where(['order_status'=>'pending'])->count()}}
                                         </span>
                                     </a>
@@ -327,6 +327,7 @@
             url: `{{ route('seller.rent-pending') }}`,
             success: function(data){
                 $('#pending-count').text(data);
+                $('#pending_status').text(data);
             }
         })
     }
