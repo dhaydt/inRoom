@@ -36,13 +36,23 @@
                 style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};" id="product_form">
                 @csrf
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex flex-column">
                         @php($language=\App\Model\BusinessSetting::where('type','pnc_language')->first())
                         @php($language = $language->value ?? null)
                         @php($default_lang = 'en')
 
                         @php($default_lang = json_decode($language)[0])
-                        <h4>{{\App\CPU\translate('Info_Properti')}}</h4>
+                        <div class="col-12">
+                            <h4 class="d-block">{{\App\CPU\translate('Info_Properti')}}</h4>
+                        </div>
+                        <div class="col-12">
+                            <div class="row justify-content-end">
+                                <span class="text-light badge badge-danger">
+                                    Note:
+                                    <i class="text-light text-bold">Setelah menambahkan kamar, silahkan tambahkan room agar property anda dapat direview oleh admin InRoom untuk di publish!</i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">

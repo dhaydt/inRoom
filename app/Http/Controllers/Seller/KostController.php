@@ -133,8 +133,9 @@ class KostController extends Controller
             $kost->save();
 
             Toastr::success('Property berhasil ditambahkan!');
+            Toastr::success('Silahkan tambahkan room/kamar untuk disewakan!');
 
-            return redirect()->route('seller.property.list');
+            return redirect()->route('seller.product.list');
         }
     }
 

@@ -41,8 +41,8 @@
                 <h1 class="page-header-title">{{\App\CPU\translate('Dashboard')}}</h1>
 
                 <div>
-                    <a class="btn btn-primary" href="{{route('seller.product.list')}}">
-                        <i class="tio-premium-outlined mr-1"></i> {{\App\CPU\translate('Products')}}
+                    <a class="btn btn-primary" href="{{route('seller.property.list')}}">
+                        <i class="tio-premium-outlined mr-1"></i> {{\App\CPU\translate('Property')}}
                     </a>
                 </div>
             </div>

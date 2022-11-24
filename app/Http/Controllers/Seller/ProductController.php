@@ -33,9 +33,11 @@ class ProductController extends Controller
     {
         $seller = auth('seller')->user();
         $kost = Kost::where('seller_id', auth('seller')->id())->get();
+        // dd($kost);
 
         if (count($kost) < 1) {
-            Toastr::warning('Belum ada property yang akan ditambah kamar!');
+            Toastr::warning('Belum ada property yang akan ditambahKan kamar!');
+            Toastr::warning('Mohon tambahkan property anda dulu!!');
 
             return redirect()->route('seller.property.list');
         }
@@ -223,8 +225,8 @@ class ProductController extends Controller
         $rooms_id = 100000 + Product::all()->count() + 1;
 
         $check = Product::where('room_id', $rooms_id)->first();
+        $slug = Str::slug($request->type, '-').'-'.Str::random(6);
         if ($check) {
-            $slug = Str::slug($request->type, '-').'-'.Str::random(6);
             $rooms_id = $rooms_id.'-'.$slug;
         }
 
@@ -389,7 +391,8 @@ class ProductController extends Controller
             //     }
             // }
             Translation::insert($data);
-            Toastr::success('Kamar berhasil ditambahkan!');
+            Toastr::success('Room / Kamar berhasil ditambahkan!');
+            Toastr::success('Mohon menunggu admin InRoom untuk mereview Room anda sebelum di publish!');
 
             return redirect()->route('seller.product.list');
         }
