@@ -1638,7 +1638,7 @@ Tagihan berikut nya adalah '.Helpers::currency_converter($booked->next_payment).
             "data" : {
                 "title" :"'.$data['title'].'",
                 "body" : "'.$data['description'].'",
-                "image" : "'.$img.'",
+                "image" : "",
                 "order_id":"'.$data['order_id'].'",
                 "is_read": 0
             },
