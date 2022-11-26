@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         Route::group(['prefix' => 'article', 'as' => 'article.', 'middleware' => ['module:user_section']], function () {
             Route::get('index', 'ArticleController@index')->name('index');
             Route::post('update', 'ArticleController@update')->name('updateArticle');
+            Route::post('updatePanduan', 'ArticleController@panduan')->name('updatePanduan');
         });
 
         Route::group(['prefix' => 'collage', 'as' => 'collage.', 'middleware' => ['module:user_section']], function () {

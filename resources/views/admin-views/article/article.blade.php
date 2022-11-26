@@ -20,7 +20,6 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-12">
-
             <form class="product-form" action="{{ route('admin.article.updateArticle') }}" method="post"
                 style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};" id="product_form">
                 @csrf
@@ -50,6 +49,36 @@
                         <div class="col-md-12" style="padding-top: 20px">
                             <button type="button" onclick="check()"
                                 class="btn btn-primary">{{\App\CPU\translate('Submit')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12 mt-4">
+            <form class="product-form" action="{{ route('admin.article.updatePanduan') }}" method="post"
+                style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};" id="panduan_form">
+                @csrf
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{\App\CPU\translate('How_To_Use')}}</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="lang_form" id="form">
+                            <input type="hidden" name="lang[]" value="en">
+                            <div class="form-group">
+                                <textarea name="panduan" class="editor textarea" cols="30" rows="10"
+                                    style="display: none" required>{!! $panduan->value !!}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-footer">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-top: 20px">
+                            <button type="button" onclick="savePanduan()"
+                                class="btn btn-primary">{{\App\CPU\translate('Save_how_to_use')}}</button>
                         </div>
                     </div>
                 </div>
@@ -105,6 +134,53 @@
                                 ProgressBar: true
                             });
                             $('#product_form').submit();
+                        }
+                    }
+                });
+            })
+        };
+
+    function savePanduan(){
+            Swal.fire({
+                title: '{{\App\CPU\translate('Are you sure')}}?',
+                text: '',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: 'default',
+                confirmButtonColor: '#377dff',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+                reverseButtons: true
+            }).then((result) => {
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                }
+                var formData = new FormData(document.getElementById('panduan_form'));
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.post({
+                    url: '{{route('admin.article.updatePanduan')}}',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    error: function(err){console.log(err.responseJSON.errors)},
+                    success: function (data) {
+                        if (data.errors) {
+                            for (var i = 0; i < data.errors.length; i++) {
+                                toastr.error(data.errors[i].message, {
+                                    CloseButton: true,
+                                    ProgressBar: true
+                                });
+                            }
+                        } else {
+                            toastr.success('{{\App\CPU\translate('How to use updated successfully!')}}', {
+                                CloseButton: true,
+                                ProgressBar: true
+                            });
+                            $('#panduan_form').submit();
                         }
                     }
                 });

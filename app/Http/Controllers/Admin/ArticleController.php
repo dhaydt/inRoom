@@ -17,8 +17,23 @@ class ArticleController extends Controller
     public function index()
     {
         $data = BusinessSetting::where('type', 'article_footer')->first();
+        $panduan = BusinessSetting::where('type', 'how_to_use')->first();
 
-        return view('admin-views.article.article', compact('data'));
+        return view('admin-views.article.article', compact('data', 'panduan'));
+    }
+
+    public function panduan(Request $request)
+    {
+        $article = BusinessSetting::where('type', 'how_to_use')->first();
+        $article->value = $request['panduan'];
+        if ($request->ajax()) {
+            return response()->json([], 200);
+        } else {
+            $article->save();
+            Toastr::success('Cara menggunakan aplikasi berhasil diubah.');
+
+            return redirect()->back();
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v2\seller;
 
 use App\Http\Controllers\Controller;
+use App\Model\BusinessSetting;
 use App\Model\Category;
 use App\Model\Fasilitas;
 use App\Model\Kampus;
@@ -10,6 +11,13 @@ use App\Model\Rule;
 
 class AttributeController extends Controller
 {
+    public function howToUse()
+    {
+        $panduan = BusinessSetting::where('type', 'how_to_use')->first();
+
+        return response()->json(['status' => 'success', 'data' => $panduan]);
+    }
+
     public function FasilitasKost()
     {
         $data = Fasilitas::where('tipe', 'umum')->get();
