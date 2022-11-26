@@ -18,6 +18,14 @@ class ArticleController extends Controller
     {
         $data = BusinessSetting::where('type', 'article_footer')->first();
         $panduan = BusinessSetting::where('type', 'how_to_use')->first();
+        if (!$panduan) {
+            $new = new BusinessSetting();
+            $new->type = 'how_to_use';
+            $new->value = '';
+            $new->save();
+
+            $panduan = $new;
+        }
 
         return view('admin-views.article.article', compact('data', 'panduan'));
     }
