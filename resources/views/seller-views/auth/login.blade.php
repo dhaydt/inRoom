@@ -192,6 +192,7 @@
                             </div>
                             <button type="submit" class="btn btn-lg btn-block btn-primary">{{\App\CPU\translate('Masuk')}}</button>
                         </form>
+                        <h5 class="mt-2 text-small">Tidak tau cara menggunakan ? <a href="javascript:" data-toggle="modal" data-target="#modalPanduan">Lihat disini!</a></h5>
                         <h5 class="mt-2">tidak memiliki akun ? <a href="{{ route('shop.apply') }}">Daftar sekarang!</a></h5>
                         <!-- End Form -->
                     </div>
@@ -209,6 +210,21 @@
                             </div>
                         </div>
                     @endif
+                </div>
+                <div class="modal fade" id="modalPanduan">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title">
+                                    Panduan Penggunaan
+                                </div>
+                            </div>
+                            @php($how = \App\Model\BusinessSetting::where('type', 'how_to_use')->first())
+                            <div class="modal-body">
+                                {!! $how->value !!}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- End Card -->
             </div>
