@@ -1,7 +1,7 @@
 <!-- Header -->
 <div class="card-header">
     <h5 class="card-header-title">
-        <i class="tio-align-to-top"></i> {{\App\CPU\translate('top_selling_products')}}
+        <i class="tio-align-to-top"></i> {{\App\CPU\translate('top_rented_rooms')}}
     </h5>
     <i class="tio-gift" style="font-size: 45px"></i>
 </div>
@@ -18,7 +18,7 @@
                      style="cursor: pointer;padding-right: 6px;padding-left: 6px">
                     <div class="grid-card">
                         <div class="label_1 row-center">
-                            <div class="px-1">{{\App\CPU\translate('sold')}} : </div>
+                            <div class="px-1">{{\App\CPU\translate('Rent')}} : </div>
                             <div>{{$item['count']}}</div>
                         </div>
                         <div class="text-center mt-3">
