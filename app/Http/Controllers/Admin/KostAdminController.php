@@ -248,7 +248,11 @@ class KostAdminController extends Controller
             $product->save();
             Toastr::success('Property berhasil diupdate.');
 
-            return redirect()->route('admin.property.list', ['type' => 'seller']);
+            if ($product->added_by == 'admin') {
+                return redirect()->route('admin.property.list', ['type' => 'in_house']);
+            } else {
+                return redirect()->route('admin.property.list', ['type' => 'seller']);
+            }
         }
     }
 

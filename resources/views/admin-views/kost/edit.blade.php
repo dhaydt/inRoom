@@ -150,7 +150,7 @@
                                     <label class="input-label label-name mb-0"
                                         for="cat">{{\App\CPU\translate('Kecamatan')}}</label>
                                     <select class="form-control" id="district" name="district">
-                                        <option value="{{ $product->dis->id }}" selected>{{ $product->district }}</option>
+                                        <option value="{{ $product->district }}" selected>{{ $product->district }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                     dataType:'json',
                     // jika data berhasil di dapat maka kita mau apain nih
                     success:function(data){
-                        console.log(data);
+                        // console.log(data);
                         // jika tidak ada select dr provinsi maka select kota kososng / empty
                         // $('select[name="city"]').empty();
                         // // jika ada kita looping dengan each
@@ -375,9 +375,9 @@
                     dataType:'json',
                     // jika data berhasil di dapat maka kita mau apain nih
                     success:function(data){
-                        console.log(data);
+                        // console.log(data);
                         // jika tidak ada select dr provinsi maka select kota kososng / empty
-                        $('select[name="district"]').empty();
+                        // $('select[name="district"]').empty();
                         // // jika ada kita looping dengan each
                         $.each(data, function(key, value){
                             // console.log(key, value)
@@ -608,10 +608,10 @@
                             });
                         }
                     } else {
-                        toastr.success('{{\App\CPU\translate('kamar_berhassil_di_update!')}}', {
-                            CloseButton: true,
-                            ProgressBar: true
-                        });
+                        // toastr.success('{{\App\CPU\translate('kamar_berhasil_di_update!')}}', {
+                        //     CloseButton: true,
+                        //     ProgressBar: true
+                        // });
                         $('#product_form').submit();
                     }
                 }

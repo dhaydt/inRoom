@@ -614,10 +614,10 @@
                             });
                         }
                     } else {
-                        toastr.success('{{\App\CPU\translate('Kamar_berhasil_diupdate!')}}', {
-                            CloseButton: true,
-                            ProgressBar: true
-                        });
+                        // toastr.success('{{\App\CPU\translate('Kamar_berhasil_diupdate!')}}', {
+                        //     CloseButton: true,
+                        //     ProgressBar: true
+                        // });
                         $('#product_form').submit();
                     }
                 }
