@@ -55,6 +55,7 @@
         }
         .carousel-item{
             height: 450px !important;
+            background-color: gray;
         }
         .msg-option {
             display: none;
@@ -64,7 +65,8 @@
             width: 100%;
         }
         .product-img{
-            /* height: 383px; */
+            height: 100%;
+            width: auto;
         }
         .go-to-chatbox {
             width: 100%;
@@ -312,9 +314,9 @@
                             @if($product->images!=null)
                             @foreach ($img as $key => $photo)
                                 <div
-                                    class="carousel-item h-100 {{$key==0?'active':''}}"
+                                    class="carousel-item text-center h-100 {{$key==0?'active':''}}"
                                     id="image{{$key}}">
-                                    <img class="w-100 product-img"
+                                    <img class="product-img"
                                         onerror="this.src='{{asset('storage/kost').'/'.$photo}}'"
                                         src="{{asset("storage/product/$photo")}}"
                                         alt="Product image" width="">

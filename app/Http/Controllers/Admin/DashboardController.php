@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\CPU\Helpers;
 use App\Http\Controllers\Controller;
+use App\Kost;
 use App\Model\AdminWallet;
 use App\Model\Brand;
 use App\Model\Order;
@@ -11,7 +12,6 @@ use App\Model\OrderDetail;
 use App\Model\OrderTransaction;
 use App\Model\Product;
 use App\Model\SellerWalletHistory;
-use App\Model\Shop;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -174,7 +174,7 @@ class DashboardController extends Controller
 
         $data = self::order_stats_data();
         $data['customer'] = User::count();
-        $data['store'] = Shop::count();
+        $data['store'] = Kost::count();
         $data['product'] = Product::count();
         $data['order'] = Order::count();
         $data['brand'] = Brand::count();

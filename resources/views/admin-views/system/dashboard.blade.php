@@ -343,20 +343,20 @@
             data: {
                 labels: [
                     '{{\App\CPU\translate('customer')}} ( {{$data['customer']}} )',
-                    '{{\App\CPU\translate('store')}} ( {{$data['store']}} )',
-                    '{{\App\CPU\translate('product')}} ( {{$data['product']}} )',
+                    '{{\App\CPU\translate('property')}} ( {{$data['store']}} )',
+                    '{{\App\CPU\translate('room')}} ( {{$data['product']}} )',
                     '{{\App\CPU\translate('order')}} ( {{$data['order']}} )',
-                    '{{\App\CPU\translate('brand')}} ( {{$data['brand']}} )',
+                    // '{{\App\CPU\translate('brand')}} ( {{$data['brand']}} )',
                 ],
                 datasets: [{
                     label: '{{\App\CPU\translate('business')}}',
-                    data: ['{{$data['customer']}}', '{{$data['store']}}', '{{$data['product']}}', '{{$data['order']}}', '{{$data['brand']}}'],
+                    data: ['{{$data['customer']}}', '{{$data['store']}}', '{{$data['product']}}', '{{$data['order']}}'],
                     backgroundColor: [
                         '#E1E8EB',
                         '#C84B31',
                         '#346751',
                         '#343A40',
-                        '#7D5A50',
+                        // '#7D5A50',
                     ],
                     hoverOffset: 4
                 }]
