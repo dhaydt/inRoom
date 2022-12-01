@@ -155,7 +155,7 @@ class ProductController extends Controller
         }
 
         return response()->json([
-            'errors' => ['code' => 'product-001', 'message' => translate('Product not found!')],
+            'errors' => ['code' => 'product-001', 'message' => translate('Data tidak ditemukan!')],
         ], 404);
     }
 

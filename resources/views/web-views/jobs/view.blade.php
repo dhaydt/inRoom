@@ -1,6 +1,6 @@
 @extends('layouts.front-end.app')
 
-@section('title',ucfirst($data['data_from']).' products')
+@section('title',ucfirst($data['data_from']).' Jobs Vacancy')
 
 @push('css_or_js')
     <meta property="og:image" content="{{asset('storage/app/public/company')}}/{{$web_config['web_logo']}}"/>
@@ -299,7 +299,7 @@
                     </div>
                 @else
                     <div class="text-center pt-5">
-                        <h2>{{\App\CPU\translate('No Product Found')}}</h2>
+                        <h2>{{\App\CPU\translate('Data tidak ditemukan')}}</h2>
                     </div>
                 @endif
             </section>
