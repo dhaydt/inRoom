@@ -316,7 +316,7 @@
                                 <div
                                     class="carousel-item text-center h-100 {{$key==0?'active':''}}"
                                     id="image{{$key}}">
-                                    <img class="product-img"
+                                    <img class="product-img" onclick="openImage(this.src)"
                                         onerror="this.src='{{asset('storage/kost').'/'.$photo}}'"
                                         src="{{asset("storage/product/$photo")}}"
                                         alt="Product image" width="">
@@ -1268,6 +1268,11 @@
                 dateFormat: "yy-mm-dd"
             });
         });
+
+        function openImage(url){
+            console.log('url', url);
+            window.open(url, '_blank');
+        }
 
 
         function selectDate(){
