@@ -55,7 +55,7 @@
         }
         .carousel-item{
             height: 450px !important;
-            background-color: gray;
+            background-color: #f2f3f7;
         }
         .msg-option {
             display: none;
