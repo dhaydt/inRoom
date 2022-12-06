@@ -588,6 +588,7 @@
                 maxCount: 4,
                 rowHeight: 'auto',
                 groupClassName: 'col-6',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
@@ -654,6 +655,7 @@
                 maxCount: 1,
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
@@ -687,6 +689,7 @@
                 maxCount: 1,
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
@@ -722,6 +725,7 @@
                 rowHeight: '280px',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '90%',

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '70c853aba37a0609895b57550737d1bfdd8e9d38',
+        'reference' => '04ce80fbeaa87a706db92ee8d673de00c9715c2a',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -443,12 +443,12 @@
             ),
         ),
         'intervention/image' => array(
-            'pretty_version' => '2.7.1',
-            'version' => '2.7.1.0',
+            'pretty_version' => '2.7.2',
+            'version' => '2.7.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../intervention/image',
             'aliases' => array(),
-            'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+            'reference' => '04be355f8d6734c826045d02a1079ad658322dad',
             'dev_requirement' => false,
         ),
         'jakub-onderka/php-console-color' => array(
@@ -484,7 +484,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '70c853aba37a0609895b57550737d1bfdd8e9d38',
+            'reference' => '04ce80fbeaa87a706db92ee8d673de00c9715c2a',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(

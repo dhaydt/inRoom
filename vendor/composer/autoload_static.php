@@ -899,6 +899,7 @@ class ComposerStaticInit5c810ba0d19412d72c885b40a9decbf5
         'App\\Http\\Controllers\\api\\v2\\LsLibController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/LsLibController.php',
         'App\\Http\\Controllers\\api\\v2\\seller\\AreaController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/AreaController.php',
         'App\\Http\\Controllers\\api\\v2\\seller\\AttributeController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/AttributeController.php',
+        'App\\Http\\Controllers\\api\\v2\\seller\\BookedController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/BookedController.php',
         'App\\Http\\Controllers\\api\\v2\\seller\\ChatController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/ChatController.php',
         'App\\Http\\Controllers\\api\\v2\\seller\\JobsController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/JobsController.php',
         'App\\Http\\Controllers\\api\\v2\\seller\\KostController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/v2/seller/KostController.php',

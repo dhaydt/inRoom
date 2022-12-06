@@ -435,6 +435,7 @@
                 maxCount: 1,
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: depan,
@@ -470,6 +471,7 @@
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: dalam,
                     width: '100%',
@@ -503,6 +505,7 @@
                 maxCount: 1,
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: jalan,

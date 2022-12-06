@@ -502,6 +502,7 @@
                 maxCount: 4,
                 rowHeight: 'auto',
                 groupClassName: 'col-6',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',

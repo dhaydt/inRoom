@@ -377,6 +377,7 @@
                 rowHeight: 'auto',
                 groupClassName: 'col-6',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '100%',
@@ -411,6 +412,7 @@
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '100%',
@@ -443,6 +445,7 @@
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '100%',
@@ -476,6 +479,7 @@
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '100%',
@@ -510,6 +514,7 @@
                 rowHeight: '280px',
                 groupClassName: 'col-12',
                 maxFileSize: '',
+                allowedExt: 'png|jpg|jpeg',
                 placeholderImage: {
                     image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                     width: '90%',

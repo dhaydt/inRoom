@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ImageManager
 {
@@ -14,7 +15,16 @@ class ImageManager
             if (!Storage::disk('public')->exists($dir)) {
                 Storage::disk('public')->makeDirectory($dir);
             }
-            Storage::disk('public')->put($dir.$imageName, file_get_contents($image));
+
+            $destinationPath = public_path('/storage');
+            // if (!file_exists($destinationPath)) {
+            //     mkdir($destinationPath, 666, true);
+            // }
+            $img = Image::make($image->getRealPath());
+            $img->resize(500, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$dir.$imageName);
+        // Storage::disk('public')->put($dir.$imageName, file_get_contents($image));
         } else {
             $imageName = 'def.png';
         }

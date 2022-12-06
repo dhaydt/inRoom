@@ -463,6 +463,7 @@
                     rowHeight: 'auto',
                     groupClassName: 'col-6',
                     maxFileSize: '',
+                    allowedExt: 'png|jpg|jpeg',
                     placeholderImage: {
                         image: '{{asset('public/assets/back-end/img/400x400/img2.jpg')}}',
                         width: '100%',

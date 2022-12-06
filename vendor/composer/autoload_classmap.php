@@ -161,6 +161,7 @@ return array(
     'App\\Http\\Controllers\\api\\v2\\LsLibController' => $baseDir . '/app/Http/Controllers/api/v2/LsLibController.php',
     'App\\Http\\Controllers\\api\\v2\\seller\\AreaController' => $baseDir . '/app/Http/Controllers/api/v2/seller/AreaController.php',
     'App\\Http\\Controllers\\api\\v2\\seller\\AttributeController' => $baseDir . '/app/Http/Controllers/api/v2/seller/AttributeController.php',
+    'App\\Http\\Controllers\\api\\v2\\seller\\BookedController' => $baseDir . '/app/Http/Controllers/api/v2/seller/BookedController.php',
     'App\\Http\\Controllers\\api\\v2\\seller\\ChatController' => $baseDir . '/app/Http/Controllers/api/v2/seller/ChatController.php',
     'App\\Http\\Controllers\\api\\v2\\seller\\JobsController' => $baseDir . '/app/Http/Controllers/api/v2/seller/JobsController.php',
     'App\\Http\\Controllers\\api\\v2\\seller\\KostController' => $baseDir . '/app/Http/Controllers/api/v2/seller/KostController.php',

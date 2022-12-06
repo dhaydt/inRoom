@@ -436,6 +436,7 @@
                 maxCount: 1,
                 rowHeight: 'auto',
                 groupClassName: 'col-12',
+                allowedExt: 'png|jpg|jpeg',
                 maxFileSize: '',
                 placeholderImage: {
                     image: depan,

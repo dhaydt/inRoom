@@ -180,6 +180,7 @@ return [
         Laravelpkg\Laravelchk\LaravelchkServiceProvider::class,
         Amirami\Localizator\ServiceProvider::class,
         Laravolt\Indonesia\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -232,5 +233,6 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => \App\CPU\Helpers::class,
         'Indonesia' => Laravolt\Indonesia\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 ];
