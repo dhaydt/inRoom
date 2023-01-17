@@ -299,7 +299,7 @@
                     </div>
                 @else
                     <div class="text-center pt-5">
-                        <h2>{{\App\CPU\translate('Data tidak ditemukan')}}</h2>
+                        <h2>{{\App\CPU\translate('No_Jobs_Found')}}</h2>
                     </div>
                 @endif
             </section>

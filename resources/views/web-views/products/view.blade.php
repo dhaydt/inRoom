@@ -241,7 +241,7 @@
                         {{-- <h1 class="h3 text-dark mb-0 headerTitle text-uppercase">{{\App\CPU\translate('product_by')}} {{$data['data_from']}} ({{ isset($brand_name) ? $brand_name : $data_from}})</h1> --}}
                         <h1 class="h3 text-dark mb-3 headerTitle text-uppercase">
                             {{\App\CPU\translate(session()->get('search_name'))}}
-                            <label>( {{$products->total()}} {{\App\CPU\translate('rooms_found')}} )</label>
+                            <label>( {{$products->total()}} {{\App\CPU\translate(session()->get('search_name'))}} {{\App\CPU\translate('found')}} )</label>
                         </h1>
                     </div>
                     <div class="row col-md-6 col-12 for-display mx-0">
@@ -703,7 +703,7 @@
                     </div>
                 @else
                     <div class="text-center pt-5">
-                        <h2>{{\App\CPU\translate('No Product Found')}}</h2>
+                        <h2>{{\App\CPU\translate('No')}} {{\App\CPU\translate(session()->get('search_name'))}} {{\App\CPU\translate('Found')}}</h2>
                     </div>
                 @endif
             </section>
