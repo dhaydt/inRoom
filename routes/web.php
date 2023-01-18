@@ -21,6 +21,13 @@ Route::get('/storage-link', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('/clear-cache', function () {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+
+    return 'DONE'; //Return anything
+});
+
 Route::get('reminder', 'ReminderController@checkDeadline')->name('deadline');
 
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], function () {
