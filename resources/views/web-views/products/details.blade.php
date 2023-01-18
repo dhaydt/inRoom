@@ -361,7 +361,7 @@
                                 <div class="detail-kost-overview__area pl-1">
                                     <i class="detail-kost-overview__area-icon bg-c-icon bg-c-icon--sm fa fa-map-marker">
                                     </i>
-                                    <span class="detail-kost-overview__area-text capitalize">Kec. {{ strToLower($product->kost->district) }}</span>
+                                    <span class="detail-kost-overview__area-text capitalize">{!! $product->kost->note_address !!}</span>
                                 </div>
                             </div>
                         </section>
@@ -375,9 +375,9 @@
                                 {{ 'Kec. '.strToLower($product->kost->district).', '.strToLower($filter).', '.strtolower($product->kost->province) }}
                             </span>
                         </div>
-                        <div class="card-body mt-2 p-2 body-detail-product d-flex ml-2 capitalize" style="background: #d5d5d5; border-radius: 5px; font-size:14px;">
+                        {{-- <div class="card-body mt-2 p-2 body-detail-product d-flex ml-2 capitalize" style="background: #d5d5d5; border-radius: 5px; font-size:14px;">
                             {!! $product->kost->note_address !!}
-                        </div>
+                        </div> --}}
                     </div>
                         {{-- <div class="detail-kost-additional-widget__left-section">
                             <div class="detail-kost-overview__availability">
@@ -390,7 +390,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <div id="detailKostOverviewFavShare" class="detail-kost-overview-widget">
+                        <div id="detailKostOverviewFavShare" class="detail-kost-overview-widget d-flex w-100 justify-content-sm-between justify-content-md-end mb-2">
                             <div class="detail-kost-overview-widget__favorite-button" onclick="addWishlist('{{$product['id']}}')">
                                 <button type="button" class="bg-c-button detail-kost-additional-widget__outer bg-c-button--tertiary bg-c-button--md">
                                     <i role="img" class="bg-c-button__icon bg-c-icon bg-c-icon--sm fa fa-heart-o" style="margin-right: 7px; margin-left: 0px;">
@@ -813,7 +813,7 @@
                         </div>
                     </div>
                     <!-- end fasilitas -->
-                    <hr class="my-4" style="padding-bottom: 10px">
+                    <hr class="my-4 d-none d-md-block" style="padding-bottom: 10px">
 
                     <!-- lokasi -->
                     <div class="container d-none d-md-block">
