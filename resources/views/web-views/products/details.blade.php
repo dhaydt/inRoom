@@ -945,6 +945,7 @@
                         </div>
                     </div>
                     <!-- end atiuran kos -->
+                    {{-- {{ dd($product) }} --}}
 
                     @if ($product->kost->note)
                     <hr class="my-4" style="padding-bottom: 10px">
@@ -960,6 +961,26 @@
                         <div class="row pt-2 specification">
                             <div class="col-lg-12 col-md-12 pl-4">
                                 {!! $product->kost['note'] !!}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end laiinya kos -->
+                    @endif
+                    
+                    @if ($product->kost->deskripsi)
+                    <hr class="my-4" style="padding-bottom: 10px">
+
+                    <!-- laiinya kos -->
+
+                    <div class="container">
+                        <div class="section-header">
+                            <h5 class="">
+                                {{ App\CPU\translate('Catatan Tambahan') }}
+                            </h5>
+                        </div>
+                        <div class="row pt-2 specification">
+                            <div class="col-lg-12 col-md-12 pl-4">
+                                {!! $product->kost['deskripsi'] !!}
                             </div>
                         </div>
                     </div>
